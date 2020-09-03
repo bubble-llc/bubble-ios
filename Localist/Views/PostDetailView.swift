@@ -22,8 +22,8 @@ struct PostDetailView: View {
             // Body
             // Body
             title
-            if post.body != "" {
-                Text(post.body)
+            if post.content != "" {
+                Text(post.content)
             }
 
             MetadataView(post: post, spaced: true)

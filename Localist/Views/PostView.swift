@@ -14,7 +14,7 @@ struct PostView: View {
 
                 /// Body preview
                 Group {
-                        Text(post.body)
+                        Text(post.content)
                 
                     
                 }

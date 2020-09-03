@@ -6,8 +6,8 @@ struct Post: Decodable, Identifiable {
     let title: String
     let id = UUID()
     /// The body of the post
-    let body: String
-    let userId: Int
+    let content: String
+    let username: String
 
 }
 
