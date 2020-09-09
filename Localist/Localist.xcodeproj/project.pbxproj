@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C73E7BD250866E600252D50 /* SubmitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C73E7BC250866E600252D50 /* SubmitView.swift */; };
 		5CCF766324F85B140040EC07 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF766224F85B140040EC07 /* SceneDelegate.swift */; };
 		5CCF766524F85C610040EC07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF766424F85C610040EC07 /* AppDelegate.swift */; };
 		5CCF766724F85CC90040EC07 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF766624F85CC90040EC07 /* ContentView.swift */; };
@@ -34,6 +35,7 @@
 		5CE12F6924F8565E00C8D5D0 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE12F5D24F8565E00C8D5D0 /* Helpers.swift */; };
 		5CE12F8C24F857CE00C8D5D0 /* Json in Frameworks */ = {isa = PBXBuildFile; productRef = 5CE12F8B24F857CE00C8D5D0 /* Json */; };
 		5CE12F8E24F857CE00C8D5D0 /* Request in Frameworks */ = {isa = PBXBuildFile; productRef = 5CE12F8D24F857CE00C8D5D0 /* Request */; };
+		5CF2309D2501ACB1004A1C71 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF2309C2501ACB1004A1C71 /* CommentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C73E7BC250866E600252D50 /* SubmitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitView.swift; sourceTree = "<group>"; };
 		5CCF766224F85B140040EC07 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5CCF766424F85C610040EC07 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Localist/AppDelegate.swift; sourceTree = "<group>"; };
 		5CCF766624F85CC90040EC07 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -88,6 +91,7 @@
 		5CE12F5924F8565E00C8D5D0 /* PostDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
 		5CE12F5B24F8565E00C8D5D0 /* PostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		5CE12F5D24F8565E00C8D5D0 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		5CF2309C2501ACB1004A1C71 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +137,8 @@
 				5CCF767524F860D30040EC07 /* PostDetailView.swift */,
 				5CCF767624F860D30040EC07 /* PostList.swift */,
 				5CCF767824F860D30040EC07 /* PostView.swift */,
+				5CF2309C2501ACB1004A1C71 /* CommentView.swift */,
+				5C73E7BC250866E600252D50 /* SubmitView.swift */,
 			);
 			path = Views;
 			sourceTree = SOURCE_ROOT;
@@ -385,6 +391,7 @@
 				5CCF766C24F85DB20040EC07 /* WebView.swift in Sources */,
 				5CCF766B24F85DB20040EC07 /* SpinnerView.swift in Sources */,
 				5CE12F6624F8565E00C8D5D0 /* PostDetailView.swift in Sources */,
+				5CF2309D2501ACB1004A1C71 /* CommentView.swift in Sources */,
 				5CCF767A24F860D30040EC07 /* MetadataView.swift in Sources */,
 				5CCF766724F85CC90040EC07 /* ContentView.swift in Sources */,
 				5CE12F6524F8565E00C8D5D0 /* MetadataView.swift in Sources */,
@@ -398,6 +405,7 @@
 				5CCF768724F860E30040EC07 /* Listing.swift in Sources */,
 				5CCF766524F85C610040EC07 /* AppDelegate.swift in Sources */,
 				5CCF768424F860E30040EC07 /* SortBy.swift in Sources */,
+				5C73E7BD250866E600252D50 /* SubmitView.swift in Sources */,
 				5CE12F6124F8565E00C8D5D0 /* Post.swift in Sources */,
 				5CE12F6924F8565E00C8D5D0 /* Helpers.swift in Sources */,
 				5CCF766E24F85DEB0040EC07 /* PostList.swift in Sources */,

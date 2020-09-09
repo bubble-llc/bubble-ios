@@ -13,4 +13,68 @@ class API {
         }
     .resume()
     }
+    
+    func submitPost(submitted: [String: Any]){
+        guard let postUrl = URL(string: "http://0.0.0.0:8000/add_post_to_category") else {fatalError()}
+        
+        var request = URLRequest(url: postUrl)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = [
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        ]
+        
+        let submission = try? JSONSerialization.data(withJSONObject: submitted)
+        
+        request.httpBody = submission
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                print(responseJSON)
+            }
+        }
+            task.resume()
+        
+        
+        
+
+        
+            //postString = submitted
+        
+//        request.httpBody = postString(using: String.Encoding.utf8)
+//
+//        let task = URLSession.shared.dataTask(with: request){ (data, response, error) in
+//
+//            if let error = error{
+//                print("Error took place \(error)")
+//                return
+//            }
+//
+//            if let data = data, let dataString = String(data: data, encoding: .utf8){
+//                print("Response data string:\n \(dataString)")
+//            }
+//
+//
+//
+//        }
+//        task.resume()
+        
+    }
+    
 }
+
+
+//curl --location --request POST 'http://0.0.0.0:8000/add_post_to_category' \
+//--header 'Content-Type: application/json' \
+//--data-raw '{
+//    "username": "steventt07",
+//    "category_name": "What'\''s happening?",
+//    "content": "My thirs post",
+//    "title": "Lalala",
+//    "zipcode": "78703"
+//}'

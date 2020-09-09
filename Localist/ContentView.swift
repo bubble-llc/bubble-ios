@@ -5,6 +5,8 @@ struct ContentView : View {
     @State private var subreddit: String = "swift"
     @State private var sortBy: SortBy = .hot
     
+    
+    
     @State private var showSortSheet: Bool = false
     @State private var showSubredditSheet: Bool = false
     
@@ -41,7 +43,7 @@ struct ContentView : View {
                     }
                 })
             }
-            /// Subreddit selection `Popover`
+            /// Submit a post
             .popover(isPresented: $showSubredditSheet) {
                 VStack() {
                     
@@ -60,7 +62,20 @@ struct ContentView : View {
                     }
                     
                     Button(action: {
-                        self.post_content = "nice"
+//                        self.post_content = "nice"
+                        
+                        let postObject: [String: Any]  =
+                            [
+                                "username": "steventt07",
+                                "category_name": "What'\''s happening?",
+                                "content": self.post_content,
+                                "title": "Testing Post Feed",
+                                "zipcode": "78703"
+                            ]
+                        
+
+                        
+                        API().submitPost(submitted: postObject)
                     }) {
                         //This is where the submit button logic will go
                         Text("Submit")
