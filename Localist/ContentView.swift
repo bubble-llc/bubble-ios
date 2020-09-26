@@ -9,6 +9,7 @@ struct ContentView : View {
     
     @State private var showSortSheet: Bool = false
     @State private var showSubredditSheet: Bool = false
+    @State private var showCreateUser: Bool = false
     
     @State private var post_content: String = ""
     
@@ -16,76 +17,86 @@ struct ContentView : View {
         NavigationView {
             /// Load the posts
             PostList()
-            /// Force inline `NavigationBar`
-            .navigationBarTitle(Text(""), displayMode: .inline)
-            .navigationBarItems(leading: HStack {
-                Button(action: {
-                    self.showSubredditSheet.toggle()
-                }) {
-                    //This is where the submit button logic will go
-                    Text("New Post")
-                }
-            }, trailing: HStack {
-                Button(action: {
-                    self.showSortSheet.toggle()
-                }) {
-                    HStack {
-                        Image(systemName: "arrow.up.arrow.down")
-                        Text(self.sortBy.rawValue)
-                    }
-                }
-            })
-            /// Sorting method `ActionSheet`
-            .actionSheet(isPresented: $showSortSheet) {
-                ActionSheet(title: Text("Sort By:"), buttons: [SortBy.hot,SortBy.new, ].map { method in
-                    ActionSheet.Button.default(Text(method.rawValue.prefix(1).uppercased() + method.rawValue.dropFirst())) {
-                        self.sortBy = method
-                    }
-                })
-            }
-            /// Submit a post
-            .popover(isPresented: $showSubredditSheet) {
-                VStack() {
-                    
-                        Text("What's going on?")
-                    if #available(iOS 14.0, *) {
-                        TextEditor(text: self.$post_content)
-                            .padding()
-                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 350)
-                            .border(Color.black, width:1)
-                    } else {
-                        // Fallback on earlier versions
-                        MultilineTextField("Enter post here...", text: self.$post_content)
-                        .padding(3)
-                        .frame(minWidth: 100, idealWidth: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .background(RoundedRectangle(cornerRadius:5))
-                    }
-                    
-                    Button(action: {
-//                        self.post_content = "nice"
-                        
-                        let postObject: [String: Any]  =
-                            [
-                                "username": "steventt07",
-                                "category_name": "What'\''s happening?",
-                                "content": self.post_content,
-                                "title": "Testing Post Feed",
-                                "zipcode": "78703"
-                            ]
-                        
+                /// Force inline `NavigationBar`
+                .navigationBarTitle(Text(""), displayMode: .inline)
+                .navigationBarItems(
+                    leading: HStack {
+                        Button(action: {self.showSubredditSheet.toggle()})
+                        {
+                            //This is where the submit button logic will go
+                            Text("New Post")
+                        }
+                    },
+                    trailing: HStack {
+//                        Button(action: {self.showSortSheet.toggle()})
+//                        {
+//                            HStack {
+//                                Image(systemName: "arrow.up.arrow.down")
+//                                Text(self.sortBy.rawValue)
+//                            }
+//                        }
+//                        Button(action: {self.showCreateUser.toggle()})
+//                        {
+//                            //This is where the submit button logic will go
+//                            Text("Create User")
+//                        }
+                        NavigationLink(destination: CreateUserView()) {
+                                            Text("Create User")
+                                        }
 
-                        
-                        API().submitPost(submitted: postObject)
-                    }) {
-                        //This is where the submit button logic will go
-                        Text("Submit")
                     }
+                )
+                /// Sorting method `ActionSheet`
+                .actionSheet(isPresented: $showSortSheet) {
+                    ActionSheet(title: Text("Sort By:"), buttons: [SortBy.hot,SortBy.new, ].map { method in
+                        ActionSheet.Button.default(Text(method.rawValue.prefix(1).uppercased() + method.rawValue.dropFirst())) {
+                            self.sortBy = method
+                        }
+                    })
                 }
-                .frame(width: 200)
-                .padding()
-                .background(Color("green"))
-                .cornerRadius(10)
-            }
+                /// Submit a post
+                .popover(isPresented: $showSubredditSheet) {
+                    VStack() {
+                        
+                        Text("What's going on?")
+                        if #available(iOS 14.0, *)
+                        {
+                            TextEditor(text: self.$post_content)
+                                .padding()
+                                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 350)
+                                .border(Color.black, width:1)
+                        }
+                        else
+                        {
+                            // Fallback on earlier versions
+                            MultilineTextField("Enter post here...", text: self.$post_content)
+                                .padding(3)
+                                .frame(minWidth: 100, idealWidth: 100/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center)
+                                .background(RoundedRectangle(cornerRadius:5))
+                        }
+                        
+                        Button(action: {
+                            //                        self.post_content = "nice"
+                            let postObject: [String: Any]  =
+                                [
+                                    "username": "steventt07",
+                                    "category_name": "What's happening?",
+                                    "content": self.post_content,
+                                    "title": "Testing Post Feed",
+                                    "zipcode": "78703"
+                                ]
+                            API().submitPost(submitted: postObject)
+                        })
+                        {
+                            //This is where the submit button logic will go
+                            Text("Submit")
+                        }
+                    }
+                    .frame(width: 200)
+                    .padding()
+                    .background(Color("green"))
+                    .cornerRadius(10)
+                }
             Text("Select a post")
         }
     }

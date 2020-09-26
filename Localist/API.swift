@@ -2,7 +2,7 @@ import Foundation
 
 class API {
     func getPosts(completion: @escaping ([Post]) ->()){
-        guard let url = URL(string: "http://0.0.0.0:8000/feed?zipcode=78703&username=johnDoe") else {return}
+        guard let url = URL(string: "https://dashboard.stocksandshare.com/chitchat/feed?zipcode=78703&username=johnDoe") else {return}
         URLSession.shared.dataTask(with: url){ (data,_,_)in
             let posts = try! JSONDecoder().decode([Post].self, from:data!)
             DispatchQueue.main.async{
@@ -15,7 +15,7 @@ class API {
     }
     
     func submitPost(submitted: [String: Any]){
-        guard let postUrl = URL(string: "http://0.0.0.0:8000/add_post_to_category") else {fatalError()}
+        guard let postUrl = URL(string: "https://dashboard.stocksandshare.com/chitchat/add_post_to_category") else {fatalError()}
         
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
@@ -38,7 +38,7 @@ class API {
                 print(responseJSON)
             }
         }
-            task.resume()
+        task.resume()
         
         
         
@@ -64,6 +64,33 @@ class API {
 //        }
 //        task.resume()
         
+    }
+    
+    func createUser(submitted: [String: Any]){
+        guard let postUrl = URL(string: "https://dashboard.stocksandshare.com/chitchat/user") else {fatalError()}
+        
+        var request = URLRequest(url: postUrl)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = [
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        ]
+        
+        let submission = try? JSONSerialization.data(withJSONObject: submitted, options: .prettyPrinted)
+        
+        request.httpBody = submission
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                print(responseJSON)
+            }
+        }
+        task.resume()
     }
     
 }
