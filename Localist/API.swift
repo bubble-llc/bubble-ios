@@ -1,8 +1,8 @@
 import Foundation
 
 class API {
-    let baseURL = "https://dashboard.stocksandshare.com/chitchat"
-    //let baseURL = "http://0.0.0.0:8000"
+    //let baseURL = "https://dashboard.stocksandshare.com/chitchat"
+    let baseURL = "http://0.0.0.0:8000"
     func getPosts(completion: @escaping ([Post]) ->()){
         let defaults = UserDefaults.standard
         let stringOne = defaults.string(forKey: defaultsKeys.keyOne)!
@@ -45,6 +45,81 @@ class API {
             }
         }
         task.resume()
+    }
+        
+    func submitComment(submitted: [String: Any]){
+        /*
+            submitted = {
+                 "username": "steventt07",
+                 "post_id": "93c2c31d-a4ae-464d-940a-f4860c4c7f31",
+                 "content": "hi"
+             }
+         */
+        guard let postUrl = URL(string: "\(baseURL)/comment") else {fatalError()}
+        
+        var request = URLRequest(url: postUrl)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = [
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        ]
+        
+        let submission = try? JSONSerialization.data(withJSONObject: submitted)
+        
+        request.httpBody = submission
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                print(responseJSON)
+            }
+        }
+        task.resume()
+    }
+        
+    func getComment(post_id: String) ->  Array<Any>{
+        guard let postUrl = URL(string: "\(baseURL)/comment?post_id=\(post_id)") else {fatalError()}
+        var result: Result<String?, NetworkError>!
+        var comments = Array<Any>()
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        var request = URLRequest(url: postUrl)
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = [
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        ]
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                result = .success(String(data: data, encoding: .utf8))
+            } else {
+                result = .failure(.server)
+            }
+            semaphore.signal()
+        }.resume()
+        
+        _ = semaphore.wait(wallTimeout: .distantFuture)
+        
+        switch result {
+            case let .success(data):
+                print(convertStringToDictionary(text: data!)!)
+                comments = convertStringToDictionary(text: data!)!["comment"] as! Array<Any>
+                print(comments)
+            case let .failure(error):
+                print(error)
+            case .none:
+                print("errpr")
+            }
+
+        return comments
+    }
+        
+        
         
         
         
@@ -70,7 +145,6 @@ class API {
 //        }
 //        task.resume()
         
-    }
     
     func createUser(submitted: [String: Any]){
         guard let postUrl = URL(string: "\(baseURL)/user") else {fatalError()}
