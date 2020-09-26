@@ -37,6 +37,7 @@
 		5CE12F8E24F857CE00C8D5D0 /* Request in Frameworks */ = {isa = PBXBuildFile; productRef = 5CE12F8D24F857CE00C8D5D0 /* Request */; };
 		5CF2309D2501ACB1004A1C71 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF2309C2501ACB1004A1C71 /* CommentView.swift */; };
 		B0858191251F8A61001D067E /* CreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0858190251F8A61001D067E /* CreateUserView.swift */; };
+		B0858196251FA495001D067E /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0858195251FA495001D067E /* FeedView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		5CE12F5D24F8565E00C8D5D0 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		5CF2309C2501ACB1004A1C71 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		B0858190251F8A61001D067E /* CreateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserView.swift; sourceTree = "<group>"; };
+		B0858195251FA495001D067E /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 				5CCF766F24F85EED0040EC07 /* Images.xcassets */,
 				5CCF766824F85DB20040EC07 /* Representable */,
 				5CCF766624F85CC90040EC07 /* ContentView.swift */,
+				B0858195251FA495001D067E /* FeedView.swift */,
 				B0858190251F8A61001D067E /* CreateUserView.swift */,
 				5CE12F4F24F8565E00C8D5D0 /* SharedAssets.xcassets */,
 				5CE12F5C24F8565E00C8D5D0 /* Helpers */,
@@ -400,6 +403,7 @@
 				5CCF766724F85CC90040EC07 /* ContentView.swift in Sources */,
 				5CE12F6524F8565E00C8D5D0 /* MetadataView.swift in Sources */,
 				5CCF766324F85B140040EC07 /* SceneDelegate.swift in Sources */,
+				B0858196251FA495001D067E /* FeedView.swift in Sources */,
 				5CCF767B24F860D30040EC07 /* PostDetailView.swift in Sources */,
 				5CCF768A24F861060040EC07 /* Helpers.swift in Sources */,
 				5CCF767E24F860D30040EC07 /* PostView.swift in Sources */,
