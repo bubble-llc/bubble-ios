@@ -4,7 +4,11 @@ class API {
     let baseURL = "https://dashboard.stocksandshare.com/chitchat"
     //let baseURL = "http://0.0.0.0:8000"
     func getPosts(completion: @escaping ([Post]) ->()){
-        guard let url = URL(string: "\(baseURL)/feed?zipcode=78703&username=johnDoe") else {return}
+        let defaults = UserDefaults.standard
+        let stringOne = defaults.string(forKey: defaultsKeys.keyOne)!
+        let stringTwo = defaults.string(forKey: defaultsKeys.keyTwo)!
+        
+        guard let url = URL(string: "\(baseURL)/feed?zipcode=78703&username=\(String(describing: stringOne))") else {return}
         URLSession.shared.dataTask(with: url){ (data,_,_)in
             let posts = try! JSONDecoder().decode([Post].self, from:data!)
             DispatchQueue.main.async{
@@ -125,6 +129,9 @@ class API {
                 if userData! == 1
                 {
                     validUser = true
+                    let defaults = UserDefaults.standard
+                    defaults.set(username, forKey: defaultsKeys.keyOne)
+                    defaults.set(password, forKey: defaultsKeys.keyTwo)
                 }
                 print(userData!)
             case let .failure(error):
