@@ -23,9 +23,9 @@ struct CreateUserView: View {
     var body: some View {
         NavigationView {
             Form {
-                TextField("Username", text: self.$username)
+                TextField("Username", text: self.$username).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                 SecureField("Password", text: self.$password)
-                TextField("Email", text: self.$email)
+                TextField("Email", text: self.$email).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                 Toggle(isOn: $termsAccepted,
                        label: {
                            Text("Accept terms and conditions")

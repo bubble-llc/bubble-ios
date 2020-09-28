@@ -5,6 +5,7 @@ struct ContentView : View {
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var status: Int = 0
+    @State private var showingAlert = false
     @State var showLoginView: Bool = false
     
     var body: some View {
@@ -24,9 +25,16 @@ struct ContentView : View {
                                 {
                                     self.showLoginView = true
                                 }
+                                else
+                                {
+                                    self.showingAlert = true
+                                }
                             }, label: {
                                 Text("Login")
                             })
+                            .alert(isPresented: $showingAlert) {
+                                        Alert(title: Text("Invalid Login"), message: Text("Please enter valid login"), dismissButton: .default(Text("Ok")))
+                                    }
                         }
                     }.navigationBarTitle(Text("Login"))
                     

@@ -1,8 +1,8 @@
 import Foundation
 
 class API {
-    //let baseURL = "https://dashboard.stocksandshare.com/chitchat"
-    let baseURL = "http://0.0.0.0:8000"
+    let baseURL = "https://dashboard.stocksandshare.com/chitchat"
+    //let baseURL = "http://0.0.0.0:8000"
     func getPosts(completion: @escaping ([Post]) ->()){
         let defaults = UserDefaults.standard
         let stringOne = defaults.string(forKey: defaultsKeys.keyOne)!
@@ -198,16 +198,18 @@ class API {
         _ = semaphore.wait(wallTimeout: .distantFuture)
         switch result {
             case let .success(data):
-                let user = convertStringToDictionary(text: data!)?["user"]
-                let userData = user?.count
-                if userData! == 1
+                if data != ""
                 {
-                    validUser = true
-                    let defaults = UserDefaults.standard
-                    defaults.set(username, forKey: defaultsKeys.keyOne)
-                    defaults.set(password, forKey: defaultsKeys.keyTwo)
+                    let user = convertStringToDictionary(text: data!)?["user"]
+                    let userData = user?.count
+                    if userData! == 1
+                    {
+                        validUser = true
+                        let defaults = UserDefaults.standard
+                        defaults.set(username, forKey: defaultsKeys.keyOne)
+                        defaults.set(password, forKey: defaultsKeys.keyTwo)
+                    }
                 }
-                print(userData!)
             case let .failure(error):
                 print(error)
             case .none:
