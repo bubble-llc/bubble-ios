@@ -33,7 +33,11 @@ struct FeedView: View {
                         {
                             //This is where the submit button logic will go
                             Text("New Post")
+                            
                         }
+                        NavigationLink(destination: SubmitPostView(), isActive: $showSubmitPost) {
+                                            EmptyView()
+                                        }
                     },
                     trailing: HStack {
                         Button(action: {self.showSortSheet.toggle()})
@@ -55,8 +59,7 @@ struct FeedView: View {
                     })
                 }
                 /// Submit a post
-                .sheet(isPresented: $showSubmitPost) {
-                    SubmitPostView()
+              
                     
                     
 //                    VStack() {
@@ -99,7 +102,7 @@ struct FeedView: View {
 //                    .padding()
 //                    .background(Color("green"))
 //                    .cornerRadius(10)
-                }
+                
             Text("Select a post")
         }
     }
