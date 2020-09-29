@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5C73E7BD250866E600252D50 /* SubmitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C73E7BC250866E600252D50 /* SubmitView.swift */; };
+		5C755E752523A03F00267557 /* SubmitPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C755E742523A03F00267557 /* SubmitPostView.swift */; };
 		5CCF766324F85B140040EC07 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF766224F85B140040EC07 /* SceneDelegate.swift */; };
 		5CCF766524F85C610040EC07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF766424F85C610040EC07 /* AppDelegate.swift */; };
 		5CCF766724F85CC90040EC07 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF766624F85CC90040EC07 /* ContentView.swift */; };
@@ -59,6 +60,7 @@
 
 /* Begin PBXFileReference section */
 		5C73E7BC250866E600252D50 /* SubmitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitView.swift; sourceTree = "<group>"; };
+		5C755E742523A03F00267557 /* SubmitPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitPostView.swift; sourceTree = "<group>"; };
 		5CCF766224F85B140040EC07 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5CCF766424F85C610040EC07 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Localist/AppDelegate.swift; sourceTree = "<group>"; };
 		5CCF766624F85CC90040EC07 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -174,9 +176,6 @@
 				5CE12F5524F8565E00C8D5D0 /* API.swift */,
 				5CCF766F24F85EED0040EC07 /* Images.xcassets */,
 				5CCF766824F85DB20040EC07 /* Representable */,
-				5CCF766624F85CC90040EC07 /* ContentView.swift */,
-				B0858195251FA495001D067E /* FeedView.swift */,
-				B0858190251F8A61001D067E /* CreateUserView.swift */,
 				5CE12F4F24F8565E00C8D5D0 /* SharedAssets.xcassets */,
 				5CE12F5C24F8565E00C8D5D0 /* Helpers */,
 				5CE12F5624F8565E00C8D5D0 /* Views */,
@@ -241,10 +240,14 @@
 		5CE12F5624F8565E00C8D5D0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5CCF766624F85CC90040EC07 /* ContentView.swift */,
+				B0858195251FA495001D067E /* FeedView.swift */,
+				B0858190251F8A61001D067E /* CreateUserView.swift */,
 				5CE12F5824F8565E00C8D5D0 /* MetadataView.swift */,
 				5CE12F5924F8565E00C8D5D0 /* PostDetailView.swift */,
 				5CE12F5B24F8565E00C8D5D0 /* PostView.swift */,
 				5CCF766D24F85DEB0040EC07 /* PostList.swift */,
+				5C755E742523A03F00267557 /* SubmitPostView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 				5CCF766724F85CC90040EC07 /* ContentView.swift in Sources */,
 				5CE12F6524F8565E00C8D5D0 /* MetadataView.swift in Sources */,
 				5CCF766324F85B140040EC07 /* SceneDelegate.swift in Sources */,
+				5C755E752523A03F00267557 /* SubmitPostView.swift in Sources */,
 				B0858196251FA495001D067E /* FeedView.swift in Sources */,
 				5CCF767B24F860D30040EC07 /* PostDetailView.swift in Sources */,
 				5CCF768A24F861060040EC07 /* Helpers.swift in Sources */,

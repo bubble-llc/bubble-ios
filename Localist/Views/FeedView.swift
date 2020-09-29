@@ -16,7 +16,7 @@ struct FeedView: View {
     
     
     @State private var showSortSheet: Bool = false
-    @State private var showSubredditSheet: Bool = false
+    @State private var showSubmitPost: Bool = false
     @State private var showCreateUser: Bool = false
     
     @State private var post_content: String = ""
@@ -29,7 +29,7 @@ struct FeedView: View {
                 .navigationBarTitle(Text(""), displayMode: .inline)
                 .navigationBarItems(
                     leading: HStack {
-                        Button(action: {self.showSubredditSheet.toggle()})
+                        Button(action: {self.showSubmitPost.toggle()})
                         {
                             //This is where the submit button logic will go
                             Text("New Post")
@@ -55,47 +55,50 @@ struct FeedView: View {
                     })
                 }
                 /// Submit a post
-                .popover(isPresented: $showSubredditSheet) {
-                    VStack() {
-                        
-                        Text("What's going on?")
-                        if #available(iOS 14.0, *)
-                        {
-                            TextEditor(text: self.$post_content)
-                                .padding()
-                                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 350)
-                                .border(Color.black, width:1)
-                        }
-                        else
-                        {
-                            // Fallback on earlier versions
-                            MultilineTextField("Enter post here...", text: self.$post_content)
-                                .padding(3)
-                                .frame(minWidth: 100, idealWidth: 100/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center)
-                                .background(RoundedRectangle(cornerRadius:5))
-                        }
-                        
-                        Button(action: {
-                            //                        self.post_content = "nice"
-                            let postObject: [String: Any]  =
-                                [
-                                    "username": "steventt07",
-                                    "category_name": "What's happening?",
-                                    "content": self.post_content,
-                                    "title": "Testing Post Feed",
-                                    "zipcode": "78703"
-                                ]
-                            API().submitPost(submitted: postObject)
-                        })
-                        {
-                            //This is where the submit button logic will go
-                            Text("Submit")
-                        }
-                    }
-                    .frame(width: 200)
-                    .padding()
-                    .background(Color("green"))
-                    .cornerRadius(10)
+                .sheet(isPresented: $showSubmitPost) {
+                    SubmitPostView()
+                    
+                    
+//                    VStack() {
+//
+//                        Text("What's going on?")
+//                        if #available(iOS 14.0, *)
+//                        {
+//                            TextEditor(text: self.$post_content)
+//                                .padding()
+//                                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 350)
+//                                .border(Color.black, width:1)
+//                        }
+//                        else
+//                        {
+//                            // Fallback on earlier versions
+//                            MultilineTextField("Enter post here...", text: self.$post_content)
+//                                .padding(3)
+//                                .frame(minWidth: 100, idealWidth: 100/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center)
+//                                .background(RoundedRectangle(cornerRadius:5))
+//                        }
+//
+//                        Button(action: {
+//                            //                        self.post_content = "nice"
+//                            let postObject: [String: Any]  =
+//                                [
+//                                    "username": "steventt07",
+//                                    "category_name": "What's happening?",
+//                                    "content": self.post_content,
+//                                    "title": "Testing Post Feed",
+//                                    "zipcode": "78703"
+//                                ]
+//                            API().submitPost(submitted: postObject)
+//                        })
+//                        {
+//                            //This is where the submit button logic will go
+//                            Text("Submit")
+//                        }
+//                    }
+//                    .frame(width: 200)
+//                    .padding()
+//                    .background(Color("green"))
+//                    .cornerRadius(10)
                 }
             Text("Select a post")
         }
