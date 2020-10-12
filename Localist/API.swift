@@ -1,23 +1,23 @@
 import Foundation
 
 class API {
-    let baseURL = "https://dashboard.stocksandshare.com/chitchat"
-    //let baseURL = "http://0.0.0.0:8000"
+    //let baseURL = "https://dashboard.stocksandshare.com/chitchat"
+    let baseURL = "http://0.0.0.0:8000"
+    
     func getPosts(completion: @escaping ([Post]) ->()){
         let defaults = UserDefaults.standard
-        let stringOne = defaults.string(forKey: defaultsKeys.keyOne)!
-        let stringTwo = defaults.string(forKey: defaultsKeys.keyTwo)!
+        let username = defaults.string(forKey: defaultsKeys.keyOne)!
         
-        guard let url = URL(string: "\(baseURL)/feed?zipcode=78703&username=\(String(describing: stringOne))") else {return}
-        URLSession.shared.dataTask(with: url){ (data,_,_)in
+        guard let url = URL(string: "\(baseURL)/feed?zipcode=78703&username=\(String(describing: username))") else {return}
+        URLSession.shared.dataTask(with: url)
+        { (data,_,_) in
+            
             let posts = try! JSONDecoder().decode([Post].self, from:data!)
-            DispatchQueue.main.async{
+            DispatchQueue.main.async
+            {
                 completion(posts)
             }
-            
-            
-        }
-    .resume()
+        }.resume()
     }
     
     func submitPost(submitted: [String: Any]){
@@ -25,7 +25,8 @@ class API {
         
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
-        request.allHTTPHeaderFields = [
+        request.allHTTPHeaderFields =
+        [
             "Content-Type": "application/json",
             "Accept": "application/json"
         ]
@@ -34,32 +35,31 @@ class API {
         
         request.httpBody = submission
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
+        let task = URLSession.shared.dataTask(with: request)
+        { data, response, error in
+            
+            guard let data = data, error == nil else
+            {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let responseJSON = responseJSON as? [String: Any] {
+            if let responseJSON = responseJSON as? [String: Any]
+            {
                 print(responseJSON)
             }
         }
         task.resume()
     }
         
-    func submitComment(submitted: [String: Any]){
-        /*
-            submitted = {
-                 "username": "steventt07",
-                 "post_id": "93c2c31d-a4ae-464d-940a-f4860c4c7f31",
-                 "content": "hi"
-             }
-         */
+    func submitComment(submitted: [String: Any])
+    {
         guard let postUrl = URL(string: "\(baseURL)/comment") else {fatalError()}
         
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
-        request.allHTTPHeaderFields = [
+        request.allHTTPHeaderFields =
+        [
             "Content-Type": "application/json",
             "Accept": "application/json"
         ]
@@ -68,90 +68,47 @@ class API {
         
         request.httpBody = submission
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
+        let task = URLSession.shared.dataTask(with: request)
+        { data, response, error in
+            
+            guard let data = data, error == nil else
+            {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let responseJSON = responseJSON as? [String: Any] {
+            if let responseJSON = responseJSON as? [String: Any]
+            {
                 print(responseJSON)
             }
         }
         task.resume()
     }
-        
-    func getComment(post_id: String) ->  Array<Any>{
-        guard let postUrl = URL(string: "\(baseURL)/comment?post_id=\(post_id)") else {fatalError()}
-        var result: Result<String?, NetworkError>!
-        var comments = Array<Any>()
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        var request = URLRequest(url: postUrl)
-        request.httpMethod = "GET"
-        request.allHTTPHeaderFields = [
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        ]
-
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                result = .success(String(data: data, encoding: .utf8))
-            } else {
-                result = .failure(.server)
-            }
-            semaphore.signal()
-        }.resume()
-        
-        _ = semaphore.wait(wallTimeout: .distantFuture)
-        
-        switch result {
-            case let .success(data):
-                print(convertStringToDictionary(text: data!)!)
-                comments = convertStringToDictionary(text: data!)!["comment"] as! Array<Any>
-                print(comments)
-            case let .failure(error):
-                print(error)
-            case .none:
-                print("errpr")
-            }
-
-        return comments
-    }
-        
-        
-        
-        
-        
-
-        
-            //postString = submitted
-        
-//        request.httpBody = postString(using: String.Encoding.utf8)
-//
-//        let task = URLSession.shared.dataTask(with: request){ (data, response, error) in
-//
-//            if let error = error{
-//                print("Error took place \(error)")
-//                return
-//            }
-//
-//            if let data = data, let dataString = String(data: data, encoding: .utf8){
-//                print("Response data string:\n \(dataString)")
-//            }
-//
-//
-//
-//        }
-//        task.resume()
-        
     
-    func createUser(submitted: [String: Any]){
+    func getComment(post_id: String, completion: @escaping ([Comment]) ->())
+    {
+        guard let url = URL(string: "\(baseURL)/comment?post_id=\(post_id)") else {return}
+        URLSession.shared.dataTask(with: url)
+        { (data,_,_)in
+            
+            let comments = try! JSONDecoder().decode([Comment].self, from:data!)
+            DispatchQueue.main.async
+            {
+                completion(comments)
+            }
+            
+            
+        }.resume()
+    }
+
+    func createUser(submitted: [String: Any])
+    {
         guard let postUrl = URL(string: "\(baseURL)/user") else {fatalError()}
         
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
-        request.allHTTPHeaderFields = [
+        request.allHTTPHeaderFields =
+        [
             "Content-Type": "application/json",
             "Accept": "application/json"
         ]
@@ -160,43 +117,57 @@ class API {
         
         request.httpBody = submission
 
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
+        let task = URLSession.shared.dataTask(with: request)
+        { data, response, error in
+            
+            guard let data = data, error == nil else
+            {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let responseJSON = responseJSON as? [String: Any] {
+            if let responseJSON = responseJSON as? [String: Any]
+            {
                 print(responseJSON)
             }
         }
         task.resume()
     }
     
-    func validateUser(username: String, password: String) -> Bool{
+    func validateUser(username: String, password: String) -> Bool
+    {
         guard let postUrl = URL(string: "\(baseURL)/user?username=\(username)&password=\(password )") else {fatalError()}
+        
         var result: Result<String?, NetworkError>!
         var validUser = false
+        var request = URLRequest(url: postUrl)
+        
         let semaphore = DispatchSemaphore(value: 0)
         
-        var request = URLRequest(url: postUrl)
         request.httpMethod = "GET"
-        request.allHTTPHeaderFields = [
+        request.allHTTPHeaderFields =
+        [
             "Content-Type": "application/json",
             "Accept": "application/json"
         ]
 
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
+        URLSession.shared.dataTask(with: request)
+        { data, response, error in
+            
+            if let data = data
+            {
                 result = .success(String(data: data, encoding: .utf8))
-            } else {
+            }
+            else
+            {
                 result = .failure(.server)
             }
             semaphore.signal()
         }.resume()
         
         _ = semaphore.wait(wallTimeout: .distantFuture)
-        switch result {
+        switch result
+        {
             case let .success(data):
                 if data != ""
                 {
@@ -214,44 +185,41 @@ class API {
                 print(error)
             case .none:
                 print("errpr")
-            }
-
+        }
         return validUser
     }
 }
 
-func convertStringToDictionary(text: String) -> [String:AnyObject]? {
-    if let data = text.data(using: .utf8) {
+func convertStringToDictionary(text: String) -> [String:AnyObject]?
+{
+    if let data = text.data(using: .utf8)
+    {
         do {
             let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:AnyObject]
             return json
-        } catch {
+        }
+        catch
+        {
             print("Something went wrong")
         }
     }
     return nil
 }
 
-extension URLResponse {
-
-    func getStatusCode() -> Int? {
-        if let httpResponse = self as? HTTPURLResponse {
+extension URLResponse
+{
+    func getStatusCode() -> Int?
+    {
+        if let httpResponse = self as? HTTPURLResponse
+        {
             return httpResponse.statusCode
         }
         return nil
     }
 }
 
-enum NetworkError: Error {
+enum NetworkError: Error
+{
     case url
     case server
-    }
-//curl --location --request POST 'http://0.0.0.0:8000/add_post_to_category' \
-//--header 'Content-Type: application/json' \
-//--data-raw '{
-//    "username": "steventt07",
-//    "category_name": "What'\''s happening?",
-//    "content": "My thirs post",
-//    "title": "Lalala",
-//    "zipcode": "78703"
-//}'
+}
