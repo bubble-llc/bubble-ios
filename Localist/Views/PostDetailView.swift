@@ -3,35 +3,30 @@ import Request
 
 struct PostDetailView: View {
     let post: Post
-    
-    var title: some View {
-        let vstack = VStack(alignment: .leading) {
-
-            Text(post.title)
-                .bold()
-        }
-
-        return vstack
-
-    }
-    
+    @State var comments: [Comment] = []
     var body: some View {
-        let list = List {
+        NavigationView {
+            VStack
+            {
+                Text(post.title)
+                    .bold()
+                if post.content != "" {
+                    Text(post.content)
+                }
 
+                MetadataView(post: post, spaced: true)
+                
+                List(comments){ comment in
+                    CommentsView(comment: comment)
 
-            // Body
-            // Body
-            title
-            if post.content != "" {
-                Text(post.content)
+                }
+                .onAppear{
+                    API().getComment(post_id: post.id) { (comments) in
+                        self.comments = comments
+                    }
+                }
             }
-
-            MetadataView(post: post, spaced: true)
-            
         }
-
-        return list.navigationBarTitle(Text("Localist"), displayMode: .inline)
-
     }
 }
 

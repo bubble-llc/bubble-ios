@@ -4,10 +4,16 @@ import Foundation
 
 struct Post: Decodable, Identifiable {
     let title: String
-    let id = UUID()
+    let id: String
     /// The body of the post
+//    let post_id: String
     let content: String
     let username: String
+    let zipcode: String
+    let date_created: String
+    let comments: Int
+    let votes: Int
+    let category_name: String
 
 }
 
