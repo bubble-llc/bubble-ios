@@ -15,7 +15,10 @@ struct SubmitPostView: View {
         else
         {
             Form {
-                Text("What's going on?")
+                Text("What's Happening?")
+                    .foregroundColor(Color.black)
+                    .font(.system(size:35))
+                    .frame(maxWidth: .infinity, alignment: .center)
                 if #available(iOS 14.0, *)
                 {
                     Text("Title").font(.headline)
@@ -30,7 +33,7 @@ struct SubmitPostView: View {
                         .foregroundColor(Color.blue)
                     TextEditor(text: self.$post_content)
                         .padding()
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 500)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 350)
                         .border(Color.black, width:1)
                         .foregroundColor(Color.blue)
                 }

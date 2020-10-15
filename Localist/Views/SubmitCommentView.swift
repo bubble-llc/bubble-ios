@@ -19,16 +19,26 @@ struct SubmitCommentView: View {
         else
         {
             Form {
+                HStack(){
+                    Text("Comment on").font(.headline)
+                        .foregroundColor(Color.black)
                 Text(post.title).font(.headline)
-                    .foregroundColor(Color.blue)
+                    .foregroundColor(Color.black)
+                    .italic()
+                    .bold()
+                }
                 Text(post.content)
+                    .foregroundColor(Color.black)
+                    .italic()
                 if #available(iOS 14.0, *)
                 {
+                    //We are currently allowing there to be trailing spaces after comments, need to auto remove those from the comment
+                    //object before we actually let it be submitted
                     TextEditor(text: self.$comment_content)
                         .padding()
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 50)
                         .border(Color.black, width:1)
-                        .foregroundColor(Color.blue)
+                        .foregroundColor(Color.black)
                     
                 }
                 else
