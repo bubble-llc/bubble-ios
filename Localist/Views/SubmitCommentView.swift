@@ -4,8 +4,9 @@ import Request
 struct SubmitCommentView: View {
     @State private var post_title: String = ""
     @State private var post_content: String = ""
-    @State private var comment_content: String = ""
+    @State private var comment_content: String = "Enter your comment here"
     @State private var submitButtonPressed: Bool = false
+    @State private var commentBoxPressed: Bool = false
     
     let post: Post
     
@@ -35,8 +36,15 @@ struct SubmitCommentView: View {
                     //We are currently allowing there to be trailing spaces after comments, need to auto remove those from the comment
                     //object before we actually let it be submitted
                     TextEditor(text: self.$comment_content)
+                        .onTapGesture {
+                            if !self.commentBoxPressed{
+                                self.comment_content = " "
+                                self.commentBoxPressed = true
+                            }
+                        }
+                        .multilineTextAlignment(.leading)
                         .padding()
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 50)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 200)
                         .border(Color.black, width:1)
                         .foregroundColor(Color.black)
                     
