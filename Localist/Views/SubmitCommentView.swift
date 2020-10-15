@@ -20,17 +20,17 @@ struct SubmitCommentView: View {
         else
         {
             Form {
-                HStack(){
-                    Text("Comment on").font(.headline)
-                        .foregroundColor(Color.black)
-                Text(post.title).font(.headline)
+                VStack(){
+                    Text(post.title).font(.system(size:25))
                     .foregroundColor(Color.black)
                     .italic()
                     .bold()
+                    .frame(maxWidth: .infinity, alignment: .center)
                 }
                 Text(post.content)
                     .foregroundColor(Color.black)
                     .italic()
+                    .frame(maxWidth: .infinity, alignment: .center)
                 if #available(iOS 14.0, *)
                 {
                     //We are currently allowing there to be trailing spaces after comments, need to auto remove those from the comment
@@ -46,7 +46,7 @@ struct SubmitCommentView: View {
                         .padding()
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 200)
                         .border(Color.black, width:1)
-                        .foregroundColor(Color.black)
+                        .foregroundColor(commentBoxPressed ? Color.black : Color.gray)
                     
                 }
                 else

@@ -29,7 +29,7 @@ struct SubmitPostView: View {
                         .padding()
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, maxHeight: 75)
                         .border(Color.black, width:1)
-                        .foregroundColor(Color.black)
+                        .foregroundColor(post_title_pressed ? Color.black : Color.gray)
                         .multilineTextAlignment(.leading)
                         .onTapGesture {
                             if !self.post_title_pressed{
@@ -46,7 +46,7 @@ struct SubmitPostView: View {
                         .padding()
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 350)
                         .border(Color.black, width:1)
-                        .foregroundColor(Color.black)
+                        .foregroundColor(post_content_pressed ? Color.black : Color.gray)
                         .multilineTextAlignment(.leading)
                         .onTapGesture {
                             if !self.post_content_pressed{
