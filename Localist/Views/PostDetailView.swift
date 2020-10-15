@@ -14,7 +14,7 @@ struct PostDetailView: View {
                     Text(post.content)
                 }
 
-                MetadataView(post: post, spaced: true)
+                MetadataView(post: post)
                 
                 List(comments){ comment in
                     CommentsView(comment: comment)
@@ -25,15 +25,36 @@ struct PostDetailView: View {
                         self.comments = comments
                     }
                 }
+                FooterView(post: post)
             }
         }
     }
 }
 
-//#if DEBUG
-//struct PostDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PostDetailView(post: Post.title)
-//    }
-//}
-//#endif
+struct FooterView: View {
+    @State private var comment_content: String = ""
+    @State private var placeholderString: String = "Add a comment"
+    
+    let post: Post
+    
+    var body: some View {
+        MultilineTextField("Enter comment here...", text: self.$comment_content)
+            .frame(maxWidth: .infinity, minHeight: 100)
+        Button(action:
+        {
+            let defaults = UserDefaults.standard
+            let username = defaults.string(forKey: defaultsKeys.keyOne)!
+            let commentObject: [String: Any]  =
+                [
+                    "post_id": post.id,
+                    "username": username,
+                    "content": self.comment_content,
+                ]
+            API().submitComment(submitted: commentObject)
+            self.comment_content = ""
+        })
+        {
+            Text("Submit")
+        }
+    }
+}

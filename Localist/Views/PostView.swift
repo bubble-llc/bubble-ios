@@ -7,20 +7,17 @@ struct PostView: View
     
     var body: some View
     {
-        HStack
+        VStack(alignment: .leading)
         {
-            VStack(alignment: .leading)
+            Text(post.title)
+                .font(.headline)
+                .lineLimit(1)
+            Group
             {
-                Text(post.title)
-                    .font(.headline)
-                    .lineLimit(1)
-                Group
-                {
-                    Text(post.content)
-                }
-                MetadataView(post: post, spaced: false)
-                    .font(.caption)
+                Text(post.content)
             }
+            MetadataView(post: post)
+                .font(.caption)
         }
     }
 }
