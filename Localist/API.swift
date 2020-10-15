@@ -1,8 +1,8 @@
 import Foundation
 
 class API {
-    //let baseURL = "https://dashboard.stocksandshare.com/chitchat"
-    let baseURL = "http://0.0.0.0:8000"
+    let baseURL = "https://dashboard.stocksandshare.com/chitchat"
+    //let baseURL = "http://0.0.0.0:8000"
     
     func getPosts(completion: @escaping ([Post]) ->()){
         let defaults = UserDefaults.standard
