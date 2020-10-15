@@ -2,8 +2,10 @@ import SwiftUI
 import Request
 
 struct SubmitPostView: View {
-    @State private var post_title: String = ""
-    @State private var post_content: String = ""
+    @State private var post_title: String = "Enter your title"
+    @State private var post_title_pressed: Bool = false
+    @State private var post_content: String = "Write some content for your post"
+    @State private var post_content_pressed: Bool = false
     @State private var submitButtonPressed: Bool = false
     
     var body: some View
@@ -25,9 +27,18 @@ struct SubmitPostView: View {
                         .foregroundColor(Color.blue)
                     TextEditor(text: self.$post_title)
                         .padding()
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 50)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, maxHeight: 75)
                         .border(Color.black, width:1)
-                        .foregroundColor(Color.blue)
+                        .foregroundColor(Color.black)
+                        .multilineTextAlignment(.leading)
+                        .onTapGesture {
+                            if !self.post_title_pressed{
+                                self.post_title = " "
+                                self.post_title_pressed = true
+                            }
+                               
+                        }
+                    
                     
                     Text("Content").font(.headline)
                         .foregroundColor(Color.blue)
@@ -35,7 +46,15 @@ struct SubmitPostView: View {
                         .padding()
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 350)
                         .border(Color.black, width:1)
-                        .foregroundColor(Color.blue)
+                        .foregroundColor(Color.black)
+                        .multilineTextAlignment(.leading)
+                        .onTapGesture {
+                            if !self.post_content_pressed{
+                                self.post_content = " "
+                                self.post_content_pressed = true
+                            }
+                               
+                        }
                 }
                 else
                 {
