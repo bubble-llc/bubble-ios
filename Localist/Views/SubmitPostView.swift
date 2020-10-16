@@ -2,37 +2,55 @@ import SwiftUI
 import Request
 
 struct SubmitPostView: View {
-    @State private var post_title: String = ""
-    @State private var post_content: String = ""
-    @State private var submitButtonPressed: Bool = false
+    @State private var post_title: String = "Enter your title"
+    @State private var post_title_pressed: Bool = false
+    @State private var post_content: String = "Write some content for your post"
+    @State private var post_content_pressed: Bool = false
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     
     var body: some View
     {
-        if submitButtonPressed
-        {
-            FeedView()
-        }
-        else
-        {
+
             Form {
-                Text("What's going on?")
+                Text("What's Happening?")
+                    .foregroundColor(Color.black)
+                    .font(.system(size:35))
+                    .frame(maxWidth: .infinity, alignment: .center)
                 if #available(iOS 14.0, *)
                 {
                     Text("Title").font(.headline)
                         .foregroundColor(Color.blue)
                     TextEditor(text: self.$post_title)
                         .padding()
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 50)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, maxHeight: 75)
                         .border(Color.black, width:1)
-                        .foregroundColor(Color.blue)
+                        .foregroundColor(post_title_pressed ? Color.black : Color.gray)
+                        .multilineTextAlignment(.leading)
+                        .onTapGesture {
+                            if !self.post_title_pressed{
+                                self.post_title = " "
+                                self.post_title_pressed = true
+                            }
+                               
+                        }
+                    
                     
                     Text("Content").font(.headline)
                         .foregroundColor(Color.blue)
                     TextEditor(text: self.$post_content)
                         .padding()
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 500)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 350)
                         .border(Color.black, width:1)
-                        .foregroundColor(Color.blue)
+                        .foregroundColor(post_content_pressed ? Color.black : Color.gray)
+                        .multilineTextAlignment(.leading)
+                        .onTapGesture {
+                            if !self.post_content_pressed{
+                                self.post_content = " "
+                                self.post_content_pressed = true
+                            }
+                               
+                        }
                 }
                 else
                 {
@@ -54,7 +72,7 @@ struct SubmitPostView: View {
                         "zipcode": "78703"
                     ]
                     API().submitPost(submitted: postObject)
-                    self.submitButtonPressed=true
+                    self.presentationMode.wrappedValue.dismiss()
                     
                 })
                 {
@@ -63,6 +81,6 @@ struct SubmitPostView: View {
             }
             .foregroundColor(Color.blue)
             .background(Color.yellow)
-        }
+        
     }
 }
