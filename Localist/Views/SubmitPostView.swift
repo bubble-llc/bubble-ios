@@ -6,16 +6,12 @@ struct SubmitPostView: View {
     @State private var post_title_pressed: Bool = false
     @State private var post_content: String = "Write some content for your post"
     @State private var post_content_pressed: Bool = false
-    @State private var submitButtonPressed: Bool = false
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     
     var body: some View
     {
-        if submitButtonPressed
-        {
-            FeedView()
-        }
-        else
-        {
+
             Form {
                 Text("What's Happening?")
                     .foregroundColor(Color.black)
@@ -76,7 +72,7 @@ struct SubmitPostView: View {
                         "zipcode": "78703"
                     ]
                     API().submitPost(submitted: postObject)
-                    self.submitButtonPressed=true
+                    self.presentationMode.wrappedValue.dismiss()
                     
                 })
                 {
@@ -85,6 +81,6 @@ struct SubmitPostView: View {
             }
             .foregroundColor(Color.blue)
             .background(Color.yellow)
-        }
+        
     }
 }

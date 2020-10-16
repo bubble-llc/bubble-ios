@@ -5,20 +5,16 @@ struct SubmitCommentView: View {
     @State private var post_title: String = ""
     @State private var post_content: String = ""
     @State private var comment_content: String = "Enter your comment here"
-    @State private var submitButtonPressed: Bool = false
     @State private var commentBoxPressed: Bool = false
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     let post: Post
     
     
     var body: some View
     {
-        if submitButtonPressed
-        {
-            FeedView()
-        }
-        else
-        {
+
+
             Form {
                 VStack(){
                     Text(post.title).font(.system(size:25))
@@ -67,7 +63,7 @@ struct SubmitCommentView: View {
                             "content": self.comment_content,
                         ]
                     API().submitComment(submitted: commentObject)
-                    self.submitButtonPressed=true
+                    self.presentationMode.wrappedValue.dismiss()
                     
                 })
                 {
@@ -76,6 +72,6 @@ struct SubmitCommentView: View {
             }
             .foregroundColor(Color.blue)
             .background(Color.yellow)
-        }
+        
     }
 }

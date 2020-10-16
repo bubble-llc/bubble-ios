@@ -16,6 +16,7 @@ struct FeedView: View {
     @State private var showSubmitPost: Bool = false
     @State private var showCreateUser: Bool = false
     @State private var post_content: String = ""
+
     
     var body: some View {
             PostList()
