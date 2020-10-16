@@ -1,110 +1,129 @@
 import SwiftUI
 
 struct MetadataView: View {
+    var post: Post
+    
     @State private var showCommentForm: Bool = false
-    
-    @State var upvotes:Int = 0
-    @State var downvotes:Int = 0
-    @State var upvoteClicked = false
-    @State var downvoteClicked = false
-    @State var local_votes:Int = 0
-    @State var posts: [Post] = []
     @State var comments: [Comment] = []
+    @State var isUp = false
+    @State var isDown = false
+    @State var totalVotes:Int = 0
+    @State var globalDirection:Int = 0
+    @State var direction:Int = 0
+    @State var upColor = Color.gray
+    @State var downColor = Color.gray
     
-    let post: Post
-    let spaced: Bool
+    init(post: Post) {
+        self.post = post
+        self._totalVotes = State(initialValue: post.votes)
+        
+        if post.is_voted == true
+        {
+            if post.prev_vote == 1
+            {
+                self._isUp = State(initialValue: true)
+                self._upColor = State(initialValue: Color.green)
+            }
+            else if post.prev_vote == -1
+            {
+                self._isDown = State(initialValue: true)
+                self._downColor = State(initialValue: Color.red)
+            }
+        }
+    }
+    
     
     var body: some View {
-        /// Spacers are placed to fill the width of the screen if desired
         HStack
         {
-            
-            if spaced
+            Button(action:
             {
-                Spacer()
-            }
-            
-            //Upvote button
-            Button(action:  {
-                if self.spaced
+                if self.isUp == false && self.isDown == false
                 {
-                    Spacer()
+                    self.totalVotes += 1
+                    self.globalDirection = 1
+                    self.isUp = true
+                    self.upColor = Color.green
+                    self.direction = 1
+                }
+                else if self.isUp == false && self.isDown == true
+                {
+                    self.totalVotes += 1
+                    self.globalDirection = 1
+                    self.isDown = false
+                    self.downColor = Color.gray
+                }
+                else if self.isUp == true
+                {
+                    self.totalVotes -= 1
+                    self.globalDirection = -1
+                    self.isUp = false
+                    self.upColor = Color.gray
                 }
                 
-                if self.local_votes == 0 && self.downvotes > 0
-                {
-                    self.local_votes = 1
-                    self.upvotes += 1
-                    self.downvotes -= 1
-                    
-                }
-                else if self.downvotes == 0 && self.local_votes == 0
-                {
-                    self.local_votes = 1
-                    self.upvotes += 1
-                }
-                else if self.downvotes < 0 && self.local_votes == 0
-                {
-                    self.local_votes = 1
-                    self.upvotes += 1
-                    self.downvotes += 1
-                }
-                else if self.upvotes > 0 && self.local_votes == 1
-                {
-                    self.local_votes = 0
-                    self.upvotes -= 1
-                }
+                let defaults = UserDefaults.standard
+                let username = defaults.string(forKey: defaultsKeys.keyOne)!
+                let voteObject: [String: Any]  =
+                [
+                    "username": username,
+                    "post_id": self.post.id,
+                    "direction": self.direction,
+                    "is_voted": self.post.is_voted,
+                    "global_direction": self.globalDirection
+                ]
+                API().submitVote(submitted: voteObject)
             })
             {
                 Image(systemName: "arrow.up")
-                Text(String(self.upvotes))
-            }.foregroundColor(Color.blue).buttonStyle(BorderlessButtonStyle())
+            }.foregroundColor(self.upColor).buttonStyle(BorderlessButtonStyle())
             
-            //Downvote button
-            Button(action:  {
-                    if self.spaced
-                    {
-                        Spacer()
-                    }
+            Button(action:
+            {
+                if self.isDown == false && self.isUp == false
+                {
+                    self.totalVotes -= 1
+                    self.globalDirection = -1
+                    self.isDown = true
+                    self.downColor = Color.red
+                    self.direction = -1
+                }
+                else if self.isDown == false && self.isUp == true
+                {
+                    self.totalVotes -= 1
+                    self.globalDirection = -1
+                    self.isUp = false
+                    self.upColor = Color.gray
+                }
+                else if self.isDown == true
+                {
+                    self.totalVotes += 1
+                    self.globalDirection = 1
+                    self.isDown = false
+                    self.downColor = Color.gray
+                }
                 
-                    if self.local_votes == 1 && self.upvotes > 0
-                    {
-                        self.local_votes = 0
-                        self.upvotes -= 1
-                        self.downvotes -= 1
-                        
-                    }
-                    else if self.upvotes == 0 && self.local_votes == 1
-                    {
-                        self.local_votes = 0
-                        self.downvotes -= 1
-                    }
-                    else if self.upvotes == 0 && self.local_votes == 0
-                    {
-                        if self.downvotes < 0
-                        {
-                            self.downvotes += 1
-                        }
-                        else
-                        {
-                            self.downvotes -= 1
-                        }
-                    }
+                let defaults = UserDefaults.standard
+                let username = defaults.string(forKey: defaultsKeys.keyOne)!
+                let voteObject: [String: Any]  =
+                [
+                    "username": username,
+                    "post_id": self.post.id,
+                    "direction": self.direction,
+                    "is_voted": self.post.is_voted,
+                    "global_direction": self.globalDirection
+                ]
+                API().submitVote(submitted: voteObject)
             })
             {
                 Image(systemName: "arrow.down")
-                Text(String(self.downvotes))
-            }.foregroundColor(Color.red).buttonStyle(BorderlessButtonStyle())
+                Text(String(self.totalVotes))
+            }.foregroundColor(self.downColor).buttonStyle(BorderlessButtonStyle())
+            
             Button(action: {self.showCommentForm.toggle()})
             {
                 Image(systemName: "text.bubble")
                 Text(String(post.comments))
             }.foregroundColor(Color.primary).buttonStyle(BorderlessButtonStyle())
-            
-            NavigationLink(destination: SubmitCommentView(post: post), isActive:$showCommentForm)
-            {
-                EmptyView()
-            }
         }
     }
 }

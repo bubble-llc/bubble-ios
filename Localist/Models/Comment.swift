@@ -10,7 +10,6 @@ import Foundation
 
 struct Comment: Decodable, Identifiable {
     var id = UUID()
-    /// The body of the post
     let content: String
     let username: String
     let date_created: String

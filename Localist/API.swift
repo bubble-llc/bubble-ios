@@ -85,6 +85,39 @@ class API {
         task.resume()
     }
     
+    func submitVote(submitted: [String: Any])
+    {
+        guard let postUrl = URL(string: "\(baseURL)/vote") else {fatalError()}
+        
+        var request = URLRequest(url: postUrl)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields =
+        [
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        ]
+        
+        let submission = try? JSONSerialization.data(withJSONObject: submitted)
+        
+        request.httpBody = submission
+        
+        let task = URLSession.shared.dataTask(with: request)
+        { data, response, error in
+            
+            guard let data = data, error == nil else
+            {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any]
+            {
+                print(responseJSON)
+            }
+        }
+        task.resume()
+    }
+    
     func getComment(post_id: String, completion: @escaping ([Comment]) ->())
     {
         guard let url = URL(string: "\(baseURL)/comment?post_id=\(post_id)") else {return}
