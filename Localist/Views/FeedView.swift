@@ -16,11 +16,11 @@ struct FeedView: View {
     @State private var showSubmitPost: Bool = false
     @State private var showCreateUser: Bool = false
     @State private var post_content: String = ""
+
     
     var body: some View {
-        NavigationView {
             PostList()
-                .navigationBarTitle(Text(""), displayMode: .inline)
+                .navigationBarTitle(Text("Feed"), displayMode: .inline)
                 .navigationBarItems(
                     leading: HStack
                     {
@@ -58,7 +58,6 @@ struct FeedView: View {
                     )
                 }
             Text("Select a post")
-        }
     }
 }
 

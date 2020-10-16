@@ -5,7 +5,6 @@ struct PostDetailView: View {
     let post: Post
     @State var comments: [Comment] = []
     var body: some View {
-        NavigationView {
             VStack
             {
                 //Post title. The Frame indicatew where it will be aligned, font adjusts text size
@@ -36,7 +35,6 @@ struct PostDetailView: View {
                     }
                 }
             }
-        }
     }
 }
 
