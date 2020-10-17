@@ -16,49 +16,63 @@ struct FeedView: View {
     @State private var showSubmitPost: Bool = false
     @State private var showCreateUser: Bool = false
     @State private var post_content: String = ""
+    @State var size = UIScreen.main.bounds.width / 1.6
     
-    var body: some View {
-        NavigationView {
-            PostList()
-                .navigationBarTitle(Text(""), displayMode: .inline)
-                .navigationBarItems(
-                    leading: HStack
-                    {
-                        Button(action: {self.showSubmitPost.toggle()})
+    var body: some View
+    {
+        ZStack{
+            NavigationView {
+                PostList()
+                    .navigationBarTitle(Text(""), displayMode: .inline)
+                    .navigationBarItems(
+                        leading: HStack
                         {
-                            Text("New Post")
-                        }
-                        
-                        NavigationLink(destination: SubmitPostView(), isActive: $showSubmitPost)
-                        {
-                            EmptyView()
-                        }
-                    },
-                    trailing: HStack
-                    {
-                        Button(action: {self.showSortSheet.toggle()})
-                        {
-                            HStack
+                            Button(action: {self.size = 10}, label: {
+                                
+                                Image(systemName: "gearshape.fill").resizable().frame(width: 20, height: 20)
+                            }).foregroundColor(.black)
+                            
+                            NavigationLink(destination: SubmitPostView(), isActive: $showSubmitPost)
                             {
-                                Image(systemName: "arrow.up.arrow.down")
-                                Text(self.sortBy.rawValue)
+                                EmptyView()
                             }
-                        }
-                    }
-                )
-                .actionSheet(isPresented: $showSortSheet)
-                {
-                    ActionSheet(title: Text("Sort By:"), buttons: [SortBy.hot,SortBy.new, ].map
-                        { method in
-                            ActionSheet.Button.default(Text(method.rawValue.prefix(1).uppercased() + method.rawValue.dropFirst()))
+                        },
+                        trailing: HStack
+                        {
+                            Button(action: {self.showSortSheet.toggle()})
                             {
-                                self.sortBy = method
+                                HStack
+                                {
+                                    Image(systemName: "arrow.up.arrow.down")
+                                    Text(self.sortBy.rawValue)
+                                }
                             }
                         }
                     )
-                }
-            Text("Select a post")
-        }
+                    .actionSheet(isPresented: $showSortSheet)
+                    {
+                        ActionSheet(title: Text("Sort By:"), buttons: [SortBy.hot,SortBy.new, ].map
+                            { method in
+                                ActionSheet.Button.default(Text(method.rawValue.prefix(1).uppercased() + method.rawValue.dropFirst()))
+                                {
+                                    self.sortBy = method
+                                }
+                            }
+                        )
+                    }
+                Text("Select a post")
+            }
+            
+            HStack{
+                menu(size: $size)
+                .cornerRadius(20)
+                    .padding(.leading, -size)
+                    .offset(x: -size)
+                
+                Spacer()
+            }
+            
+        }.animation(.spring())
     }
 }
 
@@ -194,6 +208,56 @@ struct MultilineTextField: View {
                     .padding(.top, 8)
             }
         }
+    }
+}
+
+struct menu : View {
+    @Binding var size : CGFloat
+
+    var body : some
+    View{
+        VStack
+        {
+            HStack
+            {
+                Spacer()
+                Button(action:
+                {
+                    self.size =  UIScreen.main.bounds.width / 1.6
+                })
+                {
+                    Image(systemName: "house.fill").resizable().frame(width: 15, height: 15).padding()
+                }.background(Color.red)
+                    .foregroundColor(.white)
+                .clipShape(Circle())
+            }
+            
+            HStack
+            {
+                
+                Image(systemName: "person.fill").resizable().frame(width: 25, height: 25).padding()
+                Text("Account").fontWeight(.heavy)
+                Spacer()
+            }.padding(.leading, 20)
+            
+            HStack
+            {
+                Image(systemName: "checkmark.rectangle.fill").resizable().frame(width: 25, height: 25).padding()
+                Text("Liked").fontWeight(.heavy)
+                Spacer()
+            }.padding(.leading, 20)
+            
+            HStack
+            {
+                Image(systemName: "paperplane.fill").resizable().frame(width: 25, height: 25).padding()
+                Text("Exit").fontWeight(.heavy)
+                Spacer()
+            }.padding(.leading, 20)
+            
+            Spacer()
+            
+        }.frame(width: UIScreen.main.bounds.width / 1.6)
+            .background(Color.white)
     }
 }
 
