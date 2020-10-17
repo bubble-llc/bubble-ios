@@ -234,23 +234,31 @@ struct menu : View {
             
             HStack
             {
-                
-                Image(systemName: "person.fill").resizable().frame(width: 25, height: 25).padding()
-                Text("Account").fontWeight(.heavy)
+                Button(action: goHome)
+                {
+                    Image(systemName: "person.fill").resizable().frame(width: 25, height: 25).padding()
+                    Text("Account").fontWeight(.heavy)
+                }
                 Spacer()
             }.padding(.leading, 20)
             
             HStack
             {
-                Image(systemName: "checkmark.rectangle.fill").resizable().frame(width: 25, height: 25).padding()
-                Text("Liked").fontWeight(.heavy)
+                Button(action: goLiked)
+                {
+                    Image(systemName: "checkmark.rectangle.fill").resizable().frame(width: 25, height: 25).padding()
+                    Text("Liked").fontWeight(.heavy)
+                }
                 Spacer()
             }.padding(.leading, 20)
             
             HStack
             {
-                Image(systemName: "paperplane.fill").resizable().frame(width: 25, height: 25).padding()
-                Text("Exit").fontWeight(.heavy)
+                Button(action: goExit)
+                {
+                    Image(systemName: "paperplane.fill").resizable().frame(width: 25, height: 25).padding()
+                    Text("Exit").fontWeight(.heavy)
+                }
                 Spacer()
             }.padding(.leading, 20)
             
@@ -258,6 +266,31 @@ struct menu : View {
             
         }.frame(width: UIScreen.main.bounds.width / 1.6)
             .background(Color.white)
+    }
+    
+    func goHome() {
+        if let window = UIApplication.shared.windows.first {
+            window.rootViewController = UIHostingController(rootView: FeedView())
+            window.makeKeyAndVisible()
+        }
+    }
+    
+    func goLiked() {
+        if let window = UIApplication.shared.windows.first {
+            window.rootViewController = UIHostingController(rootView: UserProfileView())
+            window.makeKeyAndVisible()
+        }
+    }
+    
+    func goExit() {
+        if let window = UIApplication.shared.windows.first {
+            window.rootViewController = UIHostingController(rootView: ContentView())
+            window.makeKeyAndVisible()
+            
+            let defaults = UserDefaults.standard
+            defaults.set("", forKey: defaultsKeys.keyOne)
+            defaults.set("", forKey: defaultsKeys.keyTwo)
+        }
     }
 }
 
