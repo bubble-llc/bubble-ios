@@ -4,31 +4,45 @@ import Request
 struct SubmitCommentView: View {
     @State private var post_title: String = ""
     @State private var post_content: String = ""
-    @State private var comment_content: String = ""
-    @State private var submitButtonPressed: Bool = false
+    @State private var comment_content: String = "Enter your comment here"
+    @State private var commentBoxPressed: Bool = false
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     let post: Post
     
     
     var body: some View
     {
-        if submitButtonPressed
-        {
-            FeedView()
-        }
-        else
-        {
+
+
             Form {
-                Text(post.title).font(.headline)
-                    .foregroundColor(Color.blue)
+                VStack(){
+                    Text(post.title).font(.system(size:25))
+                    .foregroundColor(Color.black)
+                    .italic()
+                    .bold()
+                    .frame(maxWidth: .infinity, alignment: .center)
+                }
                 Text(post.content)
+                    .foregroundColor(Color.black)
+                    .italic()
+                    .frame(maxWidth: .infinity, alignment: .center)
                 if #available(iOS 14.0, *)
                 {
+                    //We are currently allowing there to be trailing spaces after comments, need to auto remove those from the comment
+                    //object before we actually let it be submitted
                     TextEditor(text: self.$comment_content)
+                        .onTapGesture {
+                            if !self.commentBoxPressed{
+                                self.comment_content = " "
+                                self.commentBoxPressed = true
+                            }
+                        }
+                        .multilineTextAlignment(.leading)
                         .padding()
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 50)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 200)
                         .border(Color.black, width:1)
-                        .foregroundColor(Color.blue)
+                        .foregroundColor(commentBoxPressed ? Color.black : Color.gray)
                     
                 }
                 else
@@ -49,7 +63,7 @@ struct SubmitCommentView: View {
                             "content": self.comment_content,
                         ]
                     API().submitComment(submitted: commentObject)
-                    self.submitButtonPressed=true
+                    self.presentationMode.wrappedValue.dismiss()
                     
                 })
                 {
@@ -58,6 +72,6 @@ struct SubmitCommentView: View {
             }
             .foregroundColor(Color.blue)
             .background(Color.yellow)
-        }
+        
     }
 }

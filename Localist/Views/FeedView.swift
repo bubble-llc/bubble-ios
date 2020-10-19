@@ -277,7 +277,7 @@ struct menu : View {
     
     func goLiked() {
         if let window = UIApplication.shared.windows.first {
-            window.rootViewController = UIHostingController(rootView: UserProfileView())
+            window.rootViewController = UIHostingController(rootView: FeedView())
             window.makeKeyAndVisible()
         }
     }

@@ -21,7 +21,6 @@ struct CreateUserView: View {
     @State private var termsAccepted = false
 
     var body: some View {
-        NavigationView {
             Form {
                 TextField("Username", text: self.$username).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                 SecureField("Password", text: self.$password)
@@ -45,7 +44,6 @@ struct CreateUserView: View {
                     })
                 }
             }.navigationBarTitle(Text("Create User"))
-        }
     }
     
     private func isUserInformationValid() -> Bool {

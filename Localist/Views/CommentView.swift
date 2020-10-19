@@ -18,7 +18,7 @@ struct CommentView: View {
                 
                     
                 }
-                MetadataView(post: post, spaced: false)
+                MetadataView(post: post)
                     .font(.caption)
             }
         }
