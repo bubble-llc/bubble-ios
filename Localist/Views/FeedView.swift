@@ -10,12 +10,12 @@ import SwiftUI
 import Request
 
 struct FeedView: View {
-    @State private var subreddit: String = "swift"
     @State private var sortBy: SortBy = .hot
     @State private var showSortSheet: Bool = false
     @State private var showSubmitPost: Bool = false
     @State private var showCreateUser: Bool = false
     @State private var post_content: String = ""
+    
     @State var size = UIScreen.main.bounds.width / 1.6
     
     var body: some View
@@ -23,7 +23,7 @@ struct FeedView: View {
         ZStack{
             NavigationView {
                 PostList()
-                    .navigationBarTitle(Text(""), displayMode: .inline)
+                    .navigationBarTitle(Text("Feed"), displayMode: .inline)
                     .navigationBarItems(
                         leading: HStack
                         {
@@ -226,6 +226,7 @@ struct menu : View {
                     self.size =  UIScreen.main.bounds.width / 1.6
                 })
                 {
+                    // Change image to look like an exit
                     Image(systemName: "house.fill").resizable().frame(width: 15, height: 15).padding()
                 }.background(Color.red)
                     .foregroundColor(.white)
@@ -235,6 +236,16 @@ struct menu : View {
             HStack
             {
                 Button(action: goHome)
+                {
+                    Image(systemName: "house.fill").resizable().frame(width: 25, height: 25).padding()
+                    Text("Home").fontWeight(.heavy)
+                }
+                Spacer()
+            }.padding(.leading, 20)
+            
+            HStack
+            {
+                Button(action: goProfile)
                 {
                     Image(systemName: "person.fill").resizable().frame(width: 25, height: 25).padding()
                     Text("Account").fontWeight(.heavy)
@@ -252,6 +263,8 @@ struct menu : View {
                 Spacer()
             }.padding(.leading, 20)
             
+            Spacer()
+            
             HStack
             {
                 Button(action: goExit)
@@ -262,7 +275,6 @@ struct menu : View {
                 Spacer()
             }.padding(.leading, 20)
             
-            Spacer()
             
         }.frame(width: UIScreen.main.bounds.width / 1.6)
             .background(Color.white)
@@ -275,9 +287,16 @@ struct menu : View {
         }
     }
     
-    func goLiked() {
+    func goProfile() {
         if let window = UIApplication.shared.windows.first {
             window.rootViewController = UIHostingController(rootView: UserProfileView())
+            window.makeKeyAndVisible()
+        }
+    }
+    
+    func goLiked() {
+        if let window = UIApplication.shared.windows.first {
+            window.rootViewController = UIHostingController(rootView: UserLikedView())
             window.makeKeyAndVisible()
         }
     }
@@ -288,8 +307,8 @@ struct menu : View {
             window.makeKeyAndVisible()
             
             let defaults = UserDefaults.standard
-            defaults.set("", forKey: defaultsKeys.keyOne)
-            defaults.set("", forKey: defaultsKeys.keyTwo)
+            defaults.set("", forKey: defaultsKeys.username)
+            defaults.set("", forKey: defaultsKeys.password)
         }
     }
 }

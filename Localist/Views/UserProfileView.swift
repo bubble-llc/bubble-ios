@@ -10,10 +10,15 @@ struct UserProfileView: View {
                 VStack
                 {
                     let defaults = UserDefaults.standard
-                    let username = defaults.string(forKey: defaultsKeys.keyOne)!
-                    let password = defaults.string(forKey: defaultsKeys.keyOne)!
+                    let username = defaults.string(forKey: defaultsKeys.username)!
+                    let password = defaults.string(forKey: defaultsKeys.password)!
+                    let email = defaults.string(forKey: defaultsKeys.email)!
+                    let date_joined = defaults.string(forKey: defaultsKeys.date_joined)!
+                    
                     Text("Username: \(username)")
                     Text("Password: \(password)")
+                    Text("Email: \(email)")
+                    Text("Date Joined: \(date_joined)")
                 }.navigationBarTitle("Profile", displayMode: .inline)
                     .navigationBarItems(leading: Button(action: {
                         
