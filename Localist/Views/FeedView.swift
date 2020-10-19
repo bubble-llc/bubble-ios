@@ -39,27 +39,29 @@ struct FeedView: View {
                         },
                         trailing: HStack
                         {
-                            Button(action: {self.showSortSheet.toggle()})
+                            Button(action: {self.showSubmitPost.toggle()})
                             {
-                                HStack
-                                {
-                                    Image(systemName: "arrow.up.arrow.down")
-                                    Text(self.sortBy.rawValue)
-                                }
+                                Image(systemName: "plus")
+//                                HStack
+//                                {
+//                                    Image(systemName: "arrow.up.arrow.down")
+//                                    Text(self.sortBy.rawValue)
+//                                }
                             }
                         }
                     )
-                    .actionSheet(isPresented: $showSortSheet)
-                    {
-                        ActionSheet(title: Text("Sort By:"), buttons: [SortBy.hot,SortBy.new, ].map
-                            { method in
-                                ActionSheet.Button.default(Text(method.rawValue.prefix(1).uppercased() + method.rawValue.dropFirst()))
-                                {
-                                    self.sortBy = method
-                                }
-                            }
-                        )
-                    }            }
+//                    .actionSheet(isPresented: $showSortSheet)
+//                    {
+//                        ActionSheet(title: Text("Sort By:"), buttons: [SortBy.hot,SortBy.new, ].map
+//                            { method in
+//                                ActionSheet.Button.default(Text(method.rawValue.prefix(1).uppercased() + method.rawValue.dropFirst()))
+//                                {
+//                                    self.sortBy = method
+//                                }
+//                            }
+//                        )
+//                    }
+            }
             
             HStack{
                 menu(size: $size)

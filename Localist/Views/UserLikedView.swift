@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct UserLikedView: View {
-    @State private var sortBy: SortBy = .hot
-    @State private var showSortSheet: Bool = false
     @State private var showSubmitPost: Bool = false
     @State private var showCreateUser: Bool = false
     @State private var post_content: String = ""
@@ -21,7 +19,7 @@ struct UserLikedView: View {
         ZStack{
             NavigationView {
                 PostList()
-                    .navigationBarTitle(Text("Feed"), displayMode: .inline)
+                    .navigationBarTitle(Text("Liked Post"), displayMode: .inline)
                     .navigationBarItems(
                         leading: HStack
                         {
@@ -34,31 +32,8 @@ struct UserLikedView: View {
                             {
                                 EmptyView()
                             }
-                        },
-                        trailing: HStack
-                        {
-                            Button(action: {self.showSortSheet.toggle()})
-                            {
-                                HStack
-                                {
-                                    Image(systemName: "arrow.up.arrow.down")
-                                    Text(self.sortBy.rawValue)
-                                }
-                            }
                         }
                     )
-                    .actionSheet(isPresented: $showSortSheet)
-                    {
-                        ActionSheet(title: Text("Sort By:"), buttons: [SortBy.hot,SortBy.new, ].map
-                            { method in
-                                ActionSheet.Button.default(Text(method.rawValue.prefix(1).uppercased() + method.rawValue.dropFirst()))
-                                {
-                                    self.sortBy = method
-                                }
-                            }
-                        )
-                    }
-                Text("Select a post")
             }
             
             

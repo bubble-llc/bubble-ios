@@ -7,17 +7,23 @@ struct ContentView : View {
     @State private var status: Int = 0
     @State private var showingAlert = false
     @State var showLoginView: Bool = false
+    @State var showCreateUserView: Bool = false
     @State var users: [User] = []
     
     var body: some View {
-        NavigationView
+        if showLoginView
         {
-            VStack {
-                if showLoginView
-                {
-                    FeedView()
-                }
-                else
+            FeedView()
+        }
+        else if showCreateUserView
+        {
+            CreateUserView()
+        }
+        else
+        {
+            NavigationView
+            {
+                VStack
                 {
                     Form {
                         HStack {
@@ -68,7 +74,7 @@ struct ContentView : View {
                     }
                 }
             }
-        }           
+        }
     }
     
     private func isUserInformationValid() -> Bool

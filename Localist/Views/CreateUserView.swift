@@ -39,6 +39,11 @@ struct CreateUserView: View {
                                 "email": self.$email.wrappedValue
                             ]
                         API().createUser(submitted: postObject)
+                        
+                        if let window = UIApplication.shared.windows.first {
+                            window.rootViewController = UIHostingController(rootView: ContentView())
+                            window.makeKeyAndVisible()
+                        }
                     }, label: {
                         Text("Create")
                     })
