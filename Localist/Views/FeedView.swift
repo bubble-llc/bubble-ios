@@ -59,9 +59,7 @@ struct FeedView: View {
                                 }
                             }
                         )
-                    }
-                Text("Select a post")
-            }
+                    }            }
             
             HStack{
                 menu(size: $size)
@@ -71,7 +69,6 @@ struct FeedView: View {
                 
                 Spacer()
             }
-            
         }.animation(.spring())
     }
 }

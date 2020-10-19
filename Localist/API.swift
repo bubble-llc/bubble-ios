@@ -1,8 +1,8 @@
 import Foundation
 
 class API {
-    //let baseURL = "https://dashboard.stocksandshare.com/chitchat"
-    let baseURL = "http://0.0.0.0:8000"
+    let baseURL = "https://dashboard.stocksandshare.com/chitchat"
+    //let baseURL = "http://0.0.0.0:8000"
     
     func getPosts(completion: @escaping ([Post]) ->()){
         let defaults = UserDefaults.standard
@@ -55,6 +55,39 @@ class API {
     func submitComment(submitted: [String: Any])
     {
         guard let postUrl = URL(string: "\(baseURL)/comment") else {fatalError()}
+        
+        var request = URLRequest(url: postUrl)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields =
+        [
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        ]
+        
+        let submission = try? JSONSerialization.data(withJSONObject: submitted)
+        
+        request.httpBody = submission
+        
+        let task = URLSession.shared.dataTask(with: request)
+        { data, response, error in
+            
+            guard let data = data, error == nil else
+            {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any]
+            {
+                print(responseJSON)
+            }
+        }
+        task.resume()
+    }
+    
+    func submitVote(submitted: [String: Any])
+    {
+        guard let postUrl = URL(string: "\(baseURL)/vote") else {fatalError()}
         
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"

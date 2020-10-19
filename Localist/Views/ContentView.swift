@@ -10,71 +10,76 @@ struct ContentView : View {
     @State var users: [User] = []
     
     var body: some View {
-        VStack {
-            if showLoginView
-            {
-                FeedView()
-            }
-            else
-            {
-                Form {
-                    HStack {
-                        Image(systemName: "person")
-                        TextField("Username", text: self.$username).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                    }
-                    .padding()
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 2).foregroundColor(Color.black))
-                    HStack {
-                        Image(systemName: "lock")
-                        SecureField("Password", text: self.$password)
-                    }
-                    .padding()
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 2).foregroundColor(Color.black))
-                    
-                    Button(action: {
-                        API().getUser(username: username, password:  password){ (users) in
-                            self.users = users
-                            
-                            if(self.users.count != 0)
-                            {
-                                self.showLoginView = true
-                                
-                                let defaults = UserDefaults.standard
-                                defaults.set(username, forKey: defaultsKeys.username)
-                                defaults.set(password, forKey: defaultsKeys.password)
-                                defaults.set(self.users[0].email, forKey: defaultsKeys.email)
-                                defaults.set(self.users[0].date_joined, forKey: defaultsKeys.date_joined)
-                            }
-                            else
-                            {
-                                self.showingAlert = true
-                            }
-                        }
-                    }, label: {
-                        Text("Login")
-                    })
-                    .alert(isPresented: $showingAlert)
-                    {
-                        Alert(title: Text("Invalid Login"), message: Text("Please enter valid login"), dismissButton: .default(Text("Ok")))
-                    }
-                }
-                
-                NavigationLink(destination: CreateUserView())
+        NavigationView
+        {
+            VStack {
+                if showLoginView
                 {
-                    Text("Create User")
+                    FeedView()
+                }
+                else
+                {
+                    Form {
+                        HStack {
+                            Image(systemName: "person")
+                            TextField("Username", text: self.$username).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                        }
+                        .padding()
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 2).foregroundColor(Color.black))
+                        HStack {
+                            Image(systemName: "lock")
+                            SecureField("Password", text: self.$password)
+                        }
+                        .padding()
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 2).foregroundColor(Color.black))
+                        
+                        Button(action: {
+                            API().getUser(username: username, password:  password){ (users) in
+                                self.users = users
                                 
+                                if(self.users.count != 0)
+                                {
+                                    self.showLoginView = true
+                                    
+                                    let defaults = UserDefaults.standard
+                                    defaults.set(username, forKey: defaultsKeys.username)
+                                    defaults.set(password, forKey: defaultsKeys.password)
+                                    defaults.set(self.users[0].email, forKey: defaultsKeys.email)
+                                    defaults.set(self.users[0].date_joined, forKey: defaultsKeys.date_joined)
+                                }
+                                else
+                                {
+                                    self.showingAlert = true
+                                }
+                            }
+                        }, label: {
+                            Text("Login")
+                        })
+                        .alert(isPresented: $showingAlert)
+                        {
+                            Alert(title: Text("Invalid Login"), message: Text("Please enter valid login"), dismissButton: .default(Text("Ok")))
+                        }
+                    }
+                    
+                    NavigationLink(destination: CreateUserView())
+                    {
+                        Text("Create User")
+                                    
+                    }
                 }
             }
-        }
-            
+        }           
     }
     
-    private func isUserInformationValid() -> Bool {
-        if username.isEmpty {
+    private func isUserInformationValid() -> Bool
+    {
+        if username.isEmpty
+        {
             return false
         }
         
-        if password.isEmpty {
+        if password.isEmpty
+        {
             return false
         }
         
@@ -82,8 +87,10 @@ struct ContentView : View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
+struct ContentView_Previews: PreviewProvider
+{
+    static var previews: some View
+    {
         ContentView()
     }
 }

@@ -1,11 +1,3 @@
-//
-//  Listing.swift
-//  Reddit
-//
-//  Created by Carson Katri on 7/21/19.
-//  Copyright © 2019 Carson Katri. All rights reserved.
-//
-
 import Foundation
 
 /// Root of Reddit API response
