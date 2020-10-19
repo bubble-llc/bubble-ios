@@ -34,7 +34,6 @@ struct PostDetailView: View {
                         self.comments = comments
                     }
                 }
-                FooterView(post: post)
             }
     }
 }

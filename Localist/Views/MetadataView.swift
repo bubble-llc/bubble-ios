@@ -12,6 +12,7 @@ struct MetadataView: View {
     @State var direction:Int = 0
     @State var upColor = Color.gray
     @State var downColor = Color.gray
+    @State var isVoted = false
     
     init(post: Post) {
         self.post = post
@@ -19,6 +20,7 @@ struct MetadataView: View {
         
         if post.is_voted == true
         {
+            self._isVoted = State(initialValue: true)
             if post.prev_vote == 1
             {
                 self._isUp = State(initialValue: true)
@@ -68,9 +70,12 @@ struct MetadataView: View {
                     "username": username,
                     "post_id": self.post.id,
                     "direction": self.direction,
-                    "is_voted": self.post.is_voted,
+                    "is_voted": self.isVoted,
                     "global_direction": self.globalDirection
                 ]
+                
+                self.isVoted = true
+                
                 API().submitVote(submitted: voteObject)
             })
             {
@@ -109,9 +114,12 @@ struct MetadataView: View {
                     "username": username,
                     "post_id": self.post.id,
                     "direction": self.direction,
-                    "is_voted": self.post.is_voted,
+                    "is_voted": self.isVoted,
                     "global_direction": self.globalDirection
                 ]
+                
+                self.isVoted = true
+                
                 API().submitVote(submitted: voteObject)
             })
             {
@@ -124,6 +132,11 @@ struct MetadataView: View {
                 Image(systemName: "text.bubble")
                 Text(String(post.comments))
             }.foregroundColor(Color.primary).buttonStyle(BorderlessButtonStyle())
+            
+            NavigationLink(destination: SubmitCommentView(post: post), isActive:$showCommentForm)
+            {
+                EmptyView()
+            }
         }
     }
 }
