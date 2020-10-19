@@ -23,7 +23,7 @@ struct PostDetailView: View {
                 Divider()
                 
                 //Removed spacing from MetadataView in this context to keep it centered rather than offset on the right side.
-                MetadataView(post: post, spaced: false)
+                MetadataView(post: post)
                 
                 List(comments){ comment in
                     CommentsView(comment: comment)
