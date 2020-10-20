@@ -22,7 +22,7 @@ struct FeedView: View {
     {
         ZStack{
             NavigationView {
-                PostList()
+                PostList(type: "feed")
                     .navigationBarTitle(Text("Feed"), displayMode: .inline)
                     .navigationBarItems(
                         leading: HStack
