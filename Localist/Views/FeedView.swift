@@ -20,9 +20,11 @@ struct FeedView: View {
     
     var body: some View
     {
+        let userauth = UserAuth()
+        
         ZStack{
-            NavigationView {
                 PostList()
+                    .navigationBarBackButtonHidden(true)
                     .navigationBarTitle(Text("Feed"), displayMode: .inline)
                     .navigationBarItems(
                         leading: HStack
@@ -31,14 +33,23 @@ struct FeedView: View {
                                 
                                 Image(systemName: "gearshape.fill").resizable().frame(width: 20, height: 20)
                             }).foregroundColor(.black)
-                            
+                            if userauth.isLoggedin{
                             NavigationLink(destination: SubmitPostView(), isActive: $showSubmitPost)
                             {
                                 EmptyView()
                             }
+                        }
+                            else{
+                                NavigationLink(destination: LoginView(), isActive: $showSubmitPost)
+                                {
+                                    EmptyView()
+                                }
+                            }
                         },
                         trailing: HStack
                         {
+                            if userauth.isLoggedin{
+                            
                             Button(action: {self.showSubmitPost.toggle()})
                             {
                                 Image(systemName: "plus")
@@ -47,6 +58,12 @@ struct FeedView: View {
 //                                    Image(systemName: "arrow.up.arrow.down")
 //                                    Text(self.sortBy.rawValue)
 //                                }
+                            }//Will be login button if not logged in
+                            }
+                            else{
+                                NavigationLink(destination: LoginView()){
+                                    Text("Login")
+                                }
                             }
                         }
                     )
@@ -61,7 +78,7 @@ struct FeedView: View {
 //                            }
 //                        )
 //                    }
-            }
+            
             
             HStack{
                 menu(size: $size)
@@ -215,6 +232,8 @@ struct menu : View {
 
     var body : some
     View{
+        
+     let userauth = UserAuth()
         VStack
         {
             HStack
@@ -241,7 +260,7 @@ struct menu : View {
                 }
                 Spacer()
             }.padding(.leading, 20)
-            
+            if userauth.isLoggedin{
             HStack
             {
                 Button(action: goProfile)
@@ -274,14 +293,26 @@ struct menu : View {
                 Spacer()
             }.padding(.leading, 20)
             
-            
+            }
+            else{
+                HStack
+                {
+                    NavigationLink(destination:CreateUserView())
+                    {
+                        Image(systemName: "person.fill").resizable().frame(width: 25, height: 25).padding()
+                        Text("Create Account").fontWeight(.heavy)
+                    }
+                    Spacer()
+                }.padding(.leading, 20)
+            }
         }.frame(width: UIScreen.main.bounds.width / 1.6)
             .background(Color.white)
+        
     }
     
     func goHome() {
         if let window = UIApplication.shared.windows.first {
-            window.rootViewController = UIHostingController(rootView: FeedView())
+            window.rootViewController = UIHostingController(rootView: ContentView())
             window.makeKeyAndVisible()
         }
     }
@@ -299,6 +330,7 @@ struct menu : View {
             window.makeKeyAndVisible()
         }
     }
+    
     
     func goExit() {
         if let window = UIApplication.shared.windows.first {
