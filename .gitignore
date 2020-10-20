@@ -1,3 +1,5 @@
 .DS_Store
 
 Localist/Localist.xcodeproj
+Localist/Localist.xcworkspace
+Localist/Pods/Pods.xcodeproj
