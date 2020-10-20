@@ -85,7 +85,6 @@ func login(username: String, password: String, users: [User]) -> Bool{
             defaults.set(users[0].date_joined, forKey: defaultsKeys.date_joined)
             self.isLoggedin = true
             didLogin = true
-            print("PRINTING SELF.ISLOGGEDIN")
             print(self.isLoggedin)
         }
         else
@@ -94,7 +93,6 @@ func login(username: String, password: String, users: [User]) -> Bool{
             print("failed")
         }
     }
-    print("PRINTING AFTER FUNCTION CALL")
     print(self.isLoggedin)
     
     return self.isLoggedin
