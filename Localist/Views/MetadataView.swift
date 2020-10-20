@@ -64,7 +64,7 @@ struct MetadataView: View {
                 }
                 
                 let defaults = UserDefaults.standard
-                let username = defaults.string(forKey: defaultsKeys.keyOne)!
+                let username = defaults.string(forKey: defaultsKeys.username)!
                 let voteObject: [String: Any]  =
                 [
                     "username": username,
@@ -108,7 +108,7 @@ struct MetadataView: View {
                 }
                 
                 let defaults = UserDefaults.standard
-                let username = defaults.string(forKey: defaultsKeys.keyOne)!
+                let username = defaults.string(forKey: defaultsKeys.username)!
                 let voteObject: [String: Any]  =
                 [
                     "username": username,

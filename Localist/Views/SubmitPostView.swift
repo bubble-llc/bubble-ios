@@ -62,7 +62,7 @@ struct SubmitPostView: View {
                 Button(action:
                 {
                     let defaults = UserDefaults.standard
-                    let username = defaults.string(forKey: defaultsKeys.keyOne)!
+                    let username = defaults.string(forKey: defaultsKeys.username)!
                     let postObject: [String: Any]  =
                     [
                         "username": username,

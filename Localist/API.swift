@@ -6,7 +6,7 @@ class API {
     
     func getPosts(completion: @escaping ([Post]) ->()){
         let defaults = UserDefaults.standard
-        let username = defaults.string(forKey: defaultsKeys.keyOne)!
+        let username = defaults.string(forKey: defaultsKeys.username)!
         
         guard let url = URL(string: "\(baseURL)/feed?zipcode=78703&username=\(String(describing: username))") else {return}
         URLSession.shared.dataTask(with: url)
@@ -167,59 +167,18 @@ class API {
         task.resume()
     }
     
-    func validateUser(username: String, password: String) -> Bool
+    func getUser(username: String, password: String, completion: @escaping ([User]) ->())
     {
-        guard let postUrl = URL(string: "\(baseURL)/user?username=\(username)&password=\(password )") else {fatalError()}
-        
-        var result: Result<String?, NetworkError>!
-        var validUser = false
-        var request = URLRequest(url: postUrl)
-        
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        request.httpMethod = "GET"
-        request.allHTTPHeaderFields =
-        [
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        ]
-
-        URLSession.shared.dataTask(with: request)
-        { data, response, error in
+        guard let url = URL(string: "\(baseURL)/user?username=\(username)&password=\(password )") else {fatalError()}
+        URLSession.shared.dataTask(with: url)
+        { (data,_,_)in
             
-            if let data = data
+            let user = try! JSONDecoder().decode([User].self, from:data!)
+            DispatchQueue.main.async
             {
-                result = .success(String(data: data, encoding: .utf8))
+                completion(user)
             }
-            else
-            {
-                result = .failure(.server)
-            }
-            semaphore.signal()
         }.resume()
-        
-        _ = semaphore.wait(wallTimeout: .distantFuture)
-        switch result
-        {
-            case let .success(data):
-                if data != ""
-                {
-                    let user = convertStringToDictionary(text: data!)?["user"]
-                    let userData = user?.count
-                    if userData! == 1
-                    {
-                        validUser = true
-                        let defaults = UserDefaults.standard
-                        defaults.set(username, forKey: defaultsKeys.keyOne)
-                        defaults.set(password, forKey: defaultsKeys.keyTwo)
-                    }
-                }
-            case let .failure(error):
-                print(error)
-            case .none:
-                print("errpr")
-        }
-        return validUser
     }
 }
 

@@ -7,44 +7,65 @@ struct ContentView : View {
     @State private var status: Int = 0
     @State private var showingAlert = false
     @State var showLoginView: Bool = false
+    @State var showCreateUserView: Bool = false
+    @State var users: [User] = []
     
     var body: some View {
-        NavigationView {
-            VStack {
-                if showLoginView
+        if showLoginView
+        {
+            FeedView()
+        }
+        else if showCreateUserView
+        {
+            CreateUserView()
+        }
+        else
+        {
+            NavigationView
+            {
+                VStack
                 {
-                    FeedView().navigationBarTitle(Text("Feed"))
-                }
-                else
-                {
-                    Form
-                    {
-                        TextField("Username", text: self.$username).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                        SecureField("Password", text: self.$password)
+                    Form {
+                        HStack {
+                            Image(systemName: "person")
+                            TextField("Username", text: self.$username).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                        }
+                        .padding()
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 2).foregroundColor(Color.black))
+                        HStack {
+                            Image(systemName: "lock")
+                            SecureField("Password", text: self.$password)
+                        }
+                        .padding()
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 2).foregroundColor(Color.black))
                         
-                        if self.isUserInformationValid()
-                        {
-                            Button(action:
-                            {
-                                if API().validateUser(username: username, password:  password) == true
+                        Button(action: {
+                            API().getUser(username: username, password:  password){ (users) in
+                                self.users = users
+                                
+                                if(self.users.count != 0)
                                 {
                                     self.showLoginView = true
+                                    
+                                    let defaults = UserDefaults.standard
+                                    defaults.set(username, forKey: defaultsKeys.username)
+                                    defaults.set(password, forKey: defaultsKeys.password)
+                                    defaults.set(self.users[0].email, forKey: defaultsKeys.email)
+                                    defaults.set(self.users[0].date_joined, forKey: defaultsKeys.date_joined)
                                 }
                                 else
                                 {
                                     self.showingAlert = true
                                 }
-                            },
-                            label:
-                            {
-                                Text("Login")
-                            })
-                            .alert(isPresented: $showingAlert)
-                            {
-                                Alert(title: Text("Invalid Login"), message: Text("Please enter valid login"), dismissButton: .default(Text("Ok")))
                             }
+                        }, label: {
+                            Text("Login")
+                        })
+                        .alert(isPresented: $showingAlert)
+                        {
+                            Alert(title: Text("Invalid Login"), message: Text("Please enter valid login"), dismissButton: .default(Text("Ok")))
                         }
-                    }.navigationBarTitle(Text("Login"))
+                    }
                     
                     NavigationLink(destination: CreateUserView())
                     {
@@ -53,7 +74,6 @@ struct ContentView : View {
                     }
                 }
             }
-            
         }
     }
     
@@ -81,10 +101,11 @@ struct ContentView_Previews: PreviewProvider
     }
 }
 
-struct defaultsKeys
-{
-    static let keyOne = "firstStringKey"
-    static let keyTwo = "secondStringKey"
+struct defaultsKeys {
+    static let username = "username"
+    static let password = "password"
+    static let email = "email"
+    static let date_joined = "date_joined"
 }
 
 
