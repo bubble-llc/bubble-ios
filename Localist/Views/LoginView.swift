@@ -6,6 +6,9 @@ struct LoginView: View {
 @State private var password: String = ""
 @State private var showingAlert = false
 @State var users: [User] = []
+
+@Binding var loggedIn: Bool
+@Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
 var body: some View{
     VStack
@@ -25,21 +28,24 @@ var body: some View{
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 2).foregroundColor(Color.black))
 
                 Button(action: {
-                    let userauth = UserAuth()
-                    DispatchQueue.main.async
-                    {
-                    if userauth.login(username: self.username, password: self.password,users: users){
-                   
+                    API().getUser(username: username, password:  password){ (users) in
+                        self.users = users
                         
-                        if let window = UIApplication.shared.windows.first {
-                        window.rootViewController = UIHostingController(rootView: ContentView())
-                        window.makeKeyAndVisible()
-                            }
-                    }
-                    else{
-                        print("failed2")
-                    
-                    }
+                        if(self.users.count != 0)
+                        {
+                            
+                            let defaults = UserDefaults.standard
+                            defaults.set(username, forKey: defaultsKeys.username)
+                            defaults.set(password, forKey: defaultsKeys.password)
+                            defaults.set(self.users[0].email, forKey: defaultsKeys.email)
+                            defaults.set(self.users[0].date_joined, forKey: defaultsKeys.date_joined)
+                            self.loggedIn = true
+                            self.mode.wrappedValue.dismiss()
+                        }
+                        else
+                        {
+                            self.showingAlert = true
+                        }
                     }
                 }, label: {
                     Text("Login")

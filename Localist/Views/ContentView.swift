@@ -10,18 +10,31 @@ struct ContentView : View {
     @State var showLoginView: Bool = false
     @State var showCreateUserView: Bool = false
     @State var users: [User] = []
-    @EnvironmentObject var userAuth: UserAuth
-    @ObservedObject var globalLogin = GlobalLogin()
+    @State private var loggedIn: Bool
     
+    init() {
+        
+        let defaults = UserDefaults.standard
+        let username = defaults.string(forKey: defaultsKeys.username)!
+        print(username)
+        
+        if username != "username"
+        {
+            self._loggedIn = State(initialValue: true)
+        }
+        else
+        {
+            self._loggedIn = State(initialValue: false)
+        }
+        
+        print(self._loggedIn)
+    }
     var body: some View {
-        NavigationView(){
         
-            
-       let userauth = UserAuth()
-        
-                FeedView()
-
-        }//navigation view
+        NavigationView()
+        {
+            FeedView(loggedIn: self.$loggedIn)
+        }
     }
     
     private func isUserInformationValid() -> Bool
@@ -57,47 +70,44 @@ struct defaultsKeys {
 
 
 class UserAuth: ObservableObject {
+    let didChange = PassthroughSubject<UserAuth,Never>()
 
-  
-    
-  let didChange = PassthroughSubject<UserAuth,Never>()
+      // required to conform to protocol 'ObservableObject'
+    let willChange = PassthroughSubject<UserAuth,Never>()
 
-  // required to conform to protocol 'ObservableObject'
-  let willChange = PassthroughSubject<UserAuth,Never>()
-
-@State private var showingAlert = false
-   
-@Published var isLoggedin: Bool = false
-    
-func login(username: String, password: String, users: [User]) -> Bool{
-    var didLogin = false
- 
-    API().getUser(username: username, password:  password){ (users) in
+    @State private var showingAlert = false
+       
+    @Published var isLoggedin: Bool = false
         
-        
-        if(users.count != 0)
-        {
+    func login(username: String, password: String, users: [User]) -> Bool{
+     
+        API().getUser(username: username, password:  password){ (users) in
             
-            let defaults = UserDefaults.standard
-            defaults.set(username, forKey: defaultsKeys.username)
-            defaults.set(password, forKey: defaultsKeys.password)
-            defaults.set(users[0].email, forKey: defaultsKeys.email)
-            defaults.set(users[0].date_joined, forKey: defaultsKeys.date_joined)
-            self.isLoggedin = true
-            didLogin = true
-            print(self.isLoggedin)
+            
+            if(users.count != 0)
+            {
+                
+                let defaults = UserDefaults.standard
+                defaults.set(username, forKey: defaultsKeys.username)
+                defaults.set(password, forKey: defaultsKeys.password)
+                defaults.set(users[0].email, forKey: defaultsKeys.email)
+                defaults.set(users[0].date_joined, forKey: defaultsKeys.date_joined)
+                self.isLoggedin = true
+                print("failed1")
+                print(self.isLoggedin)
+            }
+            else
+            {
+                self.showingAlert = true
+                print("failed2")
+            }
+        
         }
-        else
-        {
-            self.showingAlert = true
-            print("failed")
-        }
+        
+        print(self.isLoggedin)
+        
+        return self.isLoggedin
     }
-    print(self.isLoggedin)
-    
-    return self.isLoggedin
-    
-  }
 
 
 
