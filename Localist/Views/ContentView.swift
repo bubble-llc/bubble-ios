@@ -13,6 +13,14 @@ struct ContentView : View {
     @State private var loggedIn: Bool
     
     init() {
+        let initialDefaults: NSDictionary =
+        [
+            "username": "username",
+            "password": "password",
+            "email": "email",
+            "date_joined": "date_joined",
+        ]
+        UserDefaults.standard.register(defaults: initialDefaults as! [String : Any])
         
         let defaults = UserDefaults.standard
         let username = defaults.string(forKey: defaultsKeys.username)!
