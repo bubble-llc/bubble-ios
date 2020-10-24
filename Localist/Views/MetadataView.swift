@@ -3,38 +3,18 @@ import SwiftUI
 struct MetadataView: View {
     var post: Post
     
+    @Binding var isUp: Bool
+    @Binding var isDown: Bool
+    @Binding var totalVotes: Int
+    @Binding var upColor: Color
+    @Binding var downColor: Color
+    @Binding var isVoted: Bool
+    
     @State private var showCommentForm: Bool = false
     @State var comments: [Comment] = []
-    @State var isUp = false
-    @State var isDown = false
-    @State var totalVotes:Int = 0
     @State var globalDirection:Int = 0
     @State var direction:Int = 0
-    @State var upColor = Color.gray
-    @State var downColor = Color.gray
-    @State var isVoted = false
-    
-    init(post: Post) {
-        self.post = post
-        self._totalVotes = State(initialValue: post.votes)
-        
-        if post.is_voted == true
-        {
-            self._isVoted = State(initialValue: true)
-            if post.prev_vote == 1
-            {
-                self._isUp = State(initialValue: true)
-                self._upColor = State(initialValue: Color.green)
-            }
-            else if post.prev_vote == -1
-            {
-                self._isDown = State(initialValue: true)
-                self._downColor = State(initialValue: Color.red)
-            }
-        }
-    }
-    
-    
+
     var body: some View {
         HStack
         {
