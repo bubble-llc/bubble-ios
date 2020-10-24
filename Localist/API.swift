@@ -20,22 +20,6 @@ class API {
         }.resume()
     }
     
-    func getUserLikedPosts(completion: @escaping ([Post]) ->()){
-        let defaults = UserDefaults.standard
-        let username = defaults.string(forKey: defaultsKeys.username)!
-        
-        guard let url = URL(string: "\(baseURL)/user_liked_post?username=\(String(describing: username))") else {return}
-        URLSession.shared.dataTask(with: url)
-        { (data,_,_) in
-            
-            let posts = try! JSONDecoder().decode([Post].self, from:data!)
-            DispatchQueue.main.async
-            {
-                completion(posts)
-            }
-        }.resume()
-    }
-    
     func submitPost(submitted: [String: Any]){
         guard let postUrl = URL(string: "\(baseURL)/add_post_to_category") else {fatalError()}
         
