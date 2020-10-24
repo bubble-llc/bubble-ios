@@ -23,7 +23,7 @@ struct FeedView: View {
     var body: some View
     {
         ZStack{
-                PostList()
+            PostList(type: "feed")
                     .navigationBarBackButtonHidden(true)
                     .navigationBarTitle(Text("Feed"), displayMode: .inline)
                     .navigationBarItems(
