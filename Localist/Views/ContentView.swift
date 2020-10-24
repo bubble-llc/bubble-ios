@@ -90,8 +90,6 @@ class UserAuth: ObservableObject {
     func login(username: String, password: String, users: [User]) -> Bool{
      
         API().getUser(username: username, password:  password){ (users) in
-            
-            
             if(users.count != 0)
             {
                 
@@ -101,28 +99,16 @@ class UserAuth: ObservableObject {
                 defaults.set(users[0].email, forKey: defaultsKeys.email)
                 defaults.set(users[0].date_joined, forKey: defaultsKeys.date_joined)
                 self.isLoggedin = true
-                print("failed1")
-                print(self.isLoggedin)
             }
             else
             {
                 self.showingAlert = true
-                print("failed2")
             }
         
         }
-        
-        print(self.isLoggedin)
-        
         return self.isLoggedin
     }
-
-
-
-    // willSet {
-    //       willChange.send(self)
-    // }
-  }
+}
 
 class GlobalLogin: ObservableObject {
   @Published var isLoggedIn = false
