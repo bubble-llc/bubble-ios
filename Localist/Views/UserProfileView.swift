@@ -2,6 +2,7 @@ import SwiftUI
 
 struct UserProfileView: View {
     @State var size = UIScreen.main.bounds.width / 1.6
+    @Binding var loggedIn: Bool
     
     var body: some View {
         ZStack{
@@ -32,7 +33,7 @@ struct UserProfileView: View {
             
             
             HStack{
-                menu(size: $size)
+                menu(size: $size, loggedIn: self.$loggedIn)
                 .cornerRadius(20)
                     .padding(.leading, -size)
                     .offset(x: -size)
@@ -42,11 +43,5 @@ struct UserProfileView: View {
             
         }.animation(.spring())
         
-    }
-}
-
-struct UserProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        UserProfileView()
     }
 }

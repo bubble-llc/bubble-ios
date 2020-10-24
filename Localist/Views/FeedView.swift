@@ -16,15 +16,15 @@ struct FeedView: View {
     @State private var showCreateUser: Bool = false
     @State private var post_content: String = ""
     
+    @Binding var loggedIn: Bool
     @State var size = UIScreen.main.bounds.width / 1.6
+    
     
     var body: some View
     {
-        let userauth = UserAuth()
-        
         ZStack{
-            NavigationView {
-                PostList(type: "feed")
+            PostList(type: "feed")
+                    .navigationBarBackButtonHidden(true)
                     .navigationBarTitle(Text("Feed"), displayMode: .inline)
                     .navigationBarItems(
                         leading: HStack
@@ -33,14 +33,14 @@ struct FeedView: View {
                                 
                                 Image(systemName: "gearshape.fill").resizable().frame(width: 20, height: 20)
                             }).foregroundColor(.black)
-                            if userauth.isLoggedin{
+                            if loggedIn{
                             NavigationLink(destination: SubmitPostView(), isActive: $showSubmitPost)
                             {
                                 EmptyView()
                             }
                         }
                             else{
-                                NavigationLink(destination: LoginView(), isActive: $showSubmitPost)
+                                NavigationLink(destination: LoginView(loggedIn: self.$loggedIn), isActive: $showSubmitPost)
                                 {
                                     EmptyView()
                                 }
@@ -48,20 +48,17 @@ struct FeedView: View {
                         },
                         trailing: HStack
                         {
-                            if userauth.isLoggedin{
-                            
-                            Button(action: {self.showSubmitPost.toggle()})
+                            if loggedIn
                             {
-                                Image(systemName: "plus")
-//                                HStack
-//                                {
-//                                    Image(systemName: "arrow.up.arrow.down")
-//                                    Text(self.sortBy.rawValue)
-//                                }
-                            }//Will be login button if not logged in
+                                Button(action: {self.showSubmitPost.toggle()})
+                                {
+                                    Image(systemName: "plus")
+                                }
                             }
-                            else{
-                                NavigationLink(destination: LoginView()){
+                            else
+                            {
+                                NavigationLink(destination: LoginView(loggedIn: self.$loggedIn))
+                                {
                                     Text("Login")
                                 }
                             }
@@ -81,7 +78,7 @@ struct FeedView: View {
             
             
             HStack{
-                menu(size: $size)
+                menu(size: $size, loggedIn: self.$loggedIn)
                 .cornerRadius(20)
                     .padding(.leading, -size)
                     .offset(x: -size)
@@ -92,11 +89,11 @@ struct FeedView: View {
     }
 }
 
-struct FeedView_Previews: PreviewProvider {
-    static var previews: some View {
-        FeedView()
-    }
-}
+//struct FeedView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FeedView()
+//    }
+//}
 
 struct UITextViewWrapper: UIViewRepresentable {
     typealias UIViewType = UITextView
@@ -229,11 +226,10 @@ struct MultilineTextField: View {
 
 struct menu : View {
     @Binding var size : CGFloat
+    @Binding var loggedIn: Bool
 
     var body : some
     View{
-        
-     let userauth = UserAuth()
         VStack
         {
             HStack
@@ -260,7 +256,7 @@ struct menu : View {
                 }
                 Spacer()
             }.padding(.leading, 20)
-            if userauth.isLoggedin{
+            if loggedIn{
             HStack
             {
                 Button(action: goProfile)
@@ -304,6 +300,7 @@ struct menu : View {
                     }
                     Spacer()
                 }.padding(.leading, 20)
+                Spacer()
             }
         }.frame(width: UIScreen.main.bounds.width / 1.6)
             .background(Color.white)
@@ -319,27 +316,27 @@ struct menu : View {
     
     func goProfile() {
         if let window = UIApplication.shared.windows.first {
-            window.rootViewController = UIHostingController(rootView: UserProfileView())
+            window.rootViewController = UIHostingController(rootView: UserProfileView(loggedIn: self.$loggedIn))
             window.makeKeyAndVisible()
         }
     }
     
     func goLiked() {
         if let window = UIApplication.shared.windows.first {
-            window.rootViewController = UIHostingController(rootView: UserLikedView())
+            window.rootViewController = UIHostingController(rootView: UserLikedView(loggedIn: self.$loggedIn))
             window.makeKeyAndVisible()
         }
     }
     
     
     func goExit() {
+        let defaults = UserDefaults.standard
+        defaults.set("username", forKey: defaultsKeys.username)
+        defaults.set("password", forKey: defaultsKeys.password)
+        
         if let window = UIApplication.shared.windows.first {
             window.rootViewController = UIHostingController(rootView: ContentView())
             window.makeKeyAndVisible()
-            
-            let defaults = UserDefaults.standard
-            defaults.set("", forKey: defaultsKeys.username)
-            defaults.set("", forKey: defaultsKeys.password)
         }
     }
 }

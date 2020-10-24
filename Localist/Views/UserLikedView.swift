@@ -12,7 +12,7 @@ struct UserLikedView: View {
     @State private var showSubmitPost: Bool = false
     @State private var showCreateUser: Bool = false
     @State private var post_content: String = ""
-    
+    @Binding var loggedIn: Bool
     @State var size = UIScreen.main.bounds.width / 1.6
     
     var body: some View {
@@ -38,7 +38,7 @@ struct UserLikedView: View {
             
             
             HStack{
-                menu(size: $size)
+                menu(size: $size, loggedIn: self.$loggedIn)
                 .cornerRadius(20)
                     .padding(.leading, -size)
                     .offset(x: -size)
@@ -47,11 +47,5 @@ struct UserLikedView: View {
             }
             
         }.animation(.spring())
-    }
-}
-
-struct UserLikedView_Previews: PreviewProvider {
-    static var previews: some View {
-        UserLikedView()
     }
 }

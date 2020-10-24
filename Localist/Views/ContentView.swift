@@ -10,18 +10,39 @@ struct ContentView : View {
     @State var showLoginView: Bool = false
     @State var showCreateUserView: Bool = false
     @State var users: [User] = []
-    @EnvironmentObject var userAuth: UserAuth
-    @ObservedObject var globalLogin = GlobalLogin()
+    @State private var loggedIn: Bool
     
+    init() {
+        let initialDefaults: NSDictionary =
+        [
+            "username": "username",
+            "password": "password",
+            "email": "email",
+            "date_joined": "date_joined",
+        ]
+        UserDefaults.standard.register(defaults: initialDefaults as! [String : Any])
+        
+        let defaults = UserDefaults.standard
+        let username = defaults.string(forKey: defaultsKeys.username)!
+        print(username)
+        
+        if username != "username"
+        {
+            self._loggedIn = State(initialValue: true)
+        }
+        else
+        {
+            self._loggedIn = State(initialValue: false)
+        }
+        
+        print(self._loggedIn)
+    }
     var body: some View {
-        NavigationView(){
         
-            
-       let userauth = UserAuth()
-        
-                FeedView()
-
-        }//navigation view
+        NavigationView()
+        {
+            FeedView(loggedIn: self.$loggedIn)
+        }
     }
     
     private func isUserInformationValid() -> Bool
@@ -57,54 +78,37 @@ struct defaultsKeys {
 
 
 class UserAuth: ObservableObject {
+    let didChange = PassthroughSubject<UserAuth,Never>()
 
-  
-    
-  let didChange = PassthroughSubject<UserAuth,Never>()
+      // required to conform to protocol 'ObservableObject'
+    let willChange = PassthroughSubject<UserAuth,Never>()
 
-  // required to conform to protocol 'ObservableObject'
-  let willChange = PassthroughSubject<UserAuth,Never>()
-
-@State private var showingAlert = false
-   
-@Published var isLoggedin: Bool = false
-    
-func login(username: String, password: String, users: [User]) -> Bool{
-    var didLogin = false
- 
-    API().getUser(username: username, password:  password){ (users) in
+    @State private var showingAlert = false
+       
+    @Published var isLoggedin: Bool = false
         
+    func login(username: String, password: String, users: [User]) -> Bool{
+     
+        API().getUser(username: username, password:  password){ (users) in
+            if(users.count != 0)
+            {
+                
+                let defaults = UserDefaults.standard
+                defaults.set(username, forKey: defaultsKeys.username)
+                defaults.set(password, forKey: defaultsKeys.password)
+                defaults.set(users[0].email, forKey: defaultsKeys.email)
+                defaults.set(users[0].date_joined, forKey: defaultsKeys.date_joined)
+                self.isLoggedin = true
+            }
+            else
+            {
+                self.showingAlert = true
+            }
         
-        if(users.count != 0)
-        {
-            
-            let defaults = UserDefaults.standard
-            defaults.set(username, forKey: defaultsKeys.username)
-            defaults.set(password, forKey: defaultsKeys.password)
-            defaults.set(users[0].email, forKey: defaultsKeys.email)
-            defaults.set(users[0].date_joined, forKey: defaultsKeys.date_joined)
-            self.isLoggedin = true
-            didLogin = true
-            print(self.isLoggedin)
         }
-        else
-        {
-            self.showingAlert = true
-            print("failed")
-        }
+        return self.isLoggedin
     }
-    print(self.isLoggedin)
-    
-    return self.isLoggedin
-    
-  }
-
-
-
-    // willSet {
-    //       willChange.send(self)
-    // }
-  }
+}
 
 class GlobalLogin: ObservableObject {
   @Published var isLoggedIn = false

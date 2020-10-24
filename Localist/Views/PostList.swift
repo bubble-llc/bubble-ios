@@ -2,8 +2,9 @@ import SwiftUI
 import Request
 
 struct PostList: View {
-    let type: String
     @State var posts: [Post] = []
+    
+    let type: String
     
     var body: some View
     {
@@ -15,18 +16,18 @@ struct PostList: View {
         }.onAppear
         {
             if(type == "feed"){
-                API().getPosts
-                {
-                    (posts) in self.posts = posts
-                }
-            }
-            else if(type == "liked"){
-                API().getUserLikedPosts
-                {
-                    (posts) in self.posts = posts
-                }
-            }
-        }
+                 API().getPosts
+                 {
+                     (posts) in self.posts = posts
+                 }
+             }
+             else if(type == "liked"){
+                 API().getUserLikedPosts
+                 {
+                     (posts) in self.posts = posts
+                 }
+             }
+}
     }
 }
 
