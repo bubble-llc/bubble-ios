@@ -185,17 +185,19 @@ class API {
     
     func getUser(username: String, password: String, completion: @escaping ([User]) ->())
     {
-        guard let url = URL(string: "\(baseURL)/user?username=\(username)&password=\(password )") else {fatalError()}
-        URLSession.shared.dataTask(with: url)
-        { (data,_,_)in
-            
-            let user = try! JSONDecoder().decode([User].self, from:data!)
-            DispatchQueue.main.async
-            {
-                completion(user)
-            }
-        }.resume()
-    }
+
+            guard let url = URL(string: "\(self.baseURL)/user?username=\(username)&password=\(password )") else {fatalError()}
+            URLSession.shared.dataTask(with: url)
+            { (data,_,_)in
+                
+                let user = try! JSONDecoder().decode([User].self, from:data!)
+                DispatchQueue.main.async
+                {
+                    completion(user)
+                }
+            }.resume()
+        }
+    
 }
 
 func convertStringToDictionary(text: String) -> [String:AnyObject]?

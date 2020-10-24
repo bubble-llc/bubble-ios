@@ -1,5 +1,6 @@
 import SwiftUI
 import Request
+import Combine
 
 struct ContentView : View {
     @State private var username: String = ""
@@ -9,72 +10,18 @@ struct ContentView : View {
     @State var showLoginView: Bool = false
     @State var showCreateUserView: Bool = false
     @State var users: [User] = []
+    @EnvironmentObject var userAuth: UserAuth
+    @ObservedObject var globalLogin = GlobalLogin()
     
     var body: some View {
-        if showLoginView
-        {
-            FeedView()
-        }
-        else if showCreateUserView
-        {
-            CreateUserView()
-        }
-        else
-        {
-            NavigationView
-            {
-                VStack
-                {
-                    Form {
-                        HStack {
-                            Image(systemName: "person")
-                            TextField("Username", text: self.$username).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                        }
-                        .padding()
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 2).foregroundColor(Color.black))
-                        HStack {
-                            Image(systemName: "lock")
-                            SecureField("Password", text: self.$password)
-                        }
-                        .padding()
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 2).foregroundColor(Color.black))
-                        
-                        Button(action: {
-                            API().getUser(username: username, password:  password){ (users) in
-                                self.users = users
-                                
-                                if(self.users.count != 0)
-                                {
-                                    self.showLoginView = true
-                                    
-                                    let defaults = UserDefaults.standard
-                                    defaults.set(username, forKey: defaultsKeys.username)
-                                    defaults.set(password, forKey: defaultsKeys.password)
-                                    defaults.set(self.users[0].email, forKey: defaultsKeys.email)
-                                    defaults.set(self.users[0].date_joined, forKey: defaultsKeys.date_joined)
-                                }
-                                else
-                                {
-                                    self.showingAlert = true
-                                }
-                            }
-                        }, label: {
-                            Text("Login")
-                        })
-                        .alert(isPresented: $showingAlert)
-                        {
-                            Alert(title: Text("Invalid Login"), message: Text("Please enter valid login"), dismissButton: .default(Text("Ok")))
-                        }
-                    }
-                    
-                    NavigationLink(destination: CreateUserView())
-                    {
-                        Text("Create User")
-                                    
-                    }
-                }
-            }
-        }
+        NavigationView(){
+        
+            
+       let userauth = UserAuth()
+        
+                FeedView()
+
+        }//navigation view
     }
     
     private func isUserInformationValid() -> Bool
@@ -109,3 +56,56 @@ struct defaultsKeys {
 }
 
 
+class UserAuth: ObservableObject {
+
+  
+    
+  let didChange = PassthroughSubject<UserAuth,Never>()
+
+  // required to conform to protocol 'ObservableObject'
+  let willChange = PassthroughSubject<UserAuth,Never>()
+
+@State private var showingAlert = false
+   
+@Published var isLoggedin: Bool = false
+    
+func login(username: String, password: String, users: [User]) -> Bool{
+    var didLogin = false
+ 
+    API().getUser(username: username, password:  password){ (users) in
+        
+        
+        if(users.count != 0)
+        {
+            
+            let defaults = UserDefaults.standard
+            defaults.set(username, forKey: defaultsKeys.username)
+            defaults.set(password, forKey: defaultsKeys.password)
+            defaults.set(users[0].email, forKey: defaultsKeys.email)
+            defaults.set(users[0].date_joined, forKey: defaultsKeys.date_joined)
+            self.isLoggedin = true
+            didLogin = true
+            print(self.isLoggedin)
+        }
+        else
+        {
+            self.showingAlert = true
+            print("failed")
+        }
+    }
+    print(self.isLoggedin)
+    
+    return self.isLoggedin
+    
+  }
+
+
+
+    // willSet {
+    //       willChange.send(self)
+    // }
+  }
+
+class GlobalLogin: ObservableObject {
+  @Published var isLoggedIn = false
+}
