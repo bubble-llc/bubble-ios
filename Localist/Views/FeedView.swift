@@ -23,8 +23,8 @@ struct FeedView: View {
         let userauth = UserAuth()
         
         ZStack{
-                PostList()
-                    .navigationBarBackButtonHidden(true)
+            NavigationView {
+                PostList(type: "feed")
                     .navigationBarTitle(Text("Feed"), displayMode: .inline)
                     .navigationBarItems(
                         leading: HStack

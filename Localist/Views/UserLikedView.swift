@@ -18,7 +18,7 @@ struct UserLikedView: View {
     var body: some View {
         ZStack{
             NavigationView {
-                PostList()
+                PostList(type: "liked")
                     .navigationBarTitle(Text("Liked Post"), displayMode: .inline)
                     .navigationBarItems(
                         leading: HStack
