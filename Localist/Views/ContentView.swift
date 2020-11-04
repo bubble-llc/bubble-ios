@@ -1,6 +1,79 @@
 import SwiftUI
 import Request
 import Combine
+import CoreLocation
+
+class LocationViewModel: NSObject, ObservableObject{
+  
+  @Published var userLatitude: String = "0"
+  @Published var userLongitude: String = "0"
+  
+  private let locationManager = CLLocationManager()
+  
+  override init() {
+    super.init()
+    self.locationManager.delegate = self
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+    
+    if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways){
+        self.retriveCurrentLocation()
+    }
+  }
+    
+    func retriveCurrentLocation(){
+        let status = CLLocationManager.authorizationStatus()
+        
+        if(status == .denied || status == .restricted || !CLLocationManager.locationServicesEnabled()){
+            return
+        }
+        
+        // if haven't show location permission dialog before, show it to user
+        if(status == .notDetermined){
+            locationManager.requestWhenInUseAuthorization()
+            
+            // if you want the app to retrieve location data even in background, use requestAlwaysAuthorization
+            locationManager.requestAlwaysAuthorization()
+            return
+        }
+        
+        // request location data for one-off usage
+        locationManager.requestLocation()
+    }
+}
+
+extension LocationViewModel: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        print("location manager authorization status changed")
+        
+        switch status {
+        case .authorizedAlways:
+            print("user allow app to get location data when app is active or in background")
+        case .authorizedWhenInUse:
+            print("user allow app to get location data only when app is active")
+        case .denied:
+            print("user tap 'disallow' on the permission dialog, cant get location data")
+        case .restricted:
+            print("parental control setting disallow location data")
+        case .notDetermined:
+            print("the location permission dialog haven't shown before, user haven't tap allow/disallow")
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        // the last element is the most recent location
+        if let location = locations.last {
+            self.userLatitude = "\(location.coordinate.latitude)"
+            self.userLongitude = "\(location.coordinate.longitude)"
+        }
+        print(self.userLatitude)
+        print(self.userLongitude)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        
+    }
+}
 
 struct ContentView : View {
     @State private var username: String = ""
@@ -11,8 +84,13 @@ struct ContentView : View {
     @State var showCreateUserView: Bool = false
     @State var users: [User] = []
     @State private var loggedIn: Bool
+    @State private var userLatitude: String = ""
+    @State private var userLongitude: String = ""
     
-    init() {
+    @ObservedObject var locationViewModel = LocationViewModel()
+    
+    init()
+    {
         let initialDefaults: NSDictionary =
         [
             "username": "username",
@@ -24,7 +102,6 @@ struct ContentView : View {
         
         let defaults = UserDefaults.standard
         let username = defaults.string(forKey: defaultsKeys.username)!
-        print(username)
         
         if username != "username"
         {
@@ -34,14 +111,12 @@ struct ContentView : View {
         {
             self._loggedIn = State(initialValue: false)
         }
-        
-        print(self._loggedIn)
     }
     var body: some View {
         
         NavigationView()
         {
-            FeedView(loggedIn: self.$loggedIn)
+            FeedView(loggedIn: self.$loggedIn, userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude)
         }
     }
     

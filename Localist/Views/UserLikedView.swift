@@ -12,13 +12,17 @@ struct UserLikedView: View {
     @State private var showSubmitPost: Bool = false
     @State private var showCreateUser: Bool = false
     @State private var post_content: String = ""
-    @Binding var loggedIn: Bool
+    
     @State var size = UIScreen.main.bounds.width / 1.6
+    
+    @Binding var loggedIn: Bool
+    @Binding var userLatitude: String
+    @Binding var userLongitude: String
     
     var body: some View {
         ZStack{
             NavigationView {
-                PostList(type: "liked")
+                PostList(type: "liked", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
                     .navigationBarTitle(Text("Liked Post"), displayMode: .inline)
                     .navigationBarItems(
                         leading: HStack
@@ -28,17 +32,13 @@ struct UserLikedView: View {
                                 Image(systemName: "gearshape.fill").resizable().frame(width: 20, height: 20)
                             }).foregroundColor(.black)
                             
-                            NavigationLink(destination: SubmitPostView(), isActive: $showSubmitPost)
-                            {
-                                EmptyView()
-                            }
                         }
                     )
             }
             
             
             HStack{
-                menu(size: $size, loggedIn: self.$loggedIn)
+                menu(size: $size, loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
                 .cornerRadius(20)
                     .padding(.leading, -size)
                     .offset(x: -size)

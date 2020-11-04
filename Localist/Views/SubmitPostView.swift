@@ -8,6 +8,9 @@ struct SubmitPostView: View {
     @State private var post_content_pressed: Bool = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    @Binding var userLatitude: String
+    @Binding var userLongitude: String
+    
     
     var body: some View
     {
@@ -69,7 +72,9 @@ struct SubmitPostView: View {
                         "category_name": "What's happening?",
                         "content": self.post_content,
                         "title": self.post_title,
-                        "zipcode": "78703"
+                        "zipcode": "78703",
+                        "latitude": userLatitude,
+                        "longitude": userLongitude
                     ]
                     API().submitPost(submitted: postObject)
                     self.presentationMode.wrappedValue.dismiss()

@@ -18,26 +18,18 @@
 		5CCF766724F85CC90040EC07 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF766624F85CC90040EC07 /* ContentView.swift */; };
 		5CCF766B24F85DB20040EC07 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF766924F85DB20040EC07 /* SpinnerView.swift */; };
 		5CCF766C24F85DB20040EC07 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF766A24F85DB20040EC07 /* WebView.swift */; };
-		5CCF766E24F85DEB0040EC07 /* PostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF766D24F85DEB0040EC07 /* PostList.swift */; };
 		5CCF767A24F860D30040EC07 /* MetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF767424F860D30040EC07 /* MetadataView.swift */; };
-		5CCF767B24F860D30040EC07 /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF767524F860D30040EC07 /* PostDetailView.swift */; };
 		5CCF767C24F860D30040EC07 /* PostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF767624F860D30040EC07 /* PostList.swift */; };
 		5CCF767E24F860D30040EC07 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF767824F860D30040EC07 /* PostView.swift */; };
-		5CCF768424F860E30040EC07 /* SortBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF768024F860E30040EC07 /* SortBy.swift */; };
 		5CCF768624F860E30040EC07 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF768224F860E30040EC07 /* Post.swift */; };
-		5CCF768724F860E30040EC07 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF768324F860E30040EC07 /* Listing.swift */; };
 		5CCF768A24F861060040EC07 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF768924F861060040EC07 /* Helpers.swift */; };
 		5CCF769124F865300040EC07 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CCF769324F865300040EC07 /* LaunchScreen.storyboard */; };
 		5CE12F3624F855E100C8D5D0 /* LocalistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE12F3524F855E100C8D5D0 /* LocalistTests.swift */; };
 		5CE12F4124F855E100C8D5D0 /* LocalistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE12F4024F855E100C8D5D0 /* LocalistUITests.swift */; };
 		5CE12F5F24F8565E00C8D5D0 /* SortBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE12F5124F8565E00C8D5D0 /* SortBy.swift */; };
-		5CE12F6124F8565E00C8D5D0 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE12F5324F8565E00C8D5D0 /* Post.swift */; };
 		5CE12F6224F8565E00C8D5D0 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE12F5424F8565E00C8D5D0 /* Listing.swift */; };
 		5CE12F6324F8565E00C8D5D0 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE12F5524F8565E00C8D5D0 /* API.swift */; };
-		5CE12F6524F8565E00C8D5D0 /* MetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE12F5824F8565E00C8D5D0 /* MetadataView.swift */; };
 		5CE12F6624F8565E00C8D5D0 /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE12F5924F8565E00C8D5D0 /* PostDetailView.swift */; };
-		5CE12F6824F8565E00C8D5D0 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE12F5B24F8565E00C8D5D0 /* PostView.swift */; };
-		5CE12F6924F8565E00C8D5D0 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE12F5D24F8565E00C8D5D0 /* Helpers.swift */; };
 		5CE12F8C24F857CE00C8D5D0 /* Json in Frameworks */ = {isa = PBXBuildFile; productRef = 5CE12F8B24F857CE00C8D5D0 /* Json */; };
 		5CE12F8E24F857CE00C8D5D0 /* Request in Frameworks */ = {isa = PBXBuildFile; productRef = 5CE12F8D24F857CE00C8D5D0 /* Request */; };
 		5CF2309D2501ACB1004A1C71 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF2309C2501ACB1004A1C71 /* CommentView.swift */; };
@@ -256,19 +248,19 @@
 		5CE12F5624F8565E00C8D5D0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5C75E5D7253F702200B97254 /* UserLikedView.swift */,
 				B0F547302523CE800009ABAE /* CommentsView.swift */,
-				5C75E5DC253F702B00B97254 /* UserProfileView.swift */,
 				5CCF766624F85CC90040EC07 /* ContentView.swift */,
-				B0858195251FA495001D067E /* FeedView.swift */,
 				B0858190251F8A61001D067E /* CreateUserView.swift */,
+				B0858195251FA495001D067E /* FeedView.swift */,
+				5C75E5E1253F7C2C00B97254 /* LoginView.swift */,
 				5CE12F5824F8565E00C8D5D0 /* MetadataView.swift */,
 				5CE12F5924F8565E00C8D5D0 /* PostDetailView.swift */,
-				5CE12F5B24F8565E00C8D5D0 /* PostView.swift */,
 				5CCF766D24F85DEB0040EC07 /* PostList.swift */,
-				5C755E742523A03F00267557 /* SubmitPostView.swift */,
+				5CE12F5B24F8565E00C8D5D0 /* PostView.swift */,
 				B0E5368D2533E08F009663E7 /* SubmitCommentView.swift */,
-				5C75E5E1253F7C2C00B97254 /* LoginView.swift */,
+				5C755E742523A03F00267557 /* SubmitPostView.swift */,
+				5C75E5D7253F702200B97254 /* UserLikedView.swift */,
+				5C75E5DC253F702B00B97254 /* UserProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -348,7 +340,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1200;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1210;
 				ORGANIZATIONNAME = Localist;
 				TargetAttributes = {
 					5CE12F1F24F855DD00C8D5D0 = {
@@ -430,26 +422,18 @@
 				5C75E5E2253F7C2C00B97254 /* LoginView.swift in Sources */,
 				5CCF767A24F860D30040EC07 /* MetadataView.swift in Sources */,
 				5CCF766724F85CC90040EC07 /* ContentView.swift in Sources */,
-				5CE12F6524F8565E00C8D5D0 /* MetadataView.swift in Sources */,
 				5CCF766324F85B140040EC07 /* SceneDelegate.swift in Sources */,
 				B0F547362523CFE40009ABAE /* Comment.swift in Sources */,
 				5C755E752523A03F00267557 /* SubmitPostView.swift in Sources */,
 				B0858196251FA495001D067E /* FeedView.swift in Sources */,
-				5CCF767B24F860D30040EC07 /* PostDetailView.swift in Sources */,
 				5C75E5D8253F702200B97254 /* UserLikedView.swift in Sources */,
 				5CCF768A24F861060040EC07 /* Helpers.swift in Sources */,
 				5CCF767E24F860D30040EC07 /* PostView.swift in Sources */,
 				5CCF767C24F860D30040EC07 /* PostList.swift in Sources */,
 				5CCF768624F860E30040EC07 /* Post.swift in Sources */,
 				5CE12F6224F8565E00C8D5D0 /* Listing.swift in Sources */,
-				5CCF768724F860E30040EC07 /* Listing.swift in Sources */,
 				5CCF766524F85C610040EC07 /* AppDelegate.swift in Sources */,
-				5CCF768424F860E30040EC07 /* SortBy.swift in Sources */,
 				5C73E7BD250866E600252D50 /* SubmitView.swift in Sources */,
-				5CE12F6124F8565E00C8D5D0 /* Post.swift in Sources */,
-				5CE12F6924F8565E00C8D5D0 /* Helpers.swift in Sources */,
-				5CCF766E24F85DEB0040EC07 /* PostList.swift in Sources */,
-				5CE12F6824F8565E00C8D5D0 /* PostView.swift in Sources */,
 				5CE12F6324F8565E00C8D5D0 /* API.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -621,6 +605,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Localist/Preview Content\"";
+				DEVELOPMENT_TEAM = 9CB7HM8CCZ;
 				ENABLE_PREVIEWS = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = Localist/Info.plist;
@@ -642,9 +627,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Localist/Preview Content\"";
+				DEVELOPMENT_TEAM = 9CB7HM8CCZ;
 				ENABLE_PREVIEWS = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = Localist/Info.plist;
@@ -656,6 +643,7 @@
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = localist.Localist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -687,7 +675,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9CB7HM8CCZ;
 				INFOPLIST_FILE = LocalistTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -726,7 +716,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9CB7HM8CCZ;
 				INFOPLIST_FILE = LocalistUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

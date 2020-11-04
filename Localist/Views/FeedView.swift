@@ -17,13 +17,15 @@ struct FeedView: View {
     @State private var post_content: String = ""
     
     @Binding var loggedIn: Bool
+    @Binding var userLatitude: String
+    @Binding var userLongitude: String
     @State var size = UIScreen.main.bounds.width / 1.6
     
     
     var body: some View
     {
         ZStack{
-            PostList(type: "feed")
+            PostList(type: "feed", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
                     .navigationBarBackButtonHidden(true)
                     .navigationBarTitle(Text("Feed"), displayMode: .inline)
                     .navigationBarItems(
@@ -33,13 +35,15 @@ struct FeedView: View {
                                 
                                 Image(systemName: "gearshape.fill").resizable().frame(width: 20, height: 20)
                             }).foregroundColor(.black)
-                            if loggedIn{
-                            NavigationLink(destination: SubmitPostView(), isActive: $showSubmitPost)
+                            if loggedIn
                             {
-                                EmptyView()
+                                NavigationLink(destination: SubmitPostView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude), isActive: $showSubmitPost)
+                                {
+                                    EmptyView()
+                                }
                             }
-                        }
-                            else{
+                            else
+                            {
                                 NavigationLink(destination: LoginView(loggedIn: self.$loggedIn), isActive: $showSubmitPost)
                                 {
                                     EmptyView()
@@ -78,7 +82,7 @@ struct FeedView: View {
             
             
             HStack{
-                menu(size: $size, loggedIn: self.$loggedIn)
+                menu(size: $size, loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
                 .cornerRadius(20)
                     .padding(.leading, -size)
                     .offset(x: -size)
@@ -227,6 +231,8 @@ struct MultilineTextField: View {
 struct menu : View {
     @Binding var size : CGFloat
     @Binding var loggedIn: Bool
+    @Binding var userLatitude: String
+    @Binding var userLongitude: String
 
     var body : some
     View{
@@ -316,14 +322,14 @@ struct menu : View {
     
     func goProfile() {
         if let window = UIApplication.shared.windows.first {
-            window.rootViewController = UIHostingController(rootView: UserProfileView(loggedIn: self.$loggedIn))
+            window.rootViewController = UIHostingController(rootView: UserProfileView(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
             window.makeKeyAndVisible()
         }
     }
     
     func goLiked() {
         if let window = UIApplication.shared.windows.first {
-            window.rootViewController = UIHostingController(rootView: UserLikedView(loggedIn: self.$loggedIn))
+            window.rootViewController = UIHostingController(rootView: UserLikedView(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
             window.makeKeyAndVisible()
         }
     }
