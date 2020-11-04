@@ -3,6 +3,8 @@ import SwiftUI
 struct UserProfileView: View {
     @State var size = UIScreen.main.bounds.width / 1.6
     @Binding var loggedIn: Bool
+    @Binding var userLatitude: String
+    @Binding var userLongitude: String
     
     var body: some View {
         ZStack{
@@ -33,7 +35,7 @@ struct UserProfileView: View {
             
             
             HStack{
-                menu(size: $size, loggedIn: self.$loggedIn)
+                menu(size: $size, loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
                 .cornerRadius(20)
                     .padding(.leading, -size)
                     .offset(x: -size)

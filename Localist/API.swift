@@ -4,11 +4,16 @@ class API {
     let baseURL = "https://dashboard.stocksandshare.com/chitchat"
     //let baseURL = "http://0.0.0.0:8000"
     
-    func getPosts(completion: @escaping ([Post]) ->()){
+    func getPosts(logitude: String, latitude: String, completion: @escaping ([Post]) ->()){
         let defaults = UserDefaults.standard
         let username = defaults.string(forKey: defaultsKeys.username)!
         
-        guard let url = URL(string: "\(baseURL)/feed?zipcode=78703&username=\(String(describing: username))") else {return}
+        var paramStr = ""
+        paramStr += "username=\(String(describing: username))&"
+        paramStr += "latitude=\(String(describing: latitude))&"
+        paramStr += "longitude=\(String(describing: logitude))"
+        
+        guard let url = URL(string: "\(baseURL)/feed?zipcode=78703&\(String(describing: paramStr))") else {return}
         URLSession.shared.dataTask(with: url)
         { (data,_,_) in
             

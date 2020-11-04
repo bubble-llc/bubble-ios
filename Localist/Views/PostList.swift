@@ -5,6 +5,8 @@ struct PostList: View {
     @State var posts: [Post] = []
     
     let type: String
+    @Binding var userLatitude: String
+    @Binding var userLongitude: String
     
     var body: some View
     {
@@ -13,7 +15,7 @@ struct PostList: View {
         }.onAppear
         {
             if(type == "feed"){
-                 API().getPosts
+                 API().getPosts(logitude: userLongitude, latitude: userLatitude)
                  {
                      (posts) in self.posts = posts
                  }
