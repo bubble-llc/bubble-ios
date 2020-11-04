@@ -11,10 +11,7 @@ struct PostList: View {
     var body: some View
     {
         List(posts){ post in
-             NavigationLink(destination: PostDetailView(post: post))
-             {
-                PostView(post: post)
-             }
+            PostView(post: post)
         }.onAppear
         {
             if(type == "feed"){
