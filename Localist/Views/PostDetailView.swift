@@ -3,7 +3,16 @@ import Request
 
 struct PostDetailView: View {
     let post: Post
+    
+    @Binding var isUp: Bool
+    @Binding var isDown: Bool
+    @Binding var totalVotes: Int
+    @Binding var upColor: Color
+    @Binding var downColor: Color
+    @Binding var isVoted: Bool
+    
     @State var comments: [Comment] = []
+    
     var body: some View {
             VStack
             {
@@ -23,7 +32,13 @@ struct PostDetailView: View {
                 Divider()
                 
                 //Removed spacing from MetadataView in this context to keep it centered rather than offset on the right side.
-                MetadataView(post: post)
+                MetadataView(post: post,
+                             isUp: self.$isUp,
+                             isDown: self.$isDown,
+                             totalVotes: self.$totalVotes,
+                             upColor: self.$upColor,
+                             downColor: self.$downColor,
+                             isVoted: self.$isVoted)
                 
                 List(comments){ comment in
                     CommentsView(comment: comment)
