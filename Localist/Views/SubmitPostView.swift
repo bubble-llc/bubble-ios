@@ -2,24 +2,32 @@ import SwiftUI
 import Request
 
 struct SubmitPostView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     @State private var post_title: String = "Enter your title"
     @State private var post_title_pressed: Bool = false
     @State private var post_content: String = "Write some content for your post"
     @State private var post_content_pressed: Bool = false
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @State private var selectedCategory = 4
+    @State private var categories = ["Deals", "Happy Hour", "Miscellaneous", "Recreation", "What's Happening?"]
     
     @Binding var userLatitude: String
     @Binding var userLongitude: String
-    
     
     var body: some View
     {
 
             Form {
-                Text("What's Happening?")
-                    .foregroundColor(Color.black)
-                    .font(.system(size:35))
-                    .frame(maxWidth: .infinity, alignment: .center)
+                HStack{
+                    Text("Category")
+                    Spacer()
+                    Picker(selection: $selectedCategory, label: Text("")) {
+                                ForEach(0 ..< categories.count) {
+                                   Text(self.categories[$0])
+                                }
+                             }
+                }
+                
                 if #available(iOS 14.0, *)
                 {
                     Text("Title").font(.headline)
@@ -69,7 +77,7 @@ struct SubmitPostView: View {
                     let postObject: [String: Any]  =
                     [
                         "username": username,
-                        "category_name": "What's happening?",
+                        "category_name": categories[selectedCategory],
                         "content": self.post_content,
                         "title": self.post_title,
                         "zipcode": "78703",
