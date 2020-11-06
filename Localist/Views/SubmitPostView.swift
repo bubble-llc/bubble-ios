@@ -9,7 +9,7 @@ struct SubmitPostView: View {
     @State private var post_content: String = "Write some content for your post"
     @State private var post_content_pressed: Bool = false
     @State private var selectedCategory = 4
-    @State private var categories = ["Deals", "Happy Hour", "Miscellaneous", "Recreation", "What's Happening?"]
+    @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
     
     @Binding var userLatitude: String
     @Binding var userLongitude: String

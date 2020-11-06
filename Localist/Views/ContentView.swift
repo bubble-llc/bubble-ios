@@ -171,7 +171,7 @@ struct PageView: View {
     @Binding var userLatitude: String
     @Binding var userLongitude: String
     
-    @State private var categories = ["Deals", "Happy Hour", "Miscellaneous", "Recreation", "What's Happening?"]
+    @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
     
     var body: some View {
         if #available(iOS 14.0, *) {
