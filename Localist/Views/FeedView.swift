@@ -16,10 +16,12 @@ struct FeedView: View {
     @State private var showCreateUser: Bool = false
     @State private var post_content: String = ""
     
+    @State var size = UIScreen.main.bounds.width / 1.6
+    
     @Binding var loggedIn: Bool
     @Binding var userLatitude: String
     @Binding var userLongitude: String
-    @State var size = UIScreen.main.bounds.width / 1.6
+    @Binding var category: String
     
     
     var body: some View
@@ -27,7 +29,7 @@ struct FeedView: View {
         ZStack{
             PostList(type: "feed", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
                     .navigationBarBackButtonHidden(true)
-                    .navigationBarTitle(Text("Feed"), displayMode: .inline)
+                    .navigationBarTitle(Text(category), displayMode: .inline)
                     .navigationBarItems(
                         leading: HStack
                         {
@@ -68,17 +70,6 @@ struct FeedView: View {
                             }
                         }
                     )
-//                    .actionSheet(isPresented: $showSortSheet)
-//                    {
-//                        ActionSheet(title: Text("Sort By:"), buttons: [SortBy.hot,SortBy.new, ].map
-//                            { method in
-//                                ActionSheet.Button.default(Text(method.rawValue.prefix(1).uppercased() + method.rawValue.dropFirst()))
-//                                {
-//                                    self.sortBy = method
-//                                }
-//                            }
-//                        )
-//                    }
             
             
             HStack{
@@ -92,12 +83,6 @@ struct FeedView: View {
         }.animation(.spring())
     }
 }
-
-//struct FeedView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FeedView()
-//    }
-//}
 
 struct UITextViewWrapper: UIViewRepresentable {
     typealias UIViewType = UITextView

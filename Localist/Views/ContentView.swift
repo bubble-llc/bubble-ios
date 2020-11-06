@@ -113,10 +113,32 @@ struct ContentView : View {
         }
     }
     var body: some View {
+//        ScrollView(.horizontal) {
+//            HStack(spacing: 20) {
+//                ForEach(0..<10) {
+//                    Text("Item \($0)")
+//                        .foregroundColor(.white)
+//                        .font(.largeTitle)
+//                        .frame(width: 200, height: 200)
+//                        .background(Color.red)
+//                }
+//            }
+//        }
+        
+//        ScrollView {
+//            HStack {
+//                PageView(loggedIn: self.$loggedIn, userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude)
+//            }
+//        }
         
         NavigationView()
         {
-            FeedView(loggedIn: self.$loggedIn, userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude)
+            ScrollView {
+                HStack {
+                    PageView(loggedIn: self.$loggedIn, userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude)
+                }
+            }
+            //FeedView(loggedIn: self.$loggedIn, userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude)
         }
     }
     
@@ -141,6 +163,31 @@ struct ContentView_Previews: PreviewProvider
     static var previews: some View
     {
         ContentView()
+    }
+}
+
+struct PageView: View {
+    @Binding var loggedIn: Bool
+    @Binding var userLatitude: String
+    @Binding var userLongitude: String
+    
+    @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
+    
+    var body: some View {
+        if #available(iOS 14.0, *) {
+            TabView {
+                ForEach(0 ..< categories.count) { i in
+                    ZStack {
+                        FeedView(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, category: self.$categories[i])
+                    }
+                    .clipShape(RoundedRectangle(cornerRadius: 10.0, style: .continuous))
+                }
+            }
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            .tabViewStyle(PageTabViewStyle())
+        } else {
+            // Fallback on earlier versions
+        }
     }
 }
 
