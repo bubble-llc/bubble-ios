@@ -22,7 +22,7 @@ struct UserLikedView: View {
     var body: some View {
         ZStack{
             NavigationView {
-                PostList(type: "liked", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
+                PostList(type: "liked", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, category: self.$userLongitude)
                     .navigationBarTitle(Text("Liked Post"), displayMode: .inline)
                     .navigationBarItems(
                         leading: HStack

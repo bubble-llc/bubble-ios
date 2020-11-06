@@ -27,9 +27,9 @@ struct FeedView: View {
     var body: some View
     {
         ZStack{
-            PostList(type: "feed", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
+            PostList(type: "feed", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, category: self.$category)
                     .navigationBarBackButtonHidden(true)
-                    .navigationBarTitle(Text(category), displayMode: .inline)
+                    .navigationBarTitle(Text("Feed"), displayMode: .inline)
                     .navigationBarItems(
                         leading: HStack
                         {
