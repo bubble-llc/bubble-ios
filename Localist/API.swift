@@ -7,7 +7,7 @@ class API {
     func getPosts(logitude: String, latitude: String, category: String, completion: @escaping ([Post]) ->()){
         let defaults = UserDefaults.standard
         let username = defaults.string(forKey: defaultsKeys.username)!
-        
+        print(category)
         var paramStr = ""
         paramStr += "username=\(String(describing: username))&"
         paramStr += "category_name=\(String(describing: category))&"
@@ -15,6 +15,7 @@ class API {
         paramStr += "longitude=\(String(describing: logitude))"
         
         guard let url = URL(string: "\(baseURL)/category?\(String(describing: paramStr))") else {return}
+        print(url)
         URLSession.shared.dataTask(with: url)
         { (data,_,_) in
             

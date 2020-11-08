@@ -23,7 +23,6 @@ struct FeedView: View {
     @Binding var userLongitude: String
     @Binding var category: String
     
-    
     var body: some View
     {
         ZStack{
@@ -34,8 +33,7 @@ struct FeedView: View {
                         leading: HStack
                         {
                             Button(action: {self.size = 10}, label: {
-                                
-                                Image(systemName: "gearshape.fill").resizable().frame(width: 20, height: 20)
+                                Image(systemName: "line.horizontal.3")
                             }).foregroundColor(.black)
                             if loggedIn
                             {
