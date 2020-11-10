@@ -14,6 +14,8 @@ class LocationViewModel: NSObject, ObservableObject{
     super.init()
     self.locationManager.delegate = self
     self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+    self.locationManager.requestWhenInUseAuthorization()
+    self.locationManager.requestAlwaysAuthorization()
     
     if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways){
         self.retriveCurrentLocation()
@@ -151,6 +153,7 @@ struct PageView: View {
     @Binding var loggedIn: Bool
     @Binding var userLatitude: String
     @Binding var userLongitude: String
+    @State var size = UIScreen.main.bounds.width / 1.6
     
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
     

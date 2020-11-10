@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Request
+import SlideOverCard
 
 struct FeedView: View {
     @State private var sortBy: SortBy = .hot
@@ -15,8 +16,8 @@ struct FeedView: View {
     @State private var showSubmitPost: Bool = false
     @State private var showCreateUser: Bool = false
     @State private var post_content: String = ""
-    
-    @State var size = UIScreen.main.bounds.width / 1.6
+    @State private var position = CardPosition.bottom
+    @State private var isMenu: Bool = false
     
     @Binding var loggedIn: Bool
     @Binding var userLatitude: String
@@ -26,13 +27,25 @@ struct FeedView: View {
     var body: some View
     {
         ZStack{
-            PostList(type: "feed", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, category: self.$category)
+            PostList(type: "feed", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, category: self.$category, loggedIn: self.$loggedIn)
                     .navigationBarBackButtonHidden(true)
                     .navigationBarTitle(Text("Feed"), displayMode: .inline)
                     .navigationBarItems(
                         leading: HStack
                         {
-                            Button(action: {self.size = 10}, label: {
+                            Button(action: {
+                                if self.isMenu == false
+                                {
+                                    self.position = CardPosition.top
+                                    self.isMenu = true
+                                }
+                                else
+                                {
+                                    self.position = CardPosition.bottom
+                                    self.isMenu = false
+                                }
+                                
+                            }, label: {
                                 Image(systemName: "line.horizontal.3")
                             }).foregroundColor(.black)
                             if loggedIn
@@ -68,18 +81,11 @@ struct FeedView: View {
                             }
                         }
                     )
-            
-            
-            HStack{
-                menu(size: $size, loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
-                .cornerRadius(20)
-                    .padding(.leading, -size)
-                    .offset(x: -size)
-                
-                Spacer()
-            }
+            menu(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, position: self.$position)
+
         }.animation(.spring())
     }
+    
 }
 
 struct UITextViewWrapper: UIViewRepresentable {
@@ -212,88 +218,73 @@ struct MultilineTextField: View {
 }
 
 struct menu : View {
-    @Binding var size : CGFloat
     @Binding var loggedIn: Bool
     @Binding var userLatitude: String
     @Binding var userLongitude: String
+    @Binding var position: CardPosition
+    
+    @State private var background = BackgroundStyle.solid
 
     var body : some
     View{
-        VStack
-        {
-            HStack
+        SlideOverCard(self.$position, backgroundStyle: self.$background) {
+            VStack
             {
-                Spacer()
-                Button(action:
-                {
-                    self.size =  UIScreen.main.bounds.width / 1.6
-                })
-                {
-                    // Change image to look like an exit
-                    Image(systemName: "house.fill").resizable().frame(width: 15, height: 15).padding()
-                }.background(Color.red)
-                    .foregroundColor(.white)
-                .clipShape(Circle())
-            }
-            
-            HStack
-            {
-                Button(action: goHome)
-                {
-                    Image(systemName: "house.fill").resizable().frame(width: 25, height: 25).padding()
-                    Text("Home").fontWeight(.heavy)
-                }
-                Spacer()
-            }.padding(.leading, 20)
-            if loggedIn{
-            HStack
-            {
-                Button(action: goProfile)
-                {
-                    Image(systemName: "person.fill").resizable().frame(width: 25, height: 25).padding()
-                    Text("Account").fontWeight(.heavy)
-                }
-                Spacer()
-            }.padding(.leading, 20)
-            
-            HStack
-            {
-                Button(action: goLiked)
-                {
-                    Image(systemName: "checkmark.rectangle.fill").resizable().frame(width: 25, height: 25).padding()
-                    Text("Liked").fontWeight(.heavy)
-                }
-                Spacer()
-            }.padding(.leading, 20)
-            
-            Spacer()
-            
-            HStack
-            {
-                Button(action: goExit)
-                {
-                    Image(systemName: "paperplane.fill").resizable().frame(width: 25, height: 25).padding()
-                    Text("Exit").fontWeight(.heavy)
-                }
-                Spacer()
-            }.padding(.leading, 20)
-            
-            }
-            else{
                 HStack
                 {
-                    NavigationLink(destination:CreateUserView())
+                    Button(action: goHome)
                     {
-                        Image(systemName: "person.fill").resizable().frame(width: 25, height: 25).padding()
-                        Text("Create Account").fontWeight(.heavy)
+                        Image(systemName: "house.fill").resizable().frame(width: 25, height: 25).padding()
+                        Text("Home").fontWeight(.heavy)
                     }
                     Spacer()
-                }.padding(.leading, 20)
-                Spacer()
+                }
+                if loggedIn{
+                HStack
+                {
+                    Button(action: goProfile)
+                    {
+                        Image(systemName: "person.fill").resizable().frame(width: 25, height: 25).padding()
+                        Text("Account").fontWeight(.heavy)
+                    }
+                    Spacer()
+                }
+
+                HStack
+                {
+                    Button(action: goLiked)
+                    {
+                        Image(systemName: "checkmark.rectangle.fill").resizable().frame(width: 25, height: 25).padding()
+                        Text("Liked").fontWeight(.heavy)
+                    }
+                    Spacer()
+                }
+                    
+                HStack
+                {
+                    Button(action: goExit)
+                    {
+                        Image(systemName: "paperplane.fill").resizable().frame(width: 25, height: 25).padding()
+                        Text("Exit").fontWeight(.heavy)
+                    }
+                    Spacer()
+                }
+
+                }
+                else{
+                    HStack
+                    {
+                        NavigationLink(destination:CreateUserView())
+                        {
+                            Image(systemName: "person.fill").resizable().frame(width: 25, height: 25).padding()
+                            Text("Create Account").fontWeight(.heavy)
+                        }
+                        Spacer()
+                    }
+                    Spacer()
+                }
             }
-        }.frame(width: UIScreen.main.bounds.width / 1.6)
-            .background(Color.white)
-        
+        }
     }
     
     func goHome() {

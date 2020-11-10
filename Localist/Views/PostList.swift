@@ -8,6 +8,7 @@ struct PostList: View {
     @Binding var userLatitude: String
     @Binding var userLongitude: String
     @Binding var category: String
+    @Binding var loggedIn: Bool
     
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
     

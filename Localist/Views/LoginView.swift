@@ -55,12 +55,6 @@ var body: some View{
                     Alert(title: Text("Invalid Login"), message: Text("Please enter valid login"), dismissButton: .default(Text("Ok")))
                 }
             }
-            
-            NavigationLink(destination: CreateUserView())
-            {
-                Text("Create User")
-                            
-            }
         }
     }
 }
