@@ -23,19 +23,17 @@ struct FeedView: View {
     @Binding var userLongitude: String
     @Binding var category: String
     
-    
     var body: some View
     {
         ZStack{
-            PostList(type: "feed", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
+            PostList(type: "feed", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, category: self.$category)
                     .navigationBarBackButtonHidden(true)
-                    .navigationBarTitle(Text(category), displayMode: .inline)
+                    .navigationBarTitle(Text("Feed"), displayMode: .inline)
                     .navigationBarItems(
                         leading: HStack
                         {
                             Button(action: {self.size = 10}, label: {
-                                
-                                Image(systemName: "gearshape.fill").resizable().frame(width: 20, height: 20)
+                                Image(systemName: "line.horizontal.3")
                             }).foregroundColor(.black)
                             if loggedIn
                             {
