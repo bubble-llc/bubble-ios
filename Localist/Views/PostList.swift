@@ -20,7 +20,7 @@ struct PostList: View {
             Text(category)
         }
         List(posts){ post in
-            PostView(post: post)
+            PostView(post: post, loggedIn: self.$loggedIn)
         }.onAppear
         {
             if(type == "feed"){

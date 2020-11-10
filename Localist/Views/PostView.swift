@@ -5,6 +5,7 @@ struct PostView: View
 {
     let post: Post
     
+    @Binding var loggedIn: Bool
     @State var isUp = false
     @State var isDown = false
     @State var totalVotes:Int = 0
@@ -12,9 +13,11 @@ struct PostView: View
     @State var downColor = Color.gray
     @State var isVoted = false
     
-    init(post: Post) {
+    init(post: Post, loggedIn: Binding<Bool>) {
         self.post = post
+        self._loggedIn = loggedIn
         self._totalVotes = State(initialValue: post.votes)
+        
         
         if post.is_voted == true
         {
@@ -35,6 +38,7 @@ struct PostView: View
     var body: some View
     {
         NavigationLink(destination: PostDetailView( post: post,
+                                                    loggedIn: self.$loggedIn,
                                                     isUp: self.$isUp,
                                                     isDown: self.$isDown,
                                                     totalVotes: self.$totalVotes,
@@ -59,7 +63,13 @@ struct PostView: View
                 {
                     Text(post.content)
                 }
+                //This is where we show the metadata at the bottom of each post in the feedView
+                //Removing this would show posts without any votes/comments
+                
+           
+                
                 MetadataView(post: post,
+                             loggedIn: self.$loggedIn,
                              isUp: self.$isUp,
                              isDown: self.$isDown,
                              totalVotes: self.$totalVotes,
@@ -67,6 +77,7 @@ struct PostView: View
                              downColor: self.$downColor,
                              isVoted: self.$isVoted)
                     .font(.caption)
+                
             }
         }
     }

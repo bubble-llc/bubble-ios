@@ -3,6 +3,7 @@ import SwiftUI
 struct MetadataView: View {
     var post: Post
     
+    @Binding var loggedIn: Bool
     @Binding var isUp: Bool
     @Binding var isDown: Bool
     @Binding var totalVotes: Int
@@ -20,6 +21,7 @@ struct MetadataView: View {
         {
             Button(action:
             {
+            if loggedIn{
                 if self.isUp == false && self.isDown == false
                 {
                     self.totalVotes += 1
@@ -57,13 +59,16 @@ struct MetadataView: View {
                 self.isVoted = true
                 
                 API().submitVote(submitted: voteObject)
+               }//end isLoggedInCheck
             })
             {
                 Image(systemName: "arrow.up")
             }.foregroundColor(self.upColor).buttonStyle(BorderlessButtonStyle())
             
+        
             Button(action:
             {
+            if loggedIn{
                 if self.isDown == false && self.isUp == false
                 {
                     self.totalVotes -= 1
@@ -101,6 +106,7 @@ struct MetadataView: View {
                 self.isVoted = true
                 
                 API().submitVote(submitted: voteObject)
+               }//end isLoggedInCheck2
             })
             {
                 Image(systemName: "arrow.down")
@@ -112,11 +118,13 @@ struct MetadataView: View {
                 Image(systemName: "text.bubble")
                 Text(String(post.comments))
             }.foregroundColor(Color.primary).buttonStyle(BorderlessButtonStyle())
-            
-            NavigationLink(destination: SubmitCommentView(post: post), isActive:$showCommentForm)
-            {
-                EmptyView()
-            }
+            if loggedIn{
+                NavigationLink(destination: SubmitCommentView(post: post), isActive:$showCommentForm)
+                {
+                    EmptyView()
+                }
+                
+            }//isLoggedInCommentCheck3
         }
     }
 }
