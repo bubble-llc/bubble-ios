@@ -11,8 +11,8 @@ struct LoginView: View {
 @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
 var body: some View{
-    VStack
-    {
+        VStack
+        {
             Form {
                 HStack {
                     Image(systemName: "person")

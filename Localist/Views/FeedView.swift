@@ -34,6 +34,7 @@ struct FeedView: View {
                         leading: HStack
                         {
                             Button(action: {
+                                print(category)
                                 if self.isMenu == false
                                 {
                                     self.position = CardPosition.top

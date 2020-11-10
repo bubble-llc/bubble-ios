@@ -5,6 +5,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // Override point for customization after application launch
+        let initialDefaults: NSDictionary =
+        [
+            "username": "username",
+            "password": "password",
+            "email": "email",
+            "date_joined": "date_joined",
+        ]
+        UserDefaults.standard.register(defaults: initialDefaults as! [String : Any])
         return true
     }
 
