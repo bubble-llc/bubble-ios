@@ -1,7 +1,9 @@
 import SwiftUI
+import SlideOverCard
 
 struct UserProfileView: View {
-    @State var size = UIScreen.main.bounds.width / 1.6
+    @State private var position = CardPosition.bottom
+    
     @Binding var loggedIn: Bool
     @Binding var userLatitude: String
     @Binding var userLongitude: String
@@ -25,25 +27,15 @@ struct UserProfileView: View {
                 }.navigationBarTitle("Profile", displayMode: .inline)
                     .navigationBarItems(leading: Button(action: {
                         
-                        self.size = 10
+                        self.position = CardPosition.top
                         
                     }, label: {
                         
-                        Image(systemName: "gearshape.fill").resizable().frame(width: 20, height: 20)
+                        Image(systemName: "line.horizontal.3")
                     }).foregroundColor(.black))
             }
-            
-            
-            HStack{
-                menu(size: $size, loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
-                .cornerRadius(20)
-                    .padding(.leading, -size)
-                    .offset(x: -size)
-                
-                Spacer()
-            }
-            
         }.animation(.spring())
+        menu(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, position: self.$position)
         
     }
 }

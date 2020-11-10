@@ -4,12 +4,14 @@ import Request
 struct SubmitPostView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State private var post_title: String = "Enter your title"
+    @State private var post_title: String = "Location of post"
     @State private var post_title_pressed: Bool = false
     @State private var post_content: String = "Write some content for your post"
     @State private var post_content_pressed: Bool = false
     @State private var selectedCategory = 4
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
+    @State private var showingAlert = false
+    @State private var errorMessage = ""
     
     @Binding var userLatitude: String
     @Binding var userLongitude: String
@@ -30,7 +32,7 @@ struct SubmitPostView: View {
                 
                 if #available(iOS 14.0, *)
                 {
-                    Text("Title").font(.headline)
+                    Text("Where").font(.headline)
                         .foregroundColor(Color.blue)
                     TextEditor(text: self.$post_title)
                         .padding()
@@ -40,7 +42,7 @@ struct SubmitPostView: View {
                         .multilineTextAlignment(.leading)
                         .onTapGesture {
                             if !self.post_title_pressed{
-                                self.post_title = " "
+                                self.post_title = ""
                                 self.post_title_pressed = true
                             }
                                
@@ -57,7 +59,7 @@ struct SubmitPostView: View {
                         .multilineTextAlignment(.leading)
                         .onTapGesture {
                             if !self.post_content_pressed{
-                                self.post_content = " "
+                                self.post_content = ""
                                 self.post_content_pressed = true
                             }
                                
@@ -74,22 +76,50 @@ struct SubmitPostView: View {
                 {
                     let defaults = UserDefaults.standard
                     let username = defaults.string(forKey: defaultsKeys.username)!
-                    let postObject: [String: Any]  =
-                    [
-                        "username": username,
-                        "category_name": categories[selectedCategory],
-                        "content": self.post_content,
-                        "title": self.post_title,
-                        "zipcode": "78703",
-                        "latitude": userLatitude,
-                        "longitude": userLongitude
-                    ]
-                    API().submitPost(submitted: postObject)
-                    self.presentationMode.wrappedValue.dismiss()
+                    var formatted_category = categories[selectedCategory]
+                    if formatted_category == "Happy Hour"
+                    {
+                        formatted_category = "Happy_Hour"
+                    }
+                    else if formatted_category == "What's Happening?"
+                    {
+                        formatted_category = "What's_Happening?"
+                    }
+                    
+                    if post_title == "" || post_title == "Location of post"
+                    {
+                        self.showingAlert = true
+                        self.errorMessage = "Enter in value for Where"
+                    }
+                    
+                    if post_content == "" || post_content == "Write some content for your post"
+                    {
+                        self.showingAlert = true
+                        self.errorMessage = "Enter in value for Content"
+                    }
+                    
+                    if !showingAlert
+                    {
+                        let postObject: [String: Any]  =
+                        [
+                            "username": username,
+                            "category_name": formatted_category,
+                            "content": self.post_content,
+                            "title": self.post_title,
+                            "latitude": userLatitude,
+                            "longitude": userLongitude
+                        ]
+                        API().submitPost(submitted: postObject)
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
                     
                 })
                 {
                     Text("Submit")
+                }
+                .alert(isPresented: $showingAlert)
+                {
+                    Alert(title: Text("Missing Arguments"), message: Text(self.errorMessage), dismissButton: .default(Text("Ok")))
                 }
             }
             .foregroundColor(Color.blue)

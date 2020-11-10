@@ -11,8 +11,8 @@ struct LoginView: View {
 @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
 var body: some View{
-    VStack
-    {
+        VStack
+        {
             Form {
                 HStack {
                     Image(systemName: "person")
@@ -54,12 +54,6 @@ var body: some View{
                 {
                     Alert(title: Text("Invalid Login"), message: Text("Please enter valid login"), dismissButton: .default(Text("Ok")))
                 }
-            }
-            
-            NavigationLink(destination: CreateUserView())
-            {
-                Text("Create User")
-                            
             }
         }
     }

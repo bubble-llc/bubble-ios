@@ -4,6 +4,7 @@ import Request
 struct PostView: View
 {
     let post: Post
+    
     @State var isUp = false
     @State var isDown = false
     @State var totalVotes:Int = 0
@@ -44,9 +45,16 @@ struct PostView: View
         {
             VStack(alignment: .leading)
             {
-                Text(post.title)
-                    .font(.headline)
-                    .lineLimit(1)
+                HStack{
+                    Text(post.username)
+                        .foregroundColor(Color.gray)
+                    Spacer()
+                    Text(post.title)
+                        .font(.headline)
+                        .lineLimit(1)
+                    Spacer()
+                    Spacer()
+                }
                 Group
                 {
                     Text(post.content)

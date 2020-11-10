@@ -1,8 +1,8 @@
 import Foundation
 
 class API {
-    //let baseURL = "https://dashboard.stocksandshare.com/chitchat"
-    let baseURL = "http://0.0.0.0:8000"
+    let baseURL = "https://dashboard.stocksandshare.com/chitchat"
+    //let baseURL = "http://0.0.0.0:8000"
     
     func getPosts(logitude: String, latitude: String, category: String, completion: @escaping ([Post]) ->()){
         let defaults = UserDefaults.standard
@@ -10,9 +10,7 @@ class API {
         print(category)
         var paramStr = ""
         paramStr += "username=\(String(describing: username))&"
-        paramStr += "category_name=\(String(describing: category))&"
-        paramStr += "latitude=\(String(describing: latitude))&"
-        paramStr += "longitude=\(String(describing: logitude))"
+        paramStr += "category_name=\(String(describing: category))"
         
         guard let url = URL(string: "\(baseURL)/category?\(String(describing: paramStr))") else {return}
         print(url)
