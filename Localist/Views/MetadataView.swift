@@ -125,6 +125,9 @@ struct MetadataView: View {
                 }
                 
             }//isLoggedInCommentCheck3
+            Spacer()
+            //print(post.date)
+            Text(post.date_created)
         }
     }
 }
