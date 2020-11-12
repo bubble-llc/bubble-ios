@@ -261,6 +261,19 @@ struct menu : View {
                     Spacer()
                 }
                     
+                    
+                HStack
+                {
+                    NavigationLink(destination: ReportView(loggedIn: self.$loggedIn))
+                    {
+                        Image(systemName: "envelope.open.fill").resizable().frame(width: 25, height: 25).padding()
+                        Text("Report Issue").fontWeight(.heavy)
+                    }
+                        
+                    
+                    Spacer()
+                }
+                    
                 HStack
                 {
                     Button(action: goExit)
@@ -309,7 +322,12 @@ struct menu : View {
         }
     }
     
-    
+    func goReport() {
+        if let window = UIApplication.shared.windows.first {
+            window.rootViewController = UIHostingController(rootView: ReportView(loggedIn: self.$loggedIn))
+            window.makeKeyAndVisible()
+        }
+    }
     func goExit() {
         let defaults = UserDefaults.standard
         defaults.set("username", forKey: defaultsKeys.username)
