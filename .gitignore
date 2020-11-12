@@ -1,5 +1,7 @@
 .DS_Store
 
-Localist/Localist.xcodeproj
-Localist/Localist.xcworkspace
-Localist/Pods/Pods.xcodeproj
+Bubble/Bubble.xcodeproj
+Bubble/Bubble.xcworkspace
+Bubble/Pods/Pods.xcodeproj
+Bubble/Bubble.xcodeproj/*
+Bubble/Bubble.xcworkspace/*
