@@ -1,3 +1,3 @@
-# localist
-Localist front end source code
+# bubble
+Bubble iOS app source code
 
