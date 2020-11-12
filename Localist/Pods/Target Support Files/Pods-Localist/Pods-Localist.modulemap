@@ -1,6 +1,0 @@
-framework module Pods_Localist {
-  umbrella header "Pods-Localist-umbrella.h"
-
-  export *
-  module * { export * }
-}
