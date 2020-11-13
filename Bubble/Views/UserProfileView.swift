@@ -10,7 +10,7 @@ struct UserProfileView: View {
     
     var body: some View {
         ZStack{
-            NavigationView{
+            
                 
                 VStack
                 {
@@ -25,17 +25,17 @@ struct UserProfileView: View {
                     Text("Email: \(email)")
                     Text("Date Joined: \(date_joined)")
                 }.navigationBarTitle("Profile", displayMode: .inline)
-                    .navigationBarItems(leading: Button(action: {
-                        
-                        self.position = CardPosition.top
-                        
-                    }, label: {
-                        
-                        Image(systemName: "line.horizontal.3")
-                    }).foregroundColor(.black))
-            }
+//                    .navigationBarItems(leading: Button(action: {
+//                        
+//                        self.position = CardPosition.top
+//                        
+//                    }, label: {
+//                        
+//                        Image(systemName: "line.horizontal.3")
+//                    }).foregroundColor(.black))
+            
         }.animation(.spring())
-        menu(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, position: self.$position)
+        //menu(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, position: self.$position)
         
     }
 }

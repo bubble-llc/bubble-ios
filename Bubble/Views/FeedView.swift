@@ -243,7 +243,7 @@ struct menu : View {
                 if loggedIn{
                 HStack
                 {
-                    Button(action: goProfile)
+                    NavigationLink(destination: UserProfileView(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
                     {
                         Image(systemName: "person.fill").resizable().frame(width: 25, height: 25).padding()
                         Text("Account").fontWeight(.heavy)
@@ -253,7 +253,7 @@ struct menu : View {
 
                 HStack
                 {
-                    Button(action: goLiked)
+                    NavigationLink(destination: UserLikedView(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
                     {
                         Image(systemName: "checkmark.rectangle.fill").resizable().frame(width: 25, height: 25).padding()
                         Text("Liked").fontWeight(.heavy)

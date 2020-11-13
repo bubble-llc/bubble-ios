@@ -13,20 +13,19 @@ struct UserLikedView: View {
     
     var body: some View {
         ZStack{
-            NavigationView {
                 PostList(type: "liked", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, category: self.$userLongitude, loggedIn: self.$loggedIn)
                     .navigationBarTitle(Text("Liked Post"), displayMode: .inline)
-                    .navigationBarItems(
-                        leading: HStack
-                        {
-                            Button(action: {self.position = CardPosition.top}, label: {
-                                    Image(systemName: "line.horizontal.3")
-                            }).foregroundColor(.black)
-                            
-                        }
-                    )
-            }
+//                    .navigationBarItems(
+//                        leading: HStack
+//                        {
+//                            Button(action: {self.position = CardPosition.top}, label: {
+//                                    Image(systemName: "line.horizontal.3")
+//                            }).foregroundColor(.black)
+//
+//                        }
+//                    )
+            
         }.animation(.spring())
-        menu(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, position: self.$position)
+        //menu(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, position: self.$position)
     }
 }
