@@ -122,7 +122,7 @@ struct MetadataView: View {
                 NavigationLink(destination: SubmitCommentView(post: post), isActive:$showCommentForm)
                 {
                     EmptyView()
-                }
+                }.hidden()
                 
             }//isLoggedInCommentCheck3
             Spacer()
