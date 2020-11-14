@@ -34,25 +34,30 @@ struct FeedView: View {
                         leading: HStack
                         {
                             Button(action: {
-                                print(category)
-                                if self.isMenu == false
-                                {
-                                    self.position = CardPosition.top
-                                    self.isMenu = true
+                                
+                                withAnimation{
+                                    self.isMenu.toggle()
                                 }
-                                else
-                                {
-                                    self.position = CardPosition.bottom
-                                    self.isMenu = false
-                                }
+                                
+//                                print(category)
+//                                if self.isMenu == false
+//                                {
+//                                    self.position = CardPosition.top
+//                                    self.isMenu = true
+//                                }
+//                                else
+//                                {
+//                                    self.position = CardPosition.bottom
+//                                    self.isMenu = false
+//                                }
                                 
                             }, label: {
                                 Image(systemName: "line.horizontal.3")
-                            }).foregroundColor(.black)
+                            })
                             if loggedIn
                             {
                                 NavigationLink(destination: SubmitPostView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude), isActive: $showSubmitPost)
-                                {
+                                { 
                                     EmptyView()
                                 }
                             }
@@ -82,12 +87,20 @@ struct FeedView: View {
                             }
                         }
                     )
+            if self.isMenu{
+                GeometryReader { geometry in
             menu(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, position: self.$position)
+                .frame(width: geometry.size.width/2)
+                .transition(.move(edge: .leading))
+                }
+            }
 
         }.animation(.spring())
     }
     
 }
+
+
 
 struct UITextViewWrapper: UIViewRepresentable {
     typealias UIViewType = UITextView
@@ -228,7 +241,6 @@ struct menu : View {
 
     var body : some
     View{
-        SlideOverCard(self.$position, backgroundStyle: self.$background) {
             VStack
             {
                 HStack
@@ -297,8 +309,11 @@ struct menu : View {
                     }
                     Spacer()
                 }
-            }
-        }
+            }.frame(maxWidth: .infinity, alignment: .leading)
+//            .background(Color(red: 45/255, green: 45/255, blue: 45/255))
+            .background(Color.black.opacity(0.8))
+            .edgesIgnoringSafeArea(.all)
+        
     }
     
     func goHome() {
