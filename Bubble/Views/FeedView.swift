@@ -26,6 +26,14 @@ struct FeedView: View {
     
     var body: some View
     {
+        let drag = DragGesture()
+            .onEnded{
+                if $0.translation.width < -100 {
+                                    withAnimation {
+                                        self.isMenu = false
+                                    }
+                                }
+            }
         ZStack{
             PostList(type: "feed", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, category: self.$category, loggedIn: self.$loggedIn)
                     .navigationBarBackButtonHidden(true)
