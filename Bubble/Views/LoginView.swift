@@ -5,7 +5,6 @@ struct LoginView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var showingAlert = false
-    @State private var loggedIn: Bool = true
     @State var users: [User] = []
 
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>

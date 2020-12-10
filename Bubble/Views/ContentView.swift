@@ -35,7 +35,6 @@ struct ContentView : View {
     @State private var password: String = ""
     @State private var status: Int = 0
     @State private var showingAlert = false
-    @State private var loggedIn = true
     @State private var userLatitude: String = ""
     @State private var userLongitude: String = ""
     
