@@ -5,7 +5,6 @@ struct PostView: View
 {
     let post: Post
     
-    @Binding var loggedIn: Bool
     @State var isUp = false
     @State var isDown = false
     @State var totalVotes:Int = 0
@@ -13,9 +12,8 @@ struct PostView: View
     @State var downColor = Color.gray
     @State var isVoted = false
     
-    init(post: Post, loggedIn: Binding<Bool>) {
+    init(post: Post) {
         self.post = post
-        self._loggedIn = loggedIn
         self._totalVotes = State(initialValue: post.votes)
         
         
@@ -38,7 +36,6 @@ struct PostView: View
     var body: some View
     {
         NavigationLink(destination: PostDetailView( post: post,
-                                                    loggedIn: self.$loggedIn,
                                                     isUp: self.$isUp,
                                                     isDown: self.$isDown,
                                                     totalVotes: self.$totalVotes,
@@ -69,7 +66,6 @@ struct PostView: View
            
                 
                 MetadataView(post: post,
-                             loggedIn: self.$loggedIn,
                              isUp: self.$isUp,
                              isDown: self.$isDown,
                              totalVotes: self.$totalVotes,

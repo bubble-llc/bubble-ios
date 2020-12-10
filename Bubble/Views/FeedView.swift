@@ -19,10 +19,11 @@ struct FeedView: View {
     @State private var position = CardPosition.bottom
     @State private var isMenu: Bool = false
     
-    @Binding var loggedIn: Bool
     @Binding var userLatitude: String
     @Binding var userLongitude: String
     @Binding var category: String
+    
+    @EnvironmentObject var userAuth: UserAuth
     
     var body: some View
     {
@@ -35,7 +36,7 @@ struct FeedView: View {
                                 }
             }
         ZStack{
-            PostList(type: "feed", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, category: self.$category, loggedIn: self.$loggedIn)
+            PostList(type: "feed", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, category: self.$category)
                     .navigationBarBackButtonHidden(true)
                     .navigationBarTitle(Text("Feed"), displayMode: .inline)
                     .navigationBarItems(
@@ -62,44 +63,17 @@ struct FeedView: View {
                             }, label: {
                                 Image(systemName: "line.horizontal.3")
                             })
-                            if loggedIn
-                            {
-                                NavigationLink(destination: SubmitPostView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude), isActive: $showSubmitPost)
-                                { 
-                                    EmptyView()
-                                }
-                            }
-                            else
-                            {
-                                NavigationLink(destination: LoginView(loggedIn: self.$loggedIn), isActive: $showSubmitPost)
-                                {
-                                    EmptyView()
-                                }
-                            }
                         },
                         trailing: HStack
                         {
-                            if loggedIn
-                            {
-                                Button(action: {self.showSubmitPost.toggle()})
-                                {
-                                    Image(systemName: "plus")
-                                }
-                            }
-                            else
-                            {
-                                NavigationLink(destination: LoginView(loggedIn: self.$loggedIn))
-                                {
-                                    Text("Login")
-                                }
-                            }
                         }
                     )
             if self.isMenu{
                 GeometryReader { geometry in
-            menu(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, position: self.$position)
+            menu(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, position: self.$position)
                 .frame(width: geometry.size.width/2)
                 .transition(.move(edge: .leading))
+                .environmentObject(userAuth)
                 }
             }
 
@@ -240,12 +214,13 @@ struct MultilineTextField: View {
 }
 
 struct menu : View {
-    @Binding var loggedIn: Bool
     @Binding var userLatitude: String
     @Binding var userLongitude: String
     @Binding var position: CardPosition
     
     @State private var background = BackgroundStyle.solid
+    
+    @EnvironmentObject var userAuth: UserAuth
 
     var body : some
     View{
@@ -253,17 +228,7 @@ struct menu : View {
             {
                 HStack
                 {
-                    Button(action: goHome)
-                    {
-                        Image(systemName: "house.fill").resizable().frame(width: 25, height: 25).padding()
-                        Text("Home").fontWeight(.heavy)
-                    }
-                    Spacer()
-                }
-                if loggedIn{
-                HStack
-                {
-                    NavigationLink(destination: UserProfileView(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
+                    NavigationLink(destination: UserProfileView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
                     {
                         Image(systemName: "person.fill").resizable().frame(width: 25, height: 25).padding()
                         Text("Account").fontWeight(.heavy)
@@ -273,7 +238,7 @@ struct menu : View {
 
                 HStack
                 {
-                    NavigationLink(destination: UserLikedView(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
+                    NavigationLink(destination: UserLikedView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
                     {
                         Image(systemName: "checkmark.rectangle.fill").resizable().frame(width: 25, height: 25).padding()
                         Text("Liked").fontWeight(.heavy)
@@ -284,7 +249,7 @@ struct menu : View {
                     
                 HStack
                 {
-                    NavigationLink(destination: ReportView(loggedIn: self.$loggedIn))
+                    NavigationLink(destination: ReportView())
                     {
                         Image(systemName: "envelope.open.fill").resizable().frame(width: 25, height: 25).padding()
                         Text("Report Issue").fontWeight(.heavy)
@@ -303,51 +268,30 @@ struct menu : View {
                     }
                     Spacer()
                 }
-
-                }
-                else{
-                    HStack
-                    {
-                        NavigationLink(destination:CreateUserView())
-                        {
-                            Image(systemName: "person.fill").resizable().frame(width: 25, height: 25).padding()
-                            Text("Create Account").fontWeight(.heavy)
-                        }
-                        Spacer()
-                    }
-                    Spacer()
-                }
             }.frame(maxWidth: .infinity, alignment: .leading)
 //            .background(Color(red: 45/255, green: 45/255, blue: 45/255))
             .background(Color.black.opacity(0.8))
             .edgesIgnoringSafeArea(.all)
         
     }
-    
-    func goHome() {
-        if let window = UIApplication.shared.windows.first {
-            window.rootViewController = UIHostingController(rootView: ContentView())
-            window.makeKeyAndVisible()
-        }
-    }
-    
+        
     func goProfile() {
         if let window = UIApplication.shared.windows.first {
-            window.rootViewController = UIHostingController(rootView: UserProfileView(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
+            window.rootViewController = UIHostingController(rootView: UserProfileView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
             window.makeKeyAndVisible()
         }
     }
     
     func goLiked() {
         if let window = UIApplication.shared.windows.first {
-            window.rootViewController = UIHostingController(rootView: UserLikedView(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
+            window.rootViewController = UIHostingController(rootView: UserLikedView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
             window.makeKeyAndVisible()
         }
     }
     
     func goReport() {
         if let window = UIApplication.shared.windows.first {
-            window.rootViewController = UIHostingController(rootView: ReportView(loggedIn: self.$loggedIn))
+            window.rootViewController = UIHostingController(rootView: ReportView())
             window.makeKeyAndVisible()
         }
     }
@@ -355,11 +299,7 @@ struct menu : View {
         let defaults = UserDefaults.standard
         defaults.set("username", forKey: defaultsKeys.username)
         defaults.set("password", forKey: defaultsKeys.password)
-        
-        if let window = UIApplication.shared.windows.first {
-            window.rootViewController = UIHostingController(rootView: ContentView())
-            window.makeKeyAndVisible()
-        }
+        userAuth.isLoggedin = false
     }
 }
 

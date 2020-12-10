@@ -3,7 +3,6 @@ import Request
 
 struct PostDetailView: View {
     let post: Post
-    @Binding var loggedIn: Bool
     
     @Binding var isUp: Bool
     @Binding var isDown: Bool
@@ -34,7 +33,6 @@ struct PostDetailView: View {
                 
                 //Removed spacing from MetadataView in this context to keep it centered rather than offset on the right side.
                 MetadataView(post: post,
-                             loggedIn: self.$loggedIn,
                              isUp: self.$isUp,
                              isDown: self.$isDown,
                              totalVotes: self.$totalVotes,

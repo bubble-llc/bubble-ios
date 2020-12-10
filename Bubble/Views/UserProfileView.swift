@@ -4,7 +4,6 @@ import SlideOverCard
 struct UserProfileView: View {
     @State private var position = CardPosition.bottom
     
-    @Binding var loggedIn: Bool
     @Binding var userLatitude: String
     @Binding var userLongitude: String
     

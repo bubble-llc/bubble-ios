@@ -19,8 +19,6 @@ struct ReportView: View{
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @Binding var loggedIn: Bool
-    
     
     var body: some View{
         
