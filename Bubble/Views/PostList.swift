@@ -8,7 +8,6 @@ struct PostList: View {
     @Binding var userLatitude: String
     @Binding var userLongitude: String
     @Binding var category: String
-    @Binding var loggedIn: Bool
     
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
     
@@ -20,7 +19,7 @@ struct PostList: View {
             Text(category)
         }
         List(posts){ post in
-            PostView(post: post, loggedIn: self.$loggedIn)
+            PostView(post: post)
         }.onAppear
         {
             if(type == "feed"){

@@ -10,7 +10,6 @@ import SwiftUI
 import SlideOverCard
 
 struct PageView: View {
-    @Binding var loggedIn: Bool
     @Binding var userLatitude: String
     @Binding var userLongitude: String
     @State var size = UIScreen.main.bounds.width / 1.6
@@ -18,16 +17,18 @@ struct PageView: View {
     @State private var position = CardPosition.bottom
     
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
+    @EnvironmentObject var userAuth: UserAuth
     
     var body: some View {
         if #available(iOS 14.0, *) {
             TabView {
                 ForEach(0 ..< categories.count) { i in
-                    FeedView(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude, userLongitude: self.$userLongitude, category: self.$categories[i])
+                    FeedView(userLatitude: self.$userLatitude, userLongitude: self.$userLongitude, category: self.$categories[i])
                         .tabItem {
                             Text(categories[i])
                         }.tag(i)
                     .clipShape(RoundedRectangle(cornerRadius: 10.0, style: .continuous))
+                    .environmentObject(userAuth)
                 }
             }
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
