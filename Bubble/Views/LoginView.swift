@@ -34,13 +34,12 @@ struct LoginView: View {
                     
                     if(self.users.count != 0)
                     {
-                        
-                        let defaults = UserDefaults.standard
-                        defaults.set(username, forKey: defaultsKeys.username)
-                        defaults.set(password, forKey: defaultsKeys.password)
-                        defaults.set(self.users[0].email, forKey: defaultsKeys.email)
-                        defaults.set(self.users[0].date_joined, forKey: defaultsKeys.date_joined)
-                        userAuth.isLoggedin = true
+                        userAuth.setInfo(userInfo: [
+                            "username": username,
+                            "password": password,
+                            "email": self.users[0].email,
+                            "date_joined": self.users[0].date_joined
+                        ])
                     }
                     else
                     {
@@ -66,7 +65,10 @@ struct LoginView: View {
             Spacer()
             HStack {
                 Spacer()
-                Text("Register")
+                NavigationLink(destination: CreateUserView())
+                {
+                    Text("Register")
+                }
                 Spacer()
             }
             .font(.headline)
