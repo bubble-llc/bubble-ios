@@ -52,23 +52,13 @@ struct CreateUserView: View {
     }
     
     private func isUserInformationValid() -> Bool {
-        if username.isEmpty {
+        if username.isEmpty || password.isEmpty || email.isEmpty || !termsAccepted{
             return false
         }
-        
-        if password.isEmpty {
-            return false
+        else
+        {
+            return true
         }
-        
-        if email.isEmpty {
-            return false
-        }
-        
-        if !termsAccepted {
-            return false
-        }
-        
-        return true
     }
 }
 

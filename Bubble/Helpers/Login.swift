@@ -7,43 +7,29 @@
 //
 
 import Foundation
-
+import Combine
 
 class UserAuth: ObservableObject {
-    let didChange = PassthroughSubject<UserAuth,Never>()
-
-      // required to conform to protocol 'ObservableObject'
-    let willChange = PassthroughSubject<UserAuth,Never>()
-
-    @State private var showingAlert = false
-       
-    @Published var isLoggedin: Bool = false
-        
-    func login(username: String, password: String, users: [User]) -> Bool{
-     
-        API().getUser(username: username, password:  password){ (users) in
-            if(users.count != 0)
-            {
-                
-                let defaults = UserDefaults.standard
-                defaults.set(username, forKey: defaultsKeys.username)
-                defaults.set(password, forKey: defaultsKeys.password)
-                defaults.set(users[0].email, forKey: defaultsKeys.email)
-                defaults.set(users[0].date_joined, forKey: defaultsKeys.date_joined)
-                self.isLoggedin = true
-            }
-            else
-            {
-                self.showingAlert = true
-            }
-        
+    let objectWillChange = ObservableObjectPublisher()
+    
+    var isLoggedin:Bool {
+        willSet {
+            objectWillChange.send()
         }
-        return self.isLoggedin
     }
-}
-
-class GlobalLogin: ObservableObject {
-  @Published var isLoggedIn = false
+    
+    init() {
+        let defaults = UserDefaults.standard
+        let username = defaults.string(forKey: defaultsKeys.username)!
+        if username != "username"
+        {
+            self.isLoggedin = true
+        }
+        else
+        {
+            self.isLoggedin = false
+        }
+    }
 }
 
 struct defaultsKeys {
