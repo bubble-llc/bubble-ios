@@ -9,6 +9,7 @@ struct ContentView : View {
     
     @ObservedObject var locationViewModel = LocationViewModel()
     @EnvironmentObject var userAuth: UserAuth
+    @State var show = false
     
     var body: some View {
         NavigationView(){
@@ -16,8 +17,29 @@ struct ContentView : View {
                 LoginView().environmentObject(userAuth).navigationBarBackButtonHidden(true)
             }
             else{
-                ScrollView {PageView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude).environmentObject(userAuth)
-                }
+                ZStack{
+                    ScrollView {PageView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude).environmentObject(userAuth)}
+                    GeometryReader{_ in
+                        HStack{
+                            MenuView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
+                                .offset(x: self.show ? 0 : -UIScreen.main.bounds.width)
+                                .animation(.default)
+                            Spacer()
+                        }
+                    }.background(Color.black.opacity(self.show ? 0.5 : 0)).edgesIgnoringSafeArea(.bottom)
+                }.navigationBarTitle("Home",displayMode: .inline)
+                .navigationBarItems(leading:
+                    Button(action: {
+                        self.show.toggle()
+                    }, label: {
+                        if self.show{
+                            Image(systemName: "arrow.left").font(.body).foregroundColor(.black)
+                        }
+                        else{
+                            Image(systemName: "line.horizontal.3")
+                        }
+                    })
+                )
             }
         }
     }

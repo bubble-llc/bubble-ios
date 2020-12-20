@@ -12,7 +12,6 @@ import SlideOverCard
 struct MenuView : View {
     @Binding var userLatitude: String
     @Binding var userLongitude: String
-    @Binding var position: CardPosition
     
     @State private var background = BackgroundStyle.solid
     
