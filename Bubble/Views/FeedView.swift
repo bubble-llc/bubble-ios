@@ -27,57 +27,9 @@ struct FeedView: View {
     
     var body: some View
     {
-        let drag = DragGesture()
-            .onEnded{
-                if $0.translation.width < -100 {
-                                    withAnimation {
-                                        self.isMenu = false
-                                    }
-                                }
-            }
         ZStack{
             PostList(type: "feed", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, category: self.$category)
-                    .navigationBarBackButtonHidden(true)
-                    .navigationBarTitle(Text("Feed"), displayMode: .inline)
-                    .navigationBarItems(
-                        leading: HStack
-                        {
-                            Button(action: {
-                                
-                                withAnimation{
-                                    self.isMenu.toggle()
-                                }
-                                
-//                                print(category)
-//                                if self.isMenu == false
-//                                {
-//                                    self.position = CardPosition.top
-//                                    self.isMenu = true
-//                                }
-//                                else
-//                                {
-//                                    self.position = CardPosition.bottom
-//                                    self.isMenu = false
-//                                }
-                                
-                            }, label: {
-                                Image(systemName: "line.horizontal.3")
-                            })
-                        },
-                        trailing: HStack
-                        {
-                        }
-                    )
-            if self.isMenu{
-                GeometryReader { geometry in
-                    MenuView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, position: self.$position)
-                .frame(width: geometry.size.width/2)
-                .transition(.move(edge: .leading))
-                .environmentObject(userAuth)
-                }
-            }
-
-        }.animation(.spring())
+        }
     }
     
 }
