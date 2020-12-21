@@ -26,7 +26,7 @@ struct ContentView : View {
                                 .animation(.default)
                             Spacer()
                         }
-                    }.background(Color.black.opacity(self.show ? 0.5 : 0)).edgesIgnoringSafeArea(.bottom)
+                    }.background(Color.black.opacity(self.show ? 0.2 : 0)).edgesIgnoringSafeArea(.bottom)
                 }.navigationBarTitle("Home",displayMode: .inline)
                 .navigationBarItems(leading:
                     Button(action: {
