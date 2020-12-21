@@ -27,8 +27,7 @@ struct MenuView : View {
                     {
                         Image(systemName: "person.fill").resizable().frame(width: 25, height: 25).padding()
                         Text("Account").fontWeight(.heavy)
-                    }
-                    .offset(y: -200)
+                    }.padding()
                 }
 
                 HStack
@@ -37,8 +36,7 @@ struct MenuView : View {
                     {
                         Image(systemName: "checkmark.rectangle.fill").resizable().frame(width: 25, height: 25).padding()
                         Text("Liked").fontWeight(.heavy)
-                    }
-                    .offset(y: -195)
+                    }.padding()
                 }
                     
                     
@@ -48,8 +46,7 @@ struct MenuView : View {
                     {
                         Image(systemName: "envelope.open.fill").resizable().frame(width: 25, height: 25).padding()
                         Text("Report Issue").fontWeight(.heavy)
-                    }
-                    .offset(y: -190)
+                    }.padding()
                     
                 }
                     
@@ -59,8 +56,7 @@ struct MenuView : View {
                     {
                         Image(systemName: "paperplane.fill").resizable().frame(width: 25, height: 25).padding()
                         Text("Exit").fontWeight(.heavy)
-                    }
-                    .offset(y: -185)
+                    }.padding()
                     
                 }
             }
