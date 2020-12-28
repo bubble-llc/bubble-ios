@@ -49,7 +49,12 @@ struct ContentView : View {
                                                 else{
                                                     Image(systemName: "line.horizontal.3")
                                                 }
-                                            })
+                                            }), trailing:
+                                                NavigationLink(destination: SubmitPostView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)){
+                                                    Text("Submit")
+                                                }
+                                    
+                                  
                     )
                 } else {
                     // Fallback on earlier versions
