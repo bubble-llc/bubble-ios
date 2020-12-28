@@ -40,6 +40,9 @@ struct PostDetailView: View {
                              downColor: self.$downColor,
                              isVoted: self.$isVoted)
                 
+                NavigationLink(destination: SubmitCommentView(post:post)){
+                    Text("Submit Comment")
+                }
                 
                 List(comments){ comment in
                     CommentsView(comment: comment)

@@ -35,6 +35,7 @@ struct PostView: View
     
     var body: some View
     {
+        
         NavigationLink(destination: PostDetailView( post: post,
                                                     isUp: self.$isUp,
                                                     isDown: self.$isDown,
@@ -43,6 +44,7 @@ struct PostView: View
                                                     downColor: self.$downColor,
                                                     isVoted: self.$isVoted)
             )
+        
         {
             VStack(alignment: .leading)
             {

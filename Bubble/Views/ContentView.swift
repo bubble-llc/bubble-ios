@@ -14,6 +14,16 @@ struct ContentView : View {
     @State var show = false
     
     var body: some View {
+        
+        let drag = DragGesture()
+          .onEnded {
+              if $0.translation.width < -100 {
+                  withAnimation {
+                      self.show = false
+                  }
+              }
+          }
+        
         NavigationView(){
             if !userAuth.isLoggedin{
                 LoginView().environmentObject(userAuth).navigationBarBackButtonHidden(true)
@@ -32,6 +42,8 @@ struct ContentView : View {
                                     .offset(x: self.show ? 0 : -UIScreen.main.bounds.width)
                                     .animation(.default)
                                 
+                            }    .gesture(drag).onAppear {
+                                self.show = false
                             }
                             
                         }.background(Color.black.opacity(self.show ? 0.2 : 0)).edgesIgnoringSafeArea(.bottom)
