@@ -8,6 +8,8 @@ struct ContentView : View {
     @State private var userLongitude: String = ""
     
     @ObservedObject var locationViewModel = LocationViewModel()
+    @ObservedObject var category = Category()
+    
     @EnvironmentObject var userAuth: UserAuth
     @State var show = false
     
@@ -17,36 +19,40 @@ struct ContentView : View {
                 LoginView().environmentObject(userAuth).navigationBarBackButtonHidden(true)
             }
             else{
-                ZStack{
-                    
-                    PageView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude).environmentObject(userAuth)
-//                    TabBarView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
-                    
-                    GeometryReader{_ in
-                        HStack{
-                            MenuView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
-                                .offset(x: self.show ? 0 : -UIScreen.main.bounds.width)
-                                .animation(.default)
-                            
-                        }
+                if #available(iOS 14.0, *) {
+                    ZStack{
                         
-                    }.background(Color.black.opacity(self.show ? 0.2 : 0)).edgesIgnoringSafeArea(.bottom)
-                    
-                    
-                    
-                }.navigationBarTitle("Home",displayMode: .inline)
-                .navigationBarItems(leading:
-                    Button(action: {
-                        self.show.toggle()
-                    }, label: {
-                        if self.show{
-                            Image(systemName: "arrow.left").font(.body).foregroundColor(.black)
-                        }
-                        else{
-                            Image(systemName: "line.horizontal.3")
-                        }
-                    })
-                )
+                        PageView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude).environmentObject(userAuth)
+                        //                    TabBarView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
+                        
+                        GeometryReader{_ in
+                            HStack{
+                                MenuView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
+                                    .offset(x: self.show ? 0 : -UIScreen.main.bounds.width)
+                                    .animation(.default)
+                                
+                            }
+                            
+                        }.background(Color.black.opacity(self.show ? 0.2 : 0)).edgesIgnoringSafeArea(.bottom)
+                        
+                        
+                        
+                    }.navigationBarTitle(self.category.currCategory, displayMode: .inline)
+                    .navigationBarItems(leading:
+                                            Button(action: {
+                                                self.show.toggle()
+                                            }, label: {
+                                                if self.show{
+                                                    Image(systemName: "arrow.left").font(.body).foregroundColor(.black)
+                                                }
+                                                else{
+                                                    Image(systemName: "line.horizontal.3")
+                                                }
+                                            })
+                    )
+                } else {
+                    // Fallback on earlier versions
+                }
             }
         }
     }

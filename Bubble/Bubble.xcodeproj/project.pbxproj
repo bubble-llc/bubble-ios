@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5C07955F259A7E5300688501 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07955E259A7E5300688501 /* TabBarView.swift */; };
+		5C07956D259A8B0800688501 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07956C259A8B0800688501 /* Category.swift */; };
 		5C755E752523A03F00267557 /* SubmitPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C755E742523A03F00267557 /* SubmitPostView.swift */; };
 		5C75E5D3253F6F3900B97254 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C75E5D2253F6F3900B97254 /* User.swift */; };
 		5C75E5D8253F702200B97254 /* UserLikedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C75E5D7253F702200B97254 /* UserLikedView.swift */; };
@@ -68,6 +69,7 @@
 
 /* Begin PBXFileReference section */
 		5C07955E259A7E5300688501 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		5C07956C259A8B0800688501 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		5C73E7BC250866E600252D50 /* SubmitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitView.swift; sourceTree = "<group>"; };
 		5C755E742523A03F00267557 /* SubmitPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitPostView.swift; sourceTree = "<group>"; };
 		5C75E5D2253F6F3900B97254 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				B06520FC2582C27C000CA1DE /* UserInfo.swift */,
 				B002582F255A4F0900BB7815 /* Location.swift */,
 				B0025840255B5F3200BB7815 /* Date.swift */,
+				5C07956C259A8B0800688501 /* Category.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C75E5E2253F7C2C00B97254 /* LoginView.swift in Sources */,
+				5C07956D259A8B0800688501 /* Category.swift in Sources */,
 				B0F547312523CE800009ABAE /* CommentsView.swift in Sources */,
 				B065210B2582C99F000CA1DE /* MenuView.swift in Sources */,
 				5CE12F5F24F8565E00C8D5D0 /* SortBy.swift in Sources */,

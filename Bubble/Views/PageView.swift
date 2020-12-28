@@ -8,6 +8,7 @@
 
 import SwiftUI
 import SlideOverCard
+import Combine
 
 struct PageView: View {
     @Binding var userLatitude: String
@@ -17,6 +18,8 @@ struct PageView: View {
     
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
     @EnvironmentObject var userAuth: UserAuth
+    
+    @ObservedObject var category = Category()
     
     let minDragTranslationForSwipe: CGFloat = 50
     let numTabs = 5
@@ -30,8 +33,11 @@ struct PageView: View {
                             Text(categories[i])
                         }.tag(i)
                         .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
+                        .animation(.default)
                     .clipShape(RoundedRectangle(cornerRadius: 10.0, style: .continuous))
                     .environmentObject(userAuth)
+                    
+                    
                 }
             }
 
