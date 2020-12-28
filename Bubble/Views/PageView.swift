@@ -12,28 +12,37 @@ import SlideOverCard
 struct PageView: View {
     @Binding var userLatitude: String
     @Binding var userLongitude: String
-    @State var size = UIScreen.main.bounds.width / 1.6
     
-    @State private var position = CardPosition.bottom
+    @State private var selectedTab = 0
     
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
     @EnvironmentObject var userAuth: UserAuth
     
+    let minDragTranslationForSwipe: CGFloat = 50
+    let numTabs = 5
+    
     var body: some View {
-        if #available(iOS 14.0, *) {
-            TabView {
+        TabView(selection: $selectedTab) {
                 ForEach(0 ..< categories.count) { i in
                     FeedView(userLatitude: self.$userLatitude, userLongitude: self.$userLongitude, category: self.$categories[i])
                         .tabItem {
                             Image(systemName: "person.fill").resizable().frame(width: 25, height: 25).padding()
                             Text(categories[i])
                         }.tag(i)
+                        .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
                     .clipShape(RoundedRectangle(cornerRadius: 10.0, style: .continuous))
                     .environmentObject(userAuth)
                 }
             }
-        } else {
-            // Fallback on earlier versions
+
+    }
+    private func handleSwipe(translation: CGFloat) {
+        if translation > minDragTranslationForSwipe && selectedTab > 0 {
+            selectedTab -= 1
+        } else  if translation < -minDragTranslationForSwipe && selectedTab < numTabs-1 {
+            selectedTab += 1
         }
     }
 }
+
+
