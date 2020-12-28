@@ -71,7 +71,6 @@ struct SubmitCommentView: View {
                 }
             }
             .foregroundColor(Color.blue)
-            .background(Color.yellow)
         
     }
 }

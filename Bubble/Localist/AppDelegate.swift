@@ -13,6 +13,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             "date_joined": "date_joined",
         ]
         UserDefaults.standard.register(defaults: initialDefaults as! [String : Any])
+        UINavigationBar.appearance().barTintColor = .cyan //changes navigation bar up top
+        UITabBar.appearance().barTintColor = .cyan //changes tab bar at bottom
         return true
     }
 

@@ -10,6 +10,9 @@ import Foundation
 import Combine
 
 class Category: ObservableObject {
-@Published var curr_category = ""
+let objectWillChange = ObservableObjectPublisher()
+@Published var currCategory = ""
     
+
 }
+

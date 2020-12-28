@@ -20,6 +20,7 @@ struct ContentView : View {
             }
             else{
                 if #available(iOS 14.0, *) {
+                    
                     ZStack{
                         
                         PageView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude).environmentObject(userAuth)
@@ -37,7 +38,7 @@ struct ContentView : View {
                         
                         
                         
-                    }.navigationBarTitle(self.category.currCategory, displayMode: .inline)
+                    }.navigationBarTitle("home", displayMode: .inline)
                     .navigationBarItems(leading:
                                             Button(action: {
                                                 self.show.toggle()

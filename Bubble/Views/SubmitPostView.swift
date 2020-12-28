@@ -123,7 +123,6 @@ struct SubmitPostView: View {
                 }
             }
             .foregroundColor(Color.blue)
-            .background(Color.yellow)
         
     }
 }
