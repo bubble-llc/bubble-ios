@@ -18,15 +18,22 @@ struct ContentView : View {
             }
             else{
                 ZStack{
-                    ScrollView {PageView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude).environmentObject(userAuth)}
+                    
+                    PageView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude).environmentObject(userAuth)
+//                    TabBarView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
+                    
                     GeometryReader{_ in
                         HStack{
                             MenuView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
                                 .offset(x: self.show ? 0 : -UIScreen.main.bounds.width)
                                 .animation(.default)
-                            Spacer()
+                            
                         }
+                        
                     }.background(Color.black.opacity(self.show ? 0.2 : 0)).edgesIgnoringSafeArea(.bottom)
+                    
+                    
+                    
                 }.navigationBarTitle("Home",displayMode: .inline)
                 .navigationBarItems(leading:
                     Button(action: {

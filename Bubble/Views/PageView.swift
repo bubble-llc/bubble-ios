@@ -25,14 +25,13 @@ struct PageView: View {
                 ForEach(0 ..< categories.count) { i in
                     FeedView(userLatitude: self.$userLatitude, userLongitude: self.$userLongitude, category: self.$categories[i])
                         .tabItem {
+                            Image(systemName: "person.fill").resizable().frame(width: 25, height: 25).padding()
                             Text(categories[i])
                         }.tag(i)
                     .clipShape(RoundedRectangle(cornerRadius: 10.0, style: .continuous))
                     .environmentObject(userAuth)
                 }
             }
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-            .tabViewStyle(PageTabViewStyle())
         } else {
             // Fallback on earlier versions
         }

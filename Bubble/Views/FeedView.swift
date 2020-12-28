@@ -29,6 +29,7 @@ struct FeedView: View {
     {
         ZStack{
             PostList(type: "feed", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, category: self.$category)
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         }
     }
     
