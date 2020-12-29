@@ -64,6 +64,7 @@ struct MenuView : View {
             .background(Color.black.opacity(0.8))
             .edgesIgnoringSafeArea(.all)
         
+        
     }
     func goProfile() {
         if let window = UIApplication.shared.windows.first {

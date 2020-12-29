@@ -75,8 +75,7 @@ struct ReportView: View{
                 Alert(title: Text("Report submitted"), message: Text("Thank you, we appreciate your feedback!"), dismissButton: .default(Text("Close")))
             }
         }
-        .foregroundColor(Color.blue)
-        .background(Color.yellow)
+        .foregroundColor(Color.blue) 
     
     }
 }

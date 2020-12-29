@@ -18,18 +18,23 @@ struct FeedView: View {
     @State private var post_content: String = ""
     @State private var position = CardPosition.bottom
     @State private var isMenu: Bool = false
+    @State private var currCategory: String = ""
     
     @Binding var userLatitude: String
     @Binding var userLongitude: String
     @Binding var category: String
     
+    @ObservedObject var category_global = Category()
     @EnvironmentObject var userAuth: UserAuth
     
     var body: some View
     {
+        
         ZStack{
-            PostList(type: "feed", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, category: self.$category)
+            ScrollView{PostList(type: "feed", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, category: self.$category)
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)}
         }
+//        let self.category_global.currCategory = category //issue here
     }
     
 }
