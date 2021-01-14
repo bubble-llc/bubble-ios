@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5C07955F259A7E5300688501 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07955E259A7E5300688501 /* TabBarView.swift */; };
 		5C07956D259A8B0800688501 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07956C259A8B0800688501 /* Category.swift */; };
+		5C07957A25A3D2B500688501 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CCF766F24F85EED0040EC07 /* Images.xcassets */; };
+		5C07958025A8114400688501 /* StatefulTabView in Frameworks */ = {isa = PBXBuildFile; productRef = 5C07957F25A8114400688501 /* StatefulTabView */; };
 		5C755E752523A03F00267557 /* SubmitPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C755E742523A03F00267557 /* SubmitPostView.swift */; };
 		5C75E5D3253F6F3900B97254 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C75E5D2253F6F3900B97254 /* User.swift */; };
 		5C75E5D8253F702200B97254 /* UserLikedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C75E5D7253F702200B97254 /* UserLikedView.swift */; };
@@ -68,7 +69,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5C07955E259A7E5300688501 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		5C07956C259A8B0800688501 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		5C73E7BC250866E600252D50 /* SubmitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitView.swift; sourceTree = "<group>"; };
 		5C755E742523A03F00267557 /* SubmitPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitPostView.swift; sourceTree = "<group>"; };
@@ -131,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C07958025A8114400688501 /* StatefulTabView in Frameworks */,
 				5CE12F8E24F857CE00C8D5D0 /* Request in Frameworks */,
 				B00258012559B5EB00BB7815 /* SlideOverCard in Frameworks */,
 				5CE12F8C24F857CE00C8D5D0 /* Json in Frameworks */,
@@ -288,7 +289,6 @@
 				B002582A255A4EA700BB7815 /* PageView.swift */,
 				5CBE9B2D255DCC3300734C29 /* ReportView.swift */,
 				B065210A2582C99F000CA1DE /* MenuView.swift */,
-				5C07955E259A7E5300688501 /* TabBarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -343,6 +343,7 @@
 				5CE12F8B24F857CE00C8D5D0 /* Json */,
 				5CE12F8D24F857CE00C8D5D0 /* Request */,
 				B00258002559B5EB00BB7815 /* SlideOverCard */,
+				5C07957F25A8114400688501 /* StatefulTabView */,
 			);
 			productName = Localist;
 			productReference = 5CE12F2024F855DD00C8D5D0 /* Bubble.app */;
@@ -419,6 +420,7 @@
 			packageReferences = (
 				5CE12F8A24F857CE00C8D5D0 /* XCRemoteSwiftPackageReference "swift-request" */,
 				B00257FF2559B5EB00BB7815 /* XCRemoteSwiftPackageReference "swiftUI-slide-over-card" */,
+				5C07957E25A8114300688501 /* XCRemoteSwiftPackageReference "StatefulTabView" */,
 			);
 			productRefGroup = 5CE12F2124F855DD00C8D5D0 /* Products */;
 			projectDirPath = "";
@@ -436,6 +438,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C07957A25A3D2B500688501 /* Images.xcassets in Resources */,
 				B07A9F7B25579C51008715CC /* Images-4.xcassets in Resources */,
 				5CCF769124F865300040EC07 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -531,7 +534,6 @@
 				5CCF768A24F861060040EC07 /* Helpers.swift in Sources */,
 				5CCF767E24F860D30040EC07 /* PostView.swift in Sources */,
 				5CCF767C24F860D30040EC07 /* PostList.swift in Sources */,
-				5C07955F259A7E5300688501 /* TabBarView.swift in Sources */,
 				B0025841255B5F3200BB7815 /* Date.swift in Sources */,
 				5CCF768624F860E30040EC07 /* Post.swift in Sources */,
 				5CE12F6224F8565E00C8D5D0 /* Listing.swift in Sources */,
@@ -879,6 +881,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5C07957E25A8114300688501 /* XCRemoteSwiftPackageReference "StatefulTabView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/NicholasBellucci/StatefulTabView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.7;
+			};
+		};
 		5CE12F8A24F857CE00C8D5D0 /* XCRemoteSwiftPackageReference "swift-request" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/carson-katri/swift-request";
@@ -898,6 +908,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5C07957F25A8114400688501 /* StatefulTabView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C07957E25A8114300688501 /* XCRemoteSwiftPackageReference "StatefulTabView" */;
+			productName = StatefulTabView;
+		};
 		5CE12F8B24F857CE00C8D5D0 /* Json */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5CE12F8A24F857CE00C8D5D0 /* XCRemoteSwiftPackageReference "swift-request" */;

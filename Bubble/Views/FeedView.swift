@@ -10,6 +10,12 @@ import SwiftUI
 import Request
 import SlideOverCard
 
+class MyState: ObservableObject {
+    @Published var animate: Bool = false
+    var isAnimationActive = false // Store animate status when user switches between tabs
+}
+
+@available(iOS 14.0, *)
 struct FeedView: View {
     @State private var sortBy: SortBy = .hot
     @State private var showSortSheet: Bool = false
@@ -19,6 +25,8 @@ struct FeedView: View {
     @State private var position = CardPosition.bottom
     @State private var isMenu: Bool = false
     @State private var currCategory: String = ""
+    
+    @StateObject private var myState = MyState()
     
     @Binding var userLatitude: String
     @Binding var userLongitude: String
