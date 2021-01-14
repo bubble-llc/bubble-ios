@@ -2,6 +2,9 @@ import SwiftUI
 import Request
 
 struct SubmitPostView: View {
+    
+    
+    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State private var post_title: String = "Location of post"
@@ -15,55 +18,79 @@ struct SubmitPostView: View {
     
     @Binding var userLatitude: String
     @Binding var userLongitude: String
-    
+
+    init(userLatitude: Binding<String>, userLongitude: Binding<String>){
+        self._userLatitude = userLatitude
+        self._userLongitude = userLongitude
+        UITableView.appearance().backgroundColor = .cyan
+        UITableViewCell.appearance().backgroundColor = .cyan
+        }
+
     var body: some View
     {
 
+        if #available(iOS 14.0, *) {
             Form {
+                Image("bubble_rough")
+                    .resizable()
+                    .frame(width:375, height:100)
                 HStack{
-                    Text("Category")
                     Spacer()
+                    Text("Category")
+                        .offset(x:-5)
+                        .foregroundColor(Color.blue)
+                        .font(.headline)
+                        
                     Picker(selection: $selectedCategory, label: Text("")) {
-                                ForEach(0 ..< categories.count) {
-                                   Text(self.categories[$0])
-                                }
-                             }
-                }
+                        ForEach(0 ..< categories.count) {
+                            Text(self.categories[$0])
+                        }
+                    }
+                }.background(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
+                .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
                 
                 if #available(iOS 14.0, *)
                 {
-                    Text("Where").font(.headline)
-                        .foregroundColor(Color.blue)
-                    TextEditor(text: self.$post_title)
-                        .padding()
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, maxHeight: 75)
-                        .border(Color.black, width:1)
-                        .foregroundColor(post_title_pressed ? Color.black : Color.gray)
-                        .multilineTextAlignment(.leading)
-                        .onTapGesture {
-                            if !self.post_title_pressed{
-                                self.post_title = ""
-                                self.post_title_pressed = true
+                    VStack{
+                        Text("Where").font(.headline)
+                            .foregroundColor(Color.blue)
+                            .offset(x:-145)
+                        TextEditor(text: self.$post_title)
+                            .padding()
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 35, maxHeight: 55)
+                            .foregroundColor(post_title_pressed ? Color.black : Color.gray)
+                            .background(Color.white)
+                            .multilineTextAlignment(.leading)
+                            .cornerRadius(25)
+                            .onTapGesture {
+                                if !self.post_title_pressed{
+                                    self.post_title = ""
+                                    self.post_title_pressed = true
+                                }
+                                
                             }
-                               
-                        }
-                    
-                    
-                    Text("Content").font(.headline)
-                        .foregroundColor(Color.blue)
-                    TextEditor(text: self.$post_content)
-                        .padding()
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 350)
-                        .border(Color.black, width:1)
-                        .foregroundColor(post_content_pressed ? Color.black : Color.gray)
-                        .multilineTextAlignment(.leading)
-                        .onTapGesture {
-                            if !self.post_content_pressed{
-                                self.post_content = ""
-                                self.post_content_pressed = true
+                        
+                        
+                        Text("Content").font(.headline)
+                            .foregroundColor(Color.blue)
+                            .offset(x:-142)
+                        TextEditor(text: self.$post_content)
+                            .padding()
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 350)
+                            
+                            .foregroundColor(post_content_pressed ? Color.black : Color.gray)
+                            .background(Color.white)
+                            .multilineTextAlignment(.leading)
+                            .cornerRadius(25)
+                            .onTapGesture {
+                                if !self.post_content_pressed{
+                                    self.post_content = ""
+                                    self.post_content_pressed = true
+                                }
+                                
                             }
-                               
-                        }
+                    }.background(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
+                    .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
                 }
                 else
                 {
@@ -73,56 +100,65 @@ struct SubmitPostView: View {
                         .background(RoundedRectangle(cornerRadius:5))
                 }
                 Button(action:
-                {
-                    let defaults = UserDefaults.standard
-                    let username = defaults.string(forKey: defaultsKeys.username)!
-                    var formatted_category = categories[selectedCategory]
-                    if formatted_category == "Happy Hour"
-                    {
-                        formatted_category = "Happy_Hour"
-                    }
-                    else if formatted_category == "What's Happening?"
-                    {
-                        formatted_category = "What's_Happening?"
-                    }
-                    
-                    if post_title == "" || post_title == "Location of post"
-                    {
-                        self.showingAlert = true
-                        self.errorMessage = "Enter in value for Where"
-                    }
-                    
-                    if post_content == "" || post_content == "Write some content for your post"
-                    {
-                        self.showingAlert = true
-                        self.errorMessage = "Enter in value for Content"
-                    }
-                    
-                    if !showingAlert
-                    {
-                        let postObject: [String: Any]  =
-                        [
-                            "username": username,
-                            "category_name": formatted_category,
-                            "content": self.post_content,
-                            "title": self.post_title,
-                            "latitude": userLatitude,
-                            "longitude": userLongitude
-                        ]
-                        API().submitPost(submitted: postObject)
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
-                    
-                })
+                        {
+                            let defaults = UserDefaults.standard
+                            let username = defaults.string(forKey: defaultsKeys.username)!
+                            var formatted_category = categories[selectedCategory]
+                            if formatted_category == "Happy Hour"
+                            {
+                                formatted_category = "Happy_Hour"
+                            }
+                            else if formatted_category == "What's Happening?"
+                            {
+                                formatted_category = "What's_Happening?"
+                            }
+                            
+                            if post_title == "" || post_title == "Location of post"
+                            {
+                                self.showingAlert = true
+                                self.errorMessage = "Enter in value for Where"
+                            }
+                            
+                            if post_content == "" || post_content == "Write some content for your post"
+                            {
+                                self.showingAlert = true
+                                self.errorMessage = "Enter in value for Content"
+                            }
+                            
+                            if !showingAlert
+                            {
+                                let postObject: [String: Any]  =
+                                    [
+                                        "username": username,
+                                        "category_name": formatted_category,
+                                        "content": self.post_content,
+                                        "title": self.post_title,
+                                        "latitude": userLatitude,
+                                        "longitude": userLongitude
+                                    ]
+                                API().submitPost(submitted: postObject)
+                                self.presentationMode.wrappedValue.dismiss()
+                            }
+                            
+                        })
                 {
                     Text("Submit")
-                }
+                        .overlay(
+                                    Capsule(style: .continuous)
+                                        .stroke(Color.blue, style: StrokeStyle(lineWidth: 2))
+                                )
+                }.listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
                 .alert(isPresented: $showingAlert)
                 {
                     Alert(title: Text("Missing Arguments"), message: Text(self.errorMessage), dismissButton: .default(Text("Ok")))
                 }
             }
-            .foregroundColor(Color.blue)
+            
+            .background(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
+            .ignoresSafeArea()
+        } else {
+            // Fallback on earlier versions
+        }
         
     }
 }
