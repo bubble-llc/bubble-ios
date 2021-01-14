@@ -19,12 +19,12 @@ struct SubmitPostView: View {
     @Binding var userLatitude: String
     @Binding var userLongitude: String
 
-    init(userLatitude: Binding<String>, userLongitude: Binding<String>){
-        self._userLatitude = userLatitude
-        self._userLongitude = userLongitude
-        UITableView.appearance().backgroundColor = .cyan
-        UITableViewCell.appearance().backgroundColor = .cyan
-        }
+//    init(userLatitude: Binding<String>, userLongitude: Binding<String>){
+//        self._userLatitude = userLatitude
+//        self._userLongitude = userLongitude
+//        UITableView.appearance().backgroundColor = .cyan
+//        UITableViewCell.appearance().backgroundColor = .cyan
+//        }
 
     var body: some View
     {
@@ -52,7 +52,7 @@ struct SubmitPostView: View {
                         
                         Image("Deals").resizable().frame(width:40, height:40).padding().offset(x:-10)
                         //Text("Deals")
-                    }
+                    }.buttonStyle(PlainButtonStyle())
                     //Happy Hour
                     Button(action: {
                         print("button pressed")
@@ -60,7 +60,7 @@ struct SubmitPostView: View {
                         
                         Image("Happy Hour").resizable().frame(width:40, height:40).padding()
                        // Text("Happy Hour")
-                    }
+                    }.buttonStyle(PlainButtonStyle())
                     //Recreation
                     Button(action: {
                         print("button pressed")
@@ -68,7 +68,7 @@ struct SubmitPostView: View {
                         
                         Image("Recreation").resizable().frame(width:40, height:40).padding()
                         //Text("Recreation")
-                    }
+                    }.buttonStyle(PlainButtonStyle())
                     //What's Happening?
                     Button(action: {
                         print("button pressed")
@@ -76,7 +76,7 @@ struct SubmitPostView: View {
                         
                         Image("what_happen").resizable().frame(width:40, height:40).padding()
                        // Text("What's Happening?")
-                    }
+                    }.buttonStyle(PlainButtonStyle())
                     
 //                    //Misc
 //                    Button(action: {
@@ -211,6 +211,10 @@ struct SubmitPostView: View {
             }
             
             .background(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
+            .onAppear(){
+                UITableView.appearance().backgroundColor = .cyan
+                UITableViewCell.appearance().backgroundColor = .cyan
+            }
             .ignoresSafeArea()
         } else {
             // Fallback on earlier versions

@@ -68,7 +68,14 @@ struct ContentView : View {
                                     
                                   
                     )
-                } else {
+                    
+                    .onAppear(){
+                        UITableView.appearance().backgroundColor = .cyan
+                        UITableViewCell.appearance().backgroundColor = .cyan
+                    }
+                }
+                
+                else {
                     // Fallback on earlier versions
                 }
             }
