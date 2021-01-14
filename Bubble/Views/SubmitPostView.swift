@@ -53,6 +53,7 @@ struct SubmitPostView: View {
                 {
                     VStack{
                         Text("Where").font(.headline)
+                            .fontWeight(.bold)
                             .foregroundColor(Color.blue)
                             .offset(x:-145)
                         TextEditor(text: self.$post_title)
@@ -72,6 +73,7 @@ struct SubmitPostView: View {
                         
                         
                         Text("Content").font(.headline)
+                            .fontWeight(.bold)
                             .foregroundColor(Color.blue)
                             .offset(x:-142)
                         TextEditor(text: self.$post_content)
@@ -99,6 +101,7 @@ struct SubmitPostView: View {
                         .frame(minWidth: 100, idealWidth: 100/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center)
                         .background(RoundedRectangle(cornerRadius:5))
                 }
+
                 Button(action:
                         {
                             let defaults = UserDefaults.standard
@@ -142,11 +145,14 @@ struct SubmitPostView: View {
                             
                         })
                 {
+                    
                     Text("Submit")
-                        .overlay(
-                                    Capsule(style: .continuous)
-                                        .stroke(Color.blue, style: StrokeStyle(lineWidth: 2))
-                                )
+                        .fontWeight(.bold)
+                        .padding(10)
+                        .background(Color.blue)
+                        .cornerRadius(40)
+                        .foregroundColor(.white)
+                    
                 }.listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
                 .alert(isPresented: $showingAlert)
                 {
