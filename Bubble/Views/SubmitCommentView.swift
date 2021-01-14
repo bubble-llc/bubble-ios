@@ -16,17 +16,18 @@ struct SubmitCommentView: View {
 
 
             Form {
-                VStack(){
                     Text(post.title).font(.system(size:25))
                     .foregroundColor(Color.black)
                     .italic()
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .center)
-                }
+                    .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
+                
                 Text(post.content)
                     .foregroundColor(Color.black)
                     .italic()
                     .frame(maxWidth: .infinity, alignment: .center)
+                    .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
                 if #available(iOS 14.0, *)
                 {
                     //We are currently allowing there to be trailing spaces after comments, need to auto remove those from the comment
@@ -41,8 +42,10 @@ struct SubmitCommentView: View {
                         .multilineTextAlignment(.leading)
                         .padding()
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 200)
-                        .border(Color.black, width:1)
+                        .background(Color.white)
+                        .cornerRadius(25)
                         .foregroundColor(commentBoxPressed ? Color.black : Color.gray)
+                        .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
                     
                 }
                 else
@@ -67,8 +70,15 @@ struct SubmitCommentView: View {
                     
                 })
                 {
-                    Text("Submit")
+                    Text("Submit")                        .fontWeight(.bold)
+                        .padding(10)
+                        .background(Color.blue)
+                        .cornerRadius(40)
+                        .foregroundColor(.white)
+                    
                 }
+                .buttonStyle(PlainButtonStyle())
+                .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
             }
             .foregroundColor(Color.blue)
         

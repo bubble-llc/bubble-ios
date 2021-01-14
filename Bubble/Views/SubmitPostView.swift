@@ -203,7 +203,9 @@ struct SubmitPostView: View {
                         .cornerRadius(40)
                         .foregroundColor(.white)
                     
-                }.listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
+                }
+                .buttonStyle(PlainButtonStyle())
+                .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
                 .alert(isPresented: $showingAlert)
                 {
                     Alert(title: Text("Missing Arguments"), message: Text(self.errorMessage), dismissButton: .default(Text("Ok")))
