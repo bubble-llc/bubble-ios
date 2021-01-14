@@ -11,7 +11,7 @@ struct SubmitPostView: View {
     @State private var post_title_pressed: Bool = false
     @State private var post_content: String = "Write some content for your post"
     @State private var post_content_pressed: Bool = false
-    @State private var selectedCategory = 4
+    @State private var selectedCategory = 0
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
     @State private var showingAlert = false
     @State private var errorMessage = ""
@@ -31,24 +31,74 @@ struct SubmitPostView: View {
 
         if #available(iOS 14.0, *) {
             Form {
-                Image("bubble_rough")
+                Image("bubble_rough")//(systemName: self.isPlaying == true ? "pause.fill" : "play.fill")
                     .resizable()
                     .frame(width:375, height:100)
+                    .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
+                VStack{
+                    Text("Category")
+                        .font(.headline)
+                        .foregroundColor(Color.blue)
+                        .fontWeight(.bold)
+                        .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
+                
                 HStack{
                     Spacer()
-                    Text("Category")
-                        .offset(x:-5)
-                        .foregroundColor(Color.blue)
-                        .font(.headline)
+                    
+                    //Deals Button
+                    Button(action: {
+                        print("button pressed")
+                    }){
                         
-                    Picker(selection: $selectedCategory, label: Text("")) {
-                        ForEach(0 ..< categories.count) {
-                            Text(self.categories[$0])
-                        }
+                        Image("Deals").resizable().frame(width:40, height:40).padding().offset(x:-10)
+                        //Text("Deals")
                     }
+                    //Happy Hour
+                    Button(action: {
+                        print("button pressed")
+                    }){
+                        
+                        Image("Happy Hour").resizable().frame(width:40, height:40).padding()
+                       // Text("Happy Hour")
+                    }
+                    //Recreation
+                    Button(action: {
+                        print("button pressed")
+                    }){
+                        
+                        Image("Recreation").resizable().frame(width:40, height:40).padding()
+                        //Text("Recreation")
+                    }
+                    //What's Happening?
+                    Button(action: {
+                        print("button pressed")
+                    }){
+                        
+                        Image("what_happen").resizable().frame(width:40, height:40).padding()
+                       // Text("What's Happening?")
+                    }
+                    
+//                    //Misc
+//                    Button(action: {
+//                        print("button pressed")
+//                    }){
+//                        Image("Misc").resizable().frame(width:100, height:100)
+//                    }
+                    
+//                    Text("Category")
+//                        .offset(x:-5)
+//                        .foregroundColor(Color.blue)
+//                        .font(.headline)
+//
+//                    Picker(selection: $selectedCategory, label: Text("")) {
+//                        ForEach(0 ..< categories.count) {
+//                            Text(self.categories[$0])
+//                        }
+//                    }
                 }.background(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
                 .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
-                
+                }
+                .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
                 if #available(iOS 14.0, *)
                 {
                     VStack{
