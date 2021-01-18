@@ -16,6 +16,12 @@ struct SubmitPostView: View {
     @State private var showingAlert = false
     @State private var errorMessage = ""
     
+    @State private var deals_clicked = false
+    @State private var happy_clicked = false
+    @State private var rec_clicked = false
+    @State private var what_clicked = false
+    @State private var misc_clicked = false
+    
     @Binding var userLatitude: String
     @Binding var userLongitude: String
 
@@ -31,16 +37,26 @@ struct SubmitPostView: View {
 
         if #available(iOS 14.0, *) {
             Form {
-                Image("bubble_rough")//(systemName: self.isPlaying == true ? "pause.fill" : "play.fill")
-                    .resizable()
-                    .frame(width:375, height:100)
+                Text("Create Your Post").font(.system(size: 30))
+                    .bold()
+                    .italic()
+                    .foregroundColor(Color.blue)
+                    .offset(x:70)
                     .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
+                
+//                HStack{
+//                    Image("bubbles_20")//(systemName: self.isPlaying == true ? "pause.fill" : "play.fill")
+//                        .resizable()
+//                Image("bubble_rough")//(systemName: self.isPlaying == true ? "pause.fill" : "play.fill")
+//                    .resizable()
+//                }.listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
                 VStack{
                     Text("Category")
                         .font(.headline)
                         .foregroundColor(Color.blue)
                         .fontWeight(.bold)
                         .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
+                        .offset(x:-163)
                 
                 HStack{
                     Spacer()
@@ -48,41 +64,51 @@ struct SubmitPostView: View {
                     //Deals Button
                     Button(action: {
                         print("button pressed")
+                        deals_clicked.toggle()
+                        selectedCategory = 0
                     }){
                         
-                        Image("deals_20").resizable().frame(width:40, height:40).padding()
+                        Image(self.deals_clicked == true ? "deals_20_w" : "deals_20").resizable().frame(width:40, height:40).padding()
                         //Text("Deals")
                     }.buttonStyle(PlainButtonStyle())
                     //Happy Hour
                     Button(action: {
                         print("button pressed")
+                        happy_clicked.toggle()
+                        selectedCategory = 1
                     }){
                         
-                        Image("happy_20").resizable().frame(width:40, height:40).padding()
+                        Image(self.happy_clicked == true ? "happy_20_w" : "happy_20").resizable().frame(width:40, height:40).padding()
                        // Text("Happy Hour")
                     }.buttonStyle(PlainButtonStyle())
                     //Recreation
                     Button(action: {
                         print("button pressed")
+                        rec_clicked.toggle()
+                        selectedCategory = 2
                     }){
                         
-                        Image("rec_20").resizable().frame(width:40, height:40).padding()
+                        Image(self.rec_clicked == true ? "rec_20_w" : "rec_20").resizable().frame(width:40, height:40).padding()
                         //Text("Recreation")
                     }.buttonStyle(PlainButtonStyle())
                     //What's Happening?
                     Button(action: {
                         print("button pressed")
+                        what_clicked.toggle()
+                        selectedCategory = 3
                     }){
                         
-                        Image("what_20").resizable().frame(width:40, height:40).padding()
+                        Image(self.what_clicked == true ? "what_20_w" : "what_20").resizable().frame(width:40, height:40).padding()
                        // Text("What's Happening?")
                     }.buttonStyle(PlainButtonStyle())
                     
                     //Misc
                     Button(action: {
                         print("button pressed")
-                    }){
-                        Image("misc_20").resizable().frame(width:40, height:40).padding()
+                        misc_clicked.toggle()
+                        selectedCategory = 4
+                    }){//(systemName: self.isPlaying == true ? "pause.fill" : "play.fill")
+                        Image(self.misc_clicked == true ? "misc_20_w" : "misc_20").resizable().frame(width:40, height:40).padding()
                     }.buttonStyle(PlainButtonStyle())
                     
 //                    Text("Category")
@@ -181,6 +207,8 @@ struct SubmitPostView: View {
                             
                             if !showingAlert
                             {
+                                print(selectedCategory)
+                                print(formatted_category)
                                 let postObject: [String: Any]  =
                                     [
                                         "username": username,
