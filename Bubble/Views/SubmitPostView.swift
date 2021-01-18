@@ -65,6 +65,12 @@ struct SubmitPostView: View {
                     Button(action: {
                         print("button pressed")
                         deals_clicked.toggle()
+                        
+                        happy_clicked = false
+                        rec_clicked = false
+                        what_clicked = false
+                        misc_clicked = false
+                        
                         selectedCategory = 0
                     }){
                         
@@ -75,6 +81,12 @@ struct SubmitPostView: View {
                     Button(action: {
                         print("button pressed")
                         happy_clicked.toggle()
+                        
+                        deals_clicked = false
+                        rec_clicked = false
+                        what_clicked = false
+                        misc_clicked = false
+                        
                         selectedCategory = 1
                     }){
                         
@@ -85,6 +97,12 @@ struct SubmitPostView: View {
                     Button(action: {
                         print("button pressed")
                         rec_clicked.toggle()
+                        
+                        deals_clicked = false
+                        happy_clicked = false
+                        what_clicked = false
+                        misc_clicked = false
+                        
                         selectedCategory = 2
                     }){
                         
@@ -95,6 +113,12 @@ struct SubmitPostView: View {
                     Button(action: {
                         print("button pressed")
                         what_clicked.toggle()
+                        
+                        deals_clicked = false
+                        rec_clicked = false
+                        happy_clicked = false
+                        misc_clicked = false
+                        
                         selectedCategory = 3
                     }){
                         
@@ -106,6 +130,12 @@ struct SubmitPostView: View {
                     Button(action: {
                         print("button pressed")
                         misc_clicked.toggle()
+                        
+                        deals_clicked = false
+                        rec_clicked = false
+                        what_clicked = false
+                        happy_clicked = false
+                        
                         selectedCategory = 4
                     }){//(systemName: self.isPlaying == true ? "pause.fill" : "play.fill")
                         Image(self.misc_clicked == true ? "misc_20_w" : "misc_20").resizable().frame(width:40, height:40).padding()
