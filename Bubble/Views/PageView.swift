@@ -17,6 +17,9 @@ struct PageView: View {
     @State private var selectedTab = 0
     
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
+    @State private var cat_names = ["deals_20_w", "happy_20_w", "rec_20_w", "what_20_w", "misc_20_w"]
+    
+    
     @EnvironmentObject var userAuth: UserAuth
     
     @ObservedObject var category = Category()
@@ -29,7 +32,7 @@ struct PageView: View {
                 ForEach(0 ..< categories.count) { i in
                     FeedView(userLatitude: self.$userLatitude, userLongitude: self.$userLongitude, category: self.$categories[i])
                         .tabItem {
-                            Image(systemName: "person.fill").resizable().frame(width: 25, height: 25).padding()
+                            Image(cat_names[i]).resizable()
                             Text(categories[i])
                         }.tag(i)
                         .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))

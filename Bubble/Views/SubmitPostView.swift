@@ -50,7 +50,7 @@ struct SubmitPostView: View {
                         print("button pressed")
                     }){
                         
-                        Image("Deals").resizable().frame(width:40, height:40).padding().offset(x:-10)
+                        Image("deals_20").resizable().frame(width:40, height:40).padding()
                         //Text("Deals")
                     }.buttonStyle(PlainButtonStyle())
                     //Happy Hour
@@ -58,7 +58,7 @@ struct SubmitPostView: View {
                         print("button pressed")
                     }){
                         
-                        Image("Happy Hour").resizable().frame(width:40, height:40).padding()
+                        Image("happy_20").resizable().frame(width:40, height:40).padding()
                        // Text("Happy Hour")
                     }.buttonStyle(PlainButtonStyle())
                     //Recreation
@@ -66,7 +66,7 @@ struct SubmitPostView: View {
                         print("button pressed")
                     }){
                         
-                        Image("Recreation").resizable().frame(width:40, height:40).padding()
+                        Image("rec_20").resizable().frame(width:40, height:40).padding()
                         //Text("Recreation")
                     }.buttonStyle(PlainButtonStyle())
                     //What's Happening?
@@ -74,29 +74,30 @@ struct SubmitPostView: View {
                         print("button pressed")
                     }){
                         
-                        Image("what_happen").resizable().frame(width:40, height:40).padding()
+                        Image("what_20").resizable().frame(width:40, height:40).padding()
                        // Text("What's Happening?")
                     }.buttonStyle(PlainButtonStyle())
                     
-//                    //Misc
-//                    Button(action: {
-//                        print("button pressed")
-//                    }){
-//                        Image("Misc").resizable().frame(width:100, height:100)
-//                    }
+                    //Misc
+                    Button(action: {
+                        print("button pressed")
+                    }){
+                        Image("misc_20").resizable().frame(width:40, height:40).padding()
+                    }.buttonStyle(PlainButtonStyle())
                     
 //                    Text("Category")
 //                        .offset(x:-5)
 //                        .foregroundColor(Color.blue)
 //                        .font(.headline)
-//
+
 //                    Picker(selection: $selectedCategory, label: Text("")) {
 //                        ForEach(0 ..< categories.count) {
 //                            Text(self.categories[$0])
 //                        }
-//                    }
+                //}
                 }.background(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
                 .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
+                .offset(x:-25)
                 }
                 .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
                 if #available(iOS 14.0, *)
