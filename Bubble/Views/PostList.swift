@@ -12,6 +12,8 @@ struct PostList: View {
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
     @State private var cat_icons = ["deals_20", "happy_20", "rec_20", "what_20", "misc_20"]
     
+    @EnvironmentObject var categoryGlobal: Category
+    
     var body: some View
     {
         if categories.contains(category)
