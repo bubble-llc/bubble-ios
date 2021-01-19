@@ -3,10 +3,7 @@ import Request
 import Combine
 import SlideOverCard
 
-struct ContentView : View {
-    @State private var userLatitude: String = ""
-    @State private var userLongitude: String = ""
-    
+struct ContentView : View {    
     @ObservedObject var locationViewModel = LocationViewModel()
     @ObservedObject var category = Category()
     
@@ -38,7 +35,7 @@ struct ContentView : View {
                         
                         GeometryReader{_ in
                             HStack{
-                                MenuView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
+                                MenuView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude)
                                     .offset(x: self.show ? 0 : -UIScreen.main.bounds.width)
                                     .animation(.default)
                                 
@@ -62,7 +59,7 @@ struct ContentView : View {
                                                     Image(systemName: "line.horizontal.3")
                                                 }
                                             }), trailing:
-                                                NavigationLink(destination: SubmitPostView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)){
+                                                NavigationLink(destination: SubmitPostView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude)){
                                                     Text("Submit")
                                                 }
                                     
