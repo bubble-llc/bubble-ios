@@ -18,8 +18,7 @@ struct PageView: View {
     
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
     @EnvironmentObject var userAuth: UserAuth
-    
-    @ObservedObject var category = Category()
+    @EnvironmentObject var categoryGlobal: Category
     
     let minDragTranslationForSwipe: CGFloat = 50
     let numTabs = 5
@@ -36,6 +35,7 @@ struct PageView: View {
                         .animation(.default)
                     .clipShape(RoundedRectangle(cornerRadius: 10.0, style: .continuous))
                     .environmentObject(userAuth)
+                    .environmentObject(categoryGlobal)
                     
                     
                 }
@@ -45,8 +45,10 @@ struct PageView: View {
     private func handleSwipe(translation: CGFloat) {
         if translation > minDragTranslationForSwipe && selectedTab > 0 {
             selectedTab -= 1
+            categoryGlobal.setCategory(category: categories[selectedTab])
         } else  if translation < -minDragTranslationForSwipe && selectedTab < numTabs-1 {
             selectedTab += 1
+            categoryGlobal.setCategory(category: categories[selectedTab])
         }
     }
 }

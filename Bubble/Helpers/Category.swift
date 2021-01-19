@@ -10,9 +10,22 @@ import Foundation
 import Combine
 
 class Category: ObservableObject {
-let objectWillChange = ObservableObjectPublisher()
-@Published var currCategory = ""
+    let objectWillChange = ObservableObjectPublisher()
     
-
+    var currCategory:String {
+        willSet {
+            objectWillChange.send()
+            print("changed")
+        }
+    }
+    
+    init() {
+        self.currCategory = "Deals"
+    }
+    
+    func setCategory(category: String) {
+        self.currCategory = category
+        print(self.currCategory)
+    }
 }
 
