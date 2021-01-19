@@ -5,10 +5,9 @@ import SlideOverCard
 
 struct ContentView : View {    
     @ObservedObject var locationViewModel = LocationViewModel()
-    @ObservedObject var category = Category()
     
     @EnvironmentObject var userAuth: UserAuth
-    @State var show = false
+    @EnvironmentObject var categoryGlobal: Category
     
     var body: some View {
         
@@ -30,7 +29,7 @@ struct ContentView : View {
                     
                     ZStack{
                         
-                        PageView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude).environmentObject(userAuth)
+                        PageView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude).environmentObject(userAuth).environmentObject(categoryGlobal)
                         //                    TabBarView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
                         
                         GeometryReader{_ in
@@ -47,7 +46,8 @@ struct ContentView : View {
                         
                         
                         
-                    }.navigationBarTitle("home", displayMode: .inline)
+                    }
+                    .navigationBarTitle(categoryGlobal.currCategory, displayMode: .inline)
                     .navigationBarItems(leading:
                                             Button(action: {
                                                 self.show.toggle()
