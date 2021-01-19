@@ -40,9 +40,10 @@ struct SubmitPostView: View {
                 Text("Create Your Post").font(.system(size: 30))
                     .bold()
                     .italic()
-                    .foregroundColor(Color.blue)
+                    .foregroundColor(Color.white)
+                    .shadow(color: Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), radius: 2)
                     .offset(x:70)
-                    .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
+                    .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                 
 //                HStack{
 //                    Image("bubbles_20")//(systemName: self.isPlaying == true ? "pause.fill" : "play.fill")
@@ -53,9 +54,10 @@ struct SubmitPostView: View {
                 VStack{
                     Text("Category")
                         .font(.headline)
-                        .foregroundColor(Color.blue)
-                        .fontWeight(.bold)
-                        .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
+                        .bold()
+                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                        .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                        .shadow(color: .white, radius: 5)
                         .offset(x:-163)
                 
                 HStack{
@@ -151,17 +153,18 @@ struct SubmitPostView: View {
 //                            Text(self.categories[$0])
 //                        }
                 //}
-                }.background(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
-                .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
+                }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                 .offset(x:-25)
                 }
-                .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
+                .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                 if #available(iOS 14.0, *)
                 {
                     VStack{
                         Text("Where").font(.headline)
                             .fontWeight(.bold)
-                            .foregroundColor(Color.blue)
+                            .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                            .shadow(color: .white, radius: 5)
                             .offset(x:-145)
                         TextEditor(text: self.$post_title)
                             .padding()
@@ -181,7 +184,8 @@ struct SubmitPostView: View {
                         
                         Text("Content").font(.headline)
                             .fontWeight(.bold)
-                            .foregroundColor(Color.blue)
+                            .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                            .shadow(color: .white, radius: 5)
                             .offset(x:-142)
                         TextEditor(text: self.$post_content)
                             .padding()
@@ -198,8 +202,8 @@ struct SubmitPostView: View {
                                 }
                                 
                             }
-                    }.background(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
-                    .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
+                    }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                    .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                 }
                 else
                 {
@@ -258,24 +262,20 @@ struct SubmitPostView: View {
                     Text("Submit")
                         .fontWeight(.bold)
                         .padding(10)
-                        .background(Color.blue)
+                        .background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                         .cornerRadius(40)
                         .foregroundColor(.white)
                     
                 }
                 .buttonStyle(PlainButtonStyle())
-                .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
+                .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                 .alert(isPresented: $showingAlert)
                 {
                     Alert(title: Text("Missing Arguments"), message: Text(self.errorMessage), dismissButton: .default(Text("Ok")))
                 }
             }
             
-            .background(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
-            .onAppear(){
-                UITableView.appearance().backgroundColor = .cyan
-                UITableViewCell.appearance().backgroundColor = .cyan
-            }
+            .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .ignoresSafeArea()
         } else {
             // Fallback on earlier versions

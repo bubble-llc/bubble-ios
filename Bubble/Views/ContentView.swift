@@ -34,6 +34,7 @@ struct ContentView : View {
                     ZStack{
                         
                         PageView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude).environmentObject(userAuth)
+                          
                         //                    TabBarView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
                         
                         GeometryReader{_ in
@@ -70,8 +71,9 @@ struct ContentView : View {
                     )
                     
                     .onAppear(){
-                        UITableView.appearance().backgroundColor = .cyan
-                        UITableViewCell.appearance().backgroundColor = .cyan
+                        UITableView.appearance().backgroundColor = UIColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                        UITableViewCell.appearance().backgroundColor = UIColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                        
                     }
                 }
                 

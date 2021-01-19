@@ -10,17 +10,37 @@ struct PostList: View {
     @Binding var category: String
     
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
+    @State private var cat_icons = ["deals_20", "happy_20", "rec_20", "what_20", "misc_20"]
     
     var body: some View
     {
         if categories.contains(category)
         {
+            
+            let ind = categories.firstIndex(of: category)
             Spacer()
+            HStack{
+            Image(cat_icons[Int(ind!)])
             Text(category)
+                .font(.system(size: 22))
+                .bold()
+                .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                
+            Image(cat_icons[Int(ind!)])
+            }
         }
+        
+    
+        
         List(posts){ post in
+
             PostView(post: post)
-        }.onAppear
+        }
+        .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                
+
+        
+        .onAppear
         {
             if(type == "feed"){
                 var formatted_category = ""
@@ -47,7 +67,8 @@ struct PostList: View {
                      (posts) in self.posts = posts
                  }
              }
-}
+        }
+        
     }
 }
 
