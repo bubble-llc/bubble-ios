@@ -9,6 +9,8 @@ struct ContentView : View {
     @EnvironmentObject var userAuth: UserAuth
     @EnvironmentObject var categoryGlobal: Category
     
+    @State var show = false
+    
     var body: some View {
         
         let drag = DragGesture()
