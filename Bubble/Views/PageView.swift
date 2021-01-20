@@ -17,7 +17,8 @@ struct PageView: View {
     @State private var selectedTab = 0
     
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
-    @State private var cat_names = ["deals_20_w", "happy_20_w", "rec_20_w", "what_20_w", "misc_20_w"]
+    @State private var cat_names = ["deals_20", "happy_20", "rec_20", "what_20", "misc_20"]
+    @State private var selected_cat_names = ["deals_20_w", "happy_20_w", "rec_20_w", "what_20_w", "misc_20_w"]
     
     
     @EnvironmentObject var userAuth: UserAuth
@@ -31,9 +32,9 @@ struct PageView: View {
                 ForEach(0 ..< categories.count) { i in
                     FeedView(userLatitude: self.$userLatitude, userLongitude: self.$userLongitude, category: self.$categories[i])
                         .tabItem {
-                            Image(cat_names[i]).resizable()
-                            Text(categories[i])
-                        }.tag(i)
+                            selectedTab == i ? Image(selected_cat_names[i]).resizable().padding() : Image(cat_names[i]).resizable().padding()
+                        }
+                        .tag(i)
                         .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
                         .animation(.default)
                     .clipShape(RoundedRectangle(cornerRadius: 10.0, style: .continuous))
@@ -42,7 +43,7 @@ struct PageView: View {
                     
                     
                 }
-            }
+        }.accentColor(Color.white)
 
     }
     private func handleSwipe(translation: CGFloat) {

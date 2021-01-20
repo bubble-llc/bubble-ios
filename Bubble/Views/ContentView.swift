@@ -9,6 +9,8 @@ struct ContentView : View {
     @EnvironmentObject var userAuth: UserAuth
     @EnvironmentObject var categoryGlobal: Category
     
+    @State var show = false
+    
     var body: some View {
         
         let drag = DragGesture()
@@ -67,8 +69,9 @@ struct ContentView : View {
                     )
                     
                     .onAppear(){
-                        UITableView.appearance().backgroundColor = .cyan
-                        UITableViewCell.appearance().backgroundColor = .cyan
+                        UITableView.appearance().backgroundColor = UIColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                        UITableViewCell.appearance().backgroundColor = UIColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                        
                     }
                 }
                 

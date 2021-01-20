@@ -34,7 +34,7 @@ struct FeedView: View {
             ScrollView{PostList(type: "feed", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, category: self.$category)
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)}.environmentObject(categoryGlobal)
 
-        }
+        }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
 //        let self.category_global.currCategory = category //issue here
     }
     
