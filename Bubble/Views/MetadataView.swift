@@ -14,6 +14,8 @@ struct MetadataView: View {
     @State var comments: [Comment] = []
     @State var globalDirection:Int = 0
     @State var direction:Int = 0
+    @State private var downvote = false
+    @State private var upVote = false
 
     var body: some View {
         VStack
@@ -59,17 +61,15 @@ struct MetadataView: View {
                 API().submitVote(submitted: voteObject)
             })
             {
-                Image(systemName: "arrow.up")
+                Image(systemName: self.isUp == true ? "arrowtriangle.up.fill" : "arrowtriangle.up" )
                     .resizable()
-                    .frame(width:16,height:16)
-                    
+                    .frame(width:18,height:18)
                     .padding(2)
                     
             }.foregroundColor(self.upColor).buttonStyle(BorderlessButtonStyle())
             
             
             Text(String(self.totalVotes))
-                .font(.system(size: 17))
         
             Button(action:
             {
@@ -112,9 +112,12 @@ struct MetadataView: View {
                 API().submitVote(submitted: voteObject)
             })
             {
-                Image(systemName: "arrow.down")
+                //Image(self.rec_clicked == true ? "rec_20_w" : "rec_20").resizable().frame(width:40, height:40).padding()
+                
+                
+                Image(systemName: self.isDown == true ? "arrowtriangle.down.fill" : "arrowtriangle.down" )
                     .resizable()
-                    .frame(width:16,height:16)
+                    .frame(width:18,height:18)
                     .padding(2)
             }.foregroundColor(self.downColor).buttonStyle(BorderlessButtonStyle())
             
