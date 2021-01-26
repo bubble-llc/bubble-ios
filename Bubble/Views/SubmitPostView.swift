@@ -37,14 +37,14 @@ struct SubmitPostView: View {
 
         if #available(iOS 14.0, *) {
             Form {
-                Text("Create Your Post").font(.system(size: 30))
-                    .bold()
-                    .italic()
-                    .foregroundColor(Color.white)
-                    .shadow(color: Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), radius: 2)
-                    .offset(x:70)
-                    .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                
+//                Text("Create Your Post").font(.system(size: 30))
+//                    .bold()
+//                    .italic()
+//                    .foregroundColor(Color.white)
+//                    .shadow(color: Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), radius: 2)
+//                    .offset(x:70)
+//                    .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+//                
 //                HStack{
 //                    Image("bubbles_20")//(systemName: self.isPlaying == true ? "pause.fill" : "play.fill")
 //                        .resizable()

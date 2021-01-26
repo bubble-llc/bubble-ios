@@ -33,6 +33,7 @@ struct PageView: View {
                     FeedView(userLatitude: self.$userLatitude, userLongitude: self.$userLongitude, category: self.$categories[i])
                         .tabItem {
                             selectedTab == i ? Image(selected_cat_names[i]).resizable().padding() : Image(cat_names[i]).resizable().padding()
+                            //Text(categories[i])
                         }
                         .tag(i)
                         .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))

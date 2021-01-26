@@ -16,7 +16,7 @@ struct MetadataView: View {
     @State var direction:Int = 0
 
     var body: some View {
-        HStack
+        VStack
         {
             Button(action:
             {
@@ -60,8 +60,16 @@ struct MetadataView: View {
             })
             {
                 Image(systemName: "arrow.up")
+                    .resizable()
+                    .frame(width:16,height:16)
+                    
+                    .padding(2)
+                    
             }.foregroundColor(self.upColor).buttonStyle(BorderlessButtonStyle())
             
+            
+            Text(String(self.totalVotes))
+                .font(.system(size: 17))
         
             Button(action:
             {
@@ -105,17 +113,19 @@ struct MetadataView: View {
             })
             {
                 Image(systemName: "arrow.down")
-                Text(String(self.totalVotes))
+                    .resizable()
+                    .frame(width:16,height:16)
+                    .padding(2)
             }.foregroundColor(self.downColor).buttonStyle(BorderlessButtonStyle())
             
-            Button(action: {self.showCommentForm.toggle()})
-            {
-                Image(systemName: "text.bubble")
-                Text(String(post.comments))
-            }.foregroundColor(Color.primary).buttonStyle(BorderlessButtonStyle())
-            Spacer()
-            //print(post.date)
-            Text(post.date_created)
+//            Button(action: {self.showCommentForm.toggle()})
+//            {
+//                Image(systemName: "text.bubble")
+//                Text(String(post.comments))
+//            }.foregroundColor(Color.primary).buttonStyle(BorderlessButtonStyle())
+//            Spacer()
+//            //print(post.date)
+//            Text(post.date_created)
         }
     }
 }

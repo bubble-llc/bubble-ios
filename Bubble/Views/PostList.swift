@@ -10,7 +10,7 @@ struct PostList: View {
     @Binding var category: String
     
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
-    @State private var cat_icons = ["deals_20", "happy_20", "rec_20", "what_20", "misc_20"]
+    @State private var cat_icons = ["deals_20_w", "happy_20_w", "rec_20_w", "what_20_w", "misc_20_w"]
     
     @EnvironmentObject var categoryGlobal: Category
     
@@ -26,7 +26,8 @@ struct PostList: View {
             Text(category)
                 .font(.system(size: 22))
                 .bold()
-                .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                //.foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                .foregroundColor(Color.white)
                 
             Image(cat_icons[Int(ind!)])
             }
