@@ -70,16 +70,17 @@ struct PostView: View
                         .foregroundColor(Color.gray)
                         .font(.system(size: 12))
                         .padding(.leading, 11)
+                        .padding(.top)
                     Spacer()
                     Text(post.title)
                         .font(.headline)
                         .lineLimit(1)
                         .colorInvert()
                         .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-
+                        .padding(.top)
                     Spacer()
                     
-                }.padding(.top, 11)
+                }
                 
                 HStack{
                     
@@ -87,14 +88,16 @@ struct PostView: View
                         .resizable()
                         .colorInvert()
                         .frame(width:30, height:30)
-                        .padding(.leading, 15)
+                        .padding(.leading, 17)
                     
                     Spacer()
                     Spacer()
                     Text(post.content)
                         .colorInvert()
                         .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                        .frame(width: UIScreen.main.bounds.width * 0.6, height: UIScreen.main.bounds.height/30)
+                        .font(.system(size: 15))
+                        .lineLimit(2)
+                        .frame(width: UIScreen.main.bounds.width * 0.6, height: UIScreen.main.bounds.height/25)
                     
                     Spacer()
                 }
@@ -107,16 +110,18 @@ struct PostView: View
                             .colorInvert()
                             .font(.system(size: 12))
                             .offset(x:7)
+                            .padding(.bottom)
                         Spacer()
                         Image(systemName: "text.bubble")
                             .colorInvert()
-
+                            .padding(.bottom)
                         Text(String(post.comments))
                             .colorInvert()
                             .font(.system(size: 12))
+                            .padding(.bottom)
                     Spacer()
                     }//Nested HStack for date created and comments
-                .padding(.bottom, 13)
+                
                 }//End middle block of HStack
             .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height / 9.8)
             
@@ -139,13 +144,12 @@ struct PostView: View
             
         }
         
-        .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height/10, alignment: .center)
+        .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height/9, alignment: .center)
         .background(Color.black)
         .listRowBackground(Color.black)
         .colorInvert()
         .cornerRadius(20)
         .border(Color.white, width: 2)
-        
         
     }
     
