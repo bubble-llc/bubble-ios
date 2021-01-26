@@ -64,6 +64,7 @@ struct PostView: View
 //
             
             VStack(alignment: .leading){
+                
                 HStack{
                     Text(post.username)
                         .colorInvert()
@@ -97,7 +98,7 @@ struct PostView: View
                         .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .font(.system(size: 15))
                         .lineLimit(2)
-                        .frame(width: UIScreen.main.bounds.width * 0.6, height: UIScreen.main.bounds.height/25)
+                        .frame(width: UIScreen.main.bounds.width * 0.6, height: UIScreen.main.bounds.height/24.5)
                     
                     Spacer()
                 }
@@ -126,7 +127,8 @@ struct PostView: View
             .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height / 9.8)
             
             
-            Spacer()
+         
+            
                     MetadataView(post: post,
                                  isUp: self.$isUp,
                                  isDown: self.$isDown,
@@ -134,7 +136,7 @@ struct PostView: View
                                  upColor: self.$upColor,
                                  downColor: self.$downColor,
                                  isVoted: self.$isVoted)
-                        .font(.caption)
+                            .font(.caption)
                             .colorInvert()
                             .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
 
