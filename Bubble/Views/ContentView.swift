@@ -71,7 +71,7 @@ struct ContentView : View {
                                                 }
                                             }), trailing:
                                                 NavigationLink(destination: SubmitPostView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude)){
-                                                    Text("Submit")
+                                                    Image(systemName: "plus")
                                                         .foregroundColor(Color.white)
                                                 }
                                     
