@@ -2,7 +2,7 @@ import Foundation
 
 class API {
     let baseURL = "https://dashboard.stocksandshare.com/chitchat"
-    //let baseURL = "http://0.0.0.0:8000"
+//    let baseURL = "http://0.0.0.0:8000"
     
     func getPosts(logitude: String, latitude: String, category: String, completion: @escaping ([Post]) ->()){
         let defaults = UserDefaults.standard

@@ -11,6 +11,7 @@ struct LoginView: View {
         
     @ObservedObject var locationViewModel = LocationViewModel()
     @EnvironmentObject var userAuth: UserAuth
+    @EnvironmentObject var categoryGlobal: Category
     
     var body: some View{
         VStack
@@ -65,7 +66,7 @@ struct LoginView: View {
             Spacer()
             HStack {
                 Spacer()
-                NavigationLink(destination: CreateUserView())
+                NavigationLink(destination: CreateUserView().environmentObject(userAuth).environmentObject(categoryGlobal))
                 {
                     Text("Register")
                 }
