@@ -19,6 +19,8 @@ struct CreateUserView: View {
     @State private var password: String = ""
     @State private var email: String = ""
     @State private var termsAccepted = false
+    
+    @EnvironmentObject var userAuth: UserAuth
 
     var body: some View {
             Form {
@@ -41,7 +43,7 @@ struct CreateUserView: View {
                         API().createUser(submitted: postObject)
                         
                         if let window = UIApplication.shared.windows.first {
-                            window.rootViewController = UIHostingController(rootView: ContentView())
+                            window.rootViewController = UIHostingController(rootView: ContentView().environmentObject(userAuth))
                             window.makeKeyAndVisible()
                         }
                     }, label: {
