@@ -21,6 +21,7 @@ struct CreateUserView: View {
     @State private var termsAccepted = false
     
     @EnvironmentObject var userAuth: UserAuth
+    @EnvironmentObject var categoryGlobal: Category
 
     var body: some View {
             Form {
@@ -43,7 +44,7 @@ struct CreateUserView: View {
                         API().createUser(submitted: postObject)
                         
                         if let window = UIApplication.shared.windows.first {
-                            window.rootViewController = UIHostingController(rootView: ContentView().environmentObject(userAuth))
+                            window.rootViewController = UIHostingController(rootView: ContentView().environmentObject(userAuth).environmentObject(categoryGlobal))
                             window.makeKeyAndVisible()
                         }
                     }, label: {

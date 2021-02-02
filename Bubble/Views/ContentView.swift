@@ -24,7 +24,7 @@ struct ContentView : View {
         
         NavigationView(){
             if !userAuth.isLoggedin{
-                LoginView().environmentObject(userAuth).navigationBarBackButtonHidden(true)
+                LoginView().environmentObject(userAuth).environmentObject(categoryGlobal).navigationBarBackButtonHidden(true)
             }
             else{
                 if #available(iOS 14.0, *) {
