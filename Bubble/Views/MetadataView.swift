@@ -14,9 +14,11 @@ struct MetadataView: View {
     @State var comments: [Comment] = []
     @State var globalDirection:Int = 0
     @State var direction:Int = 0
+    @State private var downvote = false
+    @State private var upVote = false
 
     var body: some View {
-        HStack
+        VStack
         {
             Button(action:
             {
@@ -59,9 +61,15 @@ struct MetadataView: View {
                 API().submitVote(submitted: voteObject)
             })
             {
-                Image(systemName: "arrow.up")
+                Image(systemName: self.isUp == true ? "arrowtriangle.up.fill" : "arrowtriangle.up" )
+                    .resizable()
+                    .frame(width:18,height:18)
+                    .padding(2)
+                    
             }.foregroundColor(self.upColor).buttonStyle(BorderlessButtonStyle())
             
+            
+            Text(String(self.totalVotes))
         
             Button(action:
             {
@@ -104,18 +112,23 @@ struct MetadataView: View {
                 API().submitVote(submitted: voteObject)
             })
             {
-                Image(systemName: "arrow.down")
-                Text(String(self.totalVotes))
+                //Image(self.rec_clicked == true ? "rec_20_w" : "rec_20").resizable().frame(width:40, height:40).padding()
+                
+                
+                Image(systemName: self.isDown == true ? "arrowtriangle.down.fill" : "arrowtriangle.down" )
+                    .resizable()
+                    .frame(width:18,height:18)
+                    .padding(2)
             }.foregroundColor(self.downColor).buttonStyle(BorderlessButtonStyle())
             
-            Button(action: {self.showCommentForm.toggle()})
-            {
-                Image(systemName: "text.bubble")
-                Text(String(post.comments))
-            }.foregroundColor(Color.primary).buttonStyle(BorderlessButtonStyle())
-            Spacer()
-            //print(post.date)
-            Text(post.date_created)
+//            Button(action: {self.showCommentForm.toggle()})
+//            {
+//                Image(systemName: "text.bubble")
+//                Text(String(post.comments))
+//            }.foregroundColor(Color.primary).buttonStyle(BorderlessButtonStyle())
+//            Spacer()
+//            //print(post.date)
+//            Text(post.date_created)
         }
     }
 }

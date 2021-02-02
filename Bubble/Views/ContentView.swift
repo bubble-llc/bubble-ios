@@ -11,6 +11,14 @@ struct ContentView : View {
     
     @State var show = false
     
+    init() {
+        //Use this if NavigationBarTitle is with Large Font
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+
+        //Use this if NavigationBarTitle is with displayMode = .inline
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
+    }
+    
     var body: some View {
         
         let drag = DragGesture()
@@ -49,7 +57,7 @@ struct ContentView : View {
                         
                         
                     }
-                    .navigationBarTitle(categoryGlobal.currCategory, displayMode: .inline)
+                    .navigationBarTitle(Text("Bubble"), displayMode: .inline)
                     .navigationBarItems(leading:
                                             Button(action: {
                                                 self.show.toggle()
@@ -58,11 +66,13 @@ struct ContentView : View {
                                                     Image(systemName: "arrow.left").font(.body).foregroundColor(.black)
                                                 }
                                                 else{
-                                                    Image(systemName: "line.horizontal.3")
+                                                    Image("bubbles_20")
+                                                        .foregroundColor(Color.white)
                                                 }
                                             }), trailing:
                                                 NavigationLink(destination: SubmitPostView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude)){
                                                     Text("Submit")
+                                                        .foregroundColor(Color.white)
                                                 }
                                     
                                   

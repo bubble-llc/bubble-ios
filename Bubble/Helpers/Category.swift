@@ -20,7 +20,7 @@ class Category: ObservableObject {
     }
     
     init() {
-        self.currCategory = "Deals"
+        self.currCategory = "Bubble"
     }
     
     func setCategory(category: String) {
