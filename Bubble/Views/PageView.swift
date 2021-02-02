@@ -38,9 +38,8 @@ struct PageView: View {
                         .tag(i)
                         .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
                         .animation(.default)
-                    .clipShape(RoundedRectangle(cornerRadius: 10.0, style: .continuous))
-                    .environmentObject(userAuth)
-                    .environmentObject(categoryGlobal)
+                        .environmentObject(userAuth)
+                        .environmentObject(categoryGlobal)
                     
                     
                 }
