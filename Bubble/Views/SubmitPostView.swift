@@ -42,7 +42,7 @@ struct SubmitPostView: View {
                     .italic()
                     .foregroundColor(Color.white)
                     .shadow(color: Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), radius: 2)
-                    .offset(x:70)
+                    .offset(x: UIScreen.main.bounds.width * 0.125)
                     .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                 
 //                HStack{
@@ -58,8 +58,7 @@ struct SubmitPostView: View {
                         .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                         .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .shadow(color: .white, radius: 5)
-                        .offset(x:-163)
-                
+                        .offset(x: -UIScreen.main.bounds.width * 0.35)
                 HStack{
                     Spacer()
                     
@@ -155,7 +154,8 @@ struct SubmitPostView: View {
                 //}
                 }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                 .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                .offset(x:-25)
+                .frame(width:UIScreen.main.bounds.width*0.8, alignment: .center)
+                    
                 }
                 .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                 if #available(iOS 14.0, *)
@@ -165,7 +165,7 @@ struct SubmitPostView: View {
                             .fontWeight(.bold)
                             .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                             .shadow(color: .white, radius: 5)
-                            .offset(x:-145)
+                            .offset(x: -UIScreen.main.bounds.width * 0.35)
                         TextEditor(text: self.$post_title)
                             .padding()
                             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 35, maxHeight: 55)
@@ -186,7 +186,7 @@ struct SubmitPostView: View {
                             .fontWeight(.bold)
                             .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                             .shadow(color: .white, radius: 5)
-                            .offset(x:-142)
+                            .offset(x: -UIScreen.main.bounds.width * 0.35)
                         TextEditor(text: self.$post_content)
                             .padding()
                             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 350)
