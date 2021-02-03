@@ -52,14 +52,15 @@ struct PostView: View
                         .colorInvert()
                         .foregroundColor(Color.gray)
                         .font(.system(size: 12))
-                        .padding(.leading, 11)
-                        
+                        .padding(.leading)
+                        Spacer()
                     Text(post.title)
                         .font(.headline)
                         .lineLimit(1)
                         .colorInvert()
                         .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                        .padding(.leading, UIScreen.main.bounds.width * 0.215)
+                        Spacer()
+                    
                         }
                 
                 HStack{
