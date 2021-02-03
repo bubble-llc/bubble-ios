@@ -29,7 +29,6 @@ struct FeedView: View {
     
     var body: some View
     {
-        
         ZStack{
             ScrollView{PostList(type: "feed", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, category: self.$category)
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)}.environmentObject(categoryGlobal)
@@ -39,6 +38,7 @@ struct FeedView: View {
     }
     
 }
+
 
 
 

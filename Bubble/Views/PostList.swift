@@ -16,25 +16,6 @@ struct PostList: View {
     
     var body: some View
     {
-        if categories.contains(category)
-        {
-            
-            let ind = categories.firstIndex(of: category)
-            Spacer()
-            HStack{
-            Image(cat_icons[Int(ind!)])
-            Text(category)
-                .font(.system(size: 22))
-                .bold()
-                //.foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                .foregroundColor(Color.white)
-                
-            Image(cat_icons[Int(ind!)])
-            }
-        }
-        
-    
-        
         List(posts){ post in
 
             PostView(post: post)
@@ -46,6 +27,7 @@ struct PostList: View {
         .onAppear
         {
             if(type == "feed"){
+                self.categoryGlobal.currCategory = category
                 var formatted_category = ""
                 if category == "Happy Hour"
                 {

@@ -44,44 +44,23 @@ struct PostView: View
                                                     downColor: self.$downColor,
                                                     isVoted: self.$isVoted)
             )
-        
         {
-                
-//            VStack()
-//            {
-//                    Text(post.username)
-//                        .colorInvert()
-//                        .foregroundColor(Color.gray)
-//                        .font(.system(size: 12))
-//
-//                    Image(systemName: "01.circle.fill")
-//                        .resizable()
-//                        .colorInvert()
-//                        .frame(width:30, height:30)
-//
-//            }//VStack 1 of username and icon
-//            .frame(width: UIScreen.main.bounds.width * 0.1, height: UIScreen.main.bounds.height / 10)
-//
-            
-            VStack(alignment: .leading){
-                
+            VStack(alignment: .leading, spacing: 0){
+                Spacer()
                 HStack{
                     Text(post.username)
                         .colorInvert()
                         .foregroundColor(Color.gray)
                         .font(.system(size: 12))
                         .padding(.leading, 11)
-                        .padding(.top)
-                    Spacer()
+                        
                     Text(post.title)
                         .font(.headline)
                         .lineLimit(1)
                         .colorInvert()
                         .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                        .padding(.top)
-                    Spacer()
-                    
-                }
+                        .padding(.leading, UIScreen.main.bounds.width * 0.215)
+                        }
                 
                 HStack{
                     
@@ -99,7 +78,7 @@ struct PostView: View
                         .font(.system(size: 15))
                         .lineLimit(2)
                         .frame(width: UIScreen.main.bounds.width * 0.6, height: UIScreen.main.bounds.height/24.5)
-                    
+                        
                     Spacer()
                 }
                 HStack{
@@ -111,20 +90,21 @@ struct PostView: View
                             .colorInvert()
                             .font(.system(size: 12))
                             .offset(x:7)
-                            .padding(.bottom)
-                        Spacer()
+                        Spacer() 
                         Image(systemName: "text.bubble")
                             .colorInvert()
-                            .padding(.bottom)
                         Text(String(post.comments))
                             .colorInvert()
                             .font(.system(size: 12))
-                            .padding(.bottom)
                     Spacer()
                     }//Nested HStack for date created and comments
-                
+                Spacer()
                 }//End middle block of HStack
-            .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height / 9.8)
+            .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height / 15.8)
+            .padding(.bottom)
+            .padding(.top)
+            
+        
             
             
          

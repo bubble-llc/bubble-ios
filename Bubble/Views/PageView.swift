@@ -30,16 +30,21 @@ struct PageView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
                 ForEach(0 ..< categories.count) { i in
-                    FeedView(userLatitude: self.$userLatitude, userLongitude: self.$userLongitude, category: self.$categories[i])
-                        .tabItem {
-                            selectedTab == i ? Image(selected_cat_names[i]).resizable().padding() : Image(cat_names[i]).resizable().padding()
-                            //Text(categories[i])
-                        }
-                        .tag(i)
-                        .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
-                        .animation(.default)
-                        .environmentObject(userAuth)
-                        .environmentObject(categoryGlobal)
+                    if #available(iOS 14.0, *) {
+                        
+                        FeedView(userLatitude: self.$userLatitude, userLongitude: self.$userLongitude, category: self.$categories[i])
+                            .tabItem {
+                                selectedTab == i ? Image(selected_cat_names[i]).resizable().padding() : Image(cat_names[i]).resizable().padding()
+                                //Text(categories[i])
+                            }
+                            .tag(i)
+                            .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
+                            .animation(.default)
+                            .environmentObject(userAuth)
+                            .environmentObject(categoryGlobal)
+                    } else {
+                        // Fallback on earlier versions
+                    }
                     
                     
                 }

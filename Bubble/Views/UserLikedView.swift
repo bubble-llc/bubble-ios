@@ -11,20 +11,11 @@ struct UserLikedView: View {
     @Binding var userLongitude: String
     
     var body: some View {
-        ZStack{
+        ZStack(alignment: .top){
                 PostList(type: "liked", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, category: self.$userLongitude)
                     .navigationBarTitle(Text("Liked Post"), displayMode: .inline)
-//                    .navigationBarItems(
-//                        leading: HStack
-//                        {
-//                            Button(action: {self.position = CardPosition.top}, label: {
-//                                    Image(systemName: "line.horizontal.3")
-//                            }).foregroundColor(.black)
-//
-//                        }
-//                    )
-            
-        }.animation(.spring())
-        //menu(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, position: self.$position)
+        }.padding(.top)
+        .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+        
     }
 }
