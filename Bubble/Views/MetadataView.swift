@@ -16,7 +16,8 @@ struct MetadataView: View {
     @State var direction:Int = 0
     @State private var downvote = false
     @State private var upVote = false
-
+    
+    
     var body: some View {
         VStack
         {
