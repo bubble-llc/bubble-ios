@@ -41,7 +41,6 @@ struct PageView: View {
                             .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
                             .animation(.default)
                             .environmentObject(userAuth)
-                            .environmentObject(categoryGlobal)
                     } else {
                         // Fallback on earlier versions
                     }

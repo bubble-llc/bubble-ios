@@ -12,7 +12,6 @@ struct PostList: View {
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
     @State private var cat_icons = ["deals_20_w", "happy_20_w", "rec_20_w", "what_20_w", "misc_20_w"]
     
-    @EnvironmentObject var categoryGlobal: Category
     
     var body: some View
     {
@@ -27,7 +26,6 @@ struct PostList: View {
         .onAppear
         {
             if(type == "feed"){
-                self.categoryGlobal.currCategory = category
                 var formatted_category = ""
                 if category == "Happy Hour"
                 {
