@@ -48,18 +48,23 @@ struct ContentView : View {
                         
                         PageView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude).environmentObject(userAuth).environmentObject(categoryGlobal)
                         //                    TabBarView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
-                        
+                        ZStack{
                         GeometryReader{_ in
                             HStack{
                                 MenuView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude)
                                     .offset(x: self.show ? 0 : -UIScreen.main.bounds.width)
                                     .animation(.default)
-                                
-                            }    .gesture(drag).onAppear {
-                                self.show = false
+                            }
+                                .gesture(drag).onAppear {
+                                self.show=false
                             }
                             
-                        }.background(Color.black.opacity(self.show ? 0.2 : 0)).edgesIgnoringSafeArea(.bottom)
+                        }
+                            }
+                        .background(Color.black.opacity(self.show ? 0.2 : 0))
+                        .onTapGesture{
+                            self.show.toggle()
+                        }
                     }
                     .navigationBarTitle(Text(""), displayMode: .inline)
                     .toolbar{
