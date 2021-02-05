@@ -12,29 +12,9 @@ struct PostList: View {
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
     @State private var cat_icons = ["deals_20_w", "happy_20_w", "rec_20_w", "what_20_w", "misc_20_w"]
     
-    @EnvironmentObject var categoryGlobal: Category
     
     var body: some View
     {
-        if categories.contains(category)
-        {
-            
-            let ind = categories.firstIndex(of: category)
-            Spacer()
-            HStack{
-            Image(cat_icons[Int(ind!)])
-            Text(category)
-                .font(.system(size: 22))
-                .bold()
-                //.foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                .foregroundColor(Color.white)
-                
-            Image(cat_icons[Int(ind!)])
-            }
-        }
-        
-    
-        
         List(posts){ post in
 
             PostView(post: post)

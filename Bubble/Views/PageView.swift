@@ -27,19 +27,31 @@ struct PageView: View {
     let minDragTranslationForSwipe: CGFloat = 50
     let numTabs = 5
     
+    var handler: Binding<Int> { Binding(
+        get: { self.selectedTab },
+        set: {
+            self.selectedTab = $0
+            categoryGlobal.setCategory(category: categories[selectedTab])
+        }
+    )}
+    
     var body: some View {
-        TabView(selection: $selectedTab) {
+        TabView(selection: handler) {
                 ForEach(0 ..< categories.count) { i in
-                    FeedView(userLatitude: self.$userLatitude, userLongitude: self.$userLongitude, category: self.$categories[i])
-                        .tabItem {
-                            selectedTab == i ? Image(selected_cat_names[i]).resizable().padding() : Image(cat_names[i]).resizable().padding()
-                            //Text(categories[i])
-                        }
-                        .tag(i)
-                        .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
-                        .animation(.default)
-                        .environmentObject(userAuth)
-                        .environmentObject(categoryGlobal)
+                    if #available(iOS 14.0, *) {
+                        
+                        FeedView(userLatitude: self.$userLatitude, userLongitude: self.$userLongitude, category: self.$categories[i])
+                            .tabItem {
+                                selectedTab == i ? Image(selected_cat_names[i]).resizable().padding() : Image(cat_names[i]).resizable().padding()
+                                //Text(categories[i])
+                            }
+                            .tag(i)
+                            .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
+                            .animation(.default)
+                            .environmentObject(userAuth)
+                    } else {
+                        // Fallback on earlier versions
+                    }
                     
                     
                 }

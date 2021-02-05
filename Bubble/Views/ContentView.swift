@@ -9,6 +9,9 @@ struct ContentView : View {
     @EnvironmentObject var userAuth: UserAuth
     @EnvironmentObject var categoryGlobal: Category
     
+    @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
+    @State private var cat_icons = ["deals_20_w", "happy_20_w", "rec_20_w", "what_20_w", "misc_20_w"]
+    
     @State var show = false
     
     init() {
@@ -18,6 +21,8 @@ struct ContentView : View {
         //Use this if NavigationBarTitle is with displayMode = .inline
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
     }
+    
+     
     
     var body: some View {
         
@@ -35,7 +40,9 @@ struct ContentView : View {
                 LoginView().environmentObject(userAuth).environmentObject(categoryGlobal).navigationBarBackButtonHidden(true)
             }
             else{
+                
                 if #available(iOS 14.0, *) {
+                    
                     
                     ZStack{
                         
@@ -53,12 +60,26 @@ struct ContentView : View {
                             }
                             
                         }.background(Color.black.opacity(self.show ? 0.2 : 0)).edgesIgnoringSafeArea(.bottom)
-                        
-                        
-                        
                     }
-                    .navigationBarTitle(Text("Bubble"), displayMode: .inline)
+                    .navigationBarTitle(Text(""), displayMode: .inline)
+                    .toolbar{
+                        ToolbarItem(placement: .principal){
+                            HStack{
+                                if categories.contains(categoryGlobal.currCategory)
+                                {
+                                    let ind = categories.firstIndex(of: categoryGlobal.currCategory)
+                                    Image(cat_icons[Int(ind!)])
+                                    Text(categoryGlobal.currCategory)
+                                        .foregroundColor(Color.white)
+                                        .bold()
+                                        .font(.headline)
+                                    Image(cat_icons[Int(ind!)])
+                                }
+                            }
+                        }
+                    }
                     .navigationBarItems(leading:
+                                            HStack{
                                             Button(action: {
                                                 self.show.toggle()
                                             }, label: {
@@ -69,13 +90,14 @@ struct ContentView : View {
                                                     Image("bubbles_20")
                                                         .foregroundColor(Color.white)
                                                 }
-                                            }), trailing:
+                                            })
+                                            }, trailing:
                                                 NavigationLink(destination: SubmitPostView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude)){
                                                     Image(systemName: "plus")
                                                         .foregroundColor(Color.white)
                                                 }
-                                    
-                                  
+
+
                     )
                     
                     .onAppear(){
@@ -87,6 +109,7 @@ struct ContentView : View {
                 
                 else {
                     // Fallback on earlier versions
+
                 }
             }
         }
