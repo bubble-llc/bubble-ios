@@ -42,29 +42,23 @@ struct ContentView : View {
             else{
                 
                 if #available(iOS 14.0, *) {
-                    
-                    
+ 
                     ZStack{
                         
                         PageView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude).environmentObject(userAuth).environmentObject(categoryGlobal)
-                        //                    TabBarView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude)
-                        ZStack{
+
                         GeometryReader{_ in
-                            HStack{
+
                                 MenuView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude)
                                     .offset(x: self.show ? 0 : -UIScreen.main.bounds.width)
                                     .animation(.default)
-                            }
-                                .gesture(drag).onAppear {
-                                self.show=false
-                            }
                             
                         }
-                            }
                         .background(Color.black.opacity(self.show ? 0.2 : 0))
                         .onTapGesture{
                             self.show.toggle()
                         }
+                        .gesture(drag)
                     }
                     .navigationBarTitle(Text(""), displayMode: .inline)
                     .toolbar{
@@ -89,7 +83,7 @@ struct ContentView : View {
                                                 self.show.toggle()
                                             }, label: {
                                                 if self.show{
-                                                    Image(systemName: "arrow.left").font(.body).foregroundColor(.black)
+                                                    Image("bubbles_20").font(.body).foregroundColor(.gray)
                                                 }
                                                 else{
                                                     Image("bubbles_20")

@@ -57,7 +57,7 @@ struct MenuView : View {
                     Button(action: goExit)
                     {
                         Image(systemName: "paperplane.fill").resizable().frame(width: 25, height: 25).padding()
-                        Text("Exit").fontWeight(.heavy)
+                        Text("Log Out").fontWeight(.heavy)
                     }.padding()
                     
                 }
