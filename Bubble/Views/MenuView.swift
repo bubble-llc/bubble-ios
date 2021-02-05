@@ -17,10 +17,12 @@ struct MenuView : View {
     
     @EnvironmentObject var userAuth: UserAuth
 
+    
     var body : some
     View{
             VStack
             {
+                Spacer()
                 HStack
                 {
                     NavigationLink(destination: UserProfileView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
@@ -55,14 +57,17 @@ struct MenuView : View {
                     Button(action: goExit)
                     {
                         Image(systemName: "paperplane.fill").resizable().frame(width: 25, height: 25).padding()
-                        Text("Exit").fontWeight(.heavy)
+                        Text("Log Out").fontWeight(.heavy)
                     }.padding()
                     
                 }
+                Spacer()
             }
-            .frame(maxWidth: UIScreen.main.bounds.width/2, maxHeight: .infinity, alignment: .leading)
+            .frame(maxWidth: UIScreen.main.bounds.width/2, maxHeight: UIScreen.main.bounds.height, alignment: .topLeading)
             .background(Color.black.opacity(0.8))
-            .edgesIgnoringSafeArea(.all)
+            .onTapGesture{
+                print("nothing")
+            }
         
         
     }
