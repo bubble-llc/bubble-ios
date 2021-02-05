@@ -27,8 +27,16 @@ struct PageView: View {
     let minDragTranslationForSwipe: CGFloat = 50
     let numTabs = 5
     
+    var handler: Binding<Int> { Binding(
+        get: { self.selectedTab },
+        set: {
+            self.selectedTab = $0
+            categoryGlobal.setCategory(category: categories[selectedTab])
+        }
+    )}
+    
     var body: some View {
-        TabView(selection: $selectedTab) {
+        TabView(selection: handler) {
                 ForEach(0 ..< categories.count) { i in
                     if #available(iOS 14.0, *) {
                         
