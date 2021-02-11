@@ -10,9 +10,6 @@ import SwiftUI
 import SlideOverCard
 
 struct MenuView : View {
-    @Binding var userLatitude: String
-    @Binding var userLongitude: String
-    
     @State private var background = BackgroundStyle.solid
     
     @EnvironmentObject var userAuth: UserAuth
@@ -25,7 +22,7 @@ struct MenuView : View {
                 Spacer()
                 HStack
                 {
-                    NavigationLink(destination: UserProfileView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
+                    NavigationLink(destination: UserProfileView())
                     {
                         Image(systemName: "person.fill").resizable().frame(width: 25, height: 25).padding()
                         Text("Account").fontWeight(.heavy)
@@ -34,7 +31,7 @@ struct MenuView : View {
 
                 HStack
                 {
-                    NavigationLink(destination: UserLikedView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
+                    NavigationLink(destination: UserLikedView())
                     {
                         Image(systemName: "checkmark.rectangle.fill").resizable().frame(width: 25, height: 25).padding()
                         Text("Liked").fontWeight(.heavy)
@@ -73,13 +70,13 @@ struct MenuView : View {
     }
     func goProfile() {
         if let window = UIApplication.shared.windows.first {
-            window.rootViewController = UIHostingController(rootView: UserProfileView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
+            window.rootViewController = UIHostingController(rootView: UserProfileView())
             window.makeKeyAndVisible()
         }
     }
     func goLiked() {
         if let window = UIApplication.shared.windows.first {
-            window.rootViewController = UIHostingController(rootView: UserLikedView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
+            window.rootViewController = UIHostingController(rootView: UserLikedView())
             window.makeKeyAndVisible()
         }
     }

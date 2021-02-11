@@ -3,11 +3,11 @@ import Request
 import Combine
 import SlideOverCard
 
-struct ContentView : View {    
-    @ObservedObject var locationViewModel = LocationViewModel()
+struct ContentView : View {
     
     @EnvironmentObject var userAuth: UserAuth
     @EnvironmentObject var categoryGlobal: Category
+    @EnvironmentObject var locationViewModel: LocationViewModel
     
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
     @State private var cat_icons = ["deals_20_w", "happy_20_w", "rec_20_w", "what_20_w", "misc_20_w"]
@@ -45,11 +45,11 @@ struct ContentView : View {
  
                     ZStack{
                         
-                        PageView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude).environmentObject(userAuth).environmentObject(categoryGlobal)
+                        PageView().environmentObject(userAuth).environmentObject(locationViewModel)
 
                         GeometryReader{_ in
 
-                                MenuView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude)
+                                MenuView()
                                     .offset(x: self.show ? 0 : -UIScreen.main.bounds.width)
                                     .animation(.default)
                             
@@ -91,7 +91,7 @@ struct ContentView : View {
                                                 }
                                             })
                                             }, trailing:
-                                                NavigationLink(destination: SubmitPostView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude)){
+                                                NavigationLink(destination: SubmitPostView()){
                                                     Image(systemName: "plus")
                                                         .foregroundColor(Color.white)
                                                 }
