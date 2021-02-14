@@ -7,12 +7,13 @@ struct ContentView : View {
     
     @EnvironmentObject var userAuth: UserAuth
     @EnvironmentObject var categoryGlobal: Category
-    @EnvironmentObject var locationViewModel: LocationViewModel
     
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
     @State private var cat_icons = ["deals_20_w", "happy_20_w", "rec_20_w", "what_20_w", "misc_20_w"]
     
     @State var show = false
+    
+    let locationViewModel = LocationViewModel()
     
     init() {
         //Use this if NavigationBarTitle is with Large Font
@@ -38,6 +39,8 @@ struct ContentView : View {
         NavigationView(){
             if !userAuth.isLoggedin{
                 LoginView().environmentObject(userAuth).environmentObject(categoryGlobal).navigationBarBackButtonHidden(true)
+                    .navigationBarTitle(Text(""), displayMode: .inline)
+                    .navigationBarHidden(true)
             }
             else{
                 

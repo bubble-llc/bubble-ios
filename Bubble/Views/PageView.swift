@@ -22,7 +22,6 @@ struct PageView: View {
     @EnvironmentObject var categoryGlobal: Category
     @EnvironmentObject var locationViewModel: LocationViewModel
     
-    
     let minDragTranslationForSwipe: CGFloat = 50
     let numTabs = 5
     
