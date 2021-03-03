@@ -11,9 +11,6 @@ import SlideOverCard
 import Combine
 
 struct PageView: View {
-    @Binding var userLatitude: String
-    @Binding var userLongitude: String
-    
     @State private var selectedTab = 0
     
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
@@ -23,6 +20,7 @@ struct PageView: View {
     
     @EnvironmentObject var userAuth: UserAuth
     @EnvironmentObject var categoryGlobal: Category
+    @EnvironmentObject var locationViewModel: LocationViewModel
     
     let minDragTranslationForSwipe: CGFloat = 50
     let numTabs = 5
@@ -40,7 +38,7 @@ struct PageView: View {
                 ForEach(0 ..< categories.count) { i in
                     if #available(iOS 14.0, *) {
                         
-                        FeedView(userLatitude: self.$userLatitude, userLongitude: self.$userLongitude, category: self.$categories[i])
+                        FeedView(category: self.$categories[i])
                             .tabItem {
                                 selectedTab == i ? Image(selected_cat_names[i]).resizable().padding() : Image(cat_names[i]).resizable().padding()
                                 //Text(categories[i])
@@ -49,13 +47,16 @@ struct PageView: View {
                             .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
                             .animation(.default)
                             .environmentObject(userAuth)
+                            .environmentObject(locationViewModel)
                     } else {
                         // Fallback on earlier versions
                     }
                     
                     
                 }
-        }.accentColor(Color.white)
+        }
+        .accentColor(Color.white)
+        .onAppear(perform: self.locationViewModel.retriveCurrentLocation)
 
     }
     private func handleSwipe(translation: CGFloat) {

@@ -39,13 +39,13 @@ struct TabBarView : View {
     }
     func goProfile() {
         if let window = UIApplication.shared.windows.first {
-            window.rootViewController = UIHostingController(rootView: UserProfileView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
+            window.rootViewController = UIHostingController(rootView: UserProfileView())
             window.makeKeyAndVisible()
         }
     }
     func goLiked() {
         if let window = UIApplication.shared.windows.first {
-            window.rootViewController = UIHostingController(rootView: UserLikedView(userLatitude: self.$userLatitude , userLongitude: self.$userLongitude))
+            window.rootViewController = UIHostingController(rootView: UserLikedView())
             window.makeKeyAndVisible()
         }
     }

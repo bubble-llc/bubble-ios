@@ -3,8 +3,7 @@ import Request
 import Combine
 import SlideOverCard
 
-struct ContentView : View {    
-    @ObservedObject var locationViewModel = LocationViewModel()
+struct ContentView : View {
     
     @EnvironmentObject var userAuth: UserAuth
     @EnvironmentObject var categoryGlobal: Category
@@ -13,6 +12,8 @@ struct ContentView : View {
     @State private var cat_icons = ["deals_20_w", "happy_20_w", "rec_20_w", "what_20_w", "misc_20_w"]
     
     @State var show = false
+    
+    let locationViewModel = LocationViewModel()
     
     init() {
         //Use this if NavigationBarTitle is with Large Font
@@ -38,6 +39,8 @@ struct ContentView : View {
         NavigationView(){
             if !userAuth.isLoggedin{
                 LoginView().environmentObject(userAuth).environmentObject(categoryGlobal).navigationBarBackButtonHidden(true)
+                    .navigationBarTitle(Text(""), displayMode: .inline)
+                    .navigationBarHidden(true)
             }
             else{
                 
@@ -45,11 +48,11 @@ struct ContentView : View {
  
                     ZStack{
                         
-                        PageView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude).environmentObject(userAuth).environmentObject(categoryGlobal)
+                        PageView().environmentObject(userAuth).environmentObject(locationViewModel)
 
                         GeometryReader{_ in
 
-                                MenuView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude)
+                                MenuView()
                                     .offset(x: self.show ? 0 : -UIScreen.main.bounds.width)
                                     .animation(.default)
                             
@@ -91,7 +94,7 @@ struct ContentView : View {
                                                 }
                                             })
                                             }, trailing:
-                                                NavigationLink(destination: SubmitPostView(userLatitude: self.$locationViewModel.userLatitude , userLongitude: self.$locationViewModel.userLongitude)){
+                                                NavigationLink(destination: SubmitPostView()){
                                                     Image(systemName: "plus")
                                                         .foregroundColor(Color.white)
                                                 }

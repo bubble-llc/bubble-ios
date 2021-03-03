@@ -20,17 +20,18 @@ struct FeedView: View {
     @State private var isMenu: Bool = false
     @State private var currCategory: String = ""
     
-    @Binding var userLatitude: String
-    @Binding var userLongitude: String
     @Binding var category: String
     
     @EnvironmentObject var userAuth: UserAuth
+    @EnvironmentObject var locationViewModel: LocationViewModel
     
     var body: some View
     {
         ZStack{
-            ScrollView{PostList(type: "feed", userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, category: self.$category)
-                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)}
+            ScrollView{PostList(category: self.$category)
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                .environmentObject(locationViewModel)
+            }
 
         }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
 //        let self.category_global.currCategory = category //issue here

@@ -4,9 +4,6 @@ import SlideOverCard
 struct UserProfileView: View {
     @State private var position = CardPosition.bottom
     
-    @Binding var userLatitude: String
-    @Binding var userLongitude: String
-    
     var body: some View {
         ZStack{
             
@@ -25,11 +22,11 @@ struct UserProfileView: View {
                     Text("Date Joined: \(date_joined)")
                 }.navigationBarTitle("Profile", displayMode: .inline)
 //                    .navigationBarItems(leading: Button(action: {
-//                        
+//
 //                        self.position = CardPosition.top
-//                        
+//
 //                    }, label: {
-//                        
+//
 //                        Image(systemName: "line.horizontal.3")
 //                    }).foregroundColor(.black))
             

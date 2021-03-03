@@ -22,8 +22,7 @@ struct SubmitPostView: View {
     @State private var what_clicked = false
     @State private var misc_clicked = false
     
-    @Binding var userLatitude: String
-    @Binding var userLongitude: String
+    @EnvironmentObject var locationViewModel: LocationViewModel
 
 //    init(userLatitude: Binding<String>, userLongitude: Binding<String>){
 //        self._userLatitude = userLatitude
@@ -249,8 +248,8 @@ struct SubmitPostView: View {
                                         "category_name": formatted_category,
                                         "content": self.post_content,
                                         "title": self.post_title,
-                                        "latitude": userLatitude,
-                                        "longitude": userLongitude
+                                        "latitude": locationViewModel.userLatitude,
+                                        "longitude": locationViewModel.userLongitude
                                     ]
                                 API().submitPost(submitted: postObject)
                                 self.presentationMode.wrappedValue.dismiss()
