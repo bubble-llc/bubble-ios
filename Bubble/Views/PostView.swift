@@ -53,14 +53,16 @@ struct PostView: View
                         .foregroundColor(Color.gray)
                         .font(.system(size: 12))
                         .padding(.leading)
-                        Spacer()
+                        .frame(width: UIScreen.main.bounds.width * 0.2, height: UIScreen.main.bounds.height * 0.001, alignment: .leading)
+                    Spacer()
                     Text(post.title)
                         .font(.headline)
                         .lineLimit(1)
                         .colorInvert()
                         .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                        .frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.height * 0.02, alignment: .center)
                         Spacer()
-                    
+                        Spacer()
                         }
                 
                 HStack{
@@ -69,16 +71,15 @@ struct PostView: View
                         .resizable()
                         .colorInvert()
                         .frame(width:30, height:30)
-                        .padding(.leading, 17)
-                    
-                    Spacer()
+                        .padding(.leading)
                     Spacer()
                     Text(post.content)
                         .colorInvert()
                         .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .font(.system(size: 15))
                         .lineLimit(2)
-                        .frame(width: UIScreen.main.bounds.width * 0.6, height: UIScreen.main.bounds.height/24.5)
+                        .padding(.leading, 3)
+                        .frame(width: UIScreen.main.bounds.width * 0.6, height: UIScreen.main.bounds.height/24.5, alignment: .center)
                         
                     Spacer()
                 }
