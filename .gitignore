@@ -1,7 +1,10 @@
 .DS_Store
-
 Bubble/Bubble.xcodeproj
 Bubble/Bubble.xcworkspace
 Bubble/Pods/Pods.xcodeproj
 Bubble/Bubble.xcodeproj/*
-Bubble/Bubble.xcworkspace/*
+Bubble/Bubble.xcworkspace/xcuserdata/*
+.Trashes
+xcuserdata/
+*/xcuserdata/
+xcuserdata/*
