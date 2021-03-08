@@ -8,3 +8,5 @@ Bubble/Bubble.xcworkspace/xcuserdata/*
 xcuserdata/
 */xcuserdata/
 xcuserdata/*
+*.xcuserstate
+project.xcworkspace/
