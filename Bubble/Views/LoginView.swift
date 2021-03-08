@@ -8,8 +8,7 @@ struct LoginView: View {
     @State var users: [User] = []
 
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-        
-    @ObservedObject var locationViewModel = LocationViewModel()
+    
     @EnvironmentObject var userAuth: UserAuth
     @EnvironmentObject var categoryGlobal: Category
     
