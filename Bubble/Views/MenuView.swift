@@ -17,6 +17,7 @@ struct MenuView : View {
     
     var body : some
     View{
+        if #available(iOS 14.0, *) {
             VStack
             {
                 Spacer()
@@ -77,6 +78,9 @@ struct MenuView : View {
             .onTapGesture{
                 print("nothing")
             }
+        } else {
+            // Fallback on earlier versions
+        }
         
         
     }
