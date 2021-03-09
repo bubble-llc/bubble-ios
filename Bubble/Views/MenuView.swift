@@ -17,6 +17,7 @@ struct MenuView : View {
     
     var body : some
     View{
+        if #available(iOS 14.0, *) {
             VStack
             {
                 Spacer()
@@ -24,42 +25,48 @@ struct MenuView : View {
                 {
                     NavigationLink(destination: UserProfileView())
                     {
-                        Image(systemName: "person.fill").resizable().frame(width: 25, height: 25).padding()
+                        Image("menu_account").resizable().frame(width: 25, height: 25).padding()
                         Text("Account").foregroundColor(.white)
                     }
-                }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height/24.5, alignment: .leading)
+                }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.005, alignment: .leading)
                 .padding()
-
+                
+                Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                
                 HStack
                 {
                     NavigationLink(destination: UserLikedView())
                     {
-                        Image(systemName: "checkmark.rectangle.fill").resizable().frame(width: 25, height: 25).padding()
+                        Image("menu_likes").resizable().frame(width: 25, height: 25).padding()
                         Text("Liked").foregroundColor(.white)
                     }
-                }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height/24.5, alignment: .leading)
+                }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.005, alignment: .leading)
                 .padding()
-                    
+                
+                Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                
                 HStack
                 {
                     NavigationLink(destination: ReportView())
                     {
-                        Image(systemName: "envelope.open.fill").resizable().frame(width: 25, height: 25).padding()
+                        Image("menu_report").resizable().frame(width: 25, height: 25).padding()
                         Text("Report").foregroundColor(.white)
                     }
                     
-                }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height/24.5, alignment: .leading)
+                }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.005, alignment: .leading)
                 .padding()
+                
+                Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                 
                 HStack
                 {
                     Button(action: goExit)
                     {
-                        Image(systemName: "paperplane.fill").resizable().frame(width: 25, height: 25).padding()
+                        Image("menu_log").resizable().frame(width: 25, height: 25).padding()
                         Text("Log Out").foregroundColor(.white)
                     }
                     
-                }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height/24.5, alignment: .leading)
+                }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.005, alignment: .leading)
                 .padding()
                 
                 Spacer()
@@ -67,9 +74,13 @@ struct MenuView : View {
             }
             .frame(maxWidth: UIScreen.main.bounds.width/2, maxHeight: UIScreen.main.bounds.height, alignment: .topLeading)
             .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            .ignoresSafeArea()
             .onTapGesture{
                 print("nothing")
             }
+        } else {
+            // Fallback on earlier versions
+        }
         
         
     }
