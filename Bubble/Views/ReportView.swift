@@ -22,16 +22,36 @@ struct ReportView: View{
     
     var body: some View{
         
-        Form {
+        Form{
             VStack(){
-                Text("Report an issue").font(.system(size:25))
-                .foregroundColor(Color.black)
-                .italic()
-                .bold()
-                .frame(maxWidth: .infinity, alignment: .center)
-            }
+                HStack{
+
+                        Image("menu_report")
+                            .resizable()
+                            .frame(width: 32.0, height: 32.0)
+                            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                        Text("report")
+                            .font(.system(size:35))
+                            .font(.headline)
+                            .foregroundColor(Color.white)
+                            .shadow(color: Color.black, radius: 3, y:1)
+                            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                        Image("menu_report")
+                            .resizable()
+                            .frame(width: 32.0, height: 32.0)
+                            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                           
+                    
+                }
+                .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            Spacer()
+            Spacer()
+                Spacer()
             if #available(iOS 14.0, *)
-            {
+            {   Spacer()
+                Spacer()
+                Spacer()
                 //We are currently allowing there to be trailing spaces after comments, need to auto remove those from the comment
                 //object before we actually let it be submitted
                 TextEditor(text: self.$report_content)
@@ -43,18 +63,26 @@ struct ReportView: View{
                     }
                     .multilineTextAlignment(.leading)
                     .padding()
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 200)
-                    .border(Color.black, width:1)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 150, maxHeight: 400)
                     .foregroundColor(commentBoxPressed ? Color.black : Color.gray)
-                
+                    .background(Color.white)
+                    .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                    .cornerRadius(25)
             }
             else
             {
+                Spacer()
+                Spacer()
+                Spacer()
                 MultilineTextField("Enter report here...", text: self.$report_content)
                     .padding(3)
                     .frame(minWidth: 100, idealWidth: 100/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center)
                     .background(RoundedRectangle(cornerRadius:5))
+                    .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                    .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             }
+            Spacer()
+            Spacer()
             Button(action:
             {
                 let defaults = UserDefaults.standard
@@ -66,16 +94,31 @@ struct ReportView: View{
                     ]
                 //API().submitComment(submitted: commentObject)
                 self.submittedAlert = true
-                self.presentationMode.wrappedValue.dismiss()
+                //self.presentationMode.wrappedValue.dismiss()
                 
             })
             {
                 Text("Submit")
-            }.alert(isPresented: $submittedAlert){
-                Alert(title: Text("Report submitted"), message: Text("Thank you, we appreciate your feedback!"), dismissButton: .default(Text("Close")))
+                    .fontWeight(.bold)
+                    .padding(10)
+                    .background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                    .cornerRadius(40)
+                    .foregroundColor(.white)
+                
             }
-        }
-        .foregroundColor(Color.blue) 
+            .buttonStyle(PlainButtonStyle())
+            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            .alert(isPresented: $submittedAlert)
+            {
+                Alert(title: Text(""), message: Text("Thank you for your report!"), dismissButton: .default(Text("Close")){
+                    self.presentationMode.wrappedValue.dismiss()
+                })
+            }
+            }.listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+        }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            
+            
     
     }
 }
