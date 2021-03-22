@@ -94,7 +94,7 @@ struct ContentView : View {
                                                 }
                                             })
                                             }, trailing:
-                                                NavigationLink(destination: SubmitPostView()){
+                                                NavigationLink(destination: SubmitPostView().environmentObject(locationViewModel)){
                                                     Image(systemName: "plus")
                                                         .foregroundColor(Color.white)
                                                 }
