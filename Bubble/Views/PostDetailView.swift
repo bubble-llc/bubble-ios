@@ -69,11 +69,11 @@ struct FooterView: View {
         Button(action:
         {
             let defaults = UserDefaults.standard
-            let username = defaults.string(forKey: defaultsKeys.username)!
+            let user_id = defaults.string(forKey: defaultsKeys.user_id)!
             let commentObject: [String: Any]  =
                 [
                     "post_id": post.id,
-                    "username": username,
+                    "user_id": user_id,
                     "content": self.comment_content,
                 ]
             API().submitComment(submitted: commentObject)

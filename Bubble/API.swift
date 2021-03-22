@@ -3,19 +3,20 @@ import Foundation
 class API {
     let baseURL = "https://dashboard.stocksandshare.com/chitchat"
 //    let baseURL = "http://0.0.0.0:8000"
+    let categories = ["Deals":1, "Happy Hour":2, "Recreation":3, "What's Happening?":4, "Misc":5]
     
     func getPosts(logitude: String, latitude: String, category: String, completion: @escaping ([Post]) ->()){
         let defaults = UserDefaults.standard
-        let username = defaults.string(forKey: defaultsKeys.username)!
+        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
         var paramStr = ""
-        paramStr += "username=\(String(describing: username))&"
-        paramStr += "category_name=\(String(describing: category))"
+        paramStr += "user_id=\(String(describing: user_id))&"
+        paramStr += "category_id=\(String(describing: categories[category]! ))"
         
         guard let url = URL(string: "\(baseURL)/category?\(String(describing: paramStr))") else {return}
         URLSession.shared.dataTask(with: url)
         { (data,_,_) in
             
-            let posts = try! JSONDecoder().decode([Post].self, from:data!)
+            let posts = try! JSONDecoder().decode([Post].self, from: data!)
             DispatchQueue.main.async
             {
                 completion(posts)
@@ -25,9 +26,9 @@ class API {
     
     func getUserLikedPosts(completion: @escaping ([Post]) ->()){
          let defaults = UserDefaults.standard
-         let username = defaults.string(forKey: defaultsKeys.username)!
+         let user_id = defaults.string(forKey: defaultsKeys.user_id)!
 
-         guard let url = URL(string: "\(baseURL)/user_liked_post?username=\(String(describing: username))") else {return}
+         guard let url = URL(string: "\(baseURL)/user_liked_post?user_id=\(String(describing: user_id))") else {return}
          URLSession.shared.dataTask(with: url)
          { (data,_,_) in
 
@@ -137,7 +138,7 @@ class API {
         task.resume()
     }
     
-    func getComment(post_id: String, completion: @escaping ([Comment]) ->())
+    func getComment(post_id: Int, completion: @escaping ([Comment]) ->())
     {
         guard let url = URL(string: "\(baseURL)/comment?post_id=\(post_id)") else {return}
         URLSession.shared.dataTask(with: url)

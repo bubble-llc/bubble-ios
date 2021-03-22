@@ -10,17 +10,19 @@ import Foundation
 
 struct User: Decodable {
     let username: String
+    let user_id: String
     let email: String
     let date_joined: String
     
     private enum CodingKeys: String, CodingKey {
-            case id, username, email, date_joined
+            case id, username, user_id, email, date_joined
         }
     
     init(from decoder: Decoder) throws
     {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         username = try values.decode(String.self, forKey: .username)
+        user_id = try values.decode(String.self, forKey: .user_id)
         email = try values.decode(String.self, forKey: .email)
         date_joined = try values.decode(String.self, forKey: .date_joined)
     }

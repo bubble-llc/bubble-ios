@@ -35,7 +35,7 @@ struct PostList: View {
             {
                 formatted_category = category
             }
-            API().getPosts(logitude: locationViewModel.userLongitude, latitude: locationViewModel.userLatitude, category: formatted_category)
+            API().getPosts(logitude: locationViewModel.userLongitude, latitude: locationViewModel.userLatitude, category: category)
             {
                 (posts) in self.posts = posts
             }

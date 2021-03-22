@@ -36,6 +36,7 @@ struct LoginView: View {
                     {
                         userAuth.setInfo(userInfo: [
                             "username": username,
+                            "user_id": self.users[0].user_id,
                             "password": password,
                             "email": self.users[0].email,
                             "date_joined": self.users[0].date_joined
