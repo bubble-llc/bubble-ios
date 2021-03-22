@@ -9,7 +9,7 @@
 import Foundation
 
 struct Comment: Decodable, Identifiable {
-    var id = UUID()
+    let id: Int
     let content: String
     let username: String
     let date_created: String
@@ -21,7 +21,7 @@ struct Comment: Decodable, Identifiable {
     init(from decoder: Decoder) throws
     {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decode(UUID.self, forKey: .id)
+        id = try values.decode(Int.self, forKey: .id)
         content = try values.decode(String.self, forKey: .content)
         username = try values.decode(String.self, forKey: .username)
         date_created = try values.decode(String.self, forKey: .date_created)

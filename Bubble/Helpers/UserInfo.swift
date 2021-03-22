@@ -20,6 +20,9 @@ class UserAuth: ObservableObject {
     init() {
         let defaults = UserDefaults.standard
         let username = defaults.string(forKey: defaultsKeys.username)!
+        print(username)
+        print(defaults.string(forKey: defaultsKeys.user_id)!)
+        print(defaults)
         if username != "username"
         {
             self.isLoggedin = true
@@ -33,6 +36,7 @@ class UserAuth: ObservableObject {
     func setInfo(userInfo: Dictionary<String, String>) {
         let defaults = UserDefaults.standard
         defaults.set(userInfo["username"], forKey: defaultsKeys.username)
+        defaults.set(userInfo["user_id"], forKey: defaultsKeys.user_id)
         defaults.set(userInfo["password"], forKey: defaultsKeys.password)
         defaults.set(userInfo["email"], forKey: defaultsKeys.email)
         defaults.set(userInfo["date_joined"], forKey: defaultsKeys.date_joined)
@@ -42,6 +46,7 @@ class UserAuth: ObservableObject {
     func logout() {
         let defaults = UserDefaults.standard
         defaults.set("username", forKey: defaultsKeys.username)
+        defaults.set("user_id", forKey: defaultsKeys.user_id)
         defaults.set("password", forKey: defaultsKeys.password)
         defaults.set("email", forKey: defaultsKeys.email)
         defaults.set("date_joined", forKey: defaultsKeys.date_joined)
@@ -51,6 +56,7 @@ class UserAuth: ObservableObject {
 
 struct defaultsKeys {
     static let username = "username"
+    static let user_id = "user_id"
     static let password = "password"
     static let email = "email"
     static let date_joined = "date_joined"

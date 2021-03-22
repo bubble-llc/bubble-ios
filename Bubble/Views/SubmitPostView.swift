@@ -11,8 +11,7 @@ struct SubmitPostView: View {
     @State private var post_title_pressed: Bool = false
     @State private var post_content: String = "Write some content for your post"
     @State private var post_content_pressed: Bool = false
-    @State private var selectedCategory = 0
-    @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
+    @State private var category_id = 0
     @State private var showingAlert = false
     @State private var errorMessage = ""
     
@@ -63,7 +62,6 @@ struct SubmitPostView: View {
                     
                     //Deals Button
                     Button(action: {
-                        print("button pressed")
                         deals_clicked.toggle()
                         
                         happy_clicked = false
@@ -71,7 +69,7 @@ struct SubmitPostView: View {
                         what_clicked = false
                         misc_clicked = false
                         
-                        selectedCategory = 0
+                        category_id = 1
                     }){
                         
                         Image(self.deals_clicked == true ? "deals_20_w" : "deals_20").resizable().frame(width:40, height:40).padding()
@@ -79,7 +77,6 @@ struct SubmitPostView: View {
                     }.buttonStyle(PlainButtonStyle())
                     //Happy Hour
                     Button(action: {
-                        print("button pressed")
                         happy_clicked.toggle()
                         
                         deals_clicked = false
@@ -87,7 +84,7 @@ struct SubmitPostView: View {
                         what_clicked = false
                         misc_clicked = false
                         
-                        selectedCategory = 1
+                        category_id = 2
                     }){
                         
                         Image(self.happy_clicked == true ? "happy_20_w" : "happy_20").resizable().frame(width:40, height:40).padding()
@@ -95,7 +92,6 @@ struct SubmitPostView: View {
                     }.buttonStyle(PlainButtonStyle())
                     //Recreation
                     Button(action: {
-                        print("button pressed")
                         rec_clicked.toggle()
                         
                         deals_clicked = false
@@ -103,7 +99,7 @@ struct SubmitPostView: View {
                         what_clicked = false
                         misc_clicked = false
                         
-                        selectedCategory = 2
+                        category_id = 3
                     }){
                         
                         Image(self.rec_clicked == true ? "rec_20_w" : "rec_20").resizable().frame(width:40, height:40).padding()
@@ -111,7 +107,6 @@ struct SubmitPostView: View {
                     }.buttonStyle(PlainButtonStyle())
                     //What's Happening?
                     Button(action: {
-                        print("button pressed")
                         what_clicked.toggle()
                         
                         deals_clicked = false
@@ -119,7 +114,7 @@ struct SubmitPostView: View {
                         happy_clicked = false
                         misc_clicked = false
                         
-                        selectedCategory = 3
+                        category_id = 4
                     }){
                         
                         Image(self.what_clicked == true ? "what_20_w" : "what_20").resizable().frame(width:40, height:40).padding()
@@ -128,7 +123,6 @@ struct SubmitPostView: View {
                     
                     //Misc
                     Button(action: {
-                        print("button pressed")
                         misc_clicked.toggle()
                         
                         deals_clicked = false
@@ -136,7 +130,7 @@ struct SubmitPostView: View {
                         what_clicked = false
                         happy_clicked = false
                         
-                        selectedCategory = 4
+                        category_id = 5
                     }){//(systemName: self.isPlaying == true ? "pause.fill" : "play.fill")
                         Image(self.misc_clicked == true ? "misc_20_w" : "misc_20").resizable().frame(width:40, height:40).padding()
                     }.buttonStyle(PlainButtonStyle())
@@ -215,16 +209,7 @@ struct SubmitPostView: View {
                 Button(action:
                         {
                             let defaults = UserDefaults.standard
-                            let username = defaults.string(forKey: defaultsKeys.username)!
-                            var formatted_category = categories[selectedCategory]
-                            if formatted_category == "Happy Hour"
-                            {
-                                formatted_category = "Happy_Hour"
-                            }
-                            else if formatted_category == "What's Happening?"
-                            {
-                                formatted_category = "What's_Happening?"
-                            }
+                            let user_id = defaults.string(forKey: defaultsKeys.user_id)!
                             
                             if post_title == "" || post_title == "Location of post"
                             {
@@ -240,12 +225,11 @@ struct SubmitPostView: View {
                             
                             if !showingAlert
                             {
-                                print(selectedCategory)
-                                print(formatted_category)
+                                print(category_id)
                                 let postObject: [String: Any]  =
                                     [
-                                        "username": username,
-                                        "category_name": formatted_category,
+                                        "user_id": user_id,
+                                        "category_id": category_id,
                                         "content": self.post_content,
                                         "title": self.post_title,
                                         "latitude": locationViewModel.userLatitude,

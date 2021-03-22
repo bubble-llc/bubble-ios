@@ -15,7 +15,6 @@ class Category: ObservableObject {
     var currCategory:String {
         willSet {
             objectWillChange.send()
-            print("changed")
         }
     }
     
