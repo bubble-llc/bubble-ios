@@ -46,7 +46,7 @@ class UserAuth: ObservableObject {
     func logout() {
         let defaults = UserDefaults.standard
         defaults.set("username", forKey: defaultsKeys.username)
-        defaults.set("user_id", forKey: defaultsKeys.user_id)
+        defaults.set(0, forKey: defaultsKeys.user_id)
         defaults.set("password", forKey: defaultsKeys.password)
         defaults.set("email", forKey: defaultsKeys.email)
         defaults.set("date_joined", forKey: defaultsKeys.date_joined)

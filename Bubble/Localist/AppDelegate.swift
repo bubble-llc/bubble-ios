@@ -8,7 +8,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let initialDefaults: NSDictionary =
         [
             "username": "username",
-            "user_id": "user_id",
+            "user_id": 0,
             "password": "password",
             "email": "email",
             "date_joined": "date_joined",
