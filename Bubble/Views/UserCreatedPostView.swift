@@ -1,0 +1,117 @@
+import SwiftUI
+import Request
+
+struct UserCreatedPostView: View
+{
+    let post: Post
+    
+    @State var isUp = false
+    @State var isDown = false
+    @State var totalVotes:Int = 0
+    @State var upColor = Color.gray
+    @State var downColor = Color.gray
+    @State var isVoted = false
+    
+    init(post: Post) {
+        self.post = post
+        self._totalVotes = State(initialValue: post.votes)
+        
+        
+        if post.is_voted == true
+        {
+            self._isVoted = State(initialValue: true)
+            if post.prev_vote == 1
+            {
+                self._isUp = State(initialValue: true)
+                self._upColor = State(initialValue: Color.green)
+            }
+            else if post.prev_vote == -1
+            {
+                self._isDown = State(initialValue: true)
+                self._downColor = State(initialValue: Color.red)
+            }
+        }
+    }
+    
+    var body: some View
+    {
+        
+        NavigationLink(destination: PostDetailView( post: post,
+                                                    isUp: self.$isUp,
+                                                    isDown: self.$isDown,
+                                                    totalVotes: self.$totalVotes,
+                                                    upColor: self.$upColor,
+                                                    downColor: self.$downColor,
+                                                    isVoted: self.$isVoted)
+            )
+        {
+            VStack(alignment: .leading, spacing: 0){
+                Spacer()
+                HStack{
+                    Text(post.username)
+                        .colorInvert()
+                        .foregroundColor(Color.gray)
+                        .font(.system(size: 12))
+                        .padding(.leading)
+                        .frame(width: UIScreen.main.bounds.width * 0.2, height: UIScreen.main.bounds.height * 0.001, alignment: .leading)
+                    Spacer()
+                    Text(post.title)
+                        .font(.headline)
+                        .lineLimit(1)
+                        .colorInvert()
+                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                        .frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.height * 0.02, alignment: .center)
+                        Spacer()
+                        Spacer()
+                        }
+                
+                HStack{
+                    
+                    Image(systemName: "01.circle.fill")
+                        .resizable()
+                        .colorInvert()
+                        .frame(width:30, height:30)
+                        .padding(.leading)
+                    Spacer()
+                    Text(post.content)
+                        .colorInvert()
+                        .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                        .font(.system(size: 15))
+                        .lineLimit(2)
+                        .padding(.leading, 3)
+                        .frame(width: UIScreen.main.bounds.width * 0.6, height: UIScreen.main.bounds.height/24.5, alignment: .center)
+                        
+                    Spacer()
+                }
+                Spacer()
+                }//End middle block of HStack
+            .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height / 15.8)
+            .padding(.bottom)
+            .padding(.top)
+                    MetadataView(post: post,
+                                 isUp: self.$isUp,
+                                 isDown: self.$isDown,
+                                 totalVotes: self.$totalVotes,
+                                 upColor: self.$upColor,
+                                 downColor: self.$downColor,
+                                 isVoted: self.$isVoted)
+                            .font(.caption)
+                            .colorInvert()
+                            .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+
+
+            
+            
+            
+        }
+        
+        .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height/9, alignment: .center)
+        .background(Color.black)
+        .listRowBackground(Color.black)
+        .colorInvert()
+        .cornerRadius(20)
+        .border(Color.white, width: 2)
+        
+    }
+    
+}

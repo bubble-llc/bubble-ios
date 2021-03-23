@@ -28,10 +28,10 @@ struct ReportView: View{
 
                         Image("menu_report")
                             .resizable()
-                            .frame(width: 32.0, height: 32.0)
+                            .frame(width: 36.0, height: 36.0)
                             .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         Text("report")
-                            .font(.system(size:35))
+                            .font(.system(size:40))
                             .font(.headline)
                             .foregroundColor(Color.white)
                             .shadow(color: Color.black, radius: 3, y:1)
@@ -64,10 +64,15 @@ struct ReportView: View{
                     .multilineTextAlignment(.leading)
                     .padding()
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 150, maxHeight: 400)
-                    .foregroundColor(commentBoxPressed ? Color.black : Color.gray)
-                    .background(Color.white)
+                    .foregroundColor(commentBoxPressed ? Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255) : Color.gray)
+                    .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
                     .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                     .cornerRadius(25)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
+                    )
+                
             }
             else
             {
@@ -100,10 +105,17 @@ struct ReportView: View{
             {
                 Text("Submit")
                     .fontWeight(.bold)
-                    .padding(10)
-                    .background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                    .cornerRadius(40)
-                    .foregroundColor(.white)
+                    .padding(8)
+                    .padding(.leading, 30)
+                    .padding(.trailing, 30)
+                    .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
+                    .cornerRadius(8)
+                    .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
+                    )
+                
                 
             }
             .buttonStyle(PlainButtonStyle())

@@ -2,36 +2,49 @@ import SwiftUI
 import SlideOverCard
 
 struct UserProfileView: View {
-    @State private var position = CardPosition.bottom
-    
+    @State var posts: [Post] = []
     var body: some View {
-        ZStack{
-            
-                
+
+        let defaults = UserDefaults.standard
+        let username = defaults.string(forKey: defaultsKeys.username)!
+        if #available(iOS 14.0, *) {
+            ZStack(alignment: .top){
                 VStack
                 {
-                    let defaults = UserDefaults.standard
-                    let username = defaults.string(forKey: defaultsKeys.username)!
-                    let password = defaults.string(forKey: defaultsKeys.password)!
-                    let email = defaults.string(forKey: defaultsKeys.email)!
-                    let date_joined = defaults.string(forKey: defaultsKeys.date_joined)!
+                    Text(username)
+                        .font(.system(size:40))
+                        .font(.headline)
+                        .foregroundColor(Color.white)
+                        .shadow(color: Color.black, radius: 3, y:1)
+                        .padding(.top, UIScreen.main.bounds.height * 0.1)
+                    Image("bubble_blue")
+                        .resizable()
+                        .frame(width: 200, height: 200, alignment: .center)
                     
-                    Text("Username: \(username)")
-                    Text("Password: \(password)")
-                    Text("Email: \(email)")
-                    Text("Date Joined: \(date_joined)")
-                }.navigationBarTitle("Profile", displayMode: .inline)
-//                    .navigationBarItems(leading: Button(action: {
-//
-//                        self.position = CardPosition.top
-//
-//                    }, label: {
-//
-//                        Image(systemName: "line.horizontal.3")
-//                    }).foregroundColor(.black))
-            
-        }.animation(.spring())
-        //menu(loggedIn: self.$loggedIn, userLatitude: self.$userLatitude , userLongitude: self.$userLongitude, position: self.$position)
+                    List(posts){ post in
+
+                        UserCreatedPostView(post: post)
+                    }
+                    .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
+                    .onAppear
+                    {
+                        API().getUserLikedPosts
+                        {
+                            (posts) in self.posts = posts
+                            print(self.posts.count)
+                        }
+                    }
+                    
+                }
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                
+                
+            }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+        } else {
+            // Fallback on earlier versions
+        }
         
     }
 }
