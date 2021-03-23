@@ -9,16 +9,16 @@
 import SwiftUI
 import SlideOverCard
 
-struct ReportView: View{
+struct FeedbackView: View{
     
     @State private var commentBoxPressed: Bool = false
-    @State private var report_content: String = "Enter report here..."
+    @State private var feedback_content: String = "Enter feedback here..."
     @State private var submittedReportAlert = false
     @State private var position = CardPosition.bottom
     @State private var submittedAlert = false
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+    @EnvironmentObject var locationViewModel: LocationViewModel
     
     var body: some View{
         
@@ -30,7 +30,7 @@ struct ReportView: View{
                             .resizable()
                             .frame(width: 36.0, height: 36.0)
                             .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                        Text("report")
+                        Text("feedback")
                             .font(.system(size:40))
                             .font(.headline)
                             .foregroundColor(Color.white)
@@ -54,10 +54,10 @@ struct ReportView: View{
                 Spacer()
                 //We are currently allowing there to be trailing spaces after comments, need to auto remove those from the comment
                 //object before we actually let it be submitted
-                TextEditor(text: self.$report_content)
+                TextEditor(text: self.$feedback_content)
                     .onTapGesture {
                         if !self.commentBoxPressed{
-                            self.report_content = " "
+                            self.feedback_content = " "
                             self.commentBoxPressed = true
                         }
                     }
@@ -79,7 +79,7 @@ struct ReportView: View{
                 Spacer()
                 Spacer()
                 Spacer()
-                MultilineTextField("Enter report here...", text: self.$report_content)
+                MultilineTextField("Enter feedback here...", text: self.$feedback_content)
                     .padding(3)
                     .frame(minWidth: 100, idealWidth: 100/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center)
                     .background(RoundedRectangle(cornerRadius:5))
@@ -91,13 +91,15 @@ struct ReportView: View{
             Button(action:
             {
                 let defaults = UserDefaults.standard
-                let username = defaults.string(forKey: defaultsKeys.username)!
-                let report_object: [String: Any]  =
+                let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+                let feedback_object: [String: Any]  =
                     [
-                        "username": username,
-                        "content": self.report_content,
+                        "user_id": user_id,
+                        "content": self.feedback_content,
+                        "latitude": locationViewModel.userLatitude,
+                        "longitude": locationViewModel.userLongitude,
                     ]
-                //API().submitComment(submitted: commentObject)
+                API().submitFeedback(submitted: feedback_object)
                 self.submittedAlert = true
                 //self.presentationMode.wrappedValue.dismiss()
                 

@@ -17,7 +17,6 @@
 		5C75E5D8253F702200B97254 /* UserLikedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C75E5D7253F702200B97254 /* UserLikedView.swift */; };
 		5C75E5DD253F702B00B97254 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C75E5DC253F702B00B97254 /* UserProfileView.swift */; };
 		5C75E5E2253F7C2C00B97254 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C75E5E1253F7C2C00B97254 /* LoginView.swift */; };
-		5CBE9B2E255DCC3300734C29 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBE9B2D255DCC3300734C29 /* ReportView.swift */; };
 		5CCF766324F85B140040EC07 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF766224F85B140040EC07 /* SceneDelegate.swift */; };
 		5CCF766524F85C610040EC07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF766424F85C610040EC07 /* AppDelegate.swift */; };
 		5CCF766724F85CC90040EC07 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF766624F85CC90040EC07 /* ContentView.swift */; };
@@ -38,6 +37,7 @@
 		5CE12F8C24F857CE00C8D5D0 /* Json in Frameworks */ = {isa = PBXBuildFile; productRef = 5CE12F8B24F857CE00C8D5D0 /* Json */; };
 		5CE12F8E24F857CE00C8D5D0 /* Request in Frameworks */ = {isa = PBXBuildFile; productRef = 5CE12F8D24F857CE00C8D5D0 /* Request */; };
 		5CF2309D2501ACB1004A1C71 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF2309C2501ACB1004A1C71 /* CommentView.swift */; };
+		5D86E378260A7A5F00B002D8 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D86E377260A7A5F00B002D8 /* FeedbackView.swift */; };
 		B00258012559B5EB00BB7815 /* SlideOverCard in Frameworks */ = {isa = PBXBuildFile; productRef = B00258002559B5EB00BB7815 /* SlideOverCard */; };
 		B002582B255A4EA700BB7815 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B002582A255A4EA700BB7815 /* PageView.swift */; };
 		B0025830255A4F0900BB7815 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B002582F255A4F0900BB7815 /* Location.swift */; };
@@ -82,7 +82,6 @@
 		5C75E5D7253F702200B97254 /* UserLikedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLikedView.swift; sourceTree = "<group>"; };
 		5C75E5DC253F702B00B97254 /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		5C75E5E1253F7C2C00B97254 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		5CBE9B2D255DCC3300734C29 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
 		5CCF766224F85B140040EC07 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5CCF766424F85C610040EC07 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Localist/AppDelegate.swift; sourceTree = "<group>"; };
 		5CCF766624F85CC90040EC07 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -116,6 +115,7 @@
 		5CE12F5924F8565E00C8D5D0 /* PostDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
 		5CE12F5B24F8565E00C8D5D0 /* PostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		5CF2309C2501ACB1004A1C71 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		5D86E377260A7A5F00B002D8 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
 		8CD38C4746E74BBD41B28468 /* Pods-Bubble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble.release.xcconfig"; path = "Target Support Files/Pods-Bubble/Pods-Bubble.release.xcconfig"; sourceTree = "<group>"; };
 		966E3379C738237B468604C1 /* Pods_Bubble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bubble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B002582A255A4EA700BB7815 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
@@ -294,10 +294,10 @@
 				5C06515725EF09A1005028C0 /* UserLikedListView.swift */,
 				5C75E5DC253F702B00B97254 /* UserProfileView.swift */,
 				B002582A255A4EA700BB7815 /* PageView.swift */,
-				5CBE9B2D255DCC3300734C29 /* ReportView.swift */,
 				B065210A2582C99F000CA1DE /* MenuView.swift */,
 				5C07955E259A7E5300688501 /* TabBarView.swift */,
 				5C1CAB25260A608400374DFB /* UserCreatedPostView.swift */,
+				5D86E377260A7A5F00B002D8 /* FeedbackView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -528,7 +528,6 @@
 				B0E5368E2533E08F009663E7 /* SubmitCommentView.swift in Sources */,
 				5CF2309D2501ACB1004A1C71 /* CommentView.swift in Sources */,
 				B06520FD2582C27C000CA1DE /* UserInfo.swift in Sources */,
-				5CBE9B2E255DCC3300734C29 /* ReportView.swift in Sources */,
 				5CCF767A24F860D30040EC07 /* MetadataView.swift in Sources */,
 				5CCF766724F85CC90040EC07 /* ContentView.swift in Sources */,
 				B0025830255A4F0900BB7815 /* Location.swift in Sources */,
@@ -542,6 +541,7 @@
 				5CCF768A24F861060040EC07 /* Helpers.swift in Sources */,
 				5CCF767E24F860D30040EC07 /* PostView.swift in Sources */,
 				5CCF767C24F860D30040EC07 /* PostList.swift in Sources */,
+				5D86E378260A7A5F00B002D8 /* FeedbackView.swift in Sources */,
 				5C06515D25EF09A6005028C0 /* LikedListView.swift in Sources */,
 				5C07955F259A7E5300688501 /* TabBarView.swift in Sources */,
 				B0025841255B5F3200BB7815 /* Date.swift in Sources */,

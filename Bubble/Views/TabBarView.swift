@@ -51,7 +51,7 @@ struct TabBarView : View {
     }
     func goReport() {
         if let window = UIApplication.shared.windows.first {
-            window.rootViewController = UIHostingController(rootView: ReportView())
+            window.rootViewController = UIHostingController(rootView: FeedbackView())
             window.makeKeyAndVisible()
         }
     }

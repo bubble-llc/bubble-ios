@@ -13,6 +13,7 @@ struct MenuView : View {
     @State private var background = BackgroundStyle.solid
     
     @EnvironmentObject var userAuth: UserAuth
+    @EnvironmentObject var locationViewModel: LocationViewModel
 
     
     var body : some
@@ -47,10 +48,10 @@ struct MenuView : View {
                 
                 HStack
                 {
-                    NavigationLink(destination: ReportView())
+                    NavigationLink(destination: FeedbackView().environmentObject(locationViewModel))
                     {
                         Image("menu_report").resizable().frame(width: 25, height: 25).padding()
-                        Text("Report").foregroundColor(.white)
+                        Text("Feedback").foregroundColor(.white)
                     }
                     
                 }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.005, alignment: .leading)
@@ -96,9 +97,9 @@ struct MenuView : View {
             window.makeKeyAndVisible()
         }
     }
-    func goReport() {
+    func goFeedback() {
         if let window = UIApplication.shared.windows.first {
-            window.rootViewController = UIHostingController(rootView: ReportView())
+            window.rootViewController = UIHostingController(rootView: FeedbackView().environmentObject(locationViewModel))
             window.makeKeyAndVisible()
         }
     }
