@@ -138,6 +138,72 @@ class API {
         task.resume()
     }
     
+    func submitFeedback(submitted: [String: Any])
+    {
+        guard let postUrl = URL(string: "\(baseURL)/feedback") else {fatalError()}
+        
+        var request = URLRequest(url: postUrl)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields =
+        [
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        ]
+        
+        let submission = try? JSONSerialization.data(withJSONObject: submitted)
+        
+        request.httpBody = submission
+        
+        let task = URLSession.shared.dataTask(with: request)
+        { data, response, error in
+            
+            guard let data = data, error == nil else
+            {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any]
+            {
+                print(responseJSON)
+            }
+        }
+        task.resume()
+    }
+    
+    func submitReportedPost(submitted: [String: Any])
+    {
+        guard let postUrl = URL(string: "\(baseURL)/report_post") else {fatalError()}
+        
+        var request = URLRequest(url: postUrl)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields =
+        [
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        ]
+        
+        let submission = try? JSONSerialization.data(withJSONObject: submitted)
+        
+        request.httpBody = submission
+        
+        let task = URLSession.shared.dataTask(with: request)
+        { data, response, error in
+            
+            guard let data = data, error == nil else
+            {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any]
+            {
+                print(responseJSON)
+            }
+        }
+        task.resume()
+    }
+    
     func getComment(post_id: Int, completion: @escaping ([Comment]) ->())
     {
         guard let url = URL(string: "\(baseURL)/comment?post_id=\(post_id)") else {return}
