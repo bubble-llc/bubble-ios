@@ -14,10 +14,10 @@ struct PageView: View {
     @State private var selectedTab = 0
     
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
-    @State private var cat_names = ["deals_20", "happy_20", "rec_20", "what_20", "misc_20"]
-    @State private var selected_cat_names = ["deals_20_w", "happy_20_w", "rec_20_w", "what_20_w", "misc_20_w"]
-    @State private var cat_names1 = ["deals", "hh", "rec", "wh", "misc"]
-    @State private var selected_cat_names1 = ["dealsf", "hhf", "recf", "whf", "miscf"]
+//    @State private var cat_names = ["deals_20", "happy_20", "rec_20", "what_20", "misc_20"]
+//    @State private var selected_cat_names = ["deals_20_w", "happy_20_w", "rec_20_w", "what_20_w", "misc_20_w"]
+    @State private var cat_names1 = ["deals1", "hh1", "rec1", "wh1", "misc1"]
+    @State private var selected_cat_names1 = ["dealsf1", "hhf1", "recf1", "whf1", "miscf1"]
     
     
     @EnvironmentObject var userAuth: UserAuth

@@ -9,7 +9,7 @@ struct ContentView : View {
     @EnvironmentObject var categoryGlobal: Category
     
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
-    @State private var cat_icons = ["deals_20_w", "happy_20_w", "rec_20_w", "what_20_w", "misc_20_w"]
+    @State private var cat_icons = ["dealsf1", "hhf1", "recf1", "whf1", "miscf1"]
     
     @State var show = false
     

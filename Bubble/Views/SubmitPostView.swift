@@ -72,7 +72,7 @@ struct SubmitPostView: View {
                         category_id = 1
                     }){
                         
-                        Image(self.deals_clicked == true ? "deals_20_w" : "deals_20").resizable().frame(width:40, height:40).padding()
+                        Image(self.deals_clicked == true ? "dealsf1" : "deals1").resizable().frame(width:40, height:40).padding()
                         //Text("Deals")
                     }.buttonStyle(PlainButtonStyle())
                     //Happy Hour
@@ -87,7 +87,7 @@ struct SubmitPostView: View {
                         category_id = 2
                     }){
                         
-                        Image(self.happy_clicked == true ? "happy_20_w" : "happy_20").resizable().frame(width:40, height:40).padding()
+                        Image(self.happy_clicked == true ? "hhf1" : "hh1").resizable().frame(width:40, height:40).padding()
                        // Text("Happy Hour")
                     }.buttonStyle(PlainButtonStyle())
                     //Recreation
@@ -102,7 +102,7 @@ struct SubmitPostView: View {
                         category_id = 3
                     }){
                         
-                        Image(self.rec_clicked == true ? "rec_20_w" : "rec_20").resizable().frame(width:40, height:40).padding()
+                        Image(self.rec_clicked == true ? "recf1" : "rec1").resizable().frame(width:40, height:40).padding()
                         //Text("Recreation")
                     }.buttonStyle(PlainButtonStyle())
                     //What's Happening?
@@ -117,7 +117,7 @@ struct SubmitPostView: View {
                         category_id = 4
                     }){
                         
-                        Image(self.what_clicked == true ? "what_20_w" : "what_20").resizable().frame(width:40, height:40).padding()
+                        Image(self.what_clicked == true ? "whf1" : "wh1").resizable().frame(width:40, height:40).padding()
                        // Text("What's Happening?")
                     }.buttonStyle(PlainButtonStyle())
                     
@@ -132,7 +132,7 @@ struct SubmitPostView: View {
                         
                         category_id = 5
                     }){//(systemName: self.isPlaying == true ? "pause.fill" : "play.fill")
-                        Image(self.misc_clicked == true ? "misc_20_w" : "misc_20").resizable().frame(width:40, height:40).padding()
+                        Image(self.misc_clicked == true ? "miscf1" : "misc1").resizable().frame(width:40, height:40).padding()
                     }.buttonStyle(PlainButtonStyle())
                     
 //                    Text("Category")

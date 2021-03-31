@@ -1,6 +1,6 @@
 import SwiftUI
 import Request
-
+import DeviceKit
 struct PostList: View {
     @State var posts: [Post] = []
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
@@ -22,6 +22,15 @@ struct PostList: View {
         
         .onAppear
         {
+            let device = Device.current
+
+            print(device)     // prints, for example, "iPhone 6 Plus"
+
+            if device == .simulator(.iPhone11) {
+              print("fuck you")
+            } else {
+                print("No seriously fuck you")
+            }
             var formatted_category = ""
             if category == "Happy Hour"
             {
