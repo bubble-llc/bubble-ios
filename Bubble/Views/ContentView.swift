@@ -88,10 +88,11 @@ struct ContentView : View {
                                                 self.show.toggle()
                                             }, label: {
                                                 if self.show{
-                                                    Image("bubbles_20").font(.body).foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                                                    Image("bubble_menu").resizable().foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                                                 }
                                                 else{
-                                                    Image("bubbles_20")
+                                                    Image("bubble_menu")
+                                                        .resizable()
                                                         .foregroundColor(Color.white)
                                                 }
                                             })
