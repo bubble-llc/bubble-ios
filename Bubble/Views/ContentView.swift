@@ -55,6 +55,8 @@ struct ContentView : View {
                                 MenuView()
                                     .offset(x: self.show ? 0 : -UIScreen.main.bounds.width)
                                     .animation(.default)
+                                    .environmentObject(userAuth)
+                                    .environmentObject(locationViewModel)
                             
                         }
                         .background(Color.black.opacity(self.show ? 0.2 : 0))

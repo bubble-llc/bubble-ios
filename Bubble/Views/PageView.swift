@@ -16,6 +16,8 @@ struct PageView: View {
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
     @State private var cat_names = ["deals_20", "happy_20", "rec_20", "what_20", "misc_20"]
     @State private var selected_cat_names = ["deals_20_w", "happy_20_w", "rec_20_w", "what_20_w", "misc_20_w"]
+    @State private var cat_names1 = ["deals", "hh", "rec", "wh", "misc"]
+    @State private var selected_cat_names1 = ["dealsf", "hhf", "recf", "whf", "miscf"]
     
     
     @EnvironmentObject var userAuth: UserAuth
@@ -40,7 +42,7 @@ struct PageView: View {
                         
                         FeedView(category: self.$categories[i])
                             .tabItem {
-                                selectedTab == i ? Image(selected_cat_names[i]).resizable().padding() : Image(cat_names[i]).resizable().padding()
+                                selectedTab == i ? Image(selected_cat_names1[i]).resizable().padding() : Image(cat_names1[i]).resizable().padding()
                                 //Text(categories[i])
                             }
                             .tag(i)
