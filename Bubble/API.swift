@@ -24,6 +24,22 @@ class API {
         }.resume()
     }
     
+    func getUserCreatedPosts(completion: @escaping ([Post]) ->()){
+         let defaults = UserDefaults.standard
+         let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+
+         guard let url = URL(string: "\(baseURL)/user_created_post?user_id=\(String(describing: user_id))") else {return}
+         URLSession.shared.dataTask(with: url)
+         { (data,_,_) in
+
+             let posts = try! JSONDecoder().decode([Post].self, from:data!)
+             DispatchQueue.main.async
+             {
+                 completion(posts)
+             }
+         }.resume()
+     }
+    
     func getUserLikedPosts(completion: @escaping ([Post]) ->()){
          let defaults = UserDefaults.standard
          let user_id = defaults.string(forKey: defaultsKeys.user_id)!
