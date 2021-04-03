@@ -12,6 +12,7 @@
 		5C07955F259A7E5300688501 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07955E259A7E5300688501 /* TabBarView.swift */; };
 		5C07956D259A8B0800688501 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07956C259A8B0800688501 /* Category.swift */; };
 		5C1CAB26260A608400374DFB /* UserCreatedPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CAB25260A608400374DFB /* UserCreatedPostView.swift */; };
+		5C1CAB35260A8BD500374DFB /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5C1CAB34260A8BD500374DFB /* DeviceKit */; };
 		5C755E752523A03F00267557 /* SubmitPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C755E742523A03F00267557 /* SubmitPostView.swift */; };
 		5C75E5D3253F6F3900B97254 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C75E5D2253F6F3900B97254 /* User.swift */; };
 		5C75E5D8253F702200B97254 /* UserLikedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C75E5D7253F702200B97254 /* UserLikedView.swift */; };
@@ -138,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CE12F8E24F857CE00C8D5D0 /* Request in Frameworks */,
+				5C1CAB35260A8BD500374DFB /* DeviceKit in Frameworks */,
 				B00258012559B5EB00BB7815 /* SlideOverCard in Frameworks */,
 				5CE12F8C24F857CE00C8D5D0 /* Json in Frameworks */,
 				BC279CDB381639637AABDF52 /* Pods_Bubble.framework in Frameworks */,
@@ -352,6 +354,7 @@
 				5CE12F8B24F857CE00C8D5D0 /* Json */,
 				5CE12F8D24F857CE00C8D5D0 /* Request */,
 				B00258002559B5EB00BB7815 /* SlideOverCard */,
+				5C1CAB34260A8BD500374DFB /* DeviceKit */,
 			);
 			productName = Localist;
 			productReference = 5CE12F2024F855DD00C8D5D0 /* Bubble.app */;
@@ -428,6 +431,7 @@
 			packageReferences = (
 				5CE12F8A24F857CE00C8D5D0 /* XCRemoteSwiftPackageReference "swift-request" */,
 				B00257FF2559B5EB00BB7815 /* XCRemoteSwiftPackageReference "swiftUI-slide-over-card" */,
+				5C1CAB33260A8BD500374DFB /* XCRemoteSwiftPackageReference "DeviceKit" */,
 			);
 			productRefGroup = 5CE12F2124F855DD00C8D5D0 /* Products */;
 			projectDirPath = "";
@@ -891,6 +895,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5C1CAB33260A8BD500374DFB /* XCRemoteSwiftPackageReference "DeviceKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devicekit/DeviceKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.0;
+			};
+		};
 		5CE12F8A24F857CE00C8D5D0 /* XCRemoteSwiftPackageReference "swift-request" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/carson-katri/swift-request";
@@ -910,6 +922,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5C1CAB34260A8BD500374DFB /* DeviceKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C1CAB33260A8BD500374DFB /* XCRemoteSwiftPackageReference "DeviceKit" */;
+			productName = DeviceKit;
+		};
 		5CE12F8B24F857CE00C8D5D0 /* Json */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5CE12F8A24F857CE00C8D5D0 /* XCRemoteSwiftPackageReference "swift-request" */;

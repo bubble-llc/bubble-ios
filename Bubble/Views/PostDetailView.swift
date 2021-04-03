@@ -10,8 +10,12 @@ struct PostDetailView: View {
     @Binding var upColor: Color
     @Binding var downColor: Color
     @Binding var isVoted: Bool
+    @Binding var upVotesOnly: Bool
+    @Binding var downVotesOnly: Bool
     
     @State var comments: [Comment] = []
+    
+    
     
     var body: some View {
             VStack
@@ -38,7 +42,9 @@ struct PostDetailView: View {
                              totalVotes: self.$totalVotes,
                              upColor: self.$upColor,
                              downColor: self.$downColor,
-                             isVoted: self.$isVoted)
+                             isVoted: self.$isVoted,
+                             upVotesOnly: self.$upVotesOnly,
+                             downVotesOnly: self.$downVotesOnly)
                 
                 NavigationLink(destination: SubmitCommentView(post:post)){
                     Text("Submit Comment")

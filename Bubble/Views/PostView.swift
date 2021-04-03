@@ -11,6 +11,8 @@ struct PostView: View
     @State var upColor = Color.gray
     @State var downColor = Color.gray
     @State var isVoted = false
+    @State var upVotesOnly = false
+    @State var downVotesOnly = false
     
     init(post: Post) {
         self.post = post
@@ -42,7 +44,9 @@ struct PostView: View
                                                     totalVotes: self.$totalVotes,
                                                     upColor: self.$upColor,
                                                     downColor: self.$downColor,
-                                                    isVoted: self.$isVoted)
+                                                    isVoted: self.$isVoted,
+                                                    upVotesOnly: self.$upVotesOnly,
+                                                    downVotesOnly: self.$downVotesOnly)
             )
         {
             VStack(alignment: .leading, spacing: 0){
@@ -117,7 +121,9 @@ struct PostView: View
                                  totalVotes: self.$totalVotes,
                                  upColor: self.$upColor,
                                  downColor: self.$downColor,
-                                 isVoted: self.$isVoted)
+                                 isVoted: self.$isVoted,
+                                 upVotesOnly: self.$upVotesOnly,
+                                 downVotesOnly: self.$downVotesOnly)
                             .font(.caption)
                             .colorInvert()
                             .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))

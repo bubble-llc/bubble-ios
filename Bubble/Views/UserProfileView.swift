@@ -16,7 +16,7 @@ struct UserProfileView: View {
                         .font(.headline)
                         .foregroundColor(Color.white)
                         .shadow(color: Color.black, radius: 3, y:1)
-                        .padding(.top, UIScreen.main.bounds.height * 0.1)
+                        .padding(.top, UIScreen.main.bounds.height * 0.05)
                     Image("bubble_blue")
                         .resizable()
                         .frame(width: 200, height: 200, alignment: .center)
@@ -27,6 +27,7 @@ struct UserProfileView: View {
                     }
                     .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
+                    .buttonStyle(PlainButtonStyle())
                     .onAppear
                     {
                         API().getUserLikedPosts
@@ -39,6 +40,7 @@ struct UserProfileView: View {
                 }
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
                 .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                .buttonStyle(PlainButtonStyle())
                 
                 
             }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
