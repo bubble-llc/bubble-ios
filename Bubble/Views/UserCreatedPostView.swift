@@ -55,10 +55,10 @@ struct UserCreatedPostView: View
                 
                
                 HStack{
-//                    Text(post.date_created)
-//                        .colorInvert()
-//                        .font(.system(size: 12))
-//                        .padding(.leading)
+                    Text(post.date_created)
+                        .colorInvert()
+                        .font(.system(size: 12))
+                        .padding(.leading)
                     Spacer()
                     Text(post.title)
                         .font(.headline)
@@ -67,17 +67,17 @@ struct UserCreatedPostView: View
                         .colorInvert()
                         .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                         
-//                    Spacer()
-//                    HStack(spacing:0){
-//                    Image(systemName: "text.bubble")
-//                        .colorInvert()
-//                    Text(String(post.comments))
-//                        .colorInvert()
-//                        .font(.system(size: 12))
-//                        .padding()
                     Spacer()
-                }.padding(.leading)
-                
+                    HStack{
+                    Image(systemName: "text.bubble")
+                        .colorInvert()
+                    Text(String(post.comments))
+                        .colorInvert()
+                        .font(.system(size: 12))
+                }
+                    
+                }.padding(.top, 5)
+                Spacer()
                 HStack{
                     Spacer()
                 Text(post.content)
@@ -85,6 +85,7 @@ struct UserCreatedPostView: View
                     .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                     .font(.system(size: 15))
                     .lineLimit(1)
+                    .padding(.bottom, 5)
 //                Spacer()
 //
 //                MetadataView(post: post,

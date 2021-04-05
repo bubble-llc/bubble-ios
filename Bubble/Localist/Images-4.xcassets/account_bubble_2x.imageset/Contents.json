@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "account_bubble_2x.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
+  }
+}
