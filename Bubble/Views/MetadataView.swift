@@ -20,7 +20,7 @@ struct MetadataView: View {
     @State private var upVote = false
 
     var body: some View {
-        if (self.upVotesOnly == true){
+        if (self.upVotesOnly && !self.downVotesOnly){
             VStack
             {
                 Button(action:
@@ -75,7 +75,7 @@ struct MetadataView: View {
                 Text(String(self.totalVotes))
             }
         }
-        else if (self.downVotesOnly == true){
+        else if (self.downVotesOnly && !self.upVotesOnly){
             Text(String(self.totalVotes))
         
             Button(action:
