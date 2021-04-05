@@ -24,7 +24,7 @@ struct User: Decodable {
         username = try values.decode(String.self, forKey: .username)
         user_id = try values.decode(String.self, forKey: .user_id)
         email = try values.decode(String.self, forKey: .email)
-        date_joined = try values.decode(String.self, forKey: .date_joined)
+        date_joined = convert_date(try values.decode(String.self, forKey: .date_joined))
     }
 
 }
