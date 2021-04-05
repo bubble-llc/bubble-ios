@@ -20,8 +20,6 @@ struct FeedbackView: View{
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var locationViewModel: LocationViewModel
     
-    
-    
     var body: some View{
         
         Form{

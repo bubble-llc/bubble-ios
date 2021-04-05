@@ -1,6 +1,7 @@
 import SwiftUI
 import Request
 
+
 struct PostDetailView: View {
     let post: Post
     
@@ -14,7 +15,8 @@ struct PostDetailView: View {
     @Binding var downVotesOnly: Bool
     
     @State var comments: [Comment] = []
-    
+    @State private var commentBoxPressed: Bool = false
+    @State private var default_comment: String = "Enter comment here..."
     
     var body: some View {
             VStack
@@ -49,7 +51,7 @@ struct PostDetailView: View {
                 //If it IS empty it should not be valid in the first place. Need to figure out how to rework this
                 Text(post.content)
                     .padding()
-                    .frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width * 0.9, minHeight: UIScreen.main.bounds.height * 0.1)
+                    .frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width * 0.95, minHeight: UIScreen.main.bounds.height * 0.1)
                     .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                     .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
                     .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
@@ -61,7 +63,31 @@ struct PostDetailView: View {
                 
               
                 //Removed spacing from MetadataView in this context to keep it centered rather than offset on the right side.
-
+                if #available(iOS 14.0, *)
+                {
+                    //We are currently allowing there to be trailing spaces after comments, need to auto remove those from the comment
+                    //object before we actually let it be submitted
+                    TextEditor(text: self.$default_comment)
+                        .onTapGesture {
+                            if !self.commentBoxPressed{
+                                self.default_comment = " "
+                                self.commentBoxPressed = true
+                            }
+                        }
+                        .multilineTextAlignment(.leading)
+                        .frame(minWidth: UIScreen.main.bounds.width * 0.7, maxWidth: UIScreen.main.bounds.width * 0.8, minHeight: 50, maxHeight: 100)
+                        .foregroundColor(commentBoxPressed ? Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255) : Color.gray)
+                        
+                        .colorMultiply(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
+                        .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
+                        .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                        .cornerRadius(25)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 25)
+                                .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
+                        )
+                    
+                }
                 Spacer()
                 NavigationLink(destination: SubmitCommentView(post:post)){
                     Text("Add Comment")
