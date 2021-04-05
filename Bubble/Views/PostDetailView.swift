@@ -18,8 +18,10 @@ struct PostDetailView: View {
     @State private var commentBoxPressed: Bool = false
     @State private var default_comment: String = "Enter comment here..."
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     var body: some View {
-            VStack
+        VStack(alignment: .leading)
             {
                 //Post title. The Frame indicatew where it will be aligned, font adjusts text size
                 HStack{
@@ -60,9 +62,23 @@ struct PostDetailView: View {
                         RoundedRectangle(cornerRadius: 25)
                             .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
                     )
+                    .padding(.leading, UIScreen.main.bounds.width * 0.025)
                 
-              
+            VStack{
+            List(comments){ comment in
+                CommentsView(comment: comment)
+
+            }
+            .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            .onAppear{
+                API().getComment(post_id: post.id) { (comments) in
+                    self.comments = comments
+                }
+            }
+            }
                 //Removed spacing from MetadataView in this context to keep it centered rather than offset on the right side.
+                
+                    HStack{
                 if #available(iOS 14.0, *)
                 {
                     //We are currently allowing there to be trailing spaces after comments, need to auto remove those from the comment
@@ -74,7 +90,7 @@ struct PostDetailView: View {
                                 self.commentBoxPressed = true
                             }
                         }
-                        .multilineTextAlignment(.leading)
+                        .multilineTextAlignment(.center)
                         .frame(minWidth: UIScreen.main.bounds.width * 0.7, maxWidth: UIScreen.main.bounds.width * 0.8, minHeight: 50, maxHeight: 100)
                         .foregroundColor(commentBoxPressed ? Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255) : Color.gray)
                         
@@ -86,35 +102,44 @@ struct PostDetailView: View {
                             RoundedRectangle(cornerRadius: 25)
                                 .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
                         )
-                    
+                
                 }
+                        Spacer()
+                        Button(action:
+                        {
+                            let defaults = UserDefaults.standard
+                            let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+                            let commentObject: [String: Any]  =
+                                [
+                                    "post_id": post.id,
+                                    "user_id": user_id,
+                                    "content": self.default_comment,
+                                ]
+                            API().submitComment(submitted: commentObject)
+                            
+                        })
+                        {
+                            Image("miscf1")
+                            
+                        }
+                        Spacer()
+                }.padding(.leading, UIScreen.main.bounds.width * 0.025)
                 Spacer()
-                NavigationLink(destination: SubmitCommentView(post:post)){
-                    Text("Add Comment")
-                        .fontWeight(.bold)
-                        .padding(8)
-                        .padding(.leading, 30)
-                        .padding(.trailing, 30)
-                        .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
-                        .cornerRadius(8)
-                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
-                        )
-                }
-                VStack{
-                List(comments){ comment in
-                    CommentsView(comment: comment)
+//                NavigationLink(destination: SubmitCommentView(post:post)){
+//                    Text("Add Comment")
+//                        .fontWeight(.bold)
+//                        .padding(8)
+//                        .padding(.leading, 30)
+//                        .padding(.trailing, 30)
+//                        .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
+//                        .cornerRadius(8)
+//                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+//                        .overlay(
+//                            RoundedRectangle(cornerRadius: 8)
+//                                .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
+//                        )
+//                }
 
-                }
-                .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                .onAppear{
-                    API().getComment(post_id: post.id) { (comments) in
-                        self.comments = comments
-                    }
-                }
-                }
             }
             .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
