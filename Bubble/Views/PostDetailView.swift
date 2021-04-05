@@ -77,17 +77,21 @@ struct PostDetailView: View {
                                 .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
                         )
                 }
-                
+                VStack{
                 List(comments){ comment in
                     CommentsView(comment: comment)
 
                 }
+                .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                 .onAppear{
                     API().getComment(post_id: post.id) { (comments) in
                         self.comments = comments
                     }
                 }
-            }.listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                }
+            }
+            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
     }
 }
 
