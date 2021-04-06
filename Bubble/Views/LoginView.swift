@@ -41,6 +41,7 @@ struct LoginView: View {
                             "email": self.users[0].email,
                             "date_joined": self.users[0].date_joined
                         ])
+                        categoryGlobal.fetchData()
                     }
                     else
                     {
