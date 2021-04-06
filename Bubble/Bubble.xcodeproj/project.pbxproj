@@ -88,7 +88,6 @@
 		5CCF766624F85CC90040EC07 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5CCF766924F85DB20040EC07 /* SpinnerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		5CCF766A24F85DB20040EC07 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
-		5CCF766D24F85DEB0040EC07 /* PostList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostList.swift; sourceTree = "<group>"; };
 		5CCF766F24F85EED0040EC07 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5CCF767424F860D30040EC07 /* MetadataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataView.swift; sourceTree = "<group>"; };
 		5CCF767524F860D30040EC07 /* PostDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
@@ -287,7 +286,6 @@
 				5C75E5E1253F7C2C00B97254 /* LoginView.swift */,
 				5CE12F5824F8565E00C8D5D0 /* MetadataView.swift */,
 				5CE12F5924F8565E00C8D5D0 /* PostDetailView.swift */,
-				5CCF766D24F85DEB0040EC07 /* PostList.swift */,
 				5C06515C25EF09A6005028C0 /* LikedListView.swift */,
 				5CE12F5B24F8565E00C8D5D0 /* PostView.swift */,
 				B0E5368D2533E08F009663E7 /* SubmitCommentView.swift */,

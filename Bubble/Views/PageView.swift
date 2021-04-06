@@ -12,13 +12,7 @@ import Combine
 
 struct PageView: View {
     @State private var selectedTab = 0
-    
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
-//    @State private var cat_names = ["deals_20", "happy_20", "rec_20", "what_20", "misc_20"]
-//    @State private var selected_cat_names = ["deals_20_w", "happy_20_w", "rec_20_w", "what_20_w", "misc_20_w"]
-    @State private var cat_names1 = ["deals1", "hh1", "rec1", "wh1", "misc1"]
-    @State private var selected_cat_names1 = ["dealsf1", "hhf1", "recf1", "whf1", "miscf1"]
-    
     
     @EnvironmentObject var userAuth: UserAuth
     @EnvironmentObject var categoryGlobal: Category
@@ -32,24 +26,25 @@ struct PageView: View {
         set: {
             self.selectedTab = $0
             categoryGlobal.setCategory(category: categories[selectedTab])
+            categoryGlobal.refreshCategory(category: categories[selectedTab])
         }
     )}
     
     var body: some View {
         TabView(selection: handler) {
-                ForEach(0 ..< categories.count) { i in
+            ForEach(0 ..< categoryGlobal.categories.count) { i in
                     if #available(iOS 14.0, *) {
                         
                         FeedView(category: self.$categories[i])
                             .tabItem {
-                                selectedTab == i ? Image(selected_cat_names1[i]).resizable().padding() : Image(cat_names1[i]).resizable().padding()
-                                //Text(categories[i])
+                                selectedTab == i ? Image(categoryGlobal.selected_cat_names1[i]).resizable().padding() : Image(categoryGlobal.cat_names1[i]).resizable().padding()
                             }
                             .tag(i)
                             .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
                             .animation(.default)
                             .environmentObject(userAuth)
                             .environmentObject(locationViewModel)
+                            .environmentObject(categoryGlobal)
                     } else {
                         // Fallback on earlier versions
                     }
