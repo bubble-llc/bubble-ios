@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5C06515825EF09A1005028C0 /* UserLikedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C06515725EF09A1005028C0 /* UserLikedListView.swift */; };
 		5C06515D25EF09A6005028C0 /* LikedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C06515C25EF09A6005028C0 /* LikedListView.swift */; };
 		5C07955F259A7E5300688501 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07955E259A7E5300688501 /* TabBarView.swift */; };
 		5C07956D259A8B0800688501 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07956C259A8B0800688501 /* Category.swift */; };
@@ -15,9 +14,9 @@
 		5C1CAB35260A8BD500374DFB /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5C1CAB34260A8BD500374DFB /* DeviceKit */; };
 		5C755E752523A03F00267557 /* SubmitPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C755E742523A03F00267557 /* SubmitPostView.swift */; };
 		5C75E5D3253F6F3900B97254 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C75E5D2253F6F3900B97254 /* User.swift */; };
-		5C75E5D8253F702200B97254 /* UserLikedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C75E5D7253F702200B97254 /* UserLikedView.swift */; };
 		5C75E5DD253F702B00B97254 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C75E5DC253F702B00B97254 /* UserProfileView.swift */; };
 		5C75E5E2253F7C2C00B97254 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C75E5E1253F7C2C00B97254 /* LoginView.swift */; };
+		5CB22C1D261CF07000822BBE /* UserLikedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB22C1C261CF07000822BBE /* UserLikedView.swift */; };
 		5CCF766324F85B140040EC07 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF766224F85B140040EC07 /* SceneDelegate.swift */; };
 		5CCF766524F85C610040EC07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF766424F85C610040EC07 /* AppDelegate.swift */; };
 		5CCF766724F85CC90040EC07 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCF766624F85CC90040EC07 /* ContentView.swift */; };
@@ -72,7 +71,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5C06515725EF09A1005028C0 /* UserLikedListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLikedListView.swift; sourceTree = "<group>"; };
 		5C06515C25EF09A6005028C0 /* LikedListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikedListView.swift; sourceTree = "<group>"; };
 		5C07955E259A7E5300688501 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		5C07956C259A8B0800688501 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -80,9 +78,9 @@
 		5C73E7BC250866E600252D50 /* SubmitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitView.swift; sourceTree = "<group>"; };
 		5C755E742523A03F00267557 /* SubmitPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitPostView.swift; sourceTree = "<group>"; };
 		5C75E5D2253F6F3900B97254 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		5C75E5D7253F702200B97254 /* UserLikedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLikedView.swift; sourceTree = "<group>"; };
 		5C75E5DC253F702B00B97254 /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		5C75E5E1253F7C2C00B97254 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		5CB22C1C261CF07000822BBE /* UserLikedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLikedView.swift; sourceTree = "<group>"; };
 		5CCF766224F85B140040EC07 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5CCF766424F85C610040EC07 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Localist/AppDelegate.swift; sourceTree = "<group>"; };
 		5CCF766624F85CC90040EC07 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -292,14 +290,13 @@
 				5CE12F5B24F8565E00C8D5D0 /* PostView.swift */,
 				B0E5368D2533E08F009663E7 /* SubmitCommentView.swift */,
 				5C755E742523A03F00267557 /* SubmitPostView.swift */,
-				5C75E5D7253F702200B97254 /* UserLikedView.swift */,
-				5C06515725EF09A1005028C0 /* UserLikedListView.swift */,
 				5C75E5DC253F702B00B97254 /* UserProfileView.swift */,
 				B002582A255A4EA700BB7815 /* PageView.swift */,
 				B065210A2582C99F000CA1DE /* MenuView.swift */,
 				5C07955E259A7E5300688501 /* TabBarView.swift */,
 				5C1CAB25260A608400374DFB /* UserCreatedPostView.swift */,
 				5D86E377260A7A5F00B002D8 /* FeedbackView.swift */,
+				5CB22C1C261CF07000822BBE /* UserLikedView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -522,11 +519,11 @@
 				B0F547312523CE800009ABAE /* CommentsView.swift in Sources */,
 				B065210B2582C99F000CA1DE /* MenuView.swift in Sources */,
 				5CE12F5F24F8565E00C8D5D0 /* SortBy.swift in Sources */,
+				5CB22C1D261CF07000822BBE /* UserLikedView.swift in Sources */,
 				B0858191251F8A61001D067E /* CreateUserView.swift in Sources */,
 				5CCF766C24F85DB20040EC07 /* WebView.swift in Sources */,
 				5C75E5D3253F6F3900B97254 /* User.swift in Sources */,
 				5CCF766B24F85DB20040EC07 /* SpinnerView.swift in Sources */,
-				5C06515825EF09A1005028C0 /* UserLikedListView.swift in Sources */,
 				5CE12F6624F8565E00C8D5D0 /* PostDetailView.swift in Sources */,
 				5C75E5DD253F702B00B97254 /* UserProfileView.swift in Sources */,
 				B0E5368E2533E08F009663E7 /* SubmitCommentView.swift in Sources */,
@@ -541,7 +538,6 @@
 				5C755E752523A03F00267557 /* SubmitPostView.swift in Sources */,
 				B0858196251FA495001D067E /* FeedView.swift in Sources */,
 				B002582B255A4EA700BB7815 /* PageView.swift in Sources */,
-				5C75E5D8253F702200B97254 /* UserLikedView.swift in Sources */,
 				5CCF768A24F861060040EC07 /* Helpers.swift in Sources */,
 				5CCF767E24F860D30040EC07 /* PostView.swift in Sources */,
 				5CCF767C24F860D30040EC07 /* PostList.swift in Sources */,

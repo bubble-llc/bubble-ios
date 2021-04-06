@@ -131,7 +131,7 @@ struct FeedbackView: View{
             }.listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
         }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-            
+        .edgesIgnoringSafeArea(.bottom)
             
     
     }

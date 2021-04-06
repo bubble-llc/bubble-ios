@@ -22,12 +22,6 @@ struct PostList: View {
         
         .onAppear
         {
-            if #available(iOS 14.0, *) {
-                UITableView.appearance().backgroundColor = .clear
-                UITableViewCell.appearance().backgroundColor = .clear
-            } else {
-                // Fallback on earlier versions
-            }
             let device = Device.current
 
             print(device)     // prints, for example, "iPhone 6 Plus"

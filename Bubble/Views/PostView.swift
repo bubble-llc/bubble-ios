@@ -127,11 +127,6 @@ struct PostView: View
                             .font(.caption)
                             .colorInvert()
                             .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-
-
-            
-            
-            
         }
         
         .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height/9, alignment: .center)

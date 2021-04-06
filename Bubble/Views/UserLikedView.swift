@@ -8,6 +8,6 @@ struct UserLikedView: View {
                 .navigationBarTitle(Text("Liked Post"), displayMode: .inline)
         }.padding(.top)
         .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-        
+        .edgesIgnoringSafeArea(.bottom)
     }
 }
