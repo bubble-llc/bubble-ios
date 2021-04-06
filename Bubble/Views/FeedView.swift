@@ -21,6 +21,7 @@ struct FeedView: View {
     @State private var position = CardPosition.bottom
     @State private var isMenu: Bool = false
     @State private var currCategory: String = ""
+    @State private var isShowing = false
     
     @Binding var category: String
     
@@ -30,17 +31,33 @@ struct FeedView: View {
     
     var body: some View
     {
-        ZStack{
-            ScrollView{
-                List(categoryGlobal.posts[categoryGlobal.categoriesMap[category]! - 1]){ post in
-
-                    PostView(post: post)
-                }
-                .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        
+            
+        if #available(iOS 14.0, *) {
+            List(categoryGlobal.posts[categoryGlobal.categoriesMap[category]! - 1]){ post in
+                
+                PostView(post: post)
             }
-
-        }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            
+            .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            .pullToRefresh(isShowing: $isShowing) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    print("whatupppp")
+                    categoryGlobal.refreshCategory(category: categoryGlobal.currCategory)
+                    self.isShowing = false
+                }
+            }.onChange(of: self.isShowing){value in
+                //categoryGlobal.fetchData()
+               // print("oops")
+               // categoryGlobal.refreshCategory(category: categoryGlobal.currCategory)
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+            
+        
 //        let self.category_global.currCategory = category //issue here
     }
     

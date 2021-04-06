@@ -60,10 +60,16 @@ class Category: ObservableObject {
     }
     
     func refreshCategory(category: String) {
+        self.fetching = true
         API().getPosts(logitude: self.userLongitude, latitude: self.userLatitude, category: category)
         {
+            
+            
             (posts) in self.posts[self.categoriesMap[category]! - 1] = posts
+            print(self.posts[self.categoriesMap[category]! - 1])
+            self.fetching = true
         }
+        
     }
 }
 

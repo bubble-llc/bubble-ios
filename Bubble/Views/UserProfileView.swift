@@ -1,9 +1,10 @@
 import SwiftUI
 import SlideOverCard
-
 struct UserProfileView: View {
     @State var posts: [Post] = []
     @State var postCount = 0
+    
+    @EnvironmentObject var categoryGlobal: Category
     
     var body: some View {
         let count = self.posts.count
@@ -35,6 +36,7 @@ struct UserProfileView: View {
                         
                         UserCreatedPostView(post: post)
                     }
+
                     .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
                     .buttonStyle(PlainButtonStyle())
@@ -46,7 +48,6 @@ struct UserProfileView: View {
                             print(self.posts.count)
                         }
                     }
-                    
                 }
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
                 .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))

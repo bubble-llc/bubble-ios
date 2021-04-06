@@ -9,10 +9,12 @@
 import SwiftUI
 import SlideOverCard
 import Combine
+import SwiftUIRefresh
 
 struct PageView: View {
     @State private var selectedTab = 0
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
+    @State private var isShowing = false
     
     @EnvironmentObject var userAuth: UserAuth
     @EnvironmentObject var categoryGlobal: Category
@@ -52,6 +54,7 @@ struct PageView: View {
                     
                 }
         }
+        
         .accentColor(Color.white)
         .onAppear(perform: self.locationViewModel.retriveCurrentLocation)
 
