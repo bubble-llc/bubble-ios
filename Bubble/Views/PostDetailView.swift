@@ -90,8 +90,10 @@ struct PostDetailView: View {
                                 self.commentBoxPressed = true
                             }
                         }
-                        .multilineTextAlignment(.center)
-                        .frame(minWidth: UIScreen.main.bounds.width * 0.7, maxWidth: UIScreen.main.bounds.width * 0.8, minHeight: 50, maxHeight: 100)
+                        
+                        .multilineTextAlignment(.leading)
+                        
+                        .frame(minWidth: UIScreen.main.bounds.width * 0.7, maxWidth: UIScreen.main.bounds.width * 0.85, minHeight: 50, maxHeight: 100)
                         .foregroundColor(commentBoxPressed ? Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255) : Color.gray)
                         
                         .colorMultiply(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
@@ -102,7 +104,7 @@ struct PostDetailView: View {
                             RoundedRectangle(cornerRadius: 25)
                                 .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
                         )
-                
+                        .padding(2)
                 }
                         Spacer()
                         Button(action:
@@ -119,7 +121,7 @@ struct PostDetailView: View {
                             
                         })
                         {
-                            Image("miscf1")
+                            Image(systemName:"mail")
                             
                         }
                         Spacer()
