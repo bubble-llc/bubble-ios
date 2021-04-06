@@ -127,11 +127,6 @@ struct PostView: View
                             .font(.caption)
                             .colorInvert()
                             .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-
-
-            
-            
-            
         }
         
         .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height/9, alignment: .center)
@@ -139,7 +134,10 @@ struct PostView: View
         .listRowBackground(Color.black)
         .colorInvert()
         .cornerRadius(20)
-        .border(Color.white, width: 2)
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(Color.white, lineWidth: 2)
+        )
         
     }
     

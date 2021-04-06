@@ -54,6 +54,10 @@ struct UserProfileView: View {
                 
                 
             }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            .onAppear(){
+                UITableView.appearance().backgroundColor = .clear
+                UITableViewCell.appearance().backgroundColor = .clear
+            }
         } else {
             // Fallback on earlier versions
         }

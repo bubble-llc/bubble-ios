@@ -260,7 +260,7 @@ struct SubmitPostView: View {
             }
             
             .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-            .ignoresSafeArea()
+            .edgesIgnoringSafeArea(.bottom)
         } else {
             // Fallback on earlier versions
         }

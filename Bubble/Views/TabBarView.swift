@@ -45,7 +45,7 @@ struct TabBarView : View {
     }
     func goLiked() {
         if let window = UIApplication.shared.windows.first {
-            window.rootViewController = UIHostingController(rootView: UserLikedView())
+            window.rootViewController = UIHostingController(rootView: LikedListView())
             window.makeKeyAndVisible()
         }
     }

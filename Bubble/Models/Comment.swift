@@ -24,7 +24,7 @@ struct Comment: Decodable, Identifiable {
         id = try values.decode(Int.self, forKey: .id)
         content = try values.decode(String.self, forKey: .content)
         username = try values.decode(String.self, forKey: .username)
-        date_created = try values.decode(String.self, forKey: .date_created)
+        date_created = convert_date(try values.decode(String.self, forKey: .date_created))
     }
 
 }

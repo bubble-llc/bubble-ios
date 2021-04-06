@@ -17,6 +17,7 @@ struct PostList: View {
         List(categoryGlobal.posts[categories[category]! - 1]){ post in
 
             PostView(post: post)
+            
         }
         .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
     }

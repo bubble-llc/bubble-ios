@@ -1,6 +1,7 @@
 import SwiftUI
 import Request
 
+
 struct PostDetailView: View {
     let post: Post
     
@@ -14,10 +15,13 @@ struct PostDetailView: View {
     @Binding var downVotesOnly: Bool
     
     @State var comments: [Comment] = []
+    @State private var commentBoxPressed: Bool = false
+    @State private var default_comment: String = "Enter comment here..."
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
-            VStack
+        VStack(alignment: .leading)
             {
                 //Post title. The Frame indicatew where it will be aligned, font adjusts text size
                 HStack{
@@ -49,7 +53,7 @@ struct PostDetailView: View {
                 //If it IS empty it should not be valid in the first place. Need to figure out how to rework this
                 Text(post.content)
                     .padding()
-                    .frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width * 0.9, minHeight: UIScreen.main.bounds.height * 0.1)
+                    .frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width * 0.95, minHeight: UIScreen.main.bounds.height * 0.1)
                     .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                     .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
                     .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
@@ -58,36 +62,96 @@ struct PostDetailView: View {
                         RoundedRectangle(cornerRadius: 25)
                             .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
                     )
+                    .padding(.leading, UIScreen.main.bounds.width * 0.025)
                 
-              
-                //Removed spacing from MetadataView in this context to keep it centered rather than offset on the right side.
+            VStack{
+            List(comments){ comment in
+                CommentsView(comment: comment)
 
-                Spacer()
-                NavigationLink(destination: SubmitCommentView(post:post)){
-                    Text("Add Comment")
-                        .fontWeight(.bold)
-                        .padding(8)
-                        .padding(.leading, 30)
-                        .padding(.trailing, 30)
+            }
+            .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            .onAppear{
+                API().getComment(post_id: post.id) { (comments) in
+                    self.comments = comments
+                }
+            }
+            }
+                //Removed spacing from MetadataView in this context to keep it centered rather than offset on the right side.
+                
+                    HStack{
+                if #available(iOS 14.0, *)
+                {
+                    //We are currently allowing there to be trailing spaces after comments, need to auto remove those from the comment
+                    //object before we actually let it be submitted
+                    TextEditor(text: self.$default_comment)
+                        .onTapGesture {
+                            if !self.commentBoxPressed{
+                                self.default_comment = " "
+                                self.commentBoxPressed = true
+                            }
+                        }
+                        
+                        .multilineTextAlignment(.leading)
+                        
+                        .frame(minWidth: UIScreen.main.bounds.width * 0.75, maxWidth: UIScreen.main.bounds.width * 0.9, minHeight: UIScreen.main.bounds.height * 0.01, maxHeight: UIScreen.main.bounds.height * 0.08)
+                        .padding(5)
+                        .foregroundColor(commentBoxPressed ? Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255) : Color.gray)
+                        
+                        .colorMultiply(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
                         .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
-                        .cornerRadius(8)
-                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                        .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                        .cornerRadius(25)
                         .overlay(
-                            RoundedRectangle(cornerRadius: 8)
+                            RoundedRectangle(cornerRadius: 25)
                                 .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
                         )
+                        .padding(.top, 2)
+                        
                 }
-                
-                List(comments){ comment in
-                    CommentsView(comment: comment)
+                        Spacer()
+                        Button(action:
+                        {
+                            let defaults = UserDefaults.standard
+                            let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+                            let commentObject: [String: Any]  =
+                                [
+                                    "post_id": post.id,
+                                    "user_id": user_id,
+                                    "content": self.default_comment,
+                                ]
+                            API().submitComment(submitted: commentObject)
+                            
+                        })
+                        {
+                            Image(systemName:"mail")
+                            
+                        }
+                        Spacer()
+                }.padding(.leading, UIScreen.main.bounds.width * 0.025)
+                Spacer()
+//                NavigationLink(destination: SubmitCommentView(post:post)){
+//                    Text("Add Comment")
+//                        .fontWeight(.bold)
+//                        .padding(8)
+//                        .padding(.leading, 30)
+//                        .padding(.trailing, 30)
+//                        .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
+//                        .cornerRadius(8)
+//                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+//                        .overlay(
+//                            RoundedRectangle(cornerRadius: 8)
+//                                .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
+//                        )
+//                }
 
-                }
-                .onAppear{
-                    API().getComment(post_id: post.id) { (comments) in
-                        self.comments = comments
-                    }
-                }
-            }.listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            }
+            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+        .onAppear(){
+            UITableView.appearance().backgroundColor = .clear
+            UITableViewCell.appearance().backgroundColor = .clear
+        }
+
     }
 }
 
