@@ -15,13 +15,19 @@ struct PostList: View {
         List(posts){ post in
 
             PostView(post: post)
+            
         }
         .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                
 
         
         .onAppear
         {
+            if #available(iOS 14.0, *) {
+                UITableView.appearance().backgroundColor = .clear
+                UITableViewCell.appearance().backgroundColor = .clear
+            } else {
+                // Fallback on earlier versions
+            }
             let device = Device.current
 
             print(device)     // prints, for example, "iPhone 6 Plus"

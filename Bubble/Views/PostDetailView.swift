@@ -93,7 +93,8 @@ struct PostDetailView: View {
                         
                         .multilineTextAlignment(.leading)
                         
-                        .frame(minWidth: UIScreen.main.bounds.width * 0.7, maxWidth: UIScreen.main.bounds.width * 0.85, minHeight: 50, maxHeight: 100)
+                        .frame(minWidth: UIScreen.main.bounds.width * 0.75, maxWidth: UIScreen.main.bounds.width * 0.9, minHeight: UIScreen.main.bounds.height * 0.01, maxHeight: UIScreen.main.bounds.height * 0.08)
+                        .padding(5)
                         .foregroundColor(commentBoxPressed ? Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255) : Color.gray)
                         
                         .colorMultiply(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
@@ -104,7 +105,8 @@ struct PostDetailView: View {
                             RoundedRectangle(cornerRadius: 25)
                                 .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
                         )
-                        .padding(2)
+                        .padding(.top, 2)
+                        
                 }
                         Spacer()
                         Button(action:
@@ -145,6 +147,11 @@ struct PostDetailView: View {
             }
             .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+        .onAppear(){
+            UITableView.appearance().backgroundColor = .clear
+            UITableViewCell.appearance().backgroundColor = .clear
+        }
+
     }
 }
 

@@ -139,7 +139,10 @@ struct PostView: View
         .listRowBackground(Color.black)
         .colorInvert()
         .cornerRadius(20)
-        .border(Color.white, width: 2)
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(Color.white, lineWidth: 2)
+        )
         
     }
     

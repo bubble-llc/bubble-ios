@@ -106,8 +106,10 @@ struct ContentView : View {
                     )
                     
                     .onAppear(){
+                        
                         UITableView.appearance().backgroundColor = UIColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         UITableViewCell.appearance().backgroundColor = UIColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                        
                         
                     }
                 }
