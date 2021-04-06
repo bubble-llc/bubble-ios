@@ -22,6 +22,7 @@ struct SubmitPostView: View {
     @State private var misc_clicked = false
     
     @EnvironmentObject var locationViewModel: LocationViewModel
+    @EnvironmentObject var categoryGlobal: Category
 
 //    init(userLatitude: Binding<String>, userLongitude: Binding<String>){
 //        self._userLatitude = userLatitude
@@ -72,7 +73,7 @@ struct SubmitPostView: View {
                         category_id = 1
                     }){
                         
-                        Image(self.deals_clicked == true ? "dealsf1" : "deals1").resizable().frame(width:40, height:40).padding()
+                        Image(self.deals_clicked == true ? categoryGlobal.selected_cat_names1[0] : categoryGlobal.cat_names1[0]).resizable().frame(width:40, height:40).padding()
                         //Text("Deals")
                     }.buttonStyle(PlainButtonStyle())
                     //Happy Hour
@@ -87,7 +88,7 @@ struct SubmitPostView: View {
                         category_id = 2
                     }){
                         
-                        Image(self.happy_clicked == true ? "hhf1" : "hh1").resizable().frame(width:40, height:40).padding()
+                        Image(self.happy_clicked == true ? categoryGlobal.selected_cat_names1[1] : categoryGlobal.cat_names1[1]).resizable().frame(width:40, height:40).padding()
                        // Text("Happy Hour")
                     }.buttonStyle(PlainButtonStyle())
                     //Recreation
@@ -102,7 +103,7 @@ struct SubmitPostView: View {
                         category_id = 3
                     }){
                         
-                        Image(self.rec_clicked == true ? "recf1" : "rec1").resizable().frame(width:40, height:40).padding()
+                        Image(self.rec_clicked == true ? categoryGlobal.selected_cat_names1[2] : categoryGlobal.cat_names1[2]).resizable().frame(width:40, height:40).padding()
                         //Text("Recreation")
                     }.buttonStyle(PlainButtonStyle())
                     //What's Happening?
@@ -117,7 +118,7 @@ struct SubmitPostView: View {
                         category_id = 4
                     }){
                         
-                        Image(self.what_clicked == true ? "whf1" : "wh1").resizable().frame(width:40, height:40).padding()
+                        Image(self.what_clicked == true ? categoryGlobal.selected_cat_names1[3] : categoryGlobal.cat_names1[3]).resizable().frame(width:40, height:40).padding()
                        // Text("What's Happening?")
                     }.buttonStyle(PlainButtonStyle())
                     
@@ -132,7 +133,7 @@ struct SubmitPostView: View {
                         
                         category_id = 5
                     }){//(systemName: self.isPlaying == true ? "pause.fill" : "play.fill")
-                        Image(self.misc_clicked == true ? "miscf1" : "misc1").resizable().frame(width:40, height:40).padding()
+                        Image(self.misc_clicked == true ? categoryGlobal.selected_cat_names1[4] : categoryGlobal.cat_names1[4]).resizable().frame(width:40, height:40).padding()
                     }.buttonStyle(PlainButtonStyle())
                     
 //                    Text("Category")

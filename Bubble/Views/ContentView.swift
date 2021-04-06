@@ -8,9 +8,6 @@ struct ContentView : View {
     @EnvironmentObject var userAuth: UserAuth
     @EnvironmentObject var categoryGlobal: Category
     
-    @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
-    @State private var cat_icons = ["dealsf1", "hhf1", "recf1", "whf1", "miscf1"]
-    
     @State var show = false
     
     let locationViewModel = LocationViewModel()
@@ -37,12 +34,12 @@ struct ContentView : View {
           }
         
         NavigationView(){
-            if !userAuth.isLoggedin{
+            if(!userAuth.isLoggedin){
                 LoginView().environmentObject(userAuth).environmentObject(categoryGlobal).navigationBarBackButtonHidden(true)
                     .navigationBarTitle(Text(""), displayMode: .inline)
                     .navigationBarHidden(true)
             }
-            else{
+            else if(categoryGlobal.fetching){
                 
                 if #available(iOS 14.0, *) {
  
@@ -69,15 +66,15 @@ struct ContentView : View {
                     .toolbar{
                         ToolbarItem(placement: .principal){
                             HStack{
-                                if categories.contains(categoryGlobal.currCategory)
+                                if categoryGlobal.categories.contains(categoryGlobal.currCategory)
                                 {
-                                    let ind = categories.firstIndex(of: categoryGlobal.currCategory)
-                                    Image(cat_icons[Int(ind!)])
+                                    let ind = categoryGlobal.categories.firstIndex(of: categoryGlobal.currCategory)
+                                    Image(categoryGlobal.cat_icons[Int(ind!)])
                                     Text(categoryGlobal.currCategory)
                                         .foregroundColor(Color.white)
                                         .bold()
                                         .font(.headline)
-                                    Image(cat_icons[Int(ind!)])
+                                    Image(categoryGlobal.cat_icons[Int(ind!)])
                                 }
                             }
                         }
@@ -97,7 +94,7 @@ struct ContentView : View {
                                                 }
                                             })
                                             }, trailing:
-                                                NavigationLink(destination: SubmitPostView().environmentObject(locationViewModel)){
+                                                NavigationLink(destination: SubmitPostView().environmentObject(locationViewModel).environmentObject(categoryGlobal)){
                                                     Image(systemName: "plus")
                                                         .foregroundColor(Color.white)
                                                 }
@@ -115,6 +112,12 @@ struct ContentView : View {
                 else {
                     // Fallback on earlier versions
 
+                }
+            }
+            else{
+                Text("waiting").onAppear
+                {
+                    categoryGlobal.fetchData()
                 }
             }
         }
