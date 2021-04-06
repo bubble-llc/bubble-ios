@@ -1,9 +1,12 @@
 import SwiftUI
 import SlideOverCard
-
+import SwiftUIRefresh
 struct UserProfileView: View {
     @State var posts: [Post] = []
     @State var postCount = 0
+    @State private var isShowing = false
+    
+    @EnvironmentObject var categoryGlobal: Category
     
     var body: some View {
         let count = self.posts.count
@@ -35,6 +38,7 @@ struct UserProfileView: View {
                         
                         UserCreatedPostView(post: post)
                     }
+
                     .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
                     .buttonStyle(PlainButtonStyle())
@@ -44,6 +48,17 @@ struct UserProfileView: View {
                         {
                             (posts) in self.posts = posts
                             print(self.posts.count)
+                        }
+                    }
+                    .pullToRefresh(isShowing: $isShowing) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            API().getUserLikedPosts
+                            {
+                                (posts) in self.posts = posts
+                                print(self.posts.count)
+                            }
+                         print("yo")
+                            self.isShowing = false
                         }
                     }
                     

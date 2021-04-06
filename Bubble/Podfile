@@ -5,6 +5,7 @@ target 'Bubble' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   pod 'Alamofire'
+  pod "SwiftUIRefresh"
   pod 'DeviceKit', '~> 4.3'
   # Pods for Bubble
 
