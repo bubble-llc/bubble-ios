@@ -10,6 +10,12 @@ import Foundation
 import Combine
 
 class Category: ObservableObject {
+    var category_clicked:[Int] {
+        willSet {
+            objectWillChange.send()
+        }
+    }
+    
     var fetching:Bool {
         willSet {
             objectWillChange.send()
@@ -22,10 +28,10 @@ class Category: ObservableObject {
     let categoriesMap = ["Deals":1, "Happy Hour":2, "Recreation":3, "What's Happening?":4, "Misc":5]
     let cat_names1 = ["deals1", "hh1", "rec1", "wh1", "misc1"]
     let selected_cat_names1 = ["dealsf1", "hhf1", "recf1", "whf1", "miscf1"]
+    let category_clicked_combinations = [[1,0,0,0,0],[0,1,0,0,0],[0,0,1,0,0],[0,0,0,1,0],[0,0,0,0,1]]
     
     var posts = [[Post]](repeating: [], count: 5)
     var category_id:Int
-    var category_clicked:[Int]
     var currCategory:String {
         willSet {
             objectWillChange.send()
@@ -35,7 +41,7 @@ class Category: ObservableObject {
     let userLatitude = "1.0"
     
     init() {
-        self.currCategory = "Bubble"
+        self.currCategory = "Deals"
         self.category_id = 1
         self.category_clicked = [1,0,0,0,0]
         self.fetching = false
@@ -44,6 +50,7 @@ class Category: ObservableObject {
     func setCategory(category: String) {
         self.currCategory = category
         self.category_id = categoriesMap[category]!
+        self.category_clicked = category_clicked_combinations[categoriesMap[category]! - 1]
         print(self.currCategory)
     }
     
