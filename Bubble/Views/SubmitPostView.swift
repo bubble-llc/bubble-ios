@@ -53,81 +53,96 @@ struct SubmitPostView: View {
                         .offset(x: -UIScreen.main.bounds.width * 0.35)
                 HStack{
                     Spacer()
-                    
+                    ForEach(0 ..< categoryGlobal.categories.count) { i in
+                            Button(action: {
+                                deals_clicked.toggle()
+                                
+                                happy_clicked = false
+                                rec_clicked = false
+                                what_clicked = false
+                                misc_clicked = false
+                                
+                                category_id = 1
+                            }){
+                                
+                                Image(self.deals_clicked == true ? categoryGlobal.selected_cat_names1[0] : categoryGlobal.cat_names1[0]).resizable().frame(width:40, height:40).padding()
+                                //Text("Deals")
+                            }.buttonStyle(PlainButtonStyle())
+                    }
                     //Deals Button
-                    Button(action: {
-                        deals_clicked.toggle()
-                        
-                        happy_clicked = false
-                        rec_clicked = false
-                        what_clicked = false
-                        misc_clicked = false
-                        
-                        category_id = 1
-                    }){
-                        
-                        Image(self.deals_clicked == true ? categoryGlobal.selected_cat_names1[0] : categoryGlobal.cat_names1[0]).resizable().frame(width:40, height:40).padding()
-                        //Text("Deals")
-                    }.buttonStyle(PlainButtonStyle())
-                    //Happy Hour
-                    Button(action: {
-                        happy_clicked.toggle()
-                        
-                        deals_clicked = false
-                        rec_clicked = false
-                        what_clicked = false
-                        misc_clicked = false
-                        
-                        category_id = 2
-                    }){
-                        
-                        Image(self.happy_clicked == true ? categoryGlobal.selected_cat_names1[1] : categoryGlobal.cat_names1[1]).resizable().frame(width:40, height:40).padding()
-                       // Text("Happy Hour")
-                    }.buttonStyle(PlainButtonStyle())
-                    //Recreation
-                    Button(action: {
-                        rec_clicked.toggle()
-                        
-                        deals_clicked = false
-                        happy_clicked = false
-                        what_clicked = false
-                        misc_clicked = false
-                        
-                        category_id = 3
-                    }){
-                        
-                        Image(self.rec_clicked == true ? categoryGlobal.selected_cat_names1[2] : categoryGlobal.cat_names1[2]).resizable().frame(width:40, height:40).padding()
-                        //Text("Recreation")
-                    }.buttonStyle(PlainButtonStyle())
-                    //What's Happening?
-                    Button(action: {
-                        what_clicked.toggle()
-                        
-                        deals_clicked = false
-                        rec_clicked = false
-                        happy_clicked = false
-                        misc_clicked = false
-                        
-                        category_id = 4
-                    }){
-                        
-                        Image(self.what_clicked == true ? categoryGlobal.selected_cat_names1[3] : categoryGlobal.cat_names1[3]).resizable().frame(width:40, height:40).padding()
-                       // Text("What's Happening?")
-                    }.buttonStyle(PlainButtonStyle())
-                    
-                    //Misc
-                    Button(action: {
-                        misc_clicked.toggle()
-                        
-                        deals_clicked = false
-                        rec_clicked = false
-                        what_clicked = false
-                        happy_clicked = false
-                        
-                        category_id = 5
-                    }){//(systemName: self.isPlaying == true ? "pause.fill" : "play.fill")
-                        Image(self.misc_clicked == true ? categoryGlobal.selected_cat_names1[4] : categoryGlobal.cat_names1[4]).resizable().frame(width:40, height:40).padding()
-                    }.buttonStyle(PlainButtonStyle())
+//                    Button(action: {
+//                        deals_clicked.toggle()
+//                        
+//                        happy_clicked = false
+//                        rec_clicked = false
+//                        what_clicked = false
+//                        misc_clicked = false
+//                        
+//                        category_id = 1
+//                    }){
+//                        
+//                        Image(self.deals_clicked == true ? categoryGlobal.selected_cat_names1[0] : categoryGlobal.cat_names1[0]).resizable().frame(width:40, height:40).padding()
+//                        //Text("Deals")
+//                    }.buttonStyle(PlainButtonStyle())
+//                    //Happy Hour
+//                    Button(action: {
+//                        happy_clicked.toggle()
+//                        
+//                        deals_clicked = false
+//                        rec_clicked = false
+//                        what_clicked = false
+//                        misc_clicked = false
+//                        
+//                        category_id = 2
+//                    }){
+//                        
+//                        Image(self.happy_clicked == true ? categoryGlobal.selected_cat_names1[1] : categoryGlobal.cat_names1[1]).resizable().frame(width:40, height:40).padding()
+//                       // Text("Happy Hour")
+//                    }.buttonStyle(PlainButtonStyle())
+//                    //Recreation
+//                    Button(action: {
+//                        rec_clicked.toggle()
+//                        
+//                        deals_clicked = false
+//                        happy_clicked = false
+//                        what_clicked = false
+//                        misc_clicked = false
+//                        
+//                        category_id = 3
+//                    }){
+//                        
+//                        Image(self.rec_clicked == true ? categoryGlobal.selected_cat_names1[2] : categoryGlobal.cat_names1[2]).resizable().frame(width:40, height:40).padding()
+//                        //Text("Recreation")
+//                    }.buttonStyle(PlainButtonStyle())
+//                    //What's Happening?
+//                    Button(action: {
+//                        what_clicked.toggle()
+//                        
+//                        deals_clicked = false
+//                        rec_clicked = false
+//                        happy_clicked = false
+//                        misc_clicked = false
+//                        
+//                        category_id = 4
+//                    }){
+//                        
+//                        Image(self.what_clicked == true ? categoryGlobal.selected_cat_names1[3] : categoryGlobal.cat_names1[3]).resizable().frame(width:40, height:40).padding()
+//                       // Text("What's Happening?")
+//                    }.buttonStyle(PlainButtonStyle())
+//                    
+//                    //Misc
+//                    Button(action: {
+//                        misc_clicked.toggle()
+//                        
+//                        deals_clicked = false
+//                        rec_clicked = false
+//                        what_clicked = false
+//                        happy_clicked = false
+//                        
+//                        category_id = 5
+//                    }){//(systemName: self.isPlaying == true ? "pause.fill" : "play.fill")
+//                        Image(self.misc_clicked == true ? categoryGlobal.selected_cat_names1[4] : categoryGlobal.cat_names1[4]).resizable().frame(width:40, height:40).padding()
+//                    }.buttonStyle(PlainButtonStyle())
                     
 //                    Text("Category")
 //                        .offset(x:-5)
