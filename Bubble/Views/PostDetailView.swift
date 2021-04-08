@@ -130,24 +130,6 @@ struct PostDetailView: View {
                         Spacer()
                         Button(action:
                         {
-//                            let defaults = UserDefaults.standard
-//                            let user_id = defaults.string(forKey: defaultsKeys.user_id)!
-//                            let commentObject: [String: Any]  =
-//                                [
-//                                    "post_id": post.id,
-//                                    "user_id": user_id,
-//                                    "content": self.default_comment,
-//                                ]
-//                            DispatchQueue.main.asyncAfter(deadline: .now()) {
-//                            API().submitComment(submitted: commentObject)
-//                                }
-//                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                            API().getComment(post_id: post.id) { (comments) in
-//                                self.comments = comments
-//                                }
-//                            }
-//                            self.commentBoxPressed.toggle()
-//                            self.default_comment = "Enter comments here..."
                             self.showingAlert.toggle()
                             
                         })
@@ -179,31 +161,12 @@ struct PostDetailView: View {
                                         }
                                     }
                                     self.commentBoxPressed.toggle()
-                                   
-                                    
                                   },
                                   secondaryButton: .cancel())
-                           
                         }
-                    
                                 Spacer()
                 }.padding(.leading, UIScreen.main.bounds.width * 0.025)
                 Spacer()
-//                NavigationLink(destination: SubmitCommentView(post:post)){
-//                    Text("Add Comment")
-//                        .fontWeight(.bold)
-//                        .padding(8)
-//                        .padding(.leading, 30)
-//                        .padding(.trailing, 30)
-//                        .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
-//                        .cornerRadius(8)
-//                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-//                        .overlay(
-//                            RoundedRectangle(cornerRadius: 8)
-//                                .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
-//                        )
-//                }
-
             }
             .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
