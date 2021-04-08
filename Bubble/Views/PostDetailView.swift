@@ -1,6 +1,6 @@
 import SwiftUI
 import Request
-
+import SwiftUIRefresh
 
 struct PostDetailView: View {
     let post: Post
@@ -14,10 +14,14 @@ struct PostDetailView: View {
     @Binding var upVotesOnly: Bool
     @Binding var downVotesOnly: Bool
     
+    @State private var isShowing = false
     @State var comments: [Comment] = []
     @State private var commentBoxPressed: Bool = false
     @State private var default_comment: String = "Enter comment here..."
+    @State private var placeholder_default_comment: String = "Enter comment here..."
+    @State private var showingAlert = false
     
+    @EnvironmentObject var categoryGlobal: Category
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
@@ -65,16 +69,32 @@ struct PostDetailView: View {
                     .padding(.leading, UIScreen.main.bounds.width * 0.025)
                 
             VStack{
-            List(comments){ comment in
-                CommentsView(comment: comment)
-
-            }
-            .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-            .onAppear{
-                API().getComment(post_id: post.id) { (comments) in
-                    self.comments = comments
+                if #available(iOS 14.0, *) {
+                    List(comments){ comment in
+                        CommentsView(comment: comment)
+                        
+                    }
+                    .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                    .onAppear{
+                        API().getComment(post_id: post.id) { (comments) in
+                            self.comments = comments
+                        }
+                    }
+                    .pullToRefresh(isShowing: $isShowing) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            API().getComment(post_id: post.id) { (comments) in
+                                self.comments = comments
+                            }
+                            self.isShowing = false
+                        }
+                    }.onChange(of: self.isShowing){value in
+                        //categoryGlobal.fetchData()
+                        // print("oops")
+                        // categoryGlobal.refreshCategory(category: categoryGlobal.currCategory)
+                    }
+                } else {
+                    // Fallback on earlier versions
                 }
-            }
             }
                 //Removed spacing from MetadataView in this context to keep it centered rather than offset on the right side.
                 
@@ -86,7 +106,7 @@ struct PostDetailView: View {
                     TextEditor(text: self.$default_comment)
                         .onTapGesture {
                             if !self.commentBoxPressed{
-                                self.default_comment = " "
+                                self.default_comment = ""
                                 self.commentBoxPressed = true
                             }
                         }
@@ -95,7 +115,7 @@ struct PostDetailView: View {
                         
                         .frame(minWidth: UIScreen.main.bounds.width * 0.75, maxWidth: UIScreen.main.bounds.width * 0.9, minHeight: UIScreen.main.bounds.height * 0.01, maxHeight: UIScreen.main.bounds.height * 0.08)
                         .padding(5)
-                        .foregroundColor(commentBoxPressed ? Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255) : Color.gray)
+                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                         
                         .colorMultiply(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
                         .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
@@ -111,47 +131,53 @@ struct PostDetailView: View {
                         Spacer()
                         Button(action:
                         {
-                            let defaults = UserDefaults.standard
-                            let user_id = defaults.string(forKey: defaultsKeys.user_id)!
-                            let commentObject: [String: Any]  =
-                                [
-                                    "post_id": post.id,
-                                    "user_id": user_id,
-                                    "content": self.default_comment,
-                                ]
-                            API().submitComment(submitted: commentObject)
+                            self.showingAlert.toggle()
                             
                         })
                         {
                             Image(systemName:"mail")
                             
                         }
-                        Spacer()
+                        .alert(isPresented:$showingAlert){
+                            Alert(title: Text("Submit comment?"),
+                                  message: Text(""),
+                                  primaryButton: .default(Text("Submit")){
+                                    DispatchQueue.main.asyncAfter(deadline: .now()) {
+                                        let defaults = UserDefaults.standard
+                                        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+                                        let commentObject: [String: Any]  =
+                                            [
+                                                "post_id": post.id,
+                                                "user_id": user_id,
+                                                "content": self.default_comment,
+                                            ]
+                                    DispatchQueue.main.asyncAfter(deadline: .now()) {
+                                    API().submitComment(submitted: commentObject)
+                                        self.default_comment = self.placeholder_default_comment
+                                        }
+                                    }
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    API().getComment(post_id: post.id) { (comments) in
+                                        self.comments = comments
+                                        }
+                                    }
+                                    self.commentBoxPressed.toggle()
+                                  },
+                                  secondaryButton: .cancel())
+                        }
+                        .disabled(self.default_comment == self.placeholder_default_comment || self.default_comment.isEmpty)
+                                Spacer()
                 }.padding(.leading, UIScreen.main.bounds.width * 0.025)
+                    .padding(.bottom, 20)
                 Spacer()
-//                NavigationLink(destination: SubmitCommentView(post:post)){
-//                    Text("Add Comment")
-//                        .fontWeight(.bold)
-//                        .padding(8)
-//                        .padding(.leading, 30)
-//                        .padding(.trailing, 30)
-//                        .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
-//                        .cornerRadius(8)
-//                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-//                        .overlay(
-//                            RoundedRectangle(cornerRadius: 8)
-//                                .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
-//                        )
-//                }
-
             }
             .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-        .onAppear(){
-            UITableView.appearance().backgroundColor = .clear
-            UITableViewCell.appearance().backgroundColor = .clear
-        }
-
+            .edgesIgnoringSafeArea(.bottom)
+            .onAppear(){
+                UITableView.appearance().backgroundColor = .clear
+                UITableViewCell.appearance().backgroundColor = .clear
+            }
     }
 }
 
