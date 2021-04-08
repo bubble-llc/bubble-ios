@@ -18,6 +18,7 @@ struct PostDetailView: View {
     @State var comments: [Comment] = []
     @State private var commentBoxPressed: Bool = false
     @State private var default_comment: String = "Enter comment here..."
+    @State private var placeholder_default_comment: String = "Enter comment here..."
     @State private var showingAlert = false
     
     @EnvironmentObject var categoryGlobal: Category
@@ -105,7 +106,7 @@ struct PostDetailView: View {
                     TextEditor(text: self.$default_comment)
                         .onTapGesture {
                             if !self.commentBoxPressed{
-                                self.default_comment = " "
+                                self.default_comment = ""
                                 self.commentBoxPressed = true
                             }
                         }
@@ -152,7 +153,7 @@ struct PostDetailView: View {
                                             ]
                                     DispatchQueue.main.asyncAfter(deadline: .now()) {
                                     API().submitComment(submitted: commentObject)
-                                        self.default_comment = "Enter comment here..."
+                                        self.default_comment = self.placeholder_default_comment
                                         }
                                     }
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -164,17 +165,19 @@ struct PostDetailView: View {
                                   },
                                   secondaryButton: .cancel())
                         }
+                        .disabled(self.default_comment == self.placeholder_default_comment || self.default_comment.isEmpty)
                                 Spacer()
                 }.padding(.leading, UIScreen.main.bounds.width * 0.025)
+                    .padding(.bottom, 20)
                 Spacer()
             }
             .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-        .onAppear(){
-            UITableView.appearance().backgroundColor = .clear
-            UITableViewCell.appearance().backgroundColor = .clear
-        }
-
+            .edgesIgnoringSafeArea(.bottom)
+            .onAppear(){
+                UITableView.appearance().backgroundColor = .clear
+                UITableViewCell.appearance().backgroundColor = .clear
+            }
     }
 }
 
