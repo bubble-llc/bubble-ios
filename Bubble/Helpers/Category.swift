@@ -23,8 +23,8 @@ class Category: ObservableObject {
     let cat_names1 = ["deals1", "hh1", "rec1", "wh1", "misc1"]
     let selected_cat_names1 = ["dealsf1", "hhf1", "recf1", "whf1", "miscf1"]
     
-    var posts = [[Post]]()
-    
+    var posts = [[Post]](repeating: [], count: 5)
+    var category_id:Int
     var currCategory:String {
         willSet {
             objectWillChange.send()
@@ -35,11 +35,13 @@ class Category: ObservableObject {
     
     init() {
         self.currCategory = "Bubble"
+        self.category_id = 1
         self.fetching = false
     }
     
     func setCategory(category: String) {
         self.currCategory = category
+        self.category_id = categoriesMap[category]!
         print(self.currCategory)
     }
     
@@ -49,7 +51,7 @@ class Category: ObservableObject {
             group.enter()
             API().getPosts(logitude: self.userLongitude, latitude: self.userLatitude, category: category)
             {
-                (posts) in self.posts.append(posts)
+                (posts) in self.posts[self.categoriesMap[category]! - 1] = posts
                 group.leave()
             }
         }

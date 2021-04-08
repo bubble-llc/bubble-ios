@@ -28,7 +28,6 @@ struct PageView: View {
         set: {
             self.selectedTab = $0
             categoryGlobal.setCategory(category: categories[selectedTab])
-            categoryGlobal.refreshCategory(category: categories[selectedTab])
         }
     )}
     

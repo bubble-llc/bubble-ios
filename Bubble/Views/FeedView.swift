@@ -44,7 +44,6 @@ struct FeedView: View {
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
             .pullToRefresh(isShowing: $isShowing) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    print("whatupppp")
                     categoryGlobal.refreshCategory(category: categoryGlobal.currCategory)
                     self.isShowing = false
                 }

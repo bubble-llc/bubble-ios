@@ -18,7 +18,6 @@ struct PostView: View
         self.post = post
         self._totalVotes = State(initialValue: post.votes)
         
-        
         if post.is_voted == true
         {
             self._isVoted = State(initialValue: true)

@@ -54,6 +54,7 @@ struct ContentView : View {
                                     .animation(.default)
                                     .environmentObject(userAuth)
                                     .environmentObject(locationViewModel)
+                                    .environmentObject(categoryGlobal)
                             
                         }
                         .background(Color.black.opacity(self.show ? 0.2 : 0))
