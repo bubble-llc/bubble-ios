@@ -42,7 +42,7 @@ struct UserProfileView: View {
                     .buttonStyle(PlainButtonStyle())
                     .onAppear
                     {
-                        API().getUserLikedPosts
+                        API().getUserCreatedPosts
                         {
                             (posts) in self.posts = posts
                             print(self.posts.count)
