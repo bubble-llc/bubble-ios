@@ -1,5 +1,6 @@
 import SwiftUI
 import Request
+import Introspect
 
 struct SubmitPostView: View {
     
@@ -167,6 +168,7 @@ struct SubmitPostView: View {
                                 }
                                 
                             }
+                            
                         
                         
                         Text("Content").font(.headline)
@@ -175,6 +177,7 @@ struct SubmitPostView: View {
                             .shadow(color: .white, radius: 5)
                             .offset(x: -UIScreen.main.bounds.width * 0.35)
                         TextEditor(text: self.$post_content)
+                            
                             .padding()
                             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 350)
                             
@@ -189,7 +192,9 @@ struct SubmitPostView: View {
                                 }
                                 
                             }
-                    }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                    }
+                    
+                    .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                     .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                 }
                 else
@@ -251,9 +256,7 @@ struct SubmitPostView: View {
                     Alert(title: Text("Missing Arguments"), message: Text(self.errorMessage), dismissButton: .default(Text("Ok")))
                 }
             }
-            
             .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-            .edgesIgnoringSafeArea(.bottom)
             .onAppear
             {
                 category_id = categoryGlobal.category_id
@@ -278,9 +281,13 @@ struct SubmitPostView: View {
                     misc_clicked.toggle()
                 }
             }
+            
+            .edgesIgnoringSafeArea(.bottom)
+            
         } else {
             // Fallback on earlier versions
         }
         
     }
+    
 }
