@@ -25,6 +25,7 @@ class Category: ObservableObject {
     
     var posts = [[Post]](repeating: [], count: 5)
     var category_id:Int
+    var category_clicked:[Int]
     var currCategory:String {
         willSet {
             objectWillChange.send()
@@ -36,6 +37,7 @@ class Category: ObservableObject {
     init() {
         self.currCategory = "Bubble"
         self.category_id = 1
+        self.category_clicked = [1,0,0,0,0]
         self.fetching = false
     }
     

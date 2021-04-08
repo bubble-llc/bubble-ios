@@ -12,6 +12,7 @@ struct SubmitPostView: View {
     @State private var post_content: String = "Write some content for your post"
     @State private var post_content_pressed: Bool = false
     @State private var category_id = 0
+    @State private var category_clicked = [1,0,0,0,0]
     @State private var showingAlert = false
     @State private var errorMessage = ""
     
@@ -55,6 +56,8 @@ struct SubmitPostView: View {
                     Spacer()
                     ForEach(0 ..< categoryGlobal.categories.count) { i in
                             Button(action: {
+                                category_clicked = [0,0,0,0,0]
+                                category_clicked[i] = 1
                                 deals_clicked.toggle()
                                 
                                 happy_clicked = false
@@ -65,7 +68,7 @@ struct SubmitPostView: View {
                                 category_id = 1
                             }){
                                 
-                                Image(self.deals_clicked == true ? categoryGlobal.selected_cat_names1[0] : categoryGlobal.cat_names1[0]).resizable().frame(width:40, height:40).padding()
+                                Image(self.category_clicked[i] == 1 ? categoryGlobal.selected_cat_names1[i] : categoryGlobal.cat_names1[i]).resizable().frame(width:40, height:40).padding()
                                 //Text("Deals")
                             }.buttonStyle(PlainButtonStyle())
                     }
@@ -274,23 +277,23 @@ struct SubmitPostView: View {
                 category_id = categoryGlobal.category_id
                 if(categoryGlobal.category_id == 1)
                 {
-                    deals_clicked.toggle()
+                    category_clicked = [1,0,0,0,0]
                 }
                 else if(categoryGlobal.category_id == 2)
                 {
-                    happy_clicked.toggle()
+                    category_clicked = [0,1,0,0,0]
                 }
                 else if(categoryGlobal.category_id == 3)
                 {
-                    rec_clicked.toggle()
+                    category_clicked = [0,0,1,0,0]
                 }
                 else if(categoryGlobal.category_id == 4)
                 {
-                    what_clicked.toggle()
+                    category_clicked = [0,0,0,1,0]
                 }
                 else if(categoryGlobal.category_id == 5)
                 {
-                    misc_clicked.toggle()
+                    category_clicked = [0,0,0,0,1]
                 }
             }
         } else {
