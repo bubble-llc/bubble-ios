@@ -14,7 +14,7 @@ struct MenuView : View {
     
     @EnvironmentObject var userAuth: UserAuth
     @EnvironmentObject var locationViewModel: LocationViewModel
-
+    @EnvironmentObject var categoryGlobal: Category
     
     var body : some
     View{
@@ -105,6 +105,8 @@ struct MenuView : View {
     }
     func goExit() {
         userAuth.logout()
+        categoryGlobal.fetching = false
+        categoryGlobal.posts = [[Post]](repeating: [], count: 5)
     }
 }
 

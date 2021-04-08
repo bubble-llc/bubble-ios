@@ -38,6 +38,7 @@ struct CreateUserView: View {
                         let postObject: [String: Any]  =
                             [
                                 "username": self.$username.wrappedValue,
+                                "user_type": 2,
                                 "password": self.$password.wrappedValue,
                                 "email": self.$email.wrappedValue
                             ]

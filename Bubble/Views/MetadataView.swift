@@ -53,6 +53,7 @@ struct MetadataView: View {
                     let voteObject: [String: Any]  =
                     [
                         "username": user_id,
+                        "vote_type": "post",
                         "post_id": self.post.id,
                         "direction": self.direction,
                         "is_voted": self.isVoted,
@@ -163,6 +164,7 @@ struct MetadataView: View {
                 let voteObject: [String: Any]  =
                 [
                     "username": user_id,
+                    "vote_type": "post",
                     "post_id": self.post.id,
                     "direction": self.direction,
                     "is_voted": self.isVoted,

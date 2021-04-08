@@ -23,14 +23,7 @@ struct SubmitPostView: View {
     
     @EnvironmentObject var locationViewModel: LocationViewModel
     @EnvironmentObject var categoryGlobal: Category
-
-//    init(userLatitude: Binding<String>, userLongitude: Binding<String>){
-//        self._userLatitude = userLatitude
-//        self._userLongitude = userLongitude
-//        UITableView.appearance().backgroundColor = .cyan
-//        UITableViewCell.appearance().backgroundColor = .cyan
-//        }
-
+    
     var body: some View
     {
 
@@ -261,6 +254,30 @@ struct SubmitPostView: View {
             
             .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .edgesIgnoringSafeArea(.bottom)
+            .onAppear
+            {
+                category_id = categoryGlobal.category_id
+                if(categoryGlobal.category_id == 1)
+                {
+                    deals_clicked.toggle()
+                }
+                else if(categoryGlobal.category_id == 2)
+                {
+                    happy_clicked.toggle()
+                }
+                else if(categoryGlobal.category_id == 3)
+                {
+                    rec_clicked.toggle()
+                }
+                else if(categoryGlobal.category_id == 4)
+                {
+                    what_clicked.toggle()
+                }
+                else if(categoryGlobal.category_id == 5)
+                {
+                    misc_clicked.toggle()
+                }
+            }
         } else {
             // Fallback on earlier versions
         }
