@@ -1,6 +1,34 @@
 import SwiftUI
 import Request
 import SwiftUIRefresh
+import Combine
+
+struct KeyboardResponsiveModifier: ViewModifier {
+  @State private var offset: CGFloat = 0
+
+  func body(content: Content) -> some View {
+    content
+      .padding(.bottom, offset)
+      .onAppear {
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notif in
+          let value = notif.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+          let height = value.height + UIScreen.main.bounds.width * 0.05
+          let bottomInset = UIApplication.shared.windows.first?.safeAreaInsets.bottom
+          self.offset = height - (bottomInset ?? 0)
+        }
+
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { notif in
+          self.offset = 0
+        }
+    }
+  }
+}
+
+extension View {
+  func keyboardResponsive() -> ModifiedContent<Self, KeyboardResponsiveModifier> {
+    return modifier(KeyboardResponsiveModifier())
+  }
+}
 
 struct PostDetailView: View {
     let post: Post
@@ -21,20 +49,22 @@ struct PostDetailView: View {
     @State private var placeholder_default_comment: String = "Enter comment here..."
     @State private var showingAlert = false
     
+    
     @EnvironmentObject var categoryGlobal: Category
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
-        VStack(alignment: .leading)
+        if #available(iOS 14.0, *) {
+            VStack(alignment: .leading)
             {
                 //Post title. The Frame indicatew where it will be aligned, font adjusts text size
                 HStack{
                     Spacer()
-                Text(post.title)
-                    .bold()
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .font(.system(size:30))
-                    .offset(x:10)
+                    Text(post.title)
+                        .bold()
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .font(.system(size:30))
+                        .offset(x:10)
                     Spacer()
                     MetadataView(post: post,
                                  isUp: self.$isUp,
@@ -68,116 +98,128 @@ struct PostDetailView: View {
                     )
                     .padding(.leading, UIScreen.main.bounds.width * 0.025)
                 
-            VStack{
-                if #available(iOS 14.0, *) {
-                    List(comments){ comment in
-                        CommentsView(comment: comment)
-                        
-                    }
-                    .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                    .onAppear{
-                        API().getComment(post_id: post.id) { (comments) in
-                            self.comments = comments
+                VStack{
+                    if #available(iOS 14.0, *) {
+                        List(comments){ comment in
+                            CommentsView(comment: comment)
+                            
                         }
-                    }
-                    .pullToRefresh(isShowing: $isShowing) {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                        .onAppear{
                             API().getComment(post_id: post.id) { (comments) in
                                 self.comments = comments
                             }
-                            self.isShowing = false
                         }
-                    }.onChange(of: self.isShowing){value in
-                        //categoryGlobal.fetchData()
-                        // print("oops")
-                        // categoryGlobal.refreshCategory(category: categoryGlobal.currCategory)
+                        .pullToRefresh(isShowing: $isShowing) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                API().getComment(post_id: post.id) { (comments) in
+                                    self.comments = comments
+                                }
+                                self.isShowing = false
+                            }
+                        }.onChange(of: self.isShowing){value in
+                            //categoryGlobal.fetchData()
+                            // print("oops")
+                            // categoryGlobal.refreshCategory(category: categoryGlobal.currCategory)
+                        }
+                    } else {
+                        // Fallback on earlier versions
                     }
-                } else {
-                    // Fallback on earlier versions
                 }
-            }
                 //Removed spacing from MetadataView in this context to keep it centered rather than offset on the right side.
                 
-                    HStack{
-                if #available(iOS 14.0, *)
-                {
-                    //We are currently allowing there to be trailing spaces after comments, need to auto remove those from the comment
-                    //object before we actually let it be submitted
-                    TextEditor(text: self.$default_comment)
-                        .onTapGesture {
-                            if !self.commentBoxPressed{
-                                self.default_comment = ""
-                                self.commentBoxPressed = true
+                HStack{
+                    if #available(iOS 14.0, *)
+                    {
+                        //We are currently allowing there to be trailing spaces after comments, need to auto remove those from the comment
+                        //object before we actually let it be submitted
+                        TextEditor(text: self.$default_comment)
+                            
+                            .onTapGesture {
+                                if !self.commentBoxPressed{
+                                    self.default_comment = ""
+                                    self.commentBoxPressed = true
+                                }
                             }
-                        }
-                        
-                        .multilineTextAlignment(.leading)
-                        
-                        .frame(minWidth: UIScreen.main.bounds.width * 0.75, maxWidth: UIScreen.main.bounds.width * 0.9, minHeight: UIScreen.main.bounds.height * 0.01, maxHeight: UIScreen.main.bounds.height * 0.08)
-                        .padding(5)
-                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                        
-                        .colorMultiply(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
-                        .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
-                        .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                        .cornerRadius(25)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 25)
-                                .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
-                        )
-                        .padding(.top, 2)
-                        
-                }
-                        Spacer()
-                        Button(action:
-                        {
-                            self.showingAlert.toggle()
                             
-                        })
-                        {
-                            Image(systemName:"mail")
+                            .multilineTextAlignment(.leading)
                             
-                        }
-                        .alert(isPresented:$showingAlert){
-                            Alert(title: Text("Submit comment?"),
-                                  message: Text(""),
-                                  primaryButton: .default(Text("Submit")){
+                            .frame(minWidth: UIScreen.main.bounds.width * 0.75, maxWidth: UIScreen.main.bounds.width * 0.9, minHeight: UIScreen.main.bounds.height * 0.01, maxHeight: UIScreen.main.bounds.height * 0.08)
+                            .padding(5)
+                            .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                            
+                            .colorMultiply(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
+                            .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
+                            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                            .cornerRadius(25)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 25)
+                                    .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
+                            )
+                            .padding(.top, 2)
+                        
+                    }
+                    Spacer()
+                    Button(action:
+                            {
+                                let resign = #selector(UIResponder.resignFirstResponder)
+                                UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
+                                self.showingAlert.toggle()
+                                
+                            })
+                    {
+                        Image(systemName:"mail")
+                        
+                    }
+                    .alert(isPresented:$showingAlert){
+                        
+                        Alert(title: Text("Submit comment?"),
+                              message: Text(""),
+                              primaryButton: .default(Text("Submit")){
+                                
+                                
+                                
+                                    let defaults = UserDefaults.standard
+                                    let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+                                    let commentObject: [String: Any]  =
+                                        [
+                                            "post_id": post.id,
+                                            "user_id": user_id,
+                                            "content": self.default_comment,
+                                        ]
                                     DispatchQueue.main.asyncAfter(deadline: .now()) {
-                                        let defaults = UserDefaults.standard
-                                        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
-                                        let commentObject: [String: Any]  =
-                                            [
-                                                "post_id": post.id,
-                                                "user_id": user_id,
-                                                "content": self.default_comment,
-                                            ]
-                                    DispatchQueue.main.asyncAfter(deadline: .now()) {
-                                    API().submitComment(submitted: commentObject)
+                                        API().submitComment(submitted: commentObject)
                                         self.default_comment = self.placeholder_default_comment
-                                        }
                                     }
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                     API().getComment(post_id: post.id) { (comments) in
                                         self.comments = comments
-                                        }
                                     }
-                                    self.commentBoxPressed.toggle()
-                                  },
-                                  secondaryButton: .cancel())
-                        }
-                        .disabled(self.default_comment == self.placeholder_default_comment || self.default_comment.isEmpty)
-                                Spacer()
+                                }
+                                self.commentBoxPressed.toggle()
+                              },
+                              secondaryButton: .cancel())
+                    }
+                    .disabled(self.default_comment == self.placeholder_default_comment || self.default_comment.isEmpty)
+                    Spacer()
                 }.padding(.leading, UIScreen.main.bounds.width * 0.025)
-                    .padding(.bottom, 20)
+                .padding(.bottom, UIScreen.main.bounds.width * 0.05)
                 Spacer()
             }
+            .keyboardResponsive()
             .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-            .edgesIgnoringSafeArea(.bottom)
             .onAppear(){
                 UITableView.appearance().backgroundColor = .clear
                 UITableViewCell.appearance().backgroundColor = .clear
             }
+            
+            .edgesIgnoringSafeArea(.bottom)
+        } else {
+            // Fallback on earlier versions
+        }
+            
     }
 }
 

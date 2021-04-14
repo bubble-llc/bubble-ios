@@ -6,6 +6,7 @@ target 'Bubble' do
   use_frameworks!
   pod 'Alamofire'
   pod "SwiftUIRefresh"
+  pod "Introspect"
   pod 'DeviceKit', '~> 4.3'
   # Pods for Bubble
 

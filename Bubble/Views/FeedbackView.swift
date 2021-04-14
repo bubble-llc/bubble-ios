@@ -101,6 +101,8 @@ struct FeedbackView: View{
                     ]
                 API().submitFeedback(submitted: feedback_object)
                 self.submittedAlert = true
+                let resign = #selector(UIResponder.resignFirstResponder)
+                UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
                 //self.presentationMode.wrappedValue.dismiss()
                 
             })
