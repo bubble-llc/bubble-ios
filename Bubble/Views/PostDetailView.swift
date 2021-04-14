@@ -216,9 +216,10 @@ struct PostDetailView: View {
             }
             .onTapGesture {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
-                self.commentBoxPressed.toggle()
+               
                 if self.default_comment.isEmpty{
                     self.default_comment = self.placeholder_default_comment
+                    self.commentBoxPressed.toggle()
                 }
                 
             }
