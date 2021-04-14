@@ -2,6 +2,7 @@ import SwiftUI
 import Request
 import Introspect
 
+
 struct SubmitPostView: View {
     
     
@@ -256,6 +257,7 @@ struct SubmitPostView: View {
                     Alert(title: Text("Missing Arguments"), message: Text(self.errorMessage), dismissButton: .default(Text("Ok")))
                 }
             }
+            .keyboardResponsive()
             .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .onAppear
             {

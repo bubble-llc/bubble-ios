@@ -12,7 +12,7 @@ struct KeyboardResponsiveModifier: ViewModifier {
       .onAppear {
         NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notif in
           let value = notif.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-          let height = value.height
+          let height = value.height + UIScreen.main.bounds.width * 0.05
           let bottomInset = UIApplication.shared.windows.first?.safeAreaInsets.bottom
           self.offset = height - (bottomInset ?? 0)
         }
@@ -204,7 +204,7 @@ struct PostDetailView: View {
                     .disabled(self.default_comment == self.placeholder_default_comment || self.default_comment.isEmpty)
                     Spacer()
                 }.padding(.leading, UIScreen.main.bounds.width * 0.025)
-                .padding(.bottom, 40)
+                .padding(.bottom, UIScreen.main.bounds.width * 0.05)
                 Spacer()
             }
             .keyboardResponsive()
