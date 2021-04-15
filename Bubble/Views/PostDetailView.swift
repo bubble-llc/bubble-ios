@@ -214,7 +214,15 @@ struct PostDetailView: View {
                 UITableView.appearance().backgroundColor = .clear
                 UITableViewCell.appearance().backgroundColor = .clear
             }
-            
+            .onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+               
+                if self.default_comment.isEmpty{
+                    self.default_comment = self.placeholder_default_comment
+                    self.commentBoxPressed.toggle()
+                }
+                
+            }
             .edgesIgnoringSafeArea(.bottom)
         } else {
             // Fallback on earlier versions
