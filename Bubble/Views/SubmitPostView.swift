@@ -1,5 +1,7 @@
 import SwiftUI
 import Request
+import Introspect
+
 
 struct SubmitPostView: View {
     
@@ -8,8 +10,10 @@ struct SubmitPostView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State private var post_title: String = "Location of post"
+    @State private var default_post_title: String = "Location of post"
     @State private var post_title_pressed: Bool = false
     @State private var post_content: String = "Write some content for your post"
+    @State private var default_post_content: String = "Write some content for your post"
     @State private var post_content_pressed: Bool = false
     @State private var category_id = Constants.DEFAULT_CATEGORY
     @State private var showingAlert = false
@@ -26,18 +30,17 @@ struct SubmitPostView: View {
     
     var body: some View
     {
-
         if #available(iOS 14.0, *) {
-            Form {
-                Text("Create Your Post").font(.system(size: 30))
-                    .bold()
-                    .italic()
-                    .foregroundColor(Color.white)
-                    .shadow(color: Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), radius: 2)
-                    .offset(x: UIScreen.main.bounds.width * 0.125)
-                    .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                
-                VStack{
+            VStack {
+                if #available(iOS 14.0, *) {
+                    Text("Create Your Post").font(.system(size: 30))
+                        .bold()
+                        .italic()
+                        .foregroundColor(Color.white)
+                        .shadow(color: Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), radius: 2)
+                        .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                        .padding(.top, UIScreen.main.bounds.height * 0.1)
+                    
                     Text("Category")
                         .font(.headline)
                         .bold()
@@ -45,7 +48,8 @@ struct SubmitPostView: View {
                         .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .shadow(color: .white, radius: 5)
                         .offset(x: -UIScreen.main.bounds.width * 0.35)
-                    HStack{
+                        .padding(.top, UIScreen.main.bounds.height * 0.01)
+                    HStack {
                         Spacer()
                         ForEach(0 ..< categoryGlobal.categories.count) { i in
                                 Button(action: {
@@ -60,7 +64,6 @@ struct SubmitPostView: View {
                     .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                     .frame(width:UIScreen.main.bounds.width*0.8, alignment: .center)
                 }
-                .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                 if #available(iOS 14.0, *)
                 {
                     VStack{
@@ -71,7 +74,7 @@ struct SubmitPostView: View {
                             .offset(x: -UIScreen.main.bounds.width * 0.35)
                         TextEditor(text: self.$post_title)
                             .padding()
-                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 35, maxHeight: 55)
+                            .frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width * 0.9, minHeight: 50, maxHeight: 65)
                             .foregroundColor(post_title_pressed ? Color.black : Color.gray)
                             .background(Color.white)
                             .multilineTextAlignment(.leading)
@@ -89,7 +92,7 @@ struct SubmitPostView: View {
                             .offset(x: -UIScreen.main.bounds.width * 0.35)
                         TextEditor(text: self.$post_content)
                             .padding()
-                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 350)
+                            .frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width * 0.9, minHeight: 100, maxHeight: 150)
                             
                             .foregroundColor(post_content_pressed ? Color.black : Color.gray)
                             .background(Color.white)
@@ -101,8 +104,10 @@ struct SubmitPostView: View {
                                     self.post_content_pressed = true
                                 }
                             }
-                    }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                    .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                            
+                            
+                        }
+                    
                 }
                 else
                 {
@@ -111,19 +116,19 @@ struct SubmitPostView: View {
                         .frame(minWidth: 100, idealWidth: 100/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center)
                         .background(RoundedRectangle(cornerRadius:5))
                 }
-
+                
                 Button(action:
                         {
                             let defaults = UserDefaults.standard
                             let user_id = defaults.string(forKey: defaultsKeys.user_id)!
                             
-                            if post_title == "" || post_title == "Location of post"
+                            if post_title.isEmpty || post_title == default_post_title
                             {
                                 self.showingAlert = true
                                 self.errorMessage = "Enter in value for Where"
                             }
                             
-                            if post_content == "" || post_content == "Write some content for your post"
+                            if post_content.isEmpty || post_content == default_post_content
                             {
                                 self.showingAlert = true
                                 self.errorMessage = "Enter in value for Content"
@@ -142,6 +147,8 @@ struct SubmitPostView: View {
                                         "longitude": locationViewModel.userLongitude
                                     ]
                                 API().submitPost(submitted: postObject)
+                                self.post_title_pressed.toggle()
+                                self.post_content_pressed.toggle()
                                 self.presentationMode.wrappedValue.dismiss()
                             }
                             
@@ -162,17 +169,34 @@ struct SubmitPostView: View {
                 {
                     Alert(title: Text("Missing Arguments"), message: Text(self.errorMessage), dismissButton: .default(Text("Ok")))
                 }
+                Spacer()
             }
-            
-            .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
             .edgesIgnoringSafeArea(.bottom)
+            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .onAppear
             {
                 self.category_id = categoryGlobal.category_id
+            }
+            .onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+                if self.post_title.isEmpty{
+                    self.post_title = self.default_post_title
+                    self.post_title_pressed.toggle()
+                }
+                if self.post_content.isEmpty{
+                    self.post_content = self.default_post_content
+                    self.post_content_pressed.toggle()
+                }
             }
         } else {
             // Fallback on earlier versions
         }
         
+
+        
+        
     }
+    
 }
