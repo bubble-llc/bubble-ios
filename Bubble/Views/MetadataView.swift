@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct MetadataView: View {
-    var post: Post
-    
+    var post: Post?
+    var comment: Comment?
     @Binding var isUp: Bool
     @Binding var isDown: Bool
     @Binding var totalVotes: Int
@@ -20,6 +20,7 @@ struct MetadataView: View {
     @State private var upVote = false
 
     var body: some View {
+        if (post != nil){
         if (self.upVotesOnly && !self.downVotesOnly){
             VStack
             {
@@ -54,7 +55,7 @@ struct MetadataView: View {
                     [
                         "username": user_id,
                         "vote_type": "post",
-                        "post_id": self.post.id,
+                        "post_id": self.post!.id,
                         "direction": self.direction,
                         "is_voted": self.isVoted,
                         "global_direction": self.globalDirection
@@ -109,11 +110,20 @@ struct MetadataView: View {
                 let voteObject: [String: Any]  =
                 [
                     "username": user_id,
-                    "post_id": self.post.id,
+                    "post_id": self.post!.id,
                     "direction": self.direction,
                     "is_voted": self.isVoted,
                     "global_direction": self.globalDirection
                 ]
+//
+//                let voteObject: [String: Any]  =
+//                [
+//                    "username": user_id,
+//                    "comment_id": self.comment.id,
+//                    "direction": self.direction,
+//                    "is_voted": self.isVoted,
+//                    "global_direction": self.globalDirection
+//                ]
                 
                 self.isVoted = true
                 
@@ -165,7 +175,7 @@ struct MetadataView: View {
                 [
                     "username": user_id,
                     "vote_type": "post",
-                    "post_id": self.post.id,
+                    "post_id": self.post!.id,
                     "direction": self.direction,
                     "is_voted": self.isVoted,
                     "global_direction": self.globalDirection
@@ -216,7 +226,7 @@ struct MetadataView: View {
                 let voteObject: [String: Any]  =
                 [
                     "username": user_id,
-                    "post_id": self.post.id,
+                    "post_id": self.post!.id,
                     "direction": self.direction,
                     "is_voted": self.isVoted,
                     "global_direction": self.globalDirection
@@ -245,11 +255,16 @@ struct MetadataView: View {
 //            //print(post.date)
 //            Text(post.date_created)
                 //end VStack
+                }
             }
            
             }//check if it was a post that was passed
         else if (comment != nil){//comment
+<<<<<<< HEAD
             HStack(spacing:0)
+=======
+            VStack(spacing:0)
+>>>>>>> master
             {
                 Button(action:
                 {
@@ -296,12 +311,19 @@ struct MetadataView: View {
                     Image(systemName: self.isUp == true ? "arrowtriangle.up.fill" : "arrowtriangle.up" )
                         .resizable()
                         .frame(width:12,height:12)
+<<<<<<< HEAD
+=======
+                        .padding(2)
+>>>>>>> master
                         
                 }.foregroundColor(self.upColor).buttonStyle(BorderlessButtonStyle())
                 
                 
                 Text(String(self.totalVotes))
+<<<<<<< HEAD
                     .padding(.horizontal, 4)
+=======
+>>>>>>> master
             
                 Button(action:
                 {

@@ -4,6 +4,15 @@ import Request
 struct CommentsView: View {
     let comment: Comment
     
+    @Binding var isUp: Bool
+    @Binding var isDown: Bool
+    @Binding var totalVotes: Int
+    @Binding var upColor: Color
+    @Binding var downColor: Color
+    @Binding var isVoted: Bool
+    @Binding var upVotesOnly: Bool
+    @Binding var downVotesOnly: Bool
+    
     var body: some View {
         VStack(alignment: .leading, spacing: -3){
             
@@ -37,9 +46,10 @@ struct CommentsView: View {
                 .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                 .font(.system(size: 12))
                 .lineLimit(3)
+                .padding(.leading, 12)
                 //Char limit on iphone 8 is 43
                 //Char limit on iphone 12 max is 99
-//                Spacer()
+                Spacer()
 //
 
            
