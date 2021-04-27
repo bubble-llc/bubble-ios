@@ -5,7 +5,7 @@ struct CommentsView: View {
     let comment: Comment
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0){
+        VStack(alignment: .leading, spacing: -3){
             
                 HStack{
                 Text(comment.username)
@@ -41,24 +41,34 @@ struct CommentsView: View {
                 //Char limit on iphone 12 max is 99
 //                Spacer()
 //
-//                MetadataView(post: post,
-//                             isUp: self.$isUp,
-//                             isDown: self.$isDown,
-//                             totalVotes: self.$totalVotes,
-//                             upColor: self.$upColor,
-//                             downColor: self.$downColor,
-//                             isVoted: self.$isVoted,
-//                             upVotesOnly: self.$upVotesOnly,
-//                             downVotesOnly: self.$downVotesOnly)
-//                        .font(.caption)
-//                        .colorInvert()
-//                        .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-           Spacer()
-            }.frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height * 0.06, alignment: .center)
+
+           
+            }.frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height * 0.05, alignment: .center)
 //            .overlay(
 //                RoundedRectangle(cornerRadius: 0)
 //                    .stroke(Color.green, lineWidth: 1)
 //            )
+            HStack{
+                Image(systemName: "ellipsis")
+                    .colorInvert()
+                    .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                    .padding(.leading, UIScreen.main.bounds.width * 0.05)
+                Spacer()
+                MetadataView(comment: comment,
+                             isUp: self.$isUp,
+                             isDown: self.$isDown,
+                             totalVotes: self.$totalVotes,
+                             upColor: self.$upColor,
+                             downColor: self.$downColor,
+                             isVoted: self.$isVoted,
+                             upVotesOnly: self.$upVotesOnly,
+                             downVotesOnly: self.$downVotesOnly)
+                        .font(.caption)
+                        .colorInvert()
+                        .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                        .padding(.trailing, UIScreen.main.bounds.width * 0.05)
+                
+            }
     }
         
     .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height * 0.085)

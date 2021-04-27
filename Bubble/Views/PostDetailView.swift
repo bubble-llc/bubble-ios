@@ -128,17 +128,17 @@ struct PostDetailView: View {
                 
                 HStack{
                     HStack{
-                Image(systemName: "text.bubble")
-                    .foregroundColor(Color.white)
-                        Text(String(comments.count))
-                    .font(.system(size: 12))
-                    .foregroundColor(Color.white)
-                    }.padding(.leading, UIScreen.main.bounds.width * 0.08)
+                        Image(systemName: "ellipsis")
+                            .foregroundColor(Color.white)
+                            .padding(.leading, UIScreen.main.bounds.width * 0.08)
                     Spacer()
-                    Image(systemName: "ellipsis")
+                    Image(systemName: "text.bubble")
                         .foregroundColor(Color.white)
-                        .padding(.trailing, UIScreen.main.bounds.width * 0.08)
-                    
+                            Text(String(comments.count))
+                        .font(.system(size: 12))
+                        .foregroundColor(Color.white)
+                        }
+                    .padding(.trailing, UIScreen.main.bounds.width * 0.08)
                 }
                 
                 Divider()
