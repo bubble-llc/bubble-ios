@@ -65,19 +65,37 @@ struct LoginView: View {
                 Alert(title: Text("Invalid Login"), message: Text("Please enter valid login"), dismissButton: .default(Text("Ok")))
             }
             Spacer()
-            HStack {
-                Spacer()
-                NavigationLink(destination: CreateUserView().environmentObject(userAuth).environmentObject(categoryGlobal))
-                {
-                    Text("Register")
+            HStack{
+                HStack {
+                    Spacer()
+                    NavigationLink(destination: CreateUserView().environmentObject(userAuth).environmentObject(categoryGlobal))
+                    {
+                        Text("Register")
+                    }
+                    Spacer()
+                    
                 }
+                .font(.headline)
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.blue)
+                .cornerRadius(10)
                 Spacer()
+                HStack {
+                    Spacer()
+                    NavigationLink(destination: PasswordReset().environmentObject(userAuth).environmentObject(categoryGlobal))
+                    {
+                        Text("Forgot Password")
+                    }
+                    Spacer()
+                    
+                }
+                .font(.headline)
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.blue)
+                .cornerRadius(10)
             }
-            .font(.headline)
-            .foregroundColor(.white)
-            .padding()
-            .background(Color.blue)
-            .cornerRadius(10)
         }
         .padding()
     }

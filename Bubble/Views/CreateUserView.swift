@@ -66,8 +66,3 @@ struct CreateUserView: View {
     }
 }
 
-struct CreateUserView_Previews: PreviewProvider {
-    static var previews: some View {
-        CreateUserView()
-    }
-}

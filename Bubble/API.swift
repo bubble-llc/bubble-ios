@@ -61,11 +61,7 @@ class API {
         
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
-        request.allHTTPHeaderFields =
-        [
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        ]
+        request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted)
         
@@ -94,11 +90,7 @@ class API {
         
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
-        request.allHTTPHeaderFields =
-        [
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        ]
+        request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted)
         
@@ -127,11 +119,7 @@ class API {
         
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
-        request.allHTTPHeaderFields =
-        [
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        ]
+        request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted)
         
@@ -160,11 +148,7 @@ class API {
         
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
-        request.allHTTPHeaderFields =
-        [
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        ]
+        request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted)
         
@@ -193,11 +177,7 @@ class API {
         
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
-        request.allHTTPHeaderFields =
-        [
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        ]
+        request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted)
         
@@ -242,11 +222,7 @@ class API {
         
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
-        request.allHTTPHeaderFields =
-        [
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        ]
+        request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted, options: .prettyPrinted)
         
@@ -271,18 +247,75 @@ class API {
     
     func getUser(username: String, password: String, completion: @escaping ([User]) ->())
     {
+        guard let url = URL(string: "\(self.baseURL)/user?username=\(username)&password=\(password )") else {fatalError()}
+        URLSession.shared.dataTask(with: url)
+        { (data,_,_)in
+            
+            let user = try! JSONDecoder().decode([User].self, from:data!)
+            DispatchQueue.main.async
+            {
+                completion(user)
+            }
+        }.resume()
+    }
+    
+    func passwordReset(submitted: [String: Any])
+    {
+        guard let postUrl = URL(string: "\(baseURL)/password_reset") else {fatalError()}
+        
+        var request = URLRequest(url: postUrl)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+        
+        let submission = try? JSONSerialization.data(withJSONObject: submitted, options: .prettyPrinted)
+        
+        request.httpBody = submission
 
-            guard let url = URL(string: "\(self.baseURL)/user?username=\(username)&password=\(password )") else {fatalError()}
-            URLSession.shared.dataTask(with: url)
-            { (data,_,_)in
-                
-                let user = try! JSONDecoder().decode([User].self, from:data!)
-                DispatchQueue.main.async
-                {
-                    completion(user)
-                }
-            }.resume()
+        let task = URLSession.shared.dataTask(with: request)
+        { data, response, error in
+            
+            guard let data = data, error == nil else
+            {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any]
+            {
+                print(responseJSON)
+            }
         }
+        task.resume()
+    }
+    
+    func validatePasswordReset(submitted: [String: Any])
+    {
+        guard let postUrl = URL(string: "\(baseURL)/validate_password_reset") else {fatalError()}
+        
+        var request = URLRequest(url: postUrl)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+        
+        let submission = try? JSONSerialization.data(withJSONObject: submitted, options: .prettyPrinted)
+        
+        request.httpBody = submission
+
+        let task = URLSession.shared.dataTask(with: request)
+        { data, response, error in
+            
+            guard let data = data, error == nil else
+            {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any]
+            {
+                print(responseJSON)
+            }
+        }
+        task.resume()
+    }
     
 }
 

@@ -15,7 +15,7 @@ struct SubmitPostView: View {
     @State private var post_content: String = "Write some content for your post"
     @State private var default_post_content: String = "Write some content for your post"
     @State private var post_content_pressed: Bool = false
-    @State private var category_id = 0
+    @State private var category_id = Constants.DEFAULT_CATEGORY
     @State private var showingAlert = false
     @State private var errorMessage = ""
     
@@ -49,146 +49,60 @@ struct SubmitPostView: View {
                         .shadow(color: .white, radius: 5)
                         .offset(x: -UIScreen.main.bounds.width * 0.35)
                         .padding(.top, UIScreen.main.bounds.height * 0.01)
-                    HStack{
+                    HStack {
                         Spacer()
-                        
-                        //Deals Button
-                        Button(action: {
-                            deals_clicked.toggle()
-                            
-                            happy_clicked = false
-                            rec_clicked = false
-                            what_clicked = false
-                            misc_clicked = false
-                            
-                            category_id = 1
-                        }){
-                            
-                            Image(self.deals_clicked == true ? categoryGlobal.selected_cat_names1[0] : categoryGlobal.cat_names1[0]).resizable().frame(width:40, height:40).padding()
-                            //Text("Deals")
-                        }.buttonStyle(PlainButtonStyle())
-                        //Happy Hour
-                        Button(action: {
-                            happy_clicked.toggle()
-                            
-                            deals_clicked = false
-                            rec_clicked = false
-                            what_clicked = false
-                            misc_clicked = false
-                            
-                            category_id = 2
-                        }){
-                            
-                            Image(self.happy_clicked == true ? categoryGlobal.selected_cat_names1[1] : categoryGlobal.cat_names1[1]).resizable().frame(width:40, height:40).padding()
-                            // Text("Happy Hour")
-                        }.buttonStyle(PlainButtonStyle())
-                        //Recreation
-                        Button(action: {
-                            rec_clicked.toggle()
-                            
-                            deals_clicked = false
-                            happy_clicked = false
-                            what_clicked = false
-                            misc_clicked = false
-                            
-                            category_id = 3
-                        }){
-                            
-                            Image(self.rec_clicked == true ? categoryGlobal.selected_cat_names1[2] : categoryGlobal.cat_names1[2]).resizable().frame(width:40, height:40).padding()
-                            //Text("Recreation")
-                        }.buttonStyle(PlainButtonStyle())
-                        //What's Happening?
-                        Button(action: {
-                            what_clicked.toggle()
-                            
-                            deals_clicked = false
-                            rec_clicked = false
-                            happy_clicked = false
-                            misc_clicked = false
-                            
-                            category_id = 4
-                        }){
-                            
-                            Image(self.what_clicked == true ? categoryGlobal.selected_cat_names1[3] : categoryGlobal.cat_names1[3]).resizable().frame(width:40, height:40).padding()
-                            // Text("What's Happening?")
-                        }.buttonStyle(PlainButtonStyle())
-                        
-                        //Misc
-                        Button(action: {
-                            misc_clicked.toggle()
-                            
-                            deals_clicked = false
-                            rec_clicked = false
-                            what_clicked = false
-                            happy_clicked = false
-                            
-                            category_id = 5
-                        }){//(systemName: self.isPlaying == true ? "pause.fill" : "play.fill")
-                            Image(self.misc_clicked == true ? categoryGlobal.selected_cat_names1[4] : categoryGlobal.cat_names1[4]).resizable().frame(width:40, height:40).padding()
-                        }.buttonStyle(PlainButtonStyle())
-                        
-                        //                    Text("Category")
-                        //                        .offset(x:-5)
-                        //                        .foregroundColor(Color.blue)
-                        //                        .font(.headline)
-                        
-                        //                    Picker(selection: $selectedCategory, label: Text("")) {
-                        //                        ForEach(0 ..< categories.count) {
-                        //                            Text(self.categories[$0])
-                        //                        }
-                        //}
+                        ForEach(0 ..< categoryGlobal.categories.count) { i in
+                                Button(action: {
+                                    categoryGlobal.category_clicked = categoryGlobal.category_clicked_combinations[i]
+                                    category_id = i + 1
+                                }){
+                                    
+                                    Image(categoryGlobal.category_clicked[i] == 1 ? categoryGlobal.selected_cat_names1[i] : categoryGlobal.cat_names1[i]).resizable().frame(width:40, height:40).padding()
+                                }.buttonStyle(PlainButtonStyle())
+                        }
                     }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                     .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                     .frame(width:UIScreen.main.bounds.width*0.8, alignment: .center)
-                    .padding(.bottom, UIScreen.main.bounds.height * 0.01)
                 }
                 if #available(iOS 14.0, *)
                 {
-                    Text("Where").font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                        .shadow(color: .white, radius: 5)
-                        .offset(x: -UIScreen.main.bounds.width * 0.35)
-                    TextEditor(text: self.$post_title)
-                        .padding()
-                        
-                        
-                        .frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width * 0.9, minHeight: 50, maxHeight: 65)
-                        .foregroundColor(post_title_pressed ? Color.black : Color.gray)
-                        .background(Color.white)
-                        
-                        .multilineTextAlignment(.leading)
-                        .cornerRadius(25)
-                        .onTapGesture {
-                            if !self.post_title_pressed{
-                                self.post_title = ""
-                                self.post_title_pressed = true
+                    VStack{
+                        Text("Where").font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                            .shadow(color: .white, radius: 5)
+                            .offset(x: -UIScreen.main.bounds.width * 0.35)
+                        TextEditor(text: self.$post_title)
+                            .padding()
+                            .frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width * 0.9, minHeight: 50, maxHeight: 65)
+                            .foregroundColor(post_title_pressed ? Color.black : Color.gray)
+                            .background(Color.white)
+                            .multilineTextAlignment(.leading)
+                            .cornerRadius(25)
+                            .onTapGesture {
+                                if !self.post_title_pressed{
+                                    self.post_title = ""
+                                    self.post_title_pressed = true
+                                }
                             }
+                        Text("Content").font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                            .shadow(color: .white, radius: 5)
+                            .offset(x: -UIScreen.main.bounds.width * 0.35)
+                        TextEditor(text: self.$post_content)
+                            .padding()
+                            .frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width * 0.9, minHeight: 100, maxHeight: 150)
                             
-                        }
-                        .padding(.bottom, UIScreen.main.bounds.height * 0.01)
-                    
-                    
-                    
-                    Text("Content").font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                        .shadow(color: .white, radius: 5)
-                        .offset(x: -UIScreen.main.bounds.width * 0.35)
-                    
-                    TextEditor(text: self.$post_content)
-                        
-                        .padding()
-                        .frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width * 0.9, minHeight: 100, maxHeight: 150)
-                        
-                        .foregroundColor(post_content_pressed ? Color.black : Color.gray)
-                        .background(Color.white)
-                        .multilineTextAlignment(.leading)
-                        .cornerRadius(25)
-                        .onTapGesture {
-                            if !self.post_content_pressed{
-                                self.post_content = ""
-                                self.post_content_pressed = true
+                            .foregroundColor(post_content_pressed ? Color.black : Color.gray)
+                            .background(Color.white)
+                            .multilineTextAlignment(.leading)
+                            .cornerRadius(25)
+                            .onTapGesture {
+                                if !self.post_content_pressed{
+                                    self.post_content = ""
+                                    self.post_content_pressed = true
+                                }
                             }
                             
                             
@@ -263,27 +177,7 @@ struct SubmitPostView: View {
             .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .onAppear
             {
-                category_id = categoryGlobal.category_id
-                if(categoryGlobal.category_id == 1)
-                {
-                    deals_clicked.toggle()
-                }
-                else if(categoryGlobal.category_id == 2)
-                {
-                    happy_clicked.toggle()
-                }
-                else if(categoryGlobal.category_id == 3)
-                {
-                    rec_clicked.toggle()
-                }
-                else if(categoryGlobal.category_id == 4)
-                {
-                    what_clicked.toggle()
-                }
-                else if(categoryGlobal.category_id == 5)
-                {
-                    misc_clicked.toggle()
-                }
+                self.category_id = categoryGlobal.category_id
             }
             .onTapGesture {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
