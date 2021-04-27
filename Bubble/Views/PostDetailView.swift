@@ -58,13 +58,47 @@ struct PostDetailView: View {
             VStack(alignment: .leading)
             {
                 //Post title. The Frame indicatew where it will be aligned, font adjusts text size
-                HStack{
-                    Spacer()
+                VStack(spacing: 0){
+                    
+                    HStack{
+                        Text(post.username)
+                            .font(.system(size:10))
+                        Spacer()
+                        Text(post.date_created)
+                            .font(.system(size:10))
+                    }
+                    
+                    HStack(alignment: .center){
                     Text(post.title)
                         .bold()
+                        .underline()
                         .frame(maxWidth: .infinity, alignment: .center)
-                        .font(.system(size:30))
-                        .offset(x:10)
+                        .font(.system(size:20))
+                        
+//                    MetadataView(post: post,
+//                                 isUp: self.$isUp,
+//                                 isDown: self.$isDown,
+//                                 totalVotes: self.$totalVotes,
+//                                 upColor: self.$upColor,
+//                                 downColor: self.$downColor,
+//                                 isVoted: self.$isVoted,
+//                                 upVotesOnly: self.$upVotesOnly,
+//                                 downVotesOnly: self.$downVotesOnly)
+//                        .padding(.top)
+//                        .padding(.trailing, 10)
+//                    Spacer()
+//                //End Hstack1 with just title
+                }
+//                }.foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+//                .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                //Built in function for adding spaces in V/H Stacks
+                    HStack(){
+                //If it IS empty it should not be valid in the first place. Need to figure out how to rework this
+                        Spacer()
+                Text(post.content)
+                    .font(.system(size:15))
+                    .padding(.leading, 18)
+                    .multilineTextAlignment(.center)
                     Spacer()
                     MetadataView(post: post,
                                  isUp: self.$isUp,
@@ -75,33 +109,58 @@ struct PostDetailView: View {
                                  isVoted: self.$isVoted,
                                  upVotesOnly: self.$upVotesOnly,
                                  downVotesOnly: self.$downVotesOnly)
-                        .padding(.top)
-                        .padding(.trailing, 10)
-                    Spacer()
+                        .offset(y: -UIScreen.main.bounds.height * 0.01)
+                        
                     
-                }.foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                //Built in function for adding spaces in V/H Stacks
-                Spacer()
+                }
                 
-                //If it IS empty it should not be valid in the first place. Need to figure out how to rework this
-                Text(post.content)
-                    .padding()
-                    .frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width * 0.95, minHeight: UIScreen.main.bounds.height * 0.1)
-                    .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                    .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
-                    .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                    .cornerRadius(25)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 25)
-                            .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
-                    )
-                    .padding(.leading, UIScreen.main.bounds.width * 0.025)
+
+            }//End title, content, voting vstack
+                .padding()
+                .frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width * 0.95, minHeight: UIScreen.main.bounds.height * 0.1, maxHeight: UIScreen.main.bounds.height * 0.15)
+                .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                .background(Color.white)
+                .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                .cornerRadius(25)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 25)
+                        .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
+                )
+                .padding(.leading, UIScreen.main.bounds.width * 0.025)
+                .padding(.top, UIScreen.main.bounds.height * 0.01)
                 
+                HStack{
+                    HStack{
+                Image(systemName: "text.bubble")
+                    .foregroundColor(Color.white)
+                        Text(String(comments.count))
+                    .font(.system(size: 12))
+                    .foregroundColor(Color.white)
+                    }.padding(.leading, UIScreen.main.bounds.width * 0.08)
+                    Spacer()
+                    Image(systemName: "ellipsis")
+                        .foregroundColor(Color.white)
+                        .padding(.trailing, UIScreen.main.bounds.width * 0.08)
+                    
+                }
+                
+                Divider()
+                    .background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                    .frame(width: UIScreen.main.bounds.width * 0.95)
+                    .padding(.leading, UIScreen.main.bounds.width * 0.01)
+
                 VStack{
                     if #available(iOS 14.0, *) {
                         List(comments){ comment in
-                            CommentsView(comment: comment)
+                            CommentsView(comment: comment,
+                                         isUp: self.$isUp,
+                                         isDown: self.$isDown,
+                                         totalVotes: self.$totalVotes,
+                                         upColor: self.$upColor,
+                                         downColor: self.$downColor,
+                                         isVoted: self.$isVoted,
+                                         upVotesOnly: self.$upVotesOnly,
+                                         downVotesOnly: self.$downVotesOnly)
                             
                         }
                         .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
