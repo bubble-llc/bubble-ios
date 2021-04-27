@@ -9,6 +9,8 @@ struct CommentsView: View {
             
                 HStack{
                 Text(comment.username)
+                    
+                    .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                     .colorInvert()
                     .font(.system(size: 12))
                     .lineLimit(1)
@@ -17,6 +19,8 @@ struct CommentsView: View {
                     
                     Spacer()
                     Text(comment.date_created)
+                        
+                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                         .colorInvert()
                     .font(.system(size: 10))
                         .padding(.trailing)
