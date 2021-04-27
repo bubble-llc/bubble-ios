@@ -95,7 +95,7 @@ struct PostDetailView: View {
                 //If it IS empty it should not be valid in the first place. Need to figure out how to rework this
                         Spacer()
                 Text(post.content)
-
+                    .multilineTextAlignment(.center)
                     Spacer()
                     MetadataView(post: post,
                                  isUp: self.$isUp,
@@ -106,6 +106,8 @@ struct PostDetailView: View {
                                  isVoted: self.$isVoted,
                                  upVotesOnly: self.$upVotesOnly,
                                  downVotesOnly: self.$downVotesOnly)
+                        .offset(y: -UIScreen.main.bounds.height * 0.01)
+                        
                     
                 }
                 
@@ -128,7 +130,7 @@ struct PostDetailView: View {
                     HStack{
                 Image(systemName: "text.bubble")
                     .foregroundColor(Color.white)
-                Text(String(post.comments))
+                        Text(String(comments.count))
                     .font(.system(size: 12))
                     .foregroundColor(Color.white)
                     }.padding(.leading, UIScreen.main.bounds.width * 0.08)
