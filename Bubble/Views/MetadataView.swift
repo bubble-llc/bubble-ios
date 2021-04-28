@@ -260,11 +260,9 @@ struct MetadataView: View {
            
             }//check if it was a post that was passed
         else if (comment != nil){//comment
-<<<<<<< HEAD
+
             HStack(spacing:0)
-=======
-            VStack(spacing:0)
->>>>>>> master
+
             {
                 Button(action:
                 {
@@ -311,19 +309,15 @@ struct MetadataView: View {
                     Image(systemName: self.isUp == true ? "arrowtriangle.up.fill" : "arrowtriangle.up" )
                         .resizable()
                         .frame(width:12,height:12)
-<<<<<<< HEAD
-=======
-                        .padding(2)
->>>>>>> master
+
                         
                 }.foregroundColor(self.upColor).buttonStyle(BorderlessButtonStyle())
                 
                 
                 Text(String(self.totalVotes))
-<<<<<<< HEAD
+
                     .padding(.horizontal, 4)
-=======
->>>>>>> master
+
             
                 Button(action:
                 {

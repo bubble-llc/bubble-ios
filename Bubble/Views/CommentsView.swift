@@ -59,10 +59,10 @@ struct CommentsView: View {
 //                    .stroke(Color.green, lineWidth: 1)
 //            )
             HStack{
-                Image(systemName: "ellipsis")
-                    .colorInvert()
-                    .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                    .padding(.leading, UIScreen.main.bounds.width * 0.05)
+//                Image(systemName: "ellipsis")
+//                    .colorInvert()
+//                    .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+//                    .padding(.leading, UIScreen.main.bounds.width * 0.05)
                 Spacer()
                 MetadataView(comment: comment,
                              isUp: self.$isUp,

@@ -18,6 +18,8 @@ struct ContentView : View {
 
         //Use this if NavigationBarTitle is with displayMode = .inline
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
+        
+        UITableView.appearance().separatorStyle = .none
     }
     
      

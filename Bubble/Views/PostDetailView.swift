@@ -130,18 +130,19 @@ struct PostDetailView: View {
                 .padding(.top, UIScreen.main.bounds.height * 0.01)
                 
                 HStack{
-                    HStack{
-                        Image(systemName: "ellipsis")
-                            .foregroundColor(Color.white)
-                            .padding(.leading, UIScreen.main.bounds.width * 0.08)
                     Spacer()
-                    Image(systemName: "text.bubble")
+                    HStack{
+                        Image(systemName: "text.bubble")
+                            .foregroundColor(Color.white)
+                                Text(String(comments.count))
+                            .font(.system(size: 12))
+                            .foregroundColor(Color.white)
+                            }
+                        .padding(.leading, UIScreen.main.bounds.width * 0.08)
+
+                    Image(systemName: "ellipsis")
                         .foregroundColor(Color.white)
-                            Text(String(comments.count))
-                        .font(.system(size: 12))
-                        .foregroundColor(Color.white)
-                        }
-                    .padding(.trailing, UIScreen.main.bounds.width * 0.08)
+                        .padding(.trailing, UIScreen.main.bounds.width * 0.08)
                 }
                 
                 Divider()
@@ -161,8 +162,15 @@ struct PostDetailView: View {
                                          isVoted: self.$isVoted,
                                          upVotesOnly: self.$upVotesOnly,
                                          downVotesOnly: self.$downVotesOnly)
+                                .contextMenu{
+                                    Button("Report this fuck", action: {})
+                                    Button("Idk save to profile or some shit", action: {})
+                                    Button("Pin to top? Running out of ideas here", action: {})
+                                    Button("View commentor profile? Fuck it", action: {})
+                                }
                             
                         }
+                        
                         .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .onAppear{
                             API().getComment(post_id: post.id) { (comments) in
@@ -395,4 +403,12 @@ extension View {
   public func alert(isPresented: Binding<Bool>, _ alert: TextAlert) -> some View {
     AlertWrapper(isPresented: isPresented, alert: alert, content: self)
   }
+}
+
+var menuItems: some View {
+    Group {
+        Button("Action 1", action: {})
+        Button("Action 2", action: {})
+        Button("Action 3", action: {})
+    }
 }
