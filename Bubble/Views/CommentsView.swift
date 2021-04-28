@@ -77,6 +77,7 @@ struct CommentsView: View {
                     //.foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                    // .foregroundColor(Color.black)
                     .font(.system(size: 10))
+                    .bold()
                     .lineLimit(1)
                     .padding(.leading, UIScreen.main.bounds.width * 0.03)
                     Text(" - ")
@@ -86,6 +87,7 @@ struct CommentsView: View {
                         //.foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                         //.foregroundColor(Color.black)
                     .font(.system(size: 10))
+                        .bold()
                 }
                 .colorInvert()
                 .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))

@@ -124,25 +124,28 @@ struct PostDetailView: View {
                     HStack(spacing:0){
                         Text(post.username)
                             .font(.system(size:12))
+                            .bold()
                         Text(" - ")
                         Text(post.date_created)
                             .font(.system(size:12))
+                            .bold()
                     }
+                    .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                     .padding(.leading, UIScreen.main.bounds.width * 0.07)
                     Spacer()
                     HStack{
                         Image(systemName: "text.bubble")
                             .resizable()
                             .frame(width: 12, height:12)
-                            .foregroundColor(Color.white)
+                            .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                                 Text(String(comments.count))
                             .font(.system(size: 12))
-                            .foregroundColor(Color.white)
+                            .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                             }
                         .padding(.leading, UIScreen.main.bounds.width * 0.07)
 
                     Image(systemName: "ellipsis")
-                        .foregroundColor(Color.white)
+                        .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                         .padding(.trailing, UIScreen.main.bounds.width * 0.07)
                 }
                 

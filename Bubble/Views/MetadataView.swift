@@ -317,7 +317,6 @@ struct MetadataView: View {
                 Text(String(self.totalVotes))
 
                     .padding(.horizontal, 4)
-                    .colorInvert()
                     .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                 Button(action:
                 {
