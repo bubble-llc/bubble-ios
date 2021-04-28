@@ -152,16 +152,7 @@ struct PostDetailView: View {
                 VStack{
                     if #available(iOS 14.0, *) {
                         List(comments){ comment in
-                            CommentsView(comment: comment,
-                                         isUp: self.$isUp,
-                                         isDown: self.$isDown,
-                                         totalVotes: self.$totalVotes,
-                                         upColor: self.$upColor,
-                                         downColor: self.$downColor,
-                                         isVoted: self.$isVoted,
-                                         upVotesOnly: self.$upVotesOnly,
-                                         downVotesOnly: self.$downVotesOnly)
-                            
+                            CommentsView(comment: comment)
                         }
                         .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .onAppear{

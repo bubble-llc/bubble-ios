@@ -13,9 +13,12 @@ struct Comment: Decodable, Identifiable {
     let content: String
     let username: String
     let date_created: String
+    let votes: Int
+    let is_voted: Bool
+    let prev_vote: Int
     
     private enum CodingKeys: String, CodingKey {
-            case id, content, username, date_created
+            case id, content, username, date_created, votes, is_voted, prev_vote
         }
     
     init(from decoder: Decoder) throws
@@ -25,6 +28,9 @@ struct Comment: Decodable, Identifiable {
         content = try values.decode(String.self, forKey: .content)
         username = try values.decode(String.self, forKey: .username)
         date_created = convert_date(try values.decode(String.self, forKey: .date_created))
+        votes = try values.decode(Int.self, forKey: .votes)
+        is_voted = try values.decode(Bool.self, forKey: .is_voted)
+        prev_vote = try values.decode(Int.self, forKey: .prev_vote)
     }
 
 }
