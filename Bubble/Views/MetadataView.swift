@@ -260,7 +260,9 @@ struct MetadataView: View {
            
             }//check if it was a post that was passed
         else if (comment != nil){//comment
-            VStack(spacing:0)
+
+            HStack(spacing:0)
+
             {
                 Button(action:
                 {
@@ -307,13 +309,15 @@ struct MetadataView: View {
                     Image(systemName: self.isUp == true ? "arrowtriangle.up.fill" : "arrowtriangle.up" )
                         .resizable()
                         .frame(width:12,height:12)
-                        .padding(2)
+
                         
                 }.foregroundColor(self.upColor).buttonStyle(BorderlessButtonStyle())
                 
                 
                 Text(String(self.totalVotes))
-            
+
+                    .padding(.horizontal, 4)
+                    .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                 Button(action:
                 {
                     if self.isDown == false && self.isUp == false
@@ -362,7 +366,6 @@ struct MetadataView: View {
                     Image(systemName: self.isDown == true ? "arrowtriangle.down.fill" : "arrowtriangle.down" )
                         .resizable()
                         .frame(width:12,height:12)
-                        .padding(2)
                 }.foregroundColor(self.downColor).buttonStyle(BorderlessButtonStyle())
                 
     //            Button(action: {self.showCommentForm.toggle()})

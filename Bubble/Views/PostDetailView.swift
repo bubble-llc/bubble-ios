@@ -59,15 +59,6 @@ struct PostDetailView: View {
             {
                 //Post title. The Frame indicatew where it will be aligned, font adjusts text size
                 VStack(spacing: 0){
-                    
-                    HStack{
-                        Text(post.username)
-                            .font(.system(size:10))
-                        Spacer()
-                        Text(post.date_created)
-                            .font(.system(size:10))
-                    }
-                    
                     HStack(alignment: .center){
                     Text(post.title)
                         .bold()
@@ -130,18 +121,32 @@ struct PostDetailView: View {
                 .padding(.top, UIScreen.main.bounds.height * 0.01)
                 
                 HStack{
-                    HStack{
-                Image(systemName: "text.bubble")
-                    .foregroundColor(Color.white)
-                        Text(String(comments.count))
-                    .font(.system(size: 12))
-                    .foregroundColor(Color.white)
-                    }.padding(.leading, UIScreen.main.bounds.width * 0.08)
+                    HStack(spacing:0){
+                        Text(post.username)
+                            .font(.system(size:12))
+                            .bold()
+                        Text(" - ")
+                        Text(post.date_created)
+                            .font(.system(size:12))
+                            .bold()
+                    }
+                    .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
+                    .padding(.leading, UIScreen.main.bounds.width * 0.07)
                     Spacer()
+                    HStack{
+                        Image(systemName: "text.bubble")
+                            .resizable()
+                            .frame(width: 12, height:12)
+                            .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
+                                Text(String(comments.count))
+                            .font(.system(size: 12))
+                            .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
+                            }
+                        .padding(.leading, UIScreen.main.bounds.width * 0.07)
+
                     Image(systemName: "ellipsis")
-                        .foregroundColor(Color.white)
-                        .padding(.trailing, UIScreen.main.bounds.width * 0.08)
-                    
+                        .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
+                        .padding(.trailing, UIScreen.main.bounds.width * 0.07)
                 }
                 
                 Divider()
@@ -154,6 +159,7 @@ struct PostDetailView: View {
                         List(comments){ comment in
                             CommentsView(comment: comment)
                         }
+                        
                         .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .onAppear{
                             API().getComment(post_id: post.id) { (comments) in
@@ -386,4 +392,12 @@ extension View {
   public func alert(isPresented: Binding<Bool>, _ alert: TextAlert) -> some View {
     AlertWrapper(isPresented: isPresented, alert: alert, content: self)
   }
+}
+
+var menuItems: some View {
+    Group {
+        Button("Action 1", action: {})
+        Button("Action 2", action: {})
+        Button("Action 3", action: {})
+    }
 }
