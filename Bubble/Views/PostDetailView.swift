@@ -59,15 +59,6 @@ struct PostDetailView: View {
             {
                 //Post title. The Frame indicatew where it will be aligned, font adjusts text size
                 VStack(spacing: 0){
-                    
-                    HStack{
-                        Text(post.username)
-                            .font(.system(size:10))
-                        Spacer()
-                        Text(post.date_created)
-                            .font(.system(size:10))
-                    }
-                    
                     HStack(alignment: .center){
                     Text(post.title)
                         .bold()
@@ -130,19 +121,29 @@ struct PostDetailView: View {
                 .padding(.top, UIScreen.main.bounds.height * 0.01)
                 
                 HStack{
+                    HStack(spacing:0){
+                        Text(post.username)
+                            .font(.system(size:12))
+                        Text(" - ")
+                        Text(post.date_created)
+                            .font(.system(size:12))
+                    }
+                    .padding(.leading, UIScreen.main.bounds.width * 0.07)
                     Spacer()
                     HStack{
                         Image(systemName: "text.bubble")
+                            .resizable()
+                            .frame(width: 12, height:12)
                             .foregroundColor(Color.white)
                                 Text(String(comments.count))
                             .font(.system(size: 12))
                             .foregroundColor(Color.white)
                             }
-                        .padding(.leading, UIScreen.main.bounds.width * 0.08)
+                        .padding(.leading, UIScreen.main.bounds.width * 0.07)
 
                     Image(systemName: "ellipsis")
                         .foregroundColor(Color.white)
-                        .padding(.trailing, UIScreen.main.bounds.width * 0.08)
+                        .padding(.trailing, UIScreen.main.bounds.width * 0.07)
                 }
                 
                 Divider()

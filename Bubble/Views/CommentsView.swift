@@ -43,25 +43,6 @@ struct CommentsView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: -3){
             
-                HStack{
-                Text(comment.username)
-                    
-                    .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                    .colorInvert()
-                    .font(.system(size: 12))
-                    .lineLimit(1)
-                    
-                    .padding(.leading)
-                    
-                    Spacer()
-                    Text(comment.date_created)
-                        
-                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                        .colorInvert()
-                    .font(.system(size: 10))
-                        .padding(.trailing)
-                
-                }.frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height * 0.01, alignment: .center)
 //                .overlay(
 //                    RoundedRectangle(cornerRadius: 0)
 //                        .stroke(Color.blue, lineWidth: 1)
@@ -73,7 +54,7 @@ struct CommentsView: View {
                 .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                 .font(.system(size: 12))
                 .lineLimit(3)
-                .padding(.leading, 12)
+                .padding(.bottom, 2)
                 //Char limit on iphone 8 is 43
                 //Char limit on iphone 12 max is 99
                 Spacer()
@@ -90,6 +71,25 @@ struct CommentsView: View {
 //                    .colorInvert()
 //                    .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
 //                    .padding(.leading, UIScreen.main.bounds.width * 0.05)
+                HStack(spacing:0){
+                Text(comment.username)
+                    
+                    //.foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                   // .foregroundColor(Color.black)
+                    .font(.system(size: 10))
+                    .lineLimit(1)
+                    .padding(.leading, UIScreen.main.bounds.width * 0.03)
+                    Text(" - ")
+                    
+                    Text(comment.date_created)
+                        
+                        //.foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                        //.foregroundColor(Color.black)
+                    .font(.system(size: 10))
+                }
+                .colorInvert()
+                .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
+                
                 Spacer()
                 MetadataView(comment: comment,
                              isUp: self.$isUp,
@@ -104,8 +104,8 @@ struct CommentsView: View {
                         .colorInvert()
                         .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .padding(.trailing, UIScreen.main.bounds.width * 0.05)
-                
-            }
+                }
+            
     }
         
     .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height * 0.085)
