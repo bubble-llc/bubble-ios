@@ -349,6 +349,7 @@ struct MetadataView: View {
                     let voteObject: [String: Any]  =
                     [
                         "username": user_id,
+                        "vote_type": "comment",
                         "comment_id": self.comment!.id,
                         "direction": self.direction,
                         "is_voted": self.isVoted,

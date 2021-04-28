@@ -202,7 +202,9 @@ class API {
     
     func getComment(post_id: Int, completion: @escaping ([Comment]) ->())
     {
-        guard let url = URL(string: "\(baseURL)/comment?post_id=\(post_id)") else {return}
+        let defaults = UserDefaults.standard
+        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+        guard let url = URL(string: "\(baseURL)/comment?user_id=\(user_id)&post_id=\(post_id)") else {return}
         URLSession.shared.dataTask(with: url)
         { (data,_,_)in
             
@@ -291,6 +293,35 @@ class API {
     func validatePasswordReset(submitted: [String: Any])
     {
         guard let postUrl = URL(string: "\(baseURL)/validate_password_reset") else {fatalError()}
+        
+        var request = URLRequest(url: postUrl)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+        
+        let submission = try? JSONSerialization.data(withJSONObject: submitted, options: .prettyPrinted)
+        
+        request.httpBody = submission
+
+        let task = URLSession.shared.dataTask(with: request)
+        { data, response, error in
+            
+            guard let data = data, error == nil else
+            {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any]
+            {
+                print(responseJSON)
+            }
+        }
+        task.resume()
+    }
+    
+    func setDefaultCategory(submitted: [String: Any])
+    {
+        guard let postUrl = URL(string: "\(baseURL)/set_default_category") else {fatalError()}
         
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"

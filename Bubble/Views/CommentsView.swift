@@ -4,15 +4,42 @@ import Request
 struct CommentsView: View {
     let comment: Comment
     
-    @Binding var isUp: Bool
-    @Binding var isDown: Bool
-    @Binding var totalVotes: Int
-    @Binding var upColor: Color
-    @Binding var downColor: Color
-    @Binding var isVoted: Bool
-    @Binding var upVotesOnly: Bool
-    @Binding var downVotesOnly: Bool
+//    @Binding var isUp: Bool
+//    @Binding var isDown: Bool
+//    @Binding var totalVotes: Int
+//    @Binding var upColor: Color
+//    @Binding var downColor: Color
+//    @Binding var isVoted: Bool
+//    @Binding var upVotesOnly: Bool
+//    @Binding var downVotesOnly: Bool
+    @State var isUp = false
+    @State var isDown = false
+    @State var totalVotes:Int = 0
+    @State var upColor = Color.gray
+    @State var downColor = Color.gray
+    @State var isVoted = false
+    @State var upVotesOnly = false
+    @State var downVotesOnly = false
     
+    init(comment: Comment) {
+        self.comment = comment
+        self._totalVotes = State(initialValue: comment.votes)
+        
+        if comment.is_voted == true
+        {
+            self._isVoted = State(initialValue: true)
+            if comment.prev_vote == 1
+            {
+                self._isUp = State(initialValue: true)
+                self._upColor = State(initialValue: Color.green)
+            }
+            else if comment.prev_vote == -1
+            {
+                self._isDown = State(initialValue: true)
+                self._downColor = State(initialValue: Color.red)
+            }
+        }
+    }
     var body: some View {
         VStack(alignment: .leading, spacing: -3){
             
