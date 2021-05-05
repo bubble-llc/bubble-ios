@@ -133,11 +133,8 @@ struct PostDetailView: View {
                     .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                     .padding(.leading, UIScreen.main.bounds.width * 0.07)
                     Spacer()
-//                    NavigationLink(destination: SubmitContentReviewView(post: post)){
-//                        Image(systemName: "plus")
-//                            .foregroundColor(Color.white)
-//                    }
-                    NavigationLink(destination: SubmitContentReviewView(), isActive: $isShowingDetailView) {
+                    
+                    NavigationLink(destination: SubmitContentReviewView(post: post), isActive: $isShowingDetailView) {
                                     EmptyView()
                                 }.buttonStyle(PlainButtonStyle())
                     HStack{
