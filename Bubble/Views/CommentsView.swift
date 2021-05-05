@@ -108,9 +108,9 @@ struct CommentsView: View {
                         .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .padding(.trailing, UIScreen.main.bounds.width * 0.05)
                 }
-            NavigationLink(destination: FeedbackView(), isActive: $isShowingDetailView) {
+            NavigationLink(destination: SubmitContentReviewView(comment: comment), isActive: $isShowingDetailView) {
                             EmptyView()
-                        }
+                        }.buttonStyle(PlainButtonStyle())
     }
         
     .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height * 0.085)
@@ -137,9 +137,10 @@ struct CommentsView: View {
             if #available(iOS 14.0, *) {
                 Menu {
                     Button("Report Comment", action: {isShowingDetailView = true})
+                    Button("Block User", action: {})
                 } label: {
-                    Label("", systemImage: "ellipsis").rotationEffect(.degrees(90))
-                }
+                    Label("", systemImage: "ellipsis").rotationEffect(.degrees(90)).foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
+                }.offset(x: -UIScreen.main.bounds.width * 0.01)
             } else {
                 // Fallback on earlier versions
             }

@@ -12,6 +12,8 @@
 		5C07956D259A8B0800688501 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07956C259A8B0800688501 /* Category.swift */; };
 		5C1CAB26260A608400374DFB /* UserCreatedPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CAB25260A608400374DFB /* UserCreatedPostView.swift */; };
 		5C1CAB35260A8BD500374DFB /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5C1CAB34260A8BD500374DFB /* DeviceKit */; };
+		5C5A8C9B26432423002A03BE /* ReportCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A8C9A26432423002A03BE /* ReportCommentView.swift */; };
+		5C5A8CA82643265D002A03BE /* SubmitContentReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A8CA72643265D002A03BE /* SubmitContentReviewView.swift */; };
 		5C755E752523A03F00267557 /* SubmitPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C755E742523A03F00267557 /* SubmitPostView.swift */; };
 		5C75E5D3253F6F3900B97254 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C75E5D2253F6F3900B97254 /* User.swift */; };
 		5C75E5DD253F702B00B97254 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C75E5DC253F702B00B97254 /* UserProfileView.swift */; };
@@ -81,6 +83,8 @@
 		5C07955E259A7E5300688501 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		5C07956C259A8B0800688501 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		5C1CAB25260A608400374DFB /* UserCreatedPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCreatedPostView.swift; sourceTree = "<group>"; };
+		5C5A8C9A26432423002A03BE /* ReportCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCommentView.swift; sourceTree = "<group>"; };
+		5C5A8CA72643265D002A03BE /* SubmitContentReviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitContentReviewView.swift; sourceTree = "<group>"; };
 		5C73E7BC250866E600252D50 /* SubmitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitView.swift; sourceTree = "<group>"; };
 		5C755E742523A03F00267557 /* SubmitPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitPostView.swift; sourceTree = "<group>"; };
 		5C75E5D2253F6F3900B97254 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -306,10 +310,12 @@
 				5C75E5DC253F702B00B97254 /* UserProfileView.swift */,
 				B002582A255A4EA700BB7815 /* PageView.swift */,
 				B065210A2582C99F000CA1DE /* MenuView.swift */,
+				5C5A8CA72643265D002A03BE /* SubmitContentReviewView.swift */,
 				5C07955E259A7E5300688501 /* TabBarView.swift */,
 				5C1CAB25260A608400374DFB /* UserCreatedPostView.swift */,
 				5D86E377260A7A5F00B002D8 /* FeedbackView.swift */,
 				5CB22C1C261CF07000822BBE /* UserLikedView.swift */,
+				5C5A8C9A26432423002A03BE /* ReportCommentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -533,6 +539,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C75E5E2253F7C2C00B97254 /* LoginView.swift in Sources */,
+				5C5A8CA82643265D002A03BE /* SubmitContentReviewView.swift in Sources */,
 				5C07956D259A8B0800688501 /* Category.swift in Sources */,
 				B0F547312523CE800009ABAE /* CommentsView.swift in Sources */,
 				B065210B2582C99F000CA1DE /* MenuView.swift in Sources */,
@@ -544,6 +551,7 @@
 				5C75E5D3253F6F3900B97254 /* User.swift in Sources */,
 				5CCF766B24F85DB20040EC07 /* SpinnerView.swift in Sources */,
 				5CE12F6624F8565E00C8D5D0 /* PostDetailView.swift in Sources */,
+				5C5A8C9B26432423002A03BE /* ReportCommentView.swift in Sources */,
 				5C75E5DD253F702B00B97254 /* UserProfileView.swift in Sources */,
 				B0E5368E2533E08F009663E7 /* SubmitCommentView.swift in Sources */,
 				5CF2309D2501ACB1004A1C71 /* CommentView.swift in Sources */,
