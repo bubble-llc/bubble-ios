@@ -42,6 +42,9 @@
 		5CE12F8E24F857CE00C8D5D0 /* Request in Frameworks */ = {isa = PBXBuildFile; productRef = 5CE12F8D24F857CE00C8D5D0 /* Request */; };
 		5CF2309D2501ACB1004A1C71 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF2309C2501ACB1004A1C71 /* CommentView.swift */; };
 		5D6000D62641F25800B8A80F /* SubmitContentReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6000D52641F25800B8A80F /* SubmitContentReviewView.swift */; };
+		5D6001052643326300B8A80F /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6001042643326300B8A80F /* Notification.swift */; };
+		5D60010A264332E100B8A80F /* NotificationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D600109264332E100B8A80F /* NotificationListView.swift */; };
+		5D60010F2643330C00B8A80F /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D60010E2643330C00B8A80F /* NotificationView.swift */; };
 		5D607D88262A3D58007FE97D /* PasswordReset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D607D87262A3D58007FE97D /* PasswordReset.swift */; };
 		5D607D8D262A3FA3007FE97D /* PasswordValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D607D8C262A3FA3007FE97D /* PasswordValidation.swift */; };
 		5D86E378260A7A5F00B002D8 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D86E377260A7A5F00B002D8 /* FeedbackView.swift */; };
@@ -124,6 +127,9 @@
 		5CE12F5B24F8565E00C8D5D0 /* PostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		5CF2309C2501ACB1004A1C71 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		5D6000D52641F25800B8A80F /* SubmitContentReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitContentReviewView.swift; sourceTree = "<group>"; };
+		5D6001042643326300B8A80F /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		5D600109264332E100B8A80F /* NotificationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListView.swift; sourceTree = "<group>"; };
+		5D60010E2643330C00B8A80F /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		5D607D87262A3D58007FE97D /* PasswordReset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordReset.swift; sourceTree = "<group>"; };
 		5D607D8C262A3FA3007FE97D /* PasswordValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidation.swift; sourceTree = "<group>"; };
 		5D86E377260A7A5F00B002D8 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
@@ -286,6 +292,7 @@
 				5CE12F5324F8565E00C8D5D0 /* Post.swift */,
 				B0F547352523CFE40009ABAE /* Comment.swift */,
 				5CE12F5424F8565E00C8D5D0 /* Listing.swift */,
+				5D6001042643326300B8A80F /* Notification.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -316,6 +323,8 @@
 				5D86E377260A7A5F00B002D8 /* FeedbackView.swift */,
 				5CB22C1C261CF07000822BBE /* UserLikedView.swift */,
 				5C5A8C9A26432423002A03BE /* ReportCommentView.swift */,
+				5D600109264332E100B8A80F /* NotificationListView.swift */,
+				5D60010E2643330C00B8A80F /* NotificationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -541,9 +550,11 @@
 				5C75E5E2253F7C2C00B97254 /* LoginView.swift in Sources */,
 				5C5A8CA82643265D002A03BE /* SubmitContentReviewView.swift in Sources */,
 				5C07956D259A8B0800688501 /* Category.swift in Sources */,
+				5D60010F2643330C00B8A80F /* NotificationView.swift in Sources */,
 				B0F547312523CE800009ABAE /* CommentsView.swift in Sources */,
 				B065210B2582C99F000CA1DE /* MenuView.swift in Sources */,
 				5CE12F5F24F8565E00C8D5D0 /* SortBy.swift in Sources */,
+				5D60010A264332E100B8A80F /* NotificationListView.swift in Sources */,
 				5CB22C1D261CF07000822BBE /* UserLikedView.swift in Sources */,
 				B0858191251F8A61001D067E /* CreateUserView.swift in Sources */,
 				5CCF766C24F85DB20040EC07 /* WebView.swift in Sources */,
@@ -576,6 +587,7 @@
 				5CCF768624F860E30040EC07 /* Post.swift in Sources */,
 				5CE12F6224F8565E00C8D5D0 /* Listing.swift in Sources */,
 				5CCF766524F85C610040EC07 /* AppDelegate.swift in Sources */,
+				5D6001052643326300B8A80F /* Notification.swift in Sources */,
 				5D6000D62641F25800B8A80F /* SubmitContentReviewView.swift in Sources */,
 				5CE12F6324F8565E00C8D5D0 /* API.swift in Sources */,
 				5DD754BA261E825A00CD6360 /* Constants.swift in Sources */,

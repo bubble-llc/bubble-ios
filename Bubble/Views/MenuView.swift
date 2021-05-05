@@ -21,30 +21,45 @@ struct MenuView : View {
         if #available(iOS 14.0, *) {
             VStack
             {
-                Spacer()
-                HStack
+                Group
                 {
-                    NavigationLink(destination: UserProfileView())
+                    Spacer()
+                    HStack
                     {
-                        Image("menu_account").resizable().frame(width: 25, height: 25).padding()
-                        Text("Account").foregroundColor(.white)
-                    }
-                }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.005, alignment: .leading)
-                .padding()
-                
-                Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                
-                HStack
-                {
-                    NavigationLink(destination: UserLikedView())
+                        NavigationLink(destination: UserProfileView())
+                        {
+                            Image("menu_account").resizable().frame(width: 25, height: 25).padding()
+                            Text("Account").foregroundColor(.white)
+                        }
+                    }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.005, alignment: .leading)
+                    .padding()
+                    
+                    Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                    
+                    HStack
                     {
-                        Image("menu_likes").resizable().frame(width: 25, height: 25).padding()
-                        Text("Liked").foregroundColor(.white)
-                    }
-                }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.005, alignment: .leading)
-                .padding()
-                
-                Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                        NavigationLink(destination: NotificationView())
+                        {
+                            Image("menu_account").resizable().frame(width: 25, height: 25).padding()
+                            Text("Notifcation").foregroundColor(.white)
+                        }
+                    }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.005, alignment: .leading)
+                    .padding()
+                    
+                    Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                    
+                    HStack
+                    {
+                        NavigationLink(destination: UserLikedView())
+                        {
+                            Image("menu_likes").resizable().frame(width: 25, height: 25).padding()
+                            Text("Liked").foregroundColor(.white)
+                        }
+                    }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.005, alignment: .leading)
+                    .padding()
+                    
+                    Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                }
                 
                 HStack
                 {

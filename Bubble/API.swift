@@ -1,8 +1,8 @@
 import Foundation
 
 class API {
-    fileprivate let baseURL = "https://dashboard.stocksandshare.com/chitchat"
-//    fileprivate let baseURL = "http://0.0.0.0:8000"
+//    fileprivate let baseURL = "https://dashboard.stocksandshare.com/chitchat"
+    fileprivate let baseURL = "http://0.0.0.0:8000"
     let categories = ["Deals":1, "Happy Hour":2, "Recreation":3, "What's Happening?":4, "Misc":5]
     
     func getPosts(logitude: String, latitude: String, category: String, completion: @escaping (Result<[Post],Error>) ->())
@@ -188,6 +188,43 @@ class API {
             DispatchQueue.main.async
             {
                 completion(.success(user))
+            }
+        }.resume()
+    }
+    
+    func getNotificaiton(completion: @escaping (Result<[Notification],Error>) ->())
+    {
+        let defaults = UserDefaults.standard
+        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+        guard let url = URL(string: "\(self.baseURL)/notification?user_id=\(user_id)") else {fatalError()}
+        URLSession.shared.dataTask(with: url)
+        { (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+               print("API status: \(httpResponse.statusCode)")
+            }
+            
+            guard let response = response as? HTTPURLResponse else
+            {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            if let responseError = self.handleNetworkResponse(response: response)
+            {
+                completion(.failure(responseError))
+                return
+            }
+            
+            guard let validData = data, error == nil else {
+               print("API error: \(error!.localizedDescription)")
+               completion(.failure(error!))
+               return
+            }
+            print(response)
+            let notifications = try! JSONDecoder().decode([Notification].self, from:validData)
+            DispatchQueue.main.async
+            {
+                completion(.success(notifications))
             }
         }.resume()
     }
