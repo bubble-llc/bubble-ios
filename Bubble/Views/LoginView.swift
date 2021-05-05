@@ -29,23 +29,25 @@ struct LoginView: View {
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 2).foregroundColor(Color.black))
 
             Button(action: {
-                API().getUser(username: username, password:  password){ (users) in
-                    self.users = users
-                    
-                    if(self.users.count != 0)
+                API().getUser(username: username, password:  password)
+                { (result) in
+                    switch result
                     {
-                        userAuth.setInfo(userInfo: [
-                            "username": username,
-                            "user_id": self.users[0].user_id,
-                            "password": password,
-                            "email": self.users[0].email,
-                            "date_joined": self.users[0].date_joined
-                        ])
-                        categoryGlobal.fetchData()
-                    }
-                    else
-                    {
-                        self.showingAlert = true
+                        case .success(let users):
+                            self.users = users
+                            print(self.users)
+                            userAuth.setInfo(userInfo: [
+                                "username": username,
+                                "user_id": self.users[0].user_id,
+                                "password": password,
+                                "email": self.users[0].email,
+                                "date_joined": self.users[0].date_joined
+                            ])
+                            categoryGlobal.fetchData()
+                        case .failure(let error):
+                            print(error)
+                            print("got here")
+                            self.showingAlert = true
                     }
                 }
             }, label: {
@@ -66,29 +68,20 @@ struct LoginView: View {
             }
             Spacer()
             HStack{
-                HStack {
+                NavigationLink(destination: CreateUserView().environmentObject(userAuth).environmentObject(categoryGlobal))
+                {
                     Spacer()
-                    NavigationLink(destination: CreateUserView().environmentObject(userAuth).environmentObject(categoryGlobal))
-                    {
-                        Text("Register")
-                    }
+                    Text("Register")
                     Spacer()
-                    
                 }
                 .font(.headline)
                 .foregroundColor(.white)
                 .padding()
                 .background(Color.blue)
                 .cornerRadius(10)
-                Spacer()
-                HStack {
-                    Spacer()
-                    NavigationLink(destination: PasswordReset().environmentObject(userAuth).environmentObject(categoryGlobal))
-                    {
-                        Text("Forgot Password")
-                    }
-                    Spacer()
-                    
+                NavigationLink(destination: PasswordReset().environmentObject(userAuth).environmentObject(categoryGlobal))
+                {
+                    Text("Forgot Password")
                 }
                 .font(.headline)
                 .foregroundColor(.white)

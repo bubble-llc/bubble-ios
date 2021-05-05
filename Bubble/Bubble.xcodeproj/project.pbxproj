@@ -12,6 +12,8 @@
 		5C07956D259A8B0800688501 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07956C259A8B0800688501 /* Category.swift */; };
 		5C1CAB26260A608400374DFB /* UserCreatedPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CAB25260A608400374DFB /* UserCreatedPostView.swift */; };
 		5C1CAB35260A8BD500374DFB /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5C1CAB34260A8BD500374DFB /* DeviceKit */; };
+		5C5A8C9B26432423002A03BE /* ReportCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A8C9A26432423002A03BE /* ReportCommentView.swift */; };
+		5C5A8CA82643265D002A03BE /* SubmitContentReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A8CA72643265D002A03BE /* SubmitContentReviewView.swift */; };
 		5C755E752523A03F00267557 /* SubmitPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C755E742523A03F00267557 /* SubmitPostView.swift */; };
 		5C75E5D3253F6F3900B97254 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C75E5D2253F6F3900B97254 /* User.swift */; };
 		5C75E5DD253F702B00B97254 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C75E5DC253F702B00B97254 /* UserProfileView.swift */; };
@@ -39,6 +41,7 @@
 		5CE12F8C24F857CE00C8D5D0 /* Json in Frameworks */ = {isa = PBXBuildFile; productRef = 5CE12F8B24F857CE00C8D5D0 /* Json */; };
 		5CE12F8E24F857CE00C8D5D0 /* Request in Frameworks */ = {isa = PBXBuildFile; productRef = 5CE12F8D24F857CE00C8D5D0 /* Request */; };
 		5CF2309D2501ACB1004A1C71 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF2309C2501ACB1004A1C71 /* CommentView.swift */; };
+		5D6000D62641F25800B8A80F /* SubmitContentReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6000D52641F25800B8A80F /* SubmitContentReviewView.swift */; };
 		5D607D88262A3D58007FE97D /* PasswordReset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D607D87262A3D58007FE97D /* PasswordReset.swift */; };
 		5D607D8D262A3FA3007FE97D /* PasswordValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D607D8C262A3FA3007FE97D /* PasswordValidation.swift */; };
 		5D86E378260A7A5F00B002D8 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D86E377260A7A5F00B002D8 /* FeedbackView.swift */; };
@@ -80,6 +83,8 @@
 		5C07955E259A7E5300688501 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		5C07956C259A8B0800688501 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		5C1CAB25260A608400374DFB /* UserCreatedPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCreatedPostView.swift; sourceTree = "<group>"; };
+		5C5A8C9A26432423002A03BE /* ReportCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCommentView.swift; sourceTree = "<group>"; };
+		5C5A8CA72643265D002A03BE /* SubmitContentReviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitContentReviewView.swift; sourceTree = "<group>"; };
 		5C73E7BC250866E600252D50 /* SubmitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitView.swift; sourceTree = "<group>"; };
 		5C755E742523A03F00267557 /* SubmitPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitPostView.swift; sourceTree = "<group>"; };
 		5C75E5D2253F6F3900B97254 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -118,6 +123,7 @@
 		5CE12F5924F8565E00C8D5D0 /* PostDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
 		5CE12F5B24F8565E00C8D5D0 /* PostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		5CF2309C2501ACB1004A1C71 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		5D6000D52641F25800B8A80F /* SubmitContentReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitContentReviewView.swift; sourceTree = "<group>"; };
 		5D607D87262A3D58007FE97D /* PasswordReset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordReset.swift; sourceTree = "<group>"; };
 		5D607D8C262A3FA3007FE97D /* PasswordValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidation.swift; sourceTree = "<group>"; };
 		5D86E377260A7A5F00B002D8 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
@@ -296,6 +302,7 @@
 				5C75E5E1253F7C2C00B97254 /* LoginView.swift */,
 				5CE12F5824F8565E00C8D5D0 /* MetadataView.swift */,
 				5CE12F5924F8565E00C8D5D0 /* PostDetailView.swift */,
+				5D6000D52641F25800B8A80F /* SubmitContentReviewView.swift */,
 				5C06515C25EF09A6005028C0 /* LikedListView.swift */,
 				5CE12F5B24F8565E00C8D5D0 /* PostView.swift */,
 				B0E5368D2533E08F009663E7 /* SubmitCommentView.swift */,
@@ -303,10 +310,12 @@
 				5C75E5DC253F702B00B97254 /* UserProfileView.swift */,
 				B002582A255A4EA700BB7815 /* PageView.swift */,
 				B065210A2582C99F000CA1DE /* MenuView.swift */,
+				5C5A8CA72643265D002A03BE /* SubmitContentReviewView.swift */,
 				5C07955E259A7E5300688501 /* TabBarView.swift */,
 				5C1CAB25260A608400374DFB /* UserCreatedPostView.swift */,
 				5D86E377260A7A5F00B002D8 /* FeedbackView.swift */,
 				5CB22C1C261CF07000822BBE /* UserLikedView.swift */,
+				5C5A8C9A26432423002A03BE /* ReportCommentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -530,6 +539,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C75E5E2253F7C2C00B97254 /* LoginView.swift in Sources */,
+				5C5A8CA82643265D002A03BE /* SubmitContentReviewView.swift in Sources */,
 				5C07956D259A8B0800688501 /* Category.swift in Sources */,
 				B0F547312523CE800009ABAE /* CommentsView.swift in Sources */,
 				B065210B2582C99F000CA1DE /* MenuView.swift in Sources */,
@@ -541,6 +551,7 @@
 				5C75E5D3253F6F3900B97254 /* User.swift in Sources */,
 				5CCF766B24F85DB20040EC07 /* SpinnerView.swift in Sources */,
 				5CE12F6624F8565E00C8D5D0 /* PostDetailView.swift in Sources */,
+				5C5A8C9B26432423002A03BE /* ReportCommentView.swift in Sources */,
 				5C75E5DD253F702B00B97254 /* UserProfileView.swift in Sources */,
 				B0E5368E2533E08F009663E7 /* SubmitCommentView.swift in Sources */,
 				5CF2309D2501ACB1004A1C71 /* CommentView.swift in Sources */,
@@ -565,6 +576,7 @@
 				5CCF768624F860E30040EC07 /* Post.swift in Sources */,
 				5CE12F6224F8565E00C8D5D0 /* Listing.swift in Sources */,
 				5CCF766524F85C610040EC07 /* AppDelegate.swift in Sources */,
+				5D6000D62641F25800B8A80F /* SubmitContentReviewView.swift in Sources */,
 				5CE12F6324F8565E00C8D5D0 /* API.swift in Sources */,
 				5DD754BA261E825A00CD6360 /* Constants.swift in Sources */,
 			);
@@ -736,7 +748,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Localist/Preview Content\"";
 				DEVELOPMENT_TEAM = 9CB7HM8CCZ;
 				ENABLE_PREVIEWS = YES;
@@ -748,10 +760,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = bubble.beta.test;
+				PRODUCT_BUNDLE_IDENTIFIER = bubble.test.beta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -763,7 +775,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Localist/Preview Content\"";
 				DEVELOPMENT_TEAM = 9CB7HM8CCZ;
 				ENABLE_PREVIEWS = YES;
@@ -775,11 +787,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = bubble.beta.test;
+				PRODUCT_BUNDLE_IDENTIFIER = bubble.test.beta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

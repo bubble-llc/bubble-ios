@@ -9,7 +9,7 @@
 import SwiftUI
 import SlideOverCard
 
-struct FeedbackView: View{
+struct ReportCommentView: View{
     
     @State private var commentBoxPressed: Bool = false
     @State private var feedback_content: String = "Enter feedback here..."

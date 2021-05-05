@@ -48,7 +48,7 @@ struct PostDetailView: View {
     @State private var default_comment: String = "Enter comment here..."
     @State private var placeholder_default_comment: String = "Enter comment here..."
     @State private var showingAlert = false
-    
+    @State private var isShowingDetailView = false
     
     @EnvironmentObject var categoryGlobal: Category
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -133,6 +133,10 @@ struct PostDetailView: View {
                     .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                     .padding(.leading, UIScreen.main.bounds.width * 0.07)
                     Spacer()
+                    
+                    NavigationLink(destination: SubmitContentReviewView(post: post), isActive: $isShowingDetailView) {
+                                    EmptyView()
+                                }.buttonStyle(PlainButtonStyle())
                     HStack{
                         Image(systemName: "text.bubble")
                             .resizable()
@@ -141,13 +145,27 @@ struct PostDetailView: View {
                                 Text(String(comments.count))
                             .font(.system(size: 12))
                             .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
+                        if #available(iOS 14.0, *) {
+                            Menu {
+                                Button("Report Post", action: {isShowingDetailView = true})
+                                Button("Block User", action: {})
+                            } label: {
+                                Label("", systemImage: "ellipsis").foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
+                                                                                    
+                            }.padding(.bottom, UIScreen.main.bounds.width * 0.01)
+                            .padding(.trailing, UIScreen.main.bounds.width * 0.07)
+                        } else {
+                            // Fallback on earlier versions
+                        }
                             }
                         .padding(.leading, UIScreen.main.bounds.width * 0.07)
 
-                    Image(systemName: "ellipsis")
-                        .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
-                        .padding(.trailing, UIScreen.main.bounds.width * 0.07)
-                }
+
+                    
+//                    Image(systemName: "ellipsis")
+//                        .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
+//                        .padding(.trailing, UIScreen.main.bounds.width * 0.07)
+                }.padding(.top, UIScreen.main.bounds.width * 0.01)
                 
                 Divider()
                     .background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
@@ -162,14 +180,28 @@ struct PostDetailView: View {
                         
                         .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .onAppear{
-                            API().getComment(post_id: post.id) { (comments) in
-                                self.comments = comments
+                            API().getComment(post_id: post.id)
+                            { (result) in
+                                switch result
+                                {
+                                    case .success(let comments):
+                                        self.comments = comments
+                                    case .failure(let error):
+                                        print(error)
+                                }
                             }
                         }
                         .pullToRefresh(isShowing: $isShowing) {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                API().getComment(post_id: post.id) { (comments) in
-                                    self.comments = comments
+                                API().getComment(post_id: post.id)
+                                { (result) in
+                                    switch result
+                                    {
+                                        case .success(let comments):
+                                            self.comments = comments
+                                        case .failure(let error):
+                                            print(error)
+                                    }
                                 }
                                 self.isShowing = false
                             }
@@ -249,8 +281,15 @@ struct PostDetailView: View {
                                     }
                                 
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                    API().getComment(post_id: post.id) { (comments) in
-                                        self.comments = comments
+                                    API().getComment(post_id: post.id)
+                                    { (result) in
+                                        switch result
+                                        {
+                                            case .success(let comments):
+                                                self.comments = comments
+                                            case .failure(let error):
+                                                print(error)
+                                        }
                                     }
                                 }
                                 self.commentBoxPressed.toggle()

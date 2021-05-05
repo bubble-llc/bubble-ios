@@ -1,11 +1,12 @@
 import Foundation
 
 class API {
-    let baseURL = "https://dashboard.stocksandshare.com/chitchat"
-//    let baseURL = "http://0.0.0.0:8000"
+    fileprivate let baseURL = "https://dashboard.stocksandshare.com/chitchat"
+//    fileprivate let baseURL = "http://0.0.0.0:8000"
     let categories = ["Deals":1, "Happy Hour":2, "Recreation":3, "What's Happening?":4, "Misc":5]
     
-    func getPosts(logitude: String, latitude: String, category: String, completion: @escaping ([Post]) ->()){
+    func getPosts(logitude: String, latitude: String, category: String, completion: @escaping (Result<[Post],Error>) ->())
+    {
         let defaults = UserDefaults.standard
         let user_id = defaults.string(forKey: defaultsKeys.user_id)!
         var paramStr = ""
@@ -14,47 +15,182 @@ class API {
         
         guard let url = URL(string: "\(baseURL)/category?\(String(describing: paramStr))") else {return}
         URLSession.shared.dataTask(with: url)
-        { (data,_,_) in
+        { (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("API status: \(httpResponse.statusCode)")
+            }
             
-            let posts = try! JSONDecoder().decode([Post].self, from: data!)
+            guard let response = response as? HTTPURLResponse else
+            {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            if let responseError = self.handleNetworkResponse(response: response)
+            {
+                completion(.failure(responseError))
+                return
+            }
+            
+            guard let validData = data, error == nil else {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            let posts = try! JSONDecoder().decode([Post].self, from: validData)
             DispatchQueue.main.async
             {
-                completion(posts)
+                completion(.success(posts))
             }
         }.resume()
     }
     
-    func getUserCreatedPosts(completion: @escaping ([Post]) ->()){
-         let defaults = UserDefaults.standard
-         let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+    func getUserCreatedPosts(completion: @escaping (Result<[Post],Error>) ->())
+    {
+        let defaults = UserDefaults.standard
+        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
 
-         guard let url = URL(string: "\(baseURL)/user_created_post?user_id=\(String(describing: user_id))") else {return}
-         URLSession.shared.dataTask(with: url)
-         { (data,_,_) in
+        guard let url = URL(string: "\(baseURL)/user_created_post?user_id=\(String(describing: user_id))") else {return}
+        URLSession.shared.dataTask(with: url)
+        { (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("API status: \(httpResponse.statusCode)")
+            }
+            
+            guard let response = response as? HTTPURLResponse else
+            {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            if let responseError = self.handleNetworkResponse(response: response)
+            {
+                completion(.failure(responseError))
+                return
+            }
 
-             let posts = try! JSONDecoder().decode([Post].self, from:data!)
-             DispatchQueue.main.async
-             {
-                 completion(posts)
-             }
-         }.resume()
+            guard let validData = data, error == nil else {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+
+            let posts = try! JSONDecoder().decode([Post].self, from:validData)
+            DispatchQueue.main.async
+            {
+                completion(.success(posts))
+            }
+        }.resume()
      }
     
-    func getUserLikedPosts(completion: @escaping ([Post]) ->()){
-         let defaults = UserDefaults.standard
-         let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+    func getUserLikedPosts(completion: @escaping (Result<[Post],Error>) ->())
+    {
+        let defaults = UserDefaults.standard
+        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
 
-         guard let url = URL(string: "\(baseURL)/user_liked_post?user_id=\(String(describing: user_id))") else {return}
-         URLSession.shared.dataTask(with: url)
-         { (data,_,_) in
+        guard let url = URL(string: "\(baseURL)/user_liked_post?user_id=\(String(describing: user_id))") else {return}
+        URLSession.shared.dataTask(with: url)
+        { (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("API status: \(httpResponse.statusCode)")
+            }
+            
+            guard let response = response as? HTTPURLResponse else
+            {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            if let responseError = self.handleNetworkResponse(response: response)
+            {
+                completion(.failure(responseError))
+                return
+            }
 
-             let posts = try! JSONDecoder().decode([Post].self, from:data!)
-             DispatchQueue.main.async
-             {
-                 completion(posts)
-             }
-         }.resume()
-     }
+            guard let validData = data, error == nil else {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+
+            let posts = try! JSONDecoder().decode([Post].self, from:validData)
+            DispatchQueue.main.async
+            {
+                completion(.success(posts))
+            }
+        }.resume()
+    }
+    func getComment(post_id: Int, completion: @escaping (Result<[Comment],Error>) ->())
+    {
+        let defaults = UserDefaults.standard
+        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+        guard let url = URL(string: "\(baseURL)/comment?user_id=\(user_id)&post_id=\(post_id)") else {return}
+        URLSession.shared.dataTask(with: url)
+        { (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+               print("API status: \(httpResponse.statusCode)")
+            }
+            
+            guard let response = response as? HTTPURLResponse else
+            {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            if let responseError = self.handleNetworkResponse(response: response)
+            {
+                completion(.failure(responseError))
+                return
+            }
+
+            guard let validData = data, error == nil else {
+               print("API error: \(error!.localizedDescription)")
+               completion(.failure(error!))
+               return
+            }
+
+            let comments = try! JSONDecoder().decode([Comment].self, from:validData)
+            DispatchQueue.main.async
+            {
+                completion(.success(comments))
+            }
+        }.resume()
+    }
+    
+    func getUser(username: String, password: String, completion: @escaping (Result<[User],Error>) ->())
+    {
+        guard let url = URL(string: "\(self.baseURL)/user?username=\(username)&password=\(password )") else {fatalError()}
+        URLSession.shared.dataTask(with: url)
+        { (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+               print("API status: \(httpResponse.statusCode)")
+            }
+            
+            guard let response = response as? HTTPURLResponse else
+            {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            if let responseError = self.handleNetworkResponse(response: response)
+            {
+                completion(.failure(responseError))
+                return
+            }
+            
+            guard let validData = data, error == nil else {
+               print("API error: \(error!.localizedDescription)")
+               completion(.failure(error!))
+               return
+            }
+            print(response)
+            let user = try! JSONDecoder().decode([User].self, from:validData)
+            DispatchQueue.main.async
+            {
+                completion(.success(user))
+            }
+        }.resume()
+    }
     
     func submitPost(submitted: [String: Any]){
         guard let postUrl = URL(string: "\(baseURL)/add_post_to_category") else {fatalError()}
@@ -171,6 +307,35 @@ class API {
         task.resume()
     }
     
+    func submitContentReview(submitted: [String: Any])
+    {
+        guard let postUrl = URL(string: "\(baseURL)/content_review") else {fatalError()}
+        
+        var request = URLRequest(url: postUrl)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+        
+        let submission = try? JSONSerialization.data(withJSONObject: submitted)
+        
+        request.httpBody = submission
+        
+        let task = URLSession.shared.dataTask(with: request)
+        { data, response, error in
+            
+            guard let data = data, error == nil else
+            {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any]
+            {
+                print(responseJSON)
+            }
+        }
+        task.resume()
+    }
+    
     func submitReportedPost(submitted: [String: Any])
     {
         guard let postUrl = URL(string: "\(baseURL)/report_post") else {fatalError()}
@@ -198,24 +363,6 @@ class API {
             }
         }
         task.resume()
-    }
-    
-    func getComment(post_id: Int, completion: @escaping ([Comment]) ->())
-    {
-        let defaults = UserDefaults.standard
-        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
-        guard let url = URL(string: "\(baseURL)/comment?user_id=\(user_id)&post_id=\(post_id)") else {return}
-        URLSession.shared.dataTask(with: url)
-        { (data,_,_)in
-            
-            let comments = try! JSONDecoder().decode([Comment].self, from:data!)
-            DispatchQueue.main.async
-            {
-                completion(comments)
-            }
-            
-            
-        }.resume()
     }
 
     func createUser(submitted: [String: Any])
@@ -245,20 +392,6 @@ class API {
             }
         }
         task.resume()
-    }
-    
-    func getUser(username: String, password: String, completion: @escaping ([User]) ->())
-    {
-        guard let url = URL(string: "\(self.baseURL)/user?username=\(username)&password=\(password )") else {fatalError()}
-        URLSession.shared.dataTask(with: url)
-        { (data,_,_)in
-            
-            let user = try! JSONDecoder().decode([User].self, from:data!)
-            DispatchQueue.main.async
-            {
-                completion(user)
-            }
-        }.resume()
     }
     
     func passwordReset(submitted: [String: Any])
@@ -346,6 +479,29 @@ class API {
             }
         }
         task.resume()
+    }
+    
+    private func handleNetworkResponse(response: HTTPURLResponse) -> NetworkError? {
+        switch response.statusCode {
+        case 200...299: return (nil)
+        case 300...399: return (NetworkError.redirectionError)
+        case 400...499: return (NetworkError.clientError)
+        case 500...599: return (NetworkError.serverError)
+        case 600: return (NetworkError.invalidRequest)
+        default: return (NetworkError.unknownError)
+        }
+    }
+
+    public enum NetworkError: String, Error {
+        case missingUrl = "URL is nil"
+        case parametersNil = "Parameters were nil."
+        case encodingFailed = "Parameter encoding failed."
+        case redirectionError = "Redirection error"
+        case clientError = "Client Error"
+        case serverError = "Server Error"
+        case invalidRequest = "Invalid Request"
+        case unknownError = "Unknown Error"
+        case dataError = "Error getting valid data."
     }
     
 }
