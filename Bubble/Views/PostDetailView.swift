@@ -140,6 +140,7 @@ struct PostDetailView: View {
                     NavigationLink(destination: SubmitContentReviewView(), isActive: $isShowingDetailView) {
                                     EmptyView()
                                 }.buttonStyle(PlainButtonStyle())
+                                .disabled(true)
                     HStack{
                         Image(systemName: "text.bubble")
                             .resizable()
