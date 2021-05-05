@@ -1,8 +1,8 @@
 import Foundation
 
 class API {
-//    fileprivate let baseURL = "https://dashboard.stocksandshare.com/chitchat"
-    fileprivate let baseURL = "http://0.0.0.0:8000"
+    fileprivate let baseURL = "https://dashboard.stocksandshare.com/chitchat"
+//    fileprivate let baseURL = "http://0.0.0.0:8000"
     let categories = ["Deals":1, "Happy Hour":2, "Recreation":3, "What's Happening?":4, "Misc":5]
     
     func getPosts(logitude: String, latitude: String, category: String, completion: @escaping (Result<[Post],Error>) ->())
