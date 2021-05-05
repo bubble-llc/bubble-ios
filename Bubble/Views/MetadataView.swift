@@ -262,7 +262,6 @@ struct MetadataView: View {
         else if (comment != nil){//comment
 
             HStack(spacing:0)
-
             {
                 Button(action:
                 {

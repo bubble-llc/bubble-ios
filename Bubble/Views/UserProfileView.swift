@@ -43,9 +43,14 @@ struct UserProfileView: View {
                     .onAppear
                     {
                         API().getUserCreatedPosts
-                        {
-                            (posts) in self.posts = posts
-                            print(self.posts.count)
+                        { (result) in
+                            switch result
+                            {
+                                case .success(let posts):
+                                    self.posts = posts
+                                case .failure(let error):
+                                    print(error)
+                            }
                         }
                     }
                 }

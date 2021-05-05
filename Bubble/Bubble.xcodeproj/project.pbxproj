@@ -39,6 +39,7 @@
 		5CE12F8C24F857CE00C8D5D0 /* Json in Frameworks */ = {isa = PBXBuildFile; productRef = 5CE12F8B24F857CE00C8D5D0 /* Json */; };
 		5CE12F8E24F857CE00C8D5D0 /* Request in Frameworks */ = {isa = PBXBuildFile; productRef = 5CE12F8D24F857CE00C8D5D0 /* Request */; };
 		5CF2309D2501ACB1004A1C71 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF2309C2501ACB1004A1C71 /* CommentView.swift */; };
+		5D6000D62641F25800B8A80F /* SubmitContentReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6000D52641F25800B8A80F /* SubmitContentReviewView.swift */; };
 		5D607D88262A3D58007FE97D /* PasswordReset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D607D87262A3D58007FE97D /* PasswordReset.swift */; };
 		5D607D8D262A3FA3007FE97D /* PasswordValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D607D8C262A3FA3007FE97D /* PasswordValidation.swift */; };
 		5D86E378260A7A5F00B002D8 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D86E377260A7A5F00B002D8 /* FeedbackView.swift */; };
@@ -118,6 +119,7 @@
 		5CE12F5924F8565E00C8D5D0 /* PostDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
 		5CE12F5B24F8565E00C8D5D0 /* PostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		5CF2309C2501ACB1004A1C71 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		5D6000D52641F25800B8A80F /* SubmitContentReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitContentReviewView.swift; sourceTree = "<group>"; };
 		5D607D87262A3D58007FE97D /* PasswordReset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordReset.swift; sourceTree = "<group>"; };
 		5D607D8C262A3FA3007FE97D /* PasswordValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidation.swift; sourceTree = "<group>"; };
 		5D86E377260A7A5F00B002D8 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 				5C75E5E1253F7C2C00B97254 /* LoginView.swift */,
 				5CE12F5824F8565E00C8D5D0 /* MetadataView.swift */,
 				5CE12F5924F8565E00C8D5D0 /* PostDetailView.swift */,
+				5D6000D52641F25800B8A80F /* SubmitContentReviewView.swift */,
 				5C06515C25EF09A6005028C0 /* LikedListView.swift */,
 				5CE12F5B24F8565E00C8D5D0 /* PostView.swift */,
 				B0E5368D2533E08F009663E7 /* SubmitCommentView.swift */,
@@ -565,6 +568,7 @@
 				5CCF768624F860E30040EC07 /* Post.swift in Sources */,
 				5CE12F6224F8565E00C8D5D0 /* Listing.swift in Sources */,
 				5CCF766524F85C610040EC07 /* AppDelegate.swift in Sources */,
+				5D6000D62641F25800B8A80F /* SubmitContentReviewView.swift in Sources */,
 				5CE12F6324F8565E00C8D5D0 /* API.swift in Sources */,
 				5DD754BA261E825A00CD6360 /* Constants.swift in Sources */,
 			);
@@ -736,7 +740,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Localist/Preview Content\"";
 				DEVELOPMENT_TEAM = 9CB7HM8CCZ;
 				ENABLE_PREVIEWS = YES;
@@ -748,10 +752,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = bubble.beta.test;
+				PRODUCT_BUNDLE_IDENTIFIER = bubble.test.beta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -763,7 +767,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Localist/Preview Content\"";
 				DEVELOPMENT_TEAM = 9CB7HM8CCZ;
 				ENABLE_PREVIEWS = YES;
@@ -775,11 +779,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = bubble.beta.test;
+				PRODUCT_BUNDLE_IDENTIFIER = bubble.test.beta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

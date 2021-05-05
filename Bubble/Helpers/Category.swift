@@ -56,11 +56,19 @@ class Category: ObservableObject {
     
     func fetchData() {
         let group = DispatchGroup()
-        for category in self.categories{
+        for category in self.categories
+        {
             group.enter()
             API().getPosts(logitude: self.userLongitude, latitude: self.userLatitude, category: category)
-            {
-                (posts) in self.posts[self.categoriesMap[category]! - 1] = posts
+            {(result) in
+                switch result
+                {
+                    case .success(let posts):
+                        print(posts)
+                        self.posts[self.categoriesMap[category]! - 1] = posts
+                    case .failure(let error):
+                        print(error)
+                }
                 group.leave()
             }
         }
@@ -70,17 +78,21 @@ class Category: ObservableObject {
         })
     }
     
-    func refreshCategory(category: String) {
+    func refreshCategory(category: String)
+    {
         self.fetching = true
         API().getPosts(logitude: self.userLongitude, latitude: self.userLatitude, category: category)
-        {
-            
-            
-            (posts) in self.posts[self.categoriesMap[category]! - 1] = posts
-            print(self.posts[self.categoriesMap[category]! - 1])
-            self.fetching = true
+        { (result) in
+            switch result
+            {
+                case .success(let posts):
+                    print(posts)
+                    self.posts[self.categoriesMap[category]! - 1] = posts
+                    self.fetching = true
+                case .failure(let error):
+                    print(error)
+            }
         }
-        
     }
 }
 

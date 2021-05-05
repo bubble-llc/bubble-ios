@@ -19,6 +19,7 @@ struct CreateUserView: View {
     @State private var password: String = ""
     @State private var email: String = ""
     @State private var termsAccepted = false
+    @State private var showingAlert = false
     
     @EnvironmentObject var userAuth: UserAuth
     @EnvironmentObject var categoryGlobal: Category
@@ -43,14 +44,21 @@ struct CreateUserView: View {
                                 "email": self.$email.wrappedValue
                             ]
                         API().createUser(submitted: postObject)
-                        
-                        if let window = UIApplication.shared.windows.first {
-                            window.rootViewController = UIHostingController(rootView: ContentView().environmentObject(userAuth).environmentObject(categoryGlobal))
-                            window.makeKeyAndVisible()
-                        }
+                        self.showingAlert = true
                     }, label: {
                         Text("Create")
                     })
+                    .alert(isPresented: $showingAlert)
+                    {
+                        Alert(title: Text("Account Created"), message: Text("Check you email to validate your account"), dismissButton: .default(Text("Ok"))
+                                {
+                                    if let window = UIApplication.shared.windows.first {
+                                        window.rootViewController = UIHostingController(rootView: ContentView().environmentObject(userAuth).environmentObject(categoryGlobal))
+                                        window.makeKeyAndVisible()
+                                    }
+                                }
+                        )
+                    }
                 }
             }.navigationBarTitle(Text("Create User"))
     }

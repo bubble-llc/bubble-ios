@@ -14,9 +14,14 @@ struct LikedListView: View {
         .onAppear
         {
             API().getUserLikedPosts
-            {
-                (posts) in self.posts = posts
-                print(self.posts.count)
+            { (result) in
+                switch result
+                {
+                    case .success(let posts):
+                        self.posts = posts
+                    case .failure(let error):
+                        print(error)
+                }
             }
         }
         

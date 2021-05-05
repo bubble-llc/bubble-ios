@@ -133,6 +133,10 @@ struct PostDetailView: View {
                     .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                     .padding(.leading, UIScreen.main.bounds.width * 0.07)
                     Spacer()
+                    NavigationLink(destination: SubmitContentReviewView(post: post)){
+                        Image(systemName: "plus")
+                            .foregroundColor(Color.white)
+                    }
                     HStack{
                         Image(systemName: "text.bubble")
                             .resizable()
@@ -162,14 +166,28 @@ struct PostDetailView: View {
                         
                         .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .onAppear{
-                            API().getComment(post_id: post.id) { (comments) in
-                                self.comments = comments
+                            API().getComment(post_id: post.id)
+                            { (result) in
+                                switch result
+                                {
+                                    case .success(let comments):
+                                        self.comments = comments
+                                    case .failure(let error):
+                                        print(error)
+                                }
                             }
                         }
                         .pullToRefresh(isShowing: $isShowing) {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                API().getComment(post_id: post.id) { (comments) in
-                                    self.comments = comments
+                                API().getComment(post_id: post.id)
+                                { (result) in
+                                    switch result
+                                    {
+                                        case .success(let comments):
+                                            self.comments = comments
+                                        case .failure(let error):
+                                            print(error)
+                                    }
                                 }
                                 self.isShowing = false
                             }
@@ -249,8 +267,15 @@ struct PostDetailView: View {
                                     }
                                 
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                    API().getComment(post_id: post.id) { (comments) in
-                                        self.comments = comments
+                                    API().getComment(post_id: post.id)
+                                    { (result) in
+                                        switch result
+                                        {
+                                            case .success(let comments):
+                                                self.comments = comments
+                                            case .failure(let error):
+                                                print(error)
+                                        }
                                     }
                                 }
                                 self.commentBoxPressed.toggle()
