@@ -111,6 +111,8 @@ struct CommentsView: View {
             NavigationLink(destination: SubmitContentReviewView(comment: comment), isActive: $isShowingDetailView) {
                             EmptyView()
                         }.buttonStyle(PlainButtonStyle())
+            .disabled(true)
+
     }
         
     .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height * 0.085)
