@@ -149,7 +149,18 @@ struct PostDetailView: View {
                         if #available(iOS 14.0, *) {
                             Menu {
                                 Button("Report Post", action: {isShowingDetailView = true})
-                                Button("Block User", action: {})
+                                Button("Block User", action: {
+                                    let defaults = UserDefaults.standard
+                                    let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+                                    let block_user_object: [String: Any]  =
+                                        [
+                                            "user_id": user_id,
+                                            "blocked_user_id": post.user_id,
+                                            "blocked_reason": "",
+                                            "blocked_type": ""
+                                        ]
+                                    API().blockUser(submitted: block_user_object)
+                                })
                             } label: {
                                 Label("", systemImage: "ellipsis").foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                                                                                     

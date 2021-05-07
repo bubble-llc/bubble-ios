@@ -1,8 +1,8 @@
 import Foundation
 
 class API {
-    fileprivate let baseURL = "https://dashboard.stocksandshare.com/chitchat"
-//    fileprivate let baseURL = "http://0.0.0.0:8000"
+//    fileprivate let baseURL = "https://dashboard.stocksandshare.com/chitchat"
+    fileprivate let baseURL = "http://0.0.0.0:8000"
     let categories = ["Deals":1, "Happy Hour":2, "Recreation":3, "What's Happening?":4, "Misc":5]
     
     func getPosts(logitude: String, latitude: String, category: String, completion: @escaping (Result<[Post],Error>) ->())
@@ -467,6 +467,35 @@ class API {
         let task = URLSession.shared.dataTask(with: request)
         { data, response, error in
             
+            guard let data = data, error == nil else
+            {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any]
+            {
+                print(responseJSON)
+            }
+        }
+        task.resume()
+    }
+    
+    func blockUser(submitted: [String: Any])
+    {
+        guard let postUrl = URL(string: "\(baseURL)/block_user") else {fatalError()}
+
+        var request = URLRequest(url: postUrl)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+
+        let submission = try? JSONSerialization.data(withJSONObject: submitted, options: .prettyPrinted)
+
+        request.httpBody = submission
+
+        let task = URLSession.shared.dataTask(with: request)
+        { data, response, error in
+
             guard let data = data, error == nil else
             {
                 print(error?.localizedDescription ?? "No data")
