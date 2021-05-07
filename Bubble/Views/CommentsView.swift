@@ -20,6 +20,9 @@ struct CommentsView: View {
     @State var isVoted = false
     @State var upVotesOnly = false
     @State var downVotesOnly = false
+    @State private var submittedAlert = false
+    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     init(comment: Comment) {
         self.comment = comment
@@ -139,7 +142,18 @@ struct CommentsView: View {
             if #available(iOS 14.0, *) {
                 Menu {
                     Button("Report Comment", action: {isShowingDetailView = true})
-                    Button("Block User", action: {})
+                    Button("Block User", action: {
+                        let defaults = UserDefaults.standard
+                        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+                        let block_user_object: [String: Any]  =
+                            [
+                                "user_id": user_id,
+                                "blocked_user_id": comment.user_id,
+                                "blocked_reason": "",
+                                "blocked_type": ""
+                            ]
+                        API().blockUser(submitted: block_user_object)
+                    })
                 } label: {
                     Label("", systemImage: "ellipsis").rotationEffect(.degrees(90)).foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                 }.offset(x: -UIScreen.main.bounds.width * 0.01)

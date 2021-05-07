@@ -3,6 +3,7 @@ import Foundation
 struct Post: Decodable, Identifiable {
     let title: String
     let id: Int
+    let user_id: Int
     let content: String
     let username: String
     let date_created: String
@@ -15,7 +16,7 @@ struct Post: Decodable, Identifiable {
     let longitude: Double
     
     private enum CodingKeys: String, CodingKey {
-            case title, id, content, username, date_created, comments, votes, category_id, is_voted, prev_vote, latitude, longitude, date
+            case title, id, user_id, content, username, date_created, comments, votes, category_id, is_voted, prev_vote, latitude, longitude, date
         }
     
     init(from decoder: Decoder) throws
@@ -23,6 +24,7 @@ struct Post: Decodable, Identifiable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         title = try values.decode(String.self, forKey: .title)
         id = try values.decode(Int.self, forKey: .id)
+        user_id = try values.decode(Int.self, forKey: .user_id)
         content = try values.decode(String.self, forKey: .content)
         username = try values.decode(String.self, forKey: .username)
         date_created = convert_date(try values.decode(String.self, forKey: .date_created))
