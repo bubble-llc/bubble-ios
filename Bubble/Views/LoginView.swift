@@ -16,27 +16,42 @@ struct LoginView: View {
         if #available(iOS 14.0, *) {
             VStack
             {
-                //            Image("dark_bubble")
-                //                .resizable()
-                //                .frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.height * 0.2)
-                Spacer()
+                Image("b")
+                    .resizable()
+                    .frame(width: UIScreen.main.bounds.height * 0.3, height: UIScreen.main.bounds.height * 0.3)
+                    .padding(.top, UIScreen.main.bounds.height * 0.1)
+                    .padding(.bottom, UIScreen.main.bounds.height * 0.05)
+                    .foregroundColor(Color.white)
                 HStack {
                     Image(systemName: "person")
                     
-                    TextField("Username", text: self.$username).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                        .foregroundColor(Color.white)
+                    ZStack(alignment: .leading) {
+                            if username.isEmpty {
+                                Text("Username")
+                                    .foregroundColor(.white)
+                            }
+                            TextField("", text: $username)
+                        }
+                    
                 }
                 .foregroundColor(Color.white)
                 .padding()
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 2).foregroundColor(Color.white))
+                .frame(width: UIScreen.main.bounds.width * 0.8)
                 HStack {
                     Image(systemName: "lock")
-                    SecureField("Password", text: self.$password)
-                        .foregroundColor(Color.white)
+                    ZStack(alignment: .leading){
+                        if password.isEmpty{
+                            Text("Password")
+                                .foregroundColor(Color.white)
+                        }
+                    SecureField("", text: self.$password)
+                    }
                 }
                 .foregroundColor(Color.white)
                 .padding()
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 2).foregroundColor(Color.white))
+                .frame(width: UIScreen.main.bounds.width * 0.8)
                 
                 Button(action: {
                     API().getUser(username: username, password:  password)
@@ -72,34 +87,30 @@ struct LoginView: View {
                     .padding()
                     .background(Color.white)
                     .cornerRadius(10)
+                    .frame(width: UIScreen.main.bounds.width * 0.8)
                 })
                 .alert(isPresented: $showingAlert)
                 {
                     Alert(title: Text("Invalid Login"), message: Text("Please enter valid login"), dismissButton: .default(Text("Ok")))
                 }
                 HStack{
+                    Spacer()
                     NavigationLink(destination: CreateUserView().environmentObject(userAuth).environmentObject(categoryGlobal))
                     {
-                        Spacer()
                         Text("Register")
-                            .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                        Spacer()
                     }
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
-                    .background(Color.white)
-                    .cornerRadius(10)
+                    Spacer()
                     NavigationLink(destination: PasswordReset().environmentObject(userAuth).environmentObject(categoryGlobal))
                     {
                         Text("Forgot Password")
-                            .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                     }
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
-                    .background(Color.white)
-                    .cornerRadius(10)
+                    Spacer()
                 }
                 Spacer()
             }
@@ -112,6 +123,7 @@ struct LoginView: View {
             // Fallback on earlier versions
         }
         Spacer()
+        
     }
     
 }
