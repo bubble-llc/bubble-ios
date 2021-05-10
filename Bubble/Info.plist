@@ -7,9 +7,9 @@
 	<key>CFBundleIconName</key>
 	<string>AppIcon</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This app logs your location. It works best when you allow background location updates. Logged data never leaves the device.</string>
+	<string>This app uses your location to display information around you. The location of your post will be saved, so when another user is in the same area, they can see your post as well</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app logs your location. It works best when you allow background location updates. Logged data never leaves the device.</string>
+	<string>This app uses your location to display information around you. The location of your post will be saved, so when another user is in the same area, they can see your post as well</string>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
 	<key>LSApplicationCategoryType</key>

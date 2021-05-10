@@ -33,6 +33,12 @@ struct CreateUserView: View {
                        label: {
                            Text("Accept terms and conditions")
                 })
+                if #available(iOS 14.0, *) {
+                    Link("View Our Terms of Service",
+                         destination: URL(string: "https://www.termsfeed.com/live/ffdd0de8-f5d2-41db-9b04-b89bdd99f685")!)
+                } else {
+                    // Fallback on earlier versions
+                }
                 
                 if self.isUserInformationValid() {
                     Button(action: {
