@@ -113,10 +113,11 @@ struct PostView: View
                                  downVotesOnly: self.$downVotesOnly)
                             .font(.caption)
                             .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                        .buttonStyle(PlainButtonStyle())
         }.onAppear {
             UITableViewCell.appearance().selectionStyle = .none
          }
-        
+        .buttonStyle(PlainButtonStyle())
         .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height/9, alignment: .center)
         .background(Color.white)
         .cornerRadius(20)

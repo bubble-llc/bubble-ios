@@ -38,8 +38,10 @@ struct FeedView: View {
                 ForEach(categoryGlobal.posts[categoryGlobal.categoriesMap[category]! - 1]){post in
                 PostView(post: post)
                     .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                    
                 }
             }
+            
             .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
             .pullToRefresh(isShowing: $isShowing) {
