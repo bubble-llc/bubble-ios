@@ -52,7 +52,6 @@ struct PostView: View
                 Spacer()
                 HStack{
                     Text(post.username)
-                        .colorInvert()
                         .foregroundColor(Color.gray)
                         .font(.system(size: 12))
                         .padding(.leading)
@@ -61,7 +60,6 @@ struct PostView: View
                     Text(post.title)
                         .font(.headline)
                         .lineLimit(1)
-                        .colorInvert()
                         .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                         .frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.height * 0.02, alignment: .center)
                         Spacer()
@@ -72,12 +70,10 @@ struct PostView: View
                     
                     Image(systemName: "01.circle.fill")
                         .resizable()
-                        .colorInvert()
                         .frame(width:30, height:30)
                         .padding(.leading)
                     Spacer()
                     Text(post.content)
-                        .colorInvert()
                         .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .font(.system(size: 15))
                         .lineLimit(2)
@@ -92,14 +88,11 @@ struct PostView: View
                     Spacer()
                     Spacer()
                         Text(post.date_created)
-                            .colorInvert()
                             .font(.system(size: 12))
                             .offset(x:7)
                         Spacer() 
                         Image(systemName: "text.bubble")
-                            .colorInvert()
                         Text(String(post.comments))
-                            .colorInvert()
                             .font(.system(size: 12))
                     Spacer()
                     }//Nested HStack for date created and comments
@@ -108,12 +101,7 @@ struct PostView: View
             .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height / 15.8)
             .padding(.bottom)
             .padding(.top)
-            
-        
-            
-            
-         
-            
+
                     MetadataView(post: post,
                                  isUp: self.$isUp,
                                  isDown: self.$isDown,
@@ -124,14 +112,11 @@ struct PostView: View
                                  upVotesOnly: self.$upVotesOnly,
                                  downVotesOnly: self.$downVotesOnly)
                             .font(.caption)
-                            .colorInvert()
                             .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
         }
         
         .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height/9, alignment: .center)
-        .background(Color.black)
-        .listRowBackground(Color.black)
-        .colorInvert()
+        .background(Color.white)
         .cornerRadius(20)
         .overlay(
             RoundedRectangle(cornerRadius: 20)
