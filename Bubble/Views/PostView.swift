@@ -57,22 +57,24 @@ struct PostView: View
                         .foregroundColor(Color.gray)
                         .font(.system(size: 12))
                         .padding(.leading)
-                        .frame(width: UIScreen.main.bounds.width * 0.2, height: UIScreen.main.bounds.height * 0.001, alignment: .leading)
+                        .frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.001, alignment: .leading)
                     Spacer()
                     Text(post.title)
                         .font(.headline)
                         .lineLimit(1)
                         .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                         .frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.height * 0.02, alignment: .center)
+                        .offset(x: -UIScreen.main.bounds.width * 0.0375)
                         Spacer()
                         Spacer()
                         }
+                .padding(.bottom, 3)
                 
                 HStack{
                     
                     Image(Constants.avatar_list[Int.random(in: 0...3)])
                         .resizable()
-                        .frame(width:35, height:35)
+                        .frame(width:UIScreen.main.bounds.width * 0.1, height:UIScreen.main.bounds.width * 0.1)
                     Spacer()
                     Text(post.content)
                         .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
@@ -80,6 +82,7 @@ struct PostView: View
                         .lineLimit(2)
                         .frame(width: UIScreen.main.bounds.width * 0.6, height: UIScreen.main.bounds.height/24.5, alignment: .center)
                         .multilineTextAlignment(.center)
+                        .offset(x: -UIScreen.main.bounds.width * 0.015)
                         
                     Spacer()
                 }
