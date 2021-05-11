@@ -3,7 +3,9 @@ import Request
 
 struct CommentsView: View {
     let comment: Comment
-    @Binding var blockUserPressed: Bool
+    @Binding var showingAlert: Bool
+    @Binding var activeAlert: ActiveAlert
+    @Binding var blockedUserId: Int
     @State private var isShowingDetailView = false
     
     @State var isUp = false
@@ -18,9 +20,11 @@ struct CommentsView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    init(comment: Comment, blockUserPressed: Binding<Bool>) {
+    init(comment: Comment, showingAlert: Binding<Bool>, activeAlert: Binding<ActiveAlert>, blockedUserId: Binding<Int>) {
         self.comment = comment
-        self._blockUserPressed = blockUserPressed
+        self._showingAlert = showingAlert
+        self._activeAlert = activeAlert
+        self._blockedUserId = blockedUserId
         self._totalVotes = State(initialValue: comment.votes)
         
         if comment.is_voted == true
@@ -138,7 +142,19 @@ struct CommentsView: View {
                 Menu {
                     Button("Report Comment", action: {isShowingDetailView = true})
                     Button("Block User", action: {
-                        blockUserPressed = true
+                        showingAlert = true
+                        let defaults = UserDefaults.standard
+                        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+                        print(comment)
+                        if(Int(user_id) == comment.user_id)
+                        {
+                            activeAlert = .sameUser
+                        }
+                        else
+                        {
+                            activeAlert = .blockUser
+                            blockedUserId = comment.user_id
+                        }
                     })
                 } label: {
                     Label("", systemImage: "ellipsis").rotationEffect(.degrees(90)).foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))

@@ -3,10 +3,6 @@ import Request
 import SwiftUIRefresh
 import Combine
 
-enum ActiveAlert {
-    case blockUser, confirmComment
-}
-
 struct KeyboardResponsiveModifier: ViewModifier {
   @State private var offset: CGFloat = 0
 
@@ -37,7 +33,6 @@ extension View {
 struct PostDetailView: View {
     let post: Post
     
-    @State private var showAlert = false
     @State private var activeAlert: ActiveAlert = .blockUser
     
     @Binding var isUp: Bool
@@ -55,8 +50,8 @@ struct PostDetailView: View {
     @State private var default_comment: String = "Enter comment here..."
     @State private var placeholder_default_comment: String = "Enter comment here..."
     @State private var showingAlert = false
+    @State private var blockedUserId = 0
     @State private var isShowingDetailView = false
-    @State private var blockUserPressed = false
     
     @EnvironmentObject var categoryGlobal: Category
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -157,7 +152,20 @@ struct PostDetailView: View {
                         if #available(iOS 14.0, *) {
                             Menu {
                                 Button("Report Post", action: {isShowingDetailView = true})
-                                Button("Block User", action: {self.showingAlert = true; self.activeAlert = .blockUser})
+                                Button("Block User", action: {
+                                    self.showingAlert = true
+                                    let defaults = UserDefaults.standard
+                                    let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+                                    if(Int(user_id) == post.user_id)
+                                    {
+                                        self.activeAlert = .sameUser
+                                    }
+                                    else
+                                    {
+                                        self.activeAlert = .blockUser
+                                        blockedUserId = post.user_id
+                                    }
+                                })
                             } label: {
                                 Label("", systemImage: "ellipsis").foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                              
@@ -185,7 +193,7 @@ struct PostDetailView: View {
                     if #available(iOS 14.0, *) {
                         List{
                             ForEach(comments){comment in
-                                CommentsView(comment: comment, blockUserPressed: $blockUserPressed)
+                                CommentsView(comment: comment, showingAlert: $showingAlert, activeAlert: $activeAlert, blockedUserId: $blockedUserId)
                                 .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                             }
                         }
@@ -318,7 +326,7 @@ struct PostDetailView: View {
                                            let block_user_object: [String: Any]  =
                                                [
                                                    "user_id": user_id,
-                                                   "blocked_user_id": post.user_id,
+                                                   "blocked_user_id": blockedUserId,
                                                    "blocked_reason": "",
                                                    "blocked_type": ""
                                                ]
@@ -327,6 +335,10 @@ struct PostDetailView: View {
                                            self.presentationMode.wrappedValue.dismiss()
                                        },
                                          secondaryButton: .cancel())
+                        case .sameUser:
+                            return Alert(title: Text("You cannot block yourself"),
+                                         message: Text(""),
+                                         dismissButton: .default(Text("OK"), action: {}))
                                    }
                                }
                     .disabled(self.default_comment == self.placeholder_default_comment || self.default_comment.isEmpty)

@@ -22,3 +22,7 @@ struct Constants {
     ]
 
  }
+
+enum ActiveAlert {
+    case blockUser, confirmComment, sameUser
+}
