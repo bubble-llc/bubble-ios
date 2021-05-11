@@ -15,13 +15,35 @@ struct UserProfileView: View {
                 
                 VStack
                 {
-                    
-                    Text(username)
-                        .font(.system(size:40))
-                        .font(.headline)
-                        .foregroundColor(Color.white)
-                        .shadow(color: Color.black, radius: 3, y:1)
-                        .padding(.top, UIScreen.main.bounds.height * 0.1)
+                    HStack{
+                        Spacer()
+                        Text(username)
+                            .font(.system(size:40))
+                            .font(.headline)
+                            .foregroundColor(Color.white)
+                            .shadow(color: Color.black, radius: 3, y:1)
+                            .offset(x: UIScreen.main.bounds.height * 0.03)
+                        Spacer()
+                        Menu {
+                            Button("Deals", action: {})
+                            Button("Happy Hour", action: {})
+                            Button("Recreation", action: {})
+                            Button("What's Happening", action: {})
+                            Button("Misc", action: {})
+                        } label: {
+                            Image(systemName: "gearshape").resizable().frame(width: UIScreen.main.bounds.width * 0.07, height: UIScreen.main.bounds.width * 0.07).foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                        }
+                        
+                        .padding(.trailing, UIScreen.main.bounds.height * 0.03)
+//                        Button(action:{}){
+//                    Image(systemName: "gearshape")
+//                        .resizable()
+//                        .frame(width: UIScreen.main.bounds.width * 0.065, height: UIScreen.main.bounds.width * 0.065)
+//                        .foregroundColor(Color.white)
+//                        }
+                    }
+                    .padding(.top, UIScreen.main.bounds.height * 0.08)
+
                     Image("account_bubble_2x")
                         .resizable()
                         .frame(width: 200, height: 200, alignment: .center)

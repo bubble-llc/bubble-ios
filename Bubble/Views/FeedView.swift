@@ -12,7 +12,7 @@ import SlideOverCard
 
 struct FeedView: View {
     let categories = ["Deals":1, "Happy Hour":2, "Recreation":3, "What's Happening?":4, "Misc":5]
-    
+
     @State private var sortBy: SortBy = .hot
     @State private var showSortSheet: Bool = false
     @State private var showSubmitPost: Bool = false
@@ -34,11 +34,13 @@ struct FeedView: View {
         
             
         if #available(iOS 14.0, *) {
-            List(categoryGlobal.posts[categoryGlobal.categoriesMap[category]! - 1]){ post in
-                
+            List{
+                ForEach(categoryGlobal.posts[categoryGlobal.categoriesMap[category]! - 1]){post in
                 PostView(post: post)
+                    .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                    
+                }
             }
-            .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             
             .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)

@@ -6,11 +6,13 @@ struct LikedListView: View {
     
     var body: some View
     {
-        List(posts){ post in
 
-            PostView(post: post)
+        List{
+            ForEach(posts){ post in
+                PostView(post:post)
+                .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            }
         }
-        .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
         .onAppear
         {
             API().getUserLikedPosts

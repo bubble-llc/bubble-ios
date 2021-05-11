@@ -175,11 +175,12 @@ struct PostDetailView: View {
 
                 VStack{
                     if #available(iOS 14.0, *) {
-                        List(comments){ comment in
+                        List{
+                            ForEach(comments){comment in
                             CommentsView(comment: comment)
+                                .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                            }
                         }
-                        
-                        .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .onAppear{
                             API().getComment(post_id: post.id)
                             { (result) in
