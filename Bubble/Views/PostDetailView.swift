@@ -49,6 +49,7 @@ struct PostDetailView: View {
     @State private var placeholder_default_comment: String = "Enter comment here..."
     @State private var showingAlert = false
     @State private var isShowingDetailView = false
+    @State private var blockUserPressed = false
     
     @EnvironmentObject var categoryGlobal: Category
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -149,21 +150,14 @@ struct PostDetailView: View {
                         if #available(iOS 14.0, *) {
                             Menu {
                                 Button("Report Post", action: {isShowingDetailView = true})
-                                Button("Block User", action: {
-                                    let defaults = UserDefaults.standard
-                                    let user_id = defaults.string(forKey: defaultsKeys.user_id)!
-                                    let block_user_object: [String: Any]  =
-                                        [
-                                            "user_id": user_id,
-                                            "blocked_user_id": post.user_id,
-                                            "blocked_reason": "",
-                                            "blocked_type": ""
-                                        ]
-                                    API().blockUser(submitted: block_user_object)
+                                Button("Block User", action:{
+                                    blockUserPressed = true
                                 })
-                            } label: {
+                                }
+                                
+                             label: {
                                 Label("", systemImage: "ellipsis").foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
-                                                                                    
+                             
                             }.padding(.bottom, UIScreen.main.bounds.width * 0.01)
                             .padding(.trailing, UIScreen.main.bounds.width * 0.07)
                         } else {
@@ -309,6 +303,27 @@ struct PostDetailView: View {
                               },
                               secondaryButton: .cancel())
                     }
+                    .alert(isPresented:$blockUserPressed){
+                        
+                        Alert(title: Text("Block User?"),
+                              message: Text(""),
+                              primaryButton: .default(Text("Confirm")){
+                                
+                                
+                                let defaults = UserDefaults.standard
+                                let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+                                let block_user_object: [String: Any]  =
+                                    [
+                                        "user_id": user_id,
+                                        "blocked_user_id": post.user_id,
+                                        "blocked_reason": "",
+                                        "blocked_type": ""
+                                    ]
+                                API().blockUser(submitted: block_user_object)
+                                self.presentationMode.wrappedValue.dismiss()
+                                    },
+                              secondaryButton: .cancel())
+                        }
                     .disabled(self.default_comment == self.placeholder_default_comment || self.default_comment.isEmpty)
                     Spacer()
                 }.padding(.leading, UIScreen.main.bounds.width * 0.025)
