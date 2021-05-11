@@ -23,7 +23,6 @@ struct KeyboardResponsiveModifier: ViewModifier {
     }
   }
 }
-
 extension View {
   func keyboardResponsive() -> ModifiedContent<Self, KeyboardResponsiveModifier> {
     return modifier(KeyboardResponsiveModifier())
@@ -32,6 +31,8 @@ extension View {
 
 struct PostDetailView: View {
     let post: Post
+    
+    @State private var activeAlert: ActiveAlert = .blockUser
     
     @Binding var isUp: Bool
     @Binding var isDown: Bool
@@ -48,6 +49,7 @@ struct PostDetailView: View {
     @State private var default_comment: String = "Enter comment here..."
     @State private var placeholder_default_comment: String = "Enter comment here..."
     @State private var showingAlert = false
+    @State private var blockedUserId = 0
     @State private var isShowingDetailView = false
     
     @EnvironmentObject var categoryGlobal: Category
@@ -57,7 +59,6 @@ struct PostDetailView: View {
         if #available(iOS 14.0, *) {
             VStack(alignment: .leading)
             {
-                //Post title. The Frame indicatew where it will be aligned, font adjusts text size
                 VStack(spacing: 0){
                     HStack(alignment: .center){
                     Text(post.title)
@@ -65,26 +66,8 @@ struct PostDetailView: View {
                         .underline()
                         .frame(maxWidth: .infinity, alignment: .center)
                         .font(.system(size:20))
-                        
-//                    MetadataView(post: post,
-//                                 isUp: self.$isUp,
-//                                 isDown: self.$isDown,
-//                                 totalVotes: self.$totalVotes,
-//                                 upColor: self.$upColor,
-//                                 downColor: self.$downColor,
-//                                 isVoted: self.$isVoted,
-//                                 upVotesOnly: self.$upVotesOnly,
-//                                 downVotesOnly: self.$downVotesOnly)
-//                        .padding(.top)
-//                        .padding(.trailing, 10)
-//                    Spacer()
-//                //End Hstack1 with just title
                 }
-//                }.foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-//                .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                //Built in function for adding spaces in V/H Stacks
                     HStack(){
-                //If it IS empty it should not be valid in the first place. Need to figure out how to rework this
                         Spacer()
                 Text(post.content)
                     .font(.system(size:15))
@@ -101,11 +84,7 @@ struct PostDetailView: View {
                                  upVotesOnly: self.$upVotesOnly,
                                  downVotesOnly: self.$downVotesOnly)
                         .offset(y: -UIScreen.main.bounds.height * 0.01)
-                        
-                    
                 }
-                
-
             }//End title, content, voting vstack
                 .padding()
                 .frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width * 0.95, minHeight: UIScreen.main.bounds.height * 0.1, maxHeight: UIScreen.main.bounds.height * 0.15)
@@ -148,11 +127,35 @@ struct PostDetailView: View {
                             .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                         if #available(iOS 14.0, *) {
                             Menu {
-                                Button("Report Post", action: {isShowingDetailView = true})
-                                Button("Block User", action: {})
+                                Button("Report Post", action: {
+                                    
+                                    if(Int(Constants.current_user_id) == post.user_id)
+                                    {
+                                        self.showingAlert = true
+                                        self.activeAlert = .sameUserReport
+                                    }
+                                    else
+                                    {
+                                        isShowingDetailView = true
+                                    
+                                    }
+                                        
+                                })
+                                Button("Block User", action: {
+                                    self.showingAlert = true
+                                    if(Int(Constants.current_user_id) == post.user_id)
+                                    {
+                                        self.activeAlert = .sameUserBlock
+                                    }
+                                    else
+                                    {
+                                        self.activeAlert = .blockUser
+                                        blockedUserId = post.user_id
+                                    }
+                                })
                             } label: {
                                 Label("", systemImage: "ellipsis").foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
-                                                                                    
+                             
                             }.padding(.bottom, UIScreen.main.bounds.width * 0.01)
                             .padding(.trailing, UIScreen.main.bounds.width * 0.07)
                         } else {
@@ -160,12 +163,6 @@ struct PostDetailView: View {
                         }
                             }
                         .padding(.leading, UIScreen.main.bounds.width * 0.07)
-
-
-                    
-//                    Image(systemName: "ellipsis")
-//                        .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
-//                        .padding(.trailing, UIScreen.main.bounds.width * 0.07)
                 }.padding(.top, UIScreen.main.bounds.width * 0.01)
                 
                 Divider()
@@ -177,7 +174,7 @@ struct PostDetailView: View {
                     if #available(iOS 14.0, *) {
                         List{
                             ForEach(comments){comment in
-                            CommentsView(comment: comment)
+                                CommentsView(comment: comment, showingAlert: $showingAlert, activeAlert: $activeAlert, blockedUserId: $blockedUserId)
                                 .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                             }
                         }
@@ -207,22 +204,15 @@ struct PostDetailView: View {
                                 }
                                 self.isShowing = false
                             }
-                        }.onChange(of: self.isShowing){value in
-                            //categoryGlobal.fetchData()
-                            // print("oops")
-                            // categoryGlobal.refreshCategory(category: categoryGlobal.currCategory)
-                        }
+                        }.onChange(of: self.isShowing){value in} //Seriously just don't even bother looking into this
                     } else {
                         // Fallback on earlier versions
                     }
                 }
-                //Removed spacing from MetadataView in this context to keep it centered rather than offset on the right side.
-                
+
                 HStack{
                     if #available(iOS 14.0, *)
                     {
-                        //We are currently allowing there to be trailing spaces after comments, need to auto remove those from the comment
-                        //object before we actually let it be submitted
                         TextEditor(text: self.$default_comment)
                             
                             .onTapGesture {
@@ -254,50 +244,74 @@ struct PostDetailView: View {
                             {
                                 let resign = #selector(UIResponder.resignFirstResponder)
                                 UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
-                                self.showingAlert.toggle()
-                                
+                                self.showingAlert = true
+                                self.activeAlert = .confirmComment
                             })
                     {
                         Image(systemName:"mail")
                         
                     }
                     .alert(isPresented:$showingAlert){
+                        switch activeAlert{
                         
-                        Alert(title: Text("Submit comment?"),
-                              message: Text(""),
-                              primaryButton: .default(Text("Submit")){
-                                
-                                
-                                
-                                    let defaults = UserDefaults.standard
-                                    let user_id = defaults.string(forKey: defaultsKeys.user_id)!
-                                    let commentObject: [String: Any]  =
-                                        [
-                                            "post_id": post.id,
-                                            "user_id": user_id,
-                                            "content": self.default_comment,
-                                        ]
-                                    DispatchQueue.main.asyncAfter(deadline: .now()) {
-                                        API().submitComment(submitted: commentObject)
-                                        self.default_comment = self.placeholder_default_comment
-                                    }
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                    API().getComment(post_id: post.id)
-                                    { (result) in
-                                        switch result
-                                        {
-                                            case .success(let comments):
-                                                self.comments = comments
-                                            case .failure(let error):
-                                                print(error)
-                                        }
-                                    }
-                                }
-                                self.commentBoxPressed.toggle()
-                              },
-                              secondaryButton: .cancel())
-                    }
+                        case .confirmComment:
+                            return Alert(title: Text("Submit comment?"),
+                                         message: Text(""),
+                                         primaryButton: .default(Text("Submit")){
+                                           
+                                           
+                                               let commentObject: [String: Any]  =
+                                                   [
+                                                       "post_id": post.id,
+                                                       "user_id": Constants.current_user_id,
+                                                       "content": self.default_comment,
+                                                   ]
+                                               DispatchQueue.main.asyncAfter(deadline: .now()) {
+                                                   API().submitComment(submitted: commentObject)
+                                                   self.default_comment = self.placeholder_default_comment
+                                               }
+                                           
+                                           DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                               API().getComment(post_id: post.id)
+                                               { (result) in
+                                                   switch result
+                                                   {
+                                                       case .success(let comments):
+                                                           self.comments = comments
+                                                       case .failure(let error):
+                                                           print(error)
+                                                   }
+                                               }
+                                           }
+                                           self.commentBoxPressed.toggle()
+                                         },
+                                         secondaryButton: .cancel())
+                        case .blockUser:
+                            return Alert(title: Text("Block User?"),
+                                         message: Text(""),
+                                         primaryButton: .default(Text("Confirm")){
+                                           let block_user_object: [String: Any]  =
+                                               [
+                                                   "user_id": Constants.current_user_id,
+                                                   "blocked_user_id": blockedUserId,
+                                                   "blocked_reason": "",
+                                                   "blocked_type": ""
+                                               ]
+                                           API().blockUser(submitted: block_user_object)
+                                           categoryGlobal.refreshCategory(category: categoryGlobal.currCategory)
+                                           self.presentationMode.wrappedValue.dismiss()
+                                       },
+                                         secondaryButton: .cancel())
+                        case .sameUserBlock:
+                            return Alert(title: Text("You cannot block yourself"),
+                                         message: Text(""),
+                                         dismissButton: .default(Text("OK"), action: {}))
+                        case .sameUserReport:
+                            return Alert(title: Text("You cannot report yourself"),
+                                         message: Text(""),
+                                         dismissButton: .default(Text("OK"), action: {}))
+                                   }
+                               }
                     .disabled(self.default_comment == self.placeholder_default_comment || self.default_comment.isEmpty)
                     Spacer()
                 }.padding(.leading, UIScreen.main.bounds.width * 0.025)
@@ -339,12 +353,10 @@ struct FooterView: View {
             .frame(maxWidth: .infinity, minHeight: 100)
         Button(action:
         {
-            let defaults = UserDefaults.standard
-            let user_id = defaults.string(forKey: defaultsKeys.user_id)!
             let commentObject: [String: Any]  =
                 [
                     "post_id": post.id,
-                    "user_id": user_id,
+                    "user_id": Constants.current_user_id,
                     "content": self.comment_content,
                 ]
             API().submitComment(submitted: commentObject)
