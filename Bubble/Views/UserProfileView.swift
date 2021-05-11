@@ -24,15 +24,9 @@ struct UserProfileView: View {
                             .shadow(color: Color.black, radius: 3, y:1)
                             .offset(x: UIScreen.main.bounds.height * 0.03)
                         Spacer()
-                        Menu {
-                            Button("Deals", action: {})
-                            Button("Happy Hour", action: {})
-                            Button("Recreation", action: {})
-                            Button("What's Happening", action: {})
-                            Button("Misc", action: {})
-                        } label: {
+                        NavigationLink(destination: UserAccountSettingsView()) {
                             Image(systemName: "gearshape").resizable().frame(width: UIScreen.main.bounds.width * 0.07, height: UIScreen.main.bounds.width * 0.07).foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                        }
+                                    }.buttonStyle(PlainButtonStyle())
                         
                         .padding(.trailing, UIScreen.main.bounds.height * 0.03)
 //                        Button(action:{}){
