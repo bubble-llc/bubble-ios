@@ -3,6 +3,10 @@ import Request
 import SwiftUIRefresh
 import Combine
 
+enum ActiveAlert {
+    case blockUser, confirmComment
+}
+
 struct KeyboardResponsiveModifier: ViewModifier {
   @State private var offset: CGFloat = 0
 
@@ -32,6 +36,9 @@ extension View {
 
 struct PostDetailView: View {
     let post: Post
+    
+    @State private var showAlert = false
+    @State private var activeAlert: ActiveAlert = .blockUser
     
     @Binding var isUp: Bool
     @Binding var isDown: Bool
@@ -150,7 +157,7 @@ struct PostDetailView: View {
                         if #available(iOS 14.0, *) {
                             Menu {
                                 Button("Report Post", action: {isShowingDetailView = true})
-                                Button("Block User", action: {blockUserPressed = true})
+                                Button("Block User", action: {self.showingAlert = true; self.activeAlert = .blockUser})
                             } label: {
                                 Label("", systemImage: "ellipsis").foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                              
@@ -255,72 +262,73 @@ struct PostDetailView: View {
                             {
                                 let resign = #selector(UIResponder.resignFirstResponder)
                                 UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
-                                self.showingAlert.toggle()
-                                
+                                self.showingAlert = true
+                                self.activeAlert = .confirmComment
                             })
                     {
                         Image(systemName:"mail")
                         
                     }
                     .alert(isPresented:$showingAlert){
+                        switch activeAlert{
                         
-                        Alert(title: Text("Submit comment?"),
-                              message: Text(""),
-                              primaryButton: .default(Text("Submit")){
-                                
-                                
-                                
-                                    let defaults = UserDefaults.standard
-                                    let user_id = defaults.string(forKey: defaultsKeys.user_id)!
-                                    let commentObject: [String: Any]  =
-                                        [
-                                            "post_id": post.id,
-                                            "user_id": user_id,
-                                            "content": self.default_comment,
-                                        ]
-                                    DispatchQueue.main.asyncAfter(deadline: .now()) {
-                                        API().submitComment(submitted: commentObject)
-                                        self.default_comment = self.placeholder_default_comment
-                                    }
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                    API().getComment(post_id: post.id)
-                                    { (result) in
-                                        switch result
-                                        {
-                                            case .success(let comments):
-                                                self.comments = comments
-                                            case .failure(let error):
-                                                print(error)
-                                        }
-                                    }
-                                }
-                                self.commentBoxPressed.toggle()
-                              },
-                              secondaryButton: .cancel())
-                    }
-                    .alert(isPresented:$blockUserPressed){
-                        
-                        Alert(title: Text("Block User?"),
-                              message: Text(""),
-                              primaryButton: .default(Text("Confirm")){
-                                
-                                
-                                let defaults = UserDefaults.standard
-                                let user_id = defaults.string(forKey: defaultsKeys.user_id)!
-                                let block_user_object: [String: Any]  =
-                                    [
-                                        "user_id": user_id,
-                                        "blocked_user_id": post.user_id,
-                                        "blocked_reason": "",
-                                        "blocked_type": ""
-                                    ]
-                                API().blockUser(submitted: block_user_object)
-                                categoryGlobal.refreshCategory(category: categoryGlobal.currCategory)
-                                self.presentationMode.wrappedValue.dismiss()
-                            },
-                              secondaryButton: .cancel())
-                        }
+                        case .confirmComment:
+                            return Alert(title: Text("Submit comment?"),
+                                         message: Text(""),
+                                         primaryButton: .default(Text("Submit")){
+                                           
+                                           
+                                           
+                                               let defaults = UserDefaults.standard
+                                               let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+                                               let commentObject: [String: Any]  =
+                                                   [
+                                                       "post_id": post.id,
+                                                       "user_id": user_id,
+                                                       "content": self.default_comment,
+                                                   ]
+                                               DispatchQueue.main.asyncAfter(deadline: .now()) {
+                                                   API().submitComment(submitted: commentObject)
+                                                   self.default_comment = self.placeholder_default_comment
+                                               }
+                                           
+                                           DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                               API().getComment(post_id: post.id)
+                                               { (result) in
+                                                   switch result
+                                                   {
+                                                       case .success(let comments):
+                                                           self.comments = comments
+                                                       case .failure(let error):
+                                                           print(error)
+                                                   }
+                                               }
+                                           }
+                                           self.commentBoxPressed.toggle()
+                                         },
+                                         secondaryButton: .cancel())
+                        case .blockUser:
+                            return Alert(title: Text("Block User?"),
+                                         message: Text(""),
+                                         primaryButton: .default(Text("Confirm")){
+                                           
+                                           
+                                           let defaults = UserDefaults.standard
+                                           let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+                                           let block_user_object: [String: Any]  =
+                                               [
+                                                   "user_id": user_id,
+                                                   "blocked_user_id": post.user_id,
+                                                   "blocked_reason": "",
+                                                   "blocked_type": ""
+                                               ]
+                                           API().blockUser(submitted: block_user_object)
+                                           categoryGlobal.refreshCategory(category: categoryGlobal.currCategory)
+                                           self.presentationMode.wrappedValue.dismiss()
+                                       },
+                                         secondaryButton: .cancel())
+                                   }
+                               }
                     .disabled(self.default_comment == self.placeholder_default_comment || self.default_comment.isEmpty)
                     Spacer()
                 }.padding(.leading, UIScreen.main.bounds.width * 0.025)
