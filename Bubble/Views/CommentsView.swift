@@ -45,11 +45,6 @@ struct CommentsView: View {
     var body: some View {
         HStack{
         VStack(alignment: .leading, spacing: -3){
-            
-//                .overlay(
-//                    RoundedRectangle(cornerRadius: 0)
-//                        .stroke(Color.blue, lineWidth: 1)
-//                )
             HStack{
                 Spacer()
             Text(comment.content)
@@ -58,37 +53,21 @@ struct CommentsView: View {
                 .font(.system(size: 12))
                 .lineLimit(3)
                 .padding(.bottom, 2)
-                //Char limit on iphone 8 is 43
-                //Char limit on iphone 12 max is 99
                 Spacer()
-//
-
-           
             }.frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height * 0.05, alignment: .center)
-//            .overlay(
-//                RoundedRectangle(cornerRadius: 0)
-//                    .stroke(Color.green, lineWidth: 1)
-//            )
+
             HStack{
-//                Image(systemName: "ellipsis")
-//                    .colorInvert()
-//                    .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-//                    .padding(.leading, UIScreen.main.bounds.width * 0.05)
+
                 HStack(spacing:0){
                 Text(comment.username)
-                    
-                    //.foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                   // .foregroundColor(Color.black)
                     .font(.system(size: 10))
                     .bold()
                     .lineLimit(1)
                     .padding(.leading, UIScreen.main.bounds.width * 0.03)
+                    
                     Text(" - ")
                     
                     Text(comment.date_created)
-                        
-                        //.foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                        //.foregroundColor(Color.black)
                     .font(.system(size: 10))
                         .bold()
                 }
@@ -125,29 +104,14 @@ struct CommentsView: View {
         RoundedRectangle(cornerRadius: 25)
             .stroke(Color.white, lineWidth: 2)
     )
-//            Image(systemName: "ellipsis")
-//                .rotationEffect(.degrees(90))
-//                .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
-//                .padding(.trailing, UIScreen.main.bounds.width * 0.07)
-//                .contextMenu{
-//                    Button(action: {
-//                       FeedbackView()
-//                   }) {
-//                       Text("Report Comment")
-//                   }
-//
-//                }
-            
             if #available(iOS 14.0, *) {
                 Menu {
                     Button("Report Comment", action: {
-                            
-                         showingAlert = true
-                         let defaults = UserDefaults.standard
-                         let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+
                          print(comment)
-                         if(Int(user_id) == comment.user_id)
+                        if(Int(Constants.current_user_id) == comment.user_id)
                          {
+                            self.showingAlert = true
                              activeAlert = .sameUserReport
                          }
                          else
@@ -158,10 +122,8 @@ struct CommentsView: View {
                     })
                     Button("Block User", action: {
                         showingAlert = true
-                        let defaults = UserDefaults.standard
-                        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
                         print(comment)
-                        if(Int(user_id) == comment.user_id)
+                        if(Int(Constants.current_user_id) == comment.user_id)
                         {
                             activeAlert = .sameUserBlock
                         }

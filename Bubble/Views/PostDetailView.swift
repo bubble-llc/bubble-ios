@@ -23,7 +23,6 @@ struct KeyboardResponsiveModifier: ViewModifier {
     }
   }
 }
-
 extension View {
   func keyboardResponsive() -> ModifiedContent<Self, KeyboardResponsiveModifier> {
     return modifier(KeyboardResponsiveModifier())
@@ -60,7 +59,6 @@ struct PostDetailView: View {
         if #available(iOS 14.0, *) {
             VStack(alignment: .leading)
             {
-                //Post title. The Frame indicatew where it will be aligned, font adjusts text size
                 VStack(spacing: 0){
                     HStack(alignment: .center){
                     Text(post.title)
@@ -68,26 +66,8 @@ struct PostDetailView: View {
                         .underline()
                         .frame(maxWidth: .infinity, alignment: .center)
                         .font(.system(size:20))
-                        
-//                    MetadataView(post: post,
-//                                 isUp: self.$isUp,
-//                                 isDown: self.$isDown,
-//                                 totalVotes: self.$totalVotes,
-//                                 upColor: self.$upColor,
-//                                 downColor: self.$downColor,
-//                                 isVoted: self.$isVoted,
-//                                 upVotesOnly: self.$upVotesOnly,
-//                                 downVotesOnly: self.$downVotesOnly)
-//                        .padding(.top)
-//                        .padding(.trailing, 10)
-//                    Spacer()
-//                //End Hstack1 with just title
                 }
-//                }.foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-//                .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                //Built in function for adding spaces in V/H Stacks
                     HStack(){
-                //If it IS empty it should not be valid in the first place. Need to figure out how to rework this
                         Spacer()
                 Text(post.content)
                     .font(.system(size:15))
@@ -104,11 +84,7 @@ struct PostDetailView: View {
                                  upVotesOnly: self.$upVotesOnly,
                                  downVotesOnly: self.$downVotesOnly)
                         .offset(y: -UIScreen.main.bounds.height * 0.01)
-                        
-                    
                 }
-                
-
             }//End title, content, voting vstack
                 .padding()
                 .frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width * 0.95, minHeight: UIScreen.main.bounds.height * 0.1, maxHeight: UIScreen.main.bounds.height * 0.15)
@@ -152,11 +128,10 @@ struct PostDetailView: View {
                         if #available(iOS 14.0, *) {
                             Menu {
                                 Button("Report Post", action: {
-                                    self.showingAlert = true
-                                    let defaults = UserDefaults.standard
-                                    let user_id = defaults.string(forKey: defaultsKeys.user_id)!
-                                    if(Int(user_id) == post.user_id)
+                                    
+                                    if(Int(Constants.current_user_id) == post.user_id)
                                     {
+                                        self.showingAlert = true
                                         self.activeAlert = .sameUserReport
                                     }
                                     else
@@ -168,9 +143,7 @@ struct PostDetailView: View {
                                 })
                                 Button("Block User", action: {
                                     self.showingAlert = true
-                                    let defaults = UserDefaults.standard
-                                    let user_id = defaults.string(forKey: defaultsKeys.user_id)!
-                                    if(Int(user_id) == post.user_id)
+                                    if(Int(Constants.current_user_id) == post.user_id)
                                     {
                                         self.activeAlert = .sameUserBlock
                                     }
@@ -190,12 +163,6 @@ struct PostDetailView: View {
                         }
                             }
                         .padding(.leading, UIScreen.main.bounds.width * 0.07)
-
-
-                    
-//                    Image(systemName: "ellipsis")
-//                        .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
-//                        .padding(.trailing, UIScreen.main.bounds.width * 0.07)
                 }.padding(.top, UIScreen.main.bounds.width * 0.01)
                 
                 Divider()
@@ -237,22 +204,15 @@ struct PostDetailView: View {
                                 }
                                 self.isShowing = false
                             }
-                        }.onChange(of: self.isShowing){value in
-                            //categoryGlobal.fetchData()
-                            // print("oops")
-                            // categoryGlobal.refreshCategory(category: categoryGlobal.currCategory)
-                        }
+                        }.onChange(of: self.isShowing){value in} //Seriously just don't even bother looking into this
                     } else {
                         // Fallback on earlier versions
                     }
                 }
-                //Removed spacing from MetadataView in this context to keep it centered rather than offset on the right side.
-                
+
                 HStack{
                     if #available(iOS 14.0, *)
                     {
-                        //We are currently allowing there to be trailing spaces after comments, need to auto remove those from the comment
-                        //object before we actually let it be submitted
                         TextEditor(text: self.$default_comment)
                             
                             .onTapGesture {
@@ -300,13 +260,10 @@ struct PostDetailView: View {
                                          primaryButton: .default(Text("Submit")){
                                            
                                            
-                                           
-                                               let defaults = UserDefaults.standard
-                                               let user_id = defaults.string(forKey: defaultsKeys.user_id)!
                                                let commentObject: [String: Any]  =
                                                    [
                                                        "post_id": post.id,
-                                                       "user_id": user_id,
+                                                       "user_id": Constants.current_user_id,
                                                        "content": self.default_comment,
                                                    ]
                                                DispatchQueue.main.asyncAfter(deadline: .now()) {
@@ -333,13 +290,9 @@ struct PostDetailView: View {
                             return Alert(title: Text("Block User?"),
                                          message: Text(""),
                                          primaryButton: .default(Text("Confirm")){
-                                           
-                                           
-                                           let defaults = UserDefaults.standard
-                                           let user_id = defaults.string(forKey: defaultsKeys.user_id)!
                                            let block_user_object: [String: Any]  =
                                                [
-                                                   "user_id": user_id,
+                                                   "user_id": Constants.current_user_id,
                                                    "blocked_user_id": blockedUserId,
                                                    "blocked_reason": "",
                                                    "blocked_type": ""
@@ -400,12 +353,10 @@ struct FooterView: View {
             .frame(maxWidth: .infinity, minHeight: 100)
         Button(action:
         {
-            let defaults = UserDefaults.standard
-            let user_id = defaults.string(forKey: defaultsKeys.user_id)!
             let commentObject: [String: Any]  =
                 [
                     "post_id": post.id,
-                    "user_id": user_id,
+                    "user_id": Constants.current_user_id,
                     "content": self.comment_content,
                 ]
             API().submitComment(submitted: commentObject)
