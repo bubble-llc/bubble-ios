@@ -150,12 +150,8 @@ struct PostDetailView: View {
                         if #available(iOS 14.0, *) {
                             Menu {
                                 Button("Report Post", action: {isShowingDetailView = true})
-                                Button("Block User", action:{
-                                    blockUserPressed = true
-                                })
-                                }
-                                
-                             label: {
+                                Button("Block User", action: {blockUserPressed = true})
+                            } label: {
                                 Label("", systemImage: "ellipsis").foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                              
                             }.padding(.bottom, UIScreen.main.bounds.width * 0.01)
@@ -182,7 +178,7 @@ struct PostDetailView: View {
                     if #available(iOS 14.0, *) {
                         List{
                             ForEach(comments){comment in
-                            CommentsView(comment: comment)
+                                CommentsView(comment: comment, blockUserPressed: $blockUserPressed)
                                 .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                             }
                         }
@@ -320,8 +316,9 @@ struct PostDetailView: View {
                                         "blocked_type": ""
                                     ]
                                 API().blockUser(submitted: block_user_object)
+                                categoryGlobal.refreshCategory(category: categoryGlobal.currCategory)
                                 self.presentationMode.wrappedValue.dismiss()
-                                    },
+                            },
                               secondaryButton: .cancel())
                         }
                     .disabled(self.default_comment == self.placeholder_default_comment || self.default_comment.isEmpty)

@@ -3,15 +3,9 @@ import Request
 
 struct CommentsView: View {
     let comment: Comment
+    @Binding var blockUserPressed: Bool
     @State private var isShowingDetailView = false
-//    @Binding var isUp: Bool
-//    @Binding var isDown: Bool
-//    @Binding var totalVotes: Int
-//    @Binding var upColor: Color
-//    @Binding var downColor: Color
-//    @Binding var isVoted: Bool
-//    @Binding var upVotesOnly: Bool
-//    @Binding var downVotesOnly: Bool
+    
     @State var isUp = false
     @State var isDown = false
     @State var totalVotes:Int = 0
@@ -24,8 +18,9 @@ struct CommentsView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    init(comment: Comment) {
+    init(comment: Comment, blockUserPressed: Binding<Bool>) {
         self.comment = comment
+        self._blockUserPressed = blockUserPressed
         self._totalVotes = State(initialValue: comment.votes)
         
         if comment.is_voted == true
@@ -143,16 +138,17 @@ struct CommentsView: View {
                 Menu {
                     Button("Report Comment", action: {isShowingDetailView = true})
                     Button("Block User", action: {
-                        let defaults = UserDefaults.standard
-                        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
-                        let block_user_object: [String: Any]  =
-                            [
-                                "user_id": user_id,
-                                "blocked_user_id": comment.user_id,
-                                "blocked_reason": "",
-                                "blocked_type": ""
-                            ]
-                        API().blockUser(submitted: block_user_object)
+//                        let defaults = UserDefaults.standard
+//                        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+//                        let block_user_object: [String: Any]  =
+//                            [
+//                                "user_id": user_id,
+//                                "blocked_user_id": comment.user_id,
+//                                "blocked_reason": "",
+//                                "blocked_type": ""
+//                            ]
+//                        API().blockUser(submitted: block_user_object)
+                        blockUserPressed = true
                     })
                 } label: {
                     Label("", systemImage: "ellipsis").rotationEffect(.degrees(90)).foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
