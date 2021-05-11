@@ -138,16 +138,6 @@ struct CommentsView: View {
                 Menu {
                     Button("Report Comment", action: {isShowingDetailView = true})
                     Button("Block User", action: {
-//                        let defaults = UserDefaults.standard
-//                        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
-//                        let block_user_object: [String: Any]  =
-//                            [
-//                                "user_id": user_id,
-//                                "blocked_user_id": comment.user_id,
-//                                "blocked_reason": "",
-//                                "blocked_type": ""
-//                            ]
-//                        API().blockUser(submitted: block_user_object)
                         blockUserPressed = true
                     })
                 } label: {
