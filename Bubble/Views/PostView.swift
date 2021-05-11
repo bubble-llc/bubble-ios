@@ -13,6 +13,7 @@ struct PostView: View
     @State var isVoted = false
     @State var upVotesOnly = false
     @State var downVotesOnly = false
+    @State private var postDetailSend = true
     
     init(post: Post) {
         self.post = post
@@ -36,7 +37,7 @@ struct PostView: View
     
     var body: some View
     {
-        
+        ZStack{
         NavigationLink(destination: PostDetailView( post: post,
                                                     isUp: self.$isUp,
                                                     isDown: self.$isDown,
@@ -47,7 +48,8 @@ struct PostView: View
                                                     upVotesOnly: self.$upVotesOnly,
                                                     downVotesOnly: self.$downVotesOnly)
             )
-        {
+        {EmptyView()}.buttonStyle(PlainButtonStyle()).frame(width:0).opacity(0).hidden()
+            HStack{
             VStack(alignment: .leading, spacing: 0){
                 Spacer()
                 HStack{
@@ -68,20 +70,20 @@ struct PostView: View
                 
                 HStack{
                     
-                    Image(systemName: "01.circle.fill")
+                    Image(Constants.avatar_list[Int.random(in: 0...3)])
                         .resizable()
-                        .frame(width:30, height:30)
-                        .padding(.leading)
+                        .frame(width:35, height:35)
                     Spacer()
                     Text(post.content)
                         .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .font(.system(size: 15))
                         .lineLimit(2)
-                        .padding(.leading, 3)
                         .frame(width: UIScreen.main.bounds.width * 0.6, height: UIScreen.main.bounds.height/24.5, alignment: .center)
+                        .multilineTextAlignment(.center)
                         
                     Spacer()
                 }
+                .padding(.leading, UIScreen.main.bounds.width * 0.045)
                 HStack{
                     Spacer()
                     Spacer()
@@ -101,7 +103,8 @@ struct PostView: View
             .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height / 15.8)
             .padding(.bottom)
             .padding(.top)
-
+            }
+            .offset(x: -UIScreen.main.bounds.width * 0.065)
                     MetadataView(post: post,
                                  isUp: self.$isUp,
                                  isDown: self.$isDown,
@@ -112,19 +115,20 @@ struct PostView: View
                                  upVotesOnly: self.$upVotesOnly,
                                  downVotesOnly: self.$downVotesOnly)
                             .font(.caption)
-                            .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                        .buttonStyle(PlainButtonStyle())
-        }.onAppear {
-            UITableViewCell.appearance().selectionStyle = .none
-         }
-        .buttonStyle(PlainButtonStyle())
-        .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height/9, alignment: .center)
-        .background(Color.white)
-        .cornerRadius(20)
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(Color.white, lineWidth: 2)
-        )
+                        .offset(x: UIScreen.main.bounds.width * 0.4)
+            
+            
+    }.onAppear {
+        UITableViewCell.appearance().selectionStyle = .none
+     }
+    .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height/9, alignment: .center)
+    .background(Color.white)
+    .cornerRadius(20)
+    .overlay(
+        RoundedRectangle(cornerRadius: 20)
+            .stroke(Color.white, lineWidth: 2)
+    )
+   .buttonStyle(PlainButtonStyle())
         
     }
     
