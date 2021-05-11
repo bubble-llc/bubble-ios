@@ -13,6 +13,7 @@ struct PostView: View
     @State var isVoted = false
     @State var upVotesOnly = false
     @State var downVotesOnly = false
+    @State private var postDetailSend = true
     
     init(post: Post) {
         self.post = post
@@ -36,7 +37,7 @@ struct PostView: View
     
     var body: some View
     {
-        
+        ZStack{
         NavigationLink(destination: PostDetailView( post: post,
                                                     isUp: self.$isUp,
                                                     isDown: self.$isDown,
@@ -47,7 +48,8 @@ struct PostView: View
                                                     upVotesOnly: self.$upVotesOnly,
                                                     downVotesOnly: self.$downVotesOnly)
             )
-        {
+        {EmptyView()}.buttonStyle(PlainButtonStyle()).frame(width:0).opacity(0).hidden()
+        
             VStack(alignment: .leading, spacing: 0){
                 Spacer()
                 HStack{
@@ -68,7 +70,7 @@ struct PostView: View
                 
                 HStack{
                     
-                    Image(systemName: "01.circle.fill")
+                    Image(Constants.avatar_list[Int.random(in: 0...3)])
                         .resizable()
                         .frame(width:30, height:30)
                         .padding(.leading)
@@ -112,19 +114,20 @@ struct PostView: View
                                  upVotesOnly: self.$upVotesOnly,
                                  downVotesOnly: self.$downVotesOnly)
                             .font(.caption)
-                            .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                        .buttonStyle(PlainButtonStyle())
-        }.onAppear {
-            UITableViewCell.appearance().selectionStyle = .none
-         }
-        .buttonStyle(PlainButtonStyle())
-        .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height/9, alignment: .center)
-        .background(Color.white)
-        .cornerRadius(20)
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(Color.white, lineWidth: 2)
-        )
+                        .offset(x: UIScreen.main.bounds.width * 0.4)
+            
+            
+    }.onAppear {
+        UITableViewCell.appearance().selectionStyle = .none
+     }
+    .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height/9, alignment: .center)
+    .background(Color.white)
+    .cornerRadius(20)
+    .overlay(
+        RoundedRectangle(cornerRadius: 20)
+            .stroke(Color.white, lineWidth: 2)
+    )
+   .buttonStyle(PlainButtonStyle())
         
     }
     
