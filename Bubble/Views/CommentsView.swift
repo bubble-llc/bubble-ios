@@ -140,7 +140,22 @@ struct CommentsView: View {
             
             if #available(iOS 14.0, *) {
                 Menu {
-                    Button("Report Comment", action: {isShowingDetailView = true})
+                    Button("Report Comment", action: {
+                            
+                         showingAlert = true
+                         let defaults = UserDefaults.standard
+                         let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+                         print(comment)
+                         if(Int(user_id) == comment.user_id)
+                         {
+                             activeAlert = .sameUserReport
+                         }
+                         else
+                         {
+                             isShowingDetailView = true
+                         }
+                        
+                    })
                     Button("Block User", action: {
                         showingAlert = true
                         let defaults = UserDefaults.standard
@@ -148,7 +163,7 @@ struct CommentsView: View {
                         print(comment)
                         if(Int(user_id) == comment.user_id)
                         {
-                            activeAlert = .sameUser
+                            activeAlert = .sameUserBlock
                         }
                         else
                         {

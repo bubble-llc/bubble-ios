@@ -151,14 +151,28 @@ struct PostDetailView: View {
                             .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                         if #available(iOS 14.0, *) {
                             Menu {
-                                Button("Report Post", action: {isShowingDetailView = true})
+                                Button("Report Post", action: {
+                                    self.showingAlert = true
+                                    let defaults = UserDefaults.standard
+                                    let user_id = defaults.string(forKey: defaultsKeys.user_id)!
+                                    if(Int(user_id) == post.user_id)
+                                    {
+                                        self.activeAlert = .sameUserReport
+                                    }
+                                    else
+                                    {
+                                        isShowingDetailView = true
+                                    
+                                    }
+                                        
+                                })
                                 Button("Block User", action: {
                                     self.showingAlert = true
                                     let defaults = UserDefaults.standard
                                     let user_id = defaults.string(forKey: defaultsKeys.user_id)!
                                     if(Int(user_id) == post.user_id)
                                     {
-                                        self.activeAlert = .sameUser
+                                        self.activeAlert = .sameUserBlock
                                     }
                                     else
                                     {
@@ -335,8 +349,12 @@ struct PostDetailView: View {
                                            self.presentationMode.wrappedValue.dismiss()
                                        },
                                          secondaryButton: .cancel())
-                        case .sameUser:
+                        case .sameUserBlock:
                             return Alert(title: Text("You cannot block yourself"),
+                                         message: Text(""),
+                                         dismissButton: .default(Text("OK"), action: {}))
+                        case .sameUserReport:
+                            return Alert(title: Text("You cannot report yourself"),
                                          message: Text(""),
                                          dismissButton: .default(Text("OK"), action: {}))
                                    }
