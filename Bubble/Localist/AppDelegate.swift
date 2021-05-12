@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             "email": "email",
             "date_joined": "date_joined",
             "default_category_id": Constants.DEFAULT_CATEGORY,
+            "token": "",
         ]
         UserDefaults.standard.register(defaults: initialDefaults as! [String : Any])
         UINavigationBar.appearance().barTintColor = UIColor(red:0.439, green:0.792, blue:0.827, alpha:1)//changes navigation bar up top

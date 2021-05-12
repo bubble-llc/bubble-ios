@@ -263,7 +263,6 @@ struct PostDetailView: View {
                                                let commentObject: [String: Any]  =
                                                    [
                                                        "post_id": post.id,
-                                                       "user_id": Constants.current_user_id,
                                                        "content": self.default_comment,
                                                    ]
                                                DispatchQueue.main.asyncAfter(deadline: .now()) {
@@ -292,7 +291,6 @@ struct PostDetailView: View {
                                          primaryButton: .default(Text("Confirm")){
                                            let block_user_object: [String: Any]  =
                                                [
-                                                   "user_id": Constants.current_user_id,
                                                    "blocked_user_id": blockedUserId,
                                                    "blocked_reason": "",
                                                    "blocked_type": ""
@@ -356,7 +354,6 @@ struct FooterView: View {
             let commentObject: [String: Any]  =
                 [
                     "post_id": post.id,
-                    "user_id": Constants.current_user_id,
                     "content": self.comment_content,
                 ]
             API().submitComment(submitted: commentObject)

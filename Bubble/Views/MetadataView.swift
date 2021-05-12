@@ -49,11 +49,8 @@ struct MetadataView: View {
                         self.upColor = Color.gray
                     }
                     
-                    let defaults = UserDefaults.standard
-                    let user_id = defaults.string(forKey: defaultsKeys.user_id)!
                     let voteObject: [String: Any]  =
                     [
-                        "username": user_id,
                         "vote_type": "post",
                         "post_id": self.post!.id,
                         "direction": self.direction,
@@ -105,25 +102,14 @@ struct MetadataView: View {
                     self.downColor = Color.gray
                 }
                 
-                let defaults = UserDefaults.standard
-                let user_id = defaults.string(forKey: defaultsKeys.user_id)!
                 let voteObject: [String: Any]  =
                 [
-                    "username": user_id,
+                    "vote_type": "post",
                     "post_id": self.post!.id,
                     "direction": self.direction,
                     "is_voted": self.isVoted,
                     "global_direction": self.globalDirection
                 ]
-//
-//                let voteObject: [String: Any]  =
-//                [
-//                    "username": user_id,
-//                    "comment_id": self.comment.id,
-//                    "direction": self.direction,
-//                    "is_voted": self.isVoted,
-//                    "global_direction": self.globalDirection
-//                ]
                 
                 self.isVoted = true
                 
@@ -169,11 +155,8 @@ struct MetadataView: View {
                     self.upColor = Color.gray
                 }
                 
-                let defaults = UserDefaults.standard
-                let user_id = defaults.string(forKey: defaultsKeys.user_id)!
                 let voteObject: [String: Any]  =
                 [
-                    "username": user_id,
                     "vote_type": "post",
                     "post_id": self.post!.id,
                     "direction": self.direction,
@@ -221,11 +204,9 @@ struct MetadataView: View {
                     self.downColor = Color.gray
                 }
                 
-                let defaults = UserDefaults.standard
-                let user_id = defaults.string(forKey: defaultsKeys.user_id)!
                 let voteObject: [String: Any]  =
                 [
-                    "username": user_id,
+                    "vote_type": "post",
                     "post_id": self.post!.id,
                     "direction": self.direction,
                     "is_voted": self.isVoted,
@@ -288,11 +269,8 @@ struct MetadataView: View {
                         self.upColor = Color.gray
                     }
                     
-                    let defaults = UserDefaults.standard
-                    let user_id = defaults.string(forKey: defaultsKeys.user_id)!
                     let voteObject: [String: Any]  =
                     [
-                        "username": user_id,
                         "vote_type": "comment",
                         "comment_id": self.comment!.id,
                         "direction": self.direction,
@@ -342,11 +320,8 @@ struct MetadataView: View {
                         self.downColor = Color.gray
                     }
                     
-                    let defaults = UserDefaults.standard
-                    let user_id = defaults.string(forKey: defaultsKeys.user_id)!
                     let voteObject: [String: Any]  =
                     [
-                        "username": user_id,
                         "vote_type": "comment",
                         "comment_id": self.comment!.id,
                         "direction": self.direction,
