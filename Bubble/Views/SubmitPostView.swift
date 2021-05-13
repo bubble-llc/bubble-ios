@@ -139,7 +139,6 @@ struct SubmitPostView: View {
                                 print(category_id)
                                 let postObject: [String: Any]  =
                                     [
-                                        "user_id": user_id,
                                         "category_id": category_id,
                                         "content": self.post_content,
                                         "title": self.post_title,

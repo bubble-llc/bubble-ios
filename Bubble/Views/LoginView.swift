@@ -1,4 +1,5 @@
 import SwiftUI
+import JWTDecode
 
 struct LoginView: View {
 
@@ -6,6 +7,8 @@ struct LoginView: View {
     @State private var password: String = ""
     @State private var showingAlert = false
     @State var users: [User] = []
+    @State var token: [Jwt] = []
+    
 
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
@@ -55,20 +58,18 @@ struct LoginView: View {
                 .frame(width: UIScreen.main.bounds.width * 0.8)
                 
                 Button(action: {
-                    API().getUser(username: username, password:  password)
+                    let postObject: [String: Any]  =
+                    [
+                        "username": username,
+                        "password": password,
+                    ]
+                    API().getUserPost(submitted: postObject)
                     { (result) in
                         switch result
                         {
-                        case .success(let users):
-                            self.users = users
-                            print(self.users)
-                            userAuth.setInfo(userInfo: [
-                                "username": username,
-                                "user_id": self.users[0].user_id,
-                                "password": password,
-                                "email": self.users[0].email,
-                                "date_joined": self.users[0].date_joined
-                            ])
+                        case .success(let token):
+                            self.token = token
+                            userAuth.processJwt(jwt: self.token[0], password: password)
                             categoryGlobal.fetchData()
                         case .failure(let error):
                             print(error)

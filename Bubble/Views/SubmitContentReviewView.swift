@@ -94,7 +94,6 @@ struct SubmitContentReviewView: View {
                 if (post != nil){
                     let feedback_object: [String: Any]  =
                         [
-                            "user_id": user_id,
                             "content": self.feedback_content,
                             "post_id": post!.id,
                             "content_type": "post"
@@ -104,7 +103,6 @@ struct SubmitContentReviewView: View {
                 else if (comment != nil){
                     let feedback_object: [String: Any]  =
                         [
-                            "user_id": user_id,
                             "content": self.feedback_content,
                             "comment_id": comment!.id,
                             "content_type": "comment"

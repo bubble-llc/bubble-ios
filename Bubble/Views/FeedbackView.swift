@@ -90,11 +90,8 @@ struct FeedbackView: View{
             Spacer()
             Button(action:
             {
-                let defaults = UserDefaults.standard
-                let user_id = defaults.string(forKey: defaultsKeys.user_id)!
                 let feedback_object: [String: Any]  =
                     [
-                        "user_id": user_id,
                         "content": self.feedback_content,
                         "latitude": locationViewModel.userLatitude,
                         "longitude": locationViewModel.userLongitude,

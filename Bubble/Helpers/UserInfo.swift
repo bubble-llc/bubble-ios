@@ -7,6 +7,7 @@
 //
 import Foundation
 import Combine
+import JWTDecode
 
 class UserAuth: ObservableObject {
     let objectWillChange = ObservableObjectPublisher()
@@ -30,15 +31,18 @@ class UserAuth: ObservableObject {
         }
     }
     
-    func setInfo(userInfo: Dictionary<String, String>) {
+    func processJwt(jwt: Jwt, password: String) {
+        let decoded_jwt = try? decode(jwt: jwt.token)
+        let body = decoded_jwt!.body
         let defaults = UserDefaults.standard
-        defaults.set(userInfo["username"], forKey: defaultsKeys.username)
-        defaults.set(userInfo["user_id"], forKey: defaultsKeys.user_id)
-        defaults.set(userInfo["user_type"], forKey: defaultsKeys.user_type)
-        defaults.set(userInfo["password"], forKey: defaultsKeys.password)
-        defaults.set(userInfo["email"], forKey: defaultsKeys.email)
-        defaults.set(userInfo["date_joined"], forKey: defaultsKeys.date_joined)
-        defaults.set(userInfo["default_category_id"], forKey: defaultsKeys.default_category_id)
+        defaults.set(body["username"], forKey: defaultsKeys.username)
+        defaults.set(body["user_id"], forKey: defaultsKeys.user_id)
+        defaults.set(body["user_type"], forKey: defaultsKeys.user_type)
+        defaults.set(password, forKey: defaultsKeys.password)
+        defaults.set(body["email"], forKey: defaultsKeys.email)
+        defaults.set(body["date_joined"], forKey: defaultsKeys.date_joined)
+        defaults.set(body["default_category_id"], forKey: defaultsKeys.default_category_id)
+        defaults.set(jwt.token, forKey: defaultsKeys.token)
         self.isLoggedin = true
     }
     
@@ -51,6 +55,7 @@ class UserAuth: ObservableObject {
         defaults.set("email", forKey: defaultsKeys.email)
         defaults.set("date_joined", forKey: defaultsKeys.date_joined)
         defaults.set(Constants.DEFAULT_CATEGORY, forKey: defaultsKeys.default_category_id)
+        defaults.set("", forKey: defaultsKeys.token)
         self.isLoggedin = false
     }
 }
@@ -63,4 +68,5 @@ struct defaultsKeys {
     static let email = "email"
     static let date_joined = "date_joined"
     static let default_category_id = "default_category_id"
+    static let token = "token"
 }

@@ -1,4 +1,5 @@
 import Foundation
+import JWTDecode
 
 class API {
     fileprivate let baseURL = "https://dashboard.stocksandshare.com/chitchat"
@@ -7,10 +8,8 @@ class API {
     
     func getPosts(logitude: String, latitude: String, category: String, completion: @escaping (Result<[Post],Error>) ->())
     {
-        let defaults = UserDefaults.standard
-        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
         var paramStr = ""
-        paramStr += "user_id=\(String(describing: user_id))&"
+        paramStr += "token=\(String(describing: UserDefaults.standard.string(forKey: defaultsKeys.token)!))&"
         paramStr += "category_id=\(String(describing: categories[category]! ))"
         
         guard let url = URL(string: "\(baseURL)/category?\(String(describing: paramStr))") else {return}
@@ -47,10 +46,7 @@ class API {
     
     func getUserCreatedPosts(completion: @escaping (Result<[Post],Error>) ->())
     {
-        let defaults = UserDefaults.standard
-        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
-
-        guard let url = URL(string: "\(baseURL)/user_created_post?user_id=\(String(describing: user_id))") else {return}
+        guard let url = URL(string: "\(baseURL)/user_created_post?token=\(UserDefaults.standard.string(forKey: defaultsKeys.token)!)") else {return}
         URLSession.shared.dataTask(with: url)
         { (data, response, error) in
             if let httpResponse = response as? HTTPURLResponse {
@@ -85,10 +81,7 @@ class API {
     
     func getUserLikedPosts(completion: @escaping (Result<[Post],Error>) ->())
     {
-        let defaults = UserDefaults.standard
-        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
-
-        guard let url = URL(string: "\(baseURL)/user_liked_post?user_id=\(String(describing: user_id))") else {return}
+        guard let url = URL(string: "\(baseURL)/user_liked_post?token=\(UserDefaults.standard.string(forKey: defaultsKeys.token)!)") else {return}
         URLSession.shared.dataTask(with: url)
         { (data, response, error) in
             if let httpResponse = response as? HTTPURLResponse {
@@ -122,9 +115,7 @@ class API {
     }
     func getComment(post_id: Int, completion: @escaping (Result<[Comment],Error>) ->())
     {
-        let defaults = UserDefaults.standard
-        let user_id = defaults.string(forKey: defaultsKeys.user_id)!
-        guard let url = URL(string: "\(baseURL)/comment?user_id=\(user_id)&post_id=\(post_id)") else {return}
+        guard let url = URL(string: "\(baseURL)/comment?token=\(UserDefaults.standard.string(forKey: defaultsKeys.token)!)&post_id=\(post_id)") else {return}
         URLSession.shared.dataTask(with: url)
         { (data, response, error) in
             if let httpResponse = response as? HTTPURLResponse {
@@ -157,39 +148,40 @@ class API {
         }.resume()
     }
     
-    func getUser(username: String, password: String, completion: @escaping (Result<[User],Error>) ->())
+    func getUserPost(submitted: [String: Any], completion: @escaping (Result<[Jwt],Error>) ->())
     {
-        guard let url = URL(string: "\(self.baseURL)/user?username=\(username)&password=\(password )") else {fatalError()}
-        URLSession.shared.dataTask(with: url)
-        { (data, response, error) in
-            if let httpResponse = response as? HTTPURLResponse {
-               print("API status: \(httpResponse.statusCode)")
-            }
+        guard let postUrl = URL(string: "\(baseURL)/user") else {fatalError()}
+        
+        var request = URLRequest(url: postUrl)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+        
+        let submission = try? JSONSerialization.data(withJSONObject: submitted)
+        
+        request.httpBody = submission
+        
+        let task = URLSession.shared.dataTask(with: request)
+        { data, response, error in
             
-            guard let response = response as? HTTPURLResponse else
+            guard let data = data, error == nil else
             {
-                print("API error: \(error!.localizedDescription)")
+                print(error?.localizedDescription ?? "No data")
                 completion(.failure(error!))
                 return
             }
-            if let responseError = self.handleNetworkResponse(response: response)
-            {
-                completion(.failure(responseError))
-                return
-            }
+            print(data)
             
-            guard let validData = data, error == nil else {
-               print("API error: \(error!.localizedDescription)")
-               completion(.failure(error!))
-               return
-            }
-            print(response)
-            let user = try! JSONDecoder().decode([User].self, from:validData)
-            DispatchQueue.main.async
-            {
-                completion(.success(user))
-            }
-        }.resume()
+            do {
+                let token = try! JSONDecoder().decode([Jwt].self, from:data)
+                DispatchQueue.main.async
+                {
+                    completion(.success(token))
+                }
+            } catch {
+                    print("JSONSerialization error:", error)
+                }
+        }
+        task.resume()
     }
     
     func submitPost(submitted: [String: Any]){
@@ -198,6 +190,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted)
         
@@ -227,6 +220,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted)
         
@@ -256,6 +250,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted)
         
@@ -285,6 +280,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted)
         
@@ -314,35 +310,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
-        
-        let submission = try? JSONSerialization.data(withJSONObject: submitted)
-        
-        request.httpBody = submission
-        
-        let task = URLSession.shared.dataTask(with: request)
-        { data, response, error in
-            
-            guard let data = data, error == nil else
-            {
-                print(error?.localizedDescription ?? "No data")
-                return
-            }
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let responseJSON = responseJSON as? [String: Any]
-            {
-                print(responseJSON)
-            }
-        }
-        task.resume()
-    }
-    
-    func submitReportedPost(submitted: [String: Any])
-    {
-        guard let postUrl = URL(string: "\(baseURL)/report_post") else {fatalError()}
-        
-        var request = URLRequest(url: postUrl)
-        request.httpMethod = "POST"
-        request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted)
         
@@ -372,6 +340,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted, options: .prettyPrinted)
         
@@ -401,6 +370,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted, options: .prettyPrinted)
         
@@ -459,6 +429,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted, options: .prettyPrinted)
         
@@ -488,6 +459,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
 
         let submission = try? JSONSerialization.data(withJSONObject: submitted, options: .prettyPrinted)
 
