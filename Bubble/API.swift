@@ -162,6 +162,21 @@ class API {
         
         let task = URLSession.shared.dataTask(with: request)
         { data, response, error in
+            if let httpResponse = response as? HTTPURLResponse {
+               print("API status: \(httpResponse.statusCode)")
+            }
+            
+            guard let response = response as? HTTPURLResponse else
+            {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            if let responseError = self.handleNetworkResponse(response: response)
+            {
+                completion(.failure(responseError))
+                return
+            }
             
             guard let data = data, error == nil else
             {
