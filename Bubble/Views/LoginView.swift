@@ -73,7 +73,6 @@ struct LoginView: View {
                             categoryGlobal.fetchData()
                         case .failure(let error):
                             print(error)
-                            print("got here")
                             self.showingAlert = true
                         }
                     }
