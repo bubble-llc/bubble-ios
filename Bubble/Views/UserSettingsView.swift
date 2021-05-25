@@ -9,7 +9,7 @@ struct UserSettingsView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State private var username: String = " Username"
+    @State private var username: String = ""
     @State private var default_post_title: String = "Location of post"
     @State private var post_title_pressed: Bool = false
     @State private var post_content: String = "Write some content for your post"
@@ -39,14 +39,18 @@ struct UserSettingsView: View {
     
     var body: some View
     {
-        
+        let defaults = UserDefaults.standard
+        let actual_username = defaults.string(forKey: defaultsKeys.username)!
         if #available(iOS 14.0, *) {
             VStack(alignment: .leading){
                 Spacer()
+                VStack{
                 Text("Account")
-                    .font(.system(size: 40))
+                    .font(.system(size: 50))
                     .foregroundColor(.white)
-                    .padding(.leading, UIScreen.main.bounds.width * 0.125)
+                    Divider().frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.width * 0.01).background(Color("bubble_dark")).padding(-5)
+                }
+                .padding(.leading, UIScreen.main.bounds.width * 0.05)
                 Spacer()
                 VStack(alignment: .leading) {
                     VStack(alignment:.leading){
@@ -61,7 +65,7 @@ struct UserSettingsView: View {
                     .foregroundColor(.white)
                     .padding(.leading, UIScreen.main.bounds.width * 0.05)
                     
-                    TextEditor(text: $username)
+                    SecureField(" " + actual_username, text: $username)
                         .font(.system(size: 18))
                         .lineLimit(0)
                         .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
@@ -81,12 +85,13 @@ struct UserSettingsView: View {
                         self.changePassword.toggle()
                     }){
                     Image(systemName: self.changePassword == false ? "eye.slash": "eye")
+                        .foregroundColor(Color("bubble_dark"))
                     }
                 }
                 .padding(.leading, UIScreen.main.bounds.width * 0.05)
                     if changePassword{
                     Section{
-                        SecureField("  old password", text: $oldPassword)
+                        SecureField("  Old password", text: $oldPassword)
                             .font(.system(size: 18))
                             .textContentType(.newPassword)
                             .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
@@ -150,12 +155,39 @@ struct UserSettingsView: View {
                         self.showBlocked.toggle()
                     }){
                     Image(systemName: self.showBlocked == false ? "eye.slash": "eye")
+                        .foregroundColor(Color("bubble_dark"))
                     }
                 }
                 .padding(.leading, UIScreen.main.bounds.width * 0.05)
-            }
+                
+                if showBlocked{
+                    List{
+                        HStack{
+                            Text("User 1")
+                            Spacer()
+                            Image(systemName: "trash")
+                        }
+                        HStack{
+                            Text("User 2")
+                            Spacer()
+                            Image(systemName: "trash")
+                        }
+                        HStack{
+                            Text("User 3")
+                            Spacer()
+                            Image(systemName: "trash")
+                        }
+                    }
+                    .padding(.leading, UIScreen.main.bounds.width * 0.05)
+                    .frame(width:UIScreen.main.bounds.width * 0.42, height: UIScreen.main.bounds.height * 0.2)
+                }
+                
+            }//Privacy VStack
+            
             .padding(.leading, -UIScreen.main.bounds.width * 0.2)
+                if !showBlocked{
                 Spacer()
+                }
             VStack(alignment: .leading){
                 VStack(alignment: .leading){
                 Text("Notifications")
@@ -198,14 +230,18 @@ struct UserSettingsView: View {
             Spacer()
                 Spacer()
         }//Encompassing VStack
-            
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            
+            .ignoresSafeArea()
         .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
         .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-        } else {
+            }
+
+        
+            else {
             // Fallback on earlier versions
         }
-               
+       
     }
     
 }
