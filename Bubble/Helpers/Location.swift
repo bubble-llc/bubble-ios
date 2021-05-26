@@ -13,6 +13,7 @@ class LocationViewModel: NSObject, ObservableObject{
   
   @Published var userLatitude: String = "0"
   @Published var userLongitude: String = "0"
+  @Published var cityName: String = "0"
   
   private let locationManager = CLLocationManager()
   
@@ -73,9 +74,20 @@ extension LocationViewModel: CLLocationManagerDelegate {
         if let location = locations.last {
             self.userLatitude = "\(location.coordinate.latitude)"
             self.userLongitude = "\(location.coordinate.longitude)"
+            
+            let geocoder = CLGeocoder()
+
+            geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
+                if error == nil {
+                    if let firstLocation = placemarks?[0],
+                        let cityName = firstLocation.locality { // get the city name
+                        self?.locationManager.stopUpdatingLocation()
+                        self?.cityName = cityName
+                    }
+                }
+            }
         }
-        print(self.userLatitude)
-        print(self.userLongitude)
+        print(self.cityName)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
