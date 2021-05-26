@@ -22,7 +22,7 @@ struct MenuView : View {
             VStack
             {
 
-                Image("b_300")
+                Image("b_3002")
                     .resizable()
                     .frame(width: UIScreen.main.bounds.width * 0.55, height: UIScreen.main.bounds.height * 0.25)
                     .padding(.top, UIScreen.main.bounds.height * 0.15)
@@ -30,7 +30,7 @@ struct MenuView : View {
                     
                 
                     
-                HStackå
+                HStack
                 {
                     NavigationLink(destination: UserProfileView())
                     {
@@ -81,8 +81,10 @@ struct MenuView : View {
                 Spacer()
                 
                 
-                Text("location")
+                Text(locationViewModel.cityName)
+                    .foregroundColor(.white)
                     .padding(.bottom, UIScreen.main.bounds.height * 0.1)
+                    .padding(.trailing, UIScreen.main.bounds.width * 0.05)
                 
                 
                 
