@@ -21,8 +21,16 @@ struct MenuView : View {
         if #available(iOS 14.0, *) {
             VStack
             {
-                Spacer()
-                HStack
+
+                Image("b_300")
+                    .resizable()
+                    .frame(width: UIScreen.main.bounds.width * 0.55, height: UIScreen.main.bounds.height * 0.25)
+                    .padding(.top, UIScreen.main.bounds.height * 0.15)
+                    .padding(.bottom, UIScreen.main.bounds.height * 0.05)
+                    
+                
+                    
+                HStackå
                 {
                     NavigationLink(destination: UserProfileView())
                     {
@@ -71,7 +79,13 @@ struct MenuView : View {
                 .padding()
                 
                 Spacer()
-                Spacer()
+                
+                
+                Text("location")
+                    .padding(.bottom, UIScreen.main.bounds.height * 0.1)
+                
+                
+                
             }
             .frame(maxWidth: UIScreen.main.bounds.width/2, maxHeight: UIScreen.main.bounds.height, alignment: .topLeading)
             .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))

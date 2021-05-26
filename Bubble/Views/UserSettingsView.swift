@@ -51,6 +51,7 @@ struct UserSettingsView: View {
                     Divider().frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.width * 0.01).background(Color("bubble_dark")).padding(-5)
                 }
                 .padding(.leading, UIScreen.main.bounds.width * 0.05)
+                .padding(.top)
                 Spacer()
                 VStack(alignment: .leading) {
                     VStack(alignment:.leading){
