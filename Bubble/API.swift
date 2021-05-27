@@ -113,6 +113,7 @@ class API {
             }
         }.resume()
     }
+    
     func getComment(post_id: Int, completion: @escaping (Result<[Comment],Error>) ->())
     {
         guard let url = URL(string: "\(baseURL)/comment?token=\(UserDefaults.standard.string(forKey: defaultsKeys.token)!)&post_id=\(post_id)") else {return}
@@ -197,6 +198,76 @@ class API {
                 }
         }
         task.resume()
+    }
+    
+    func checkUsername(username: String, completion: @escaping (Result<Void,Error>) ->())
+    {
+        guard let url = URL(string: "\(baseURL)/check_username?username=\(username)") else {fatalError()}
+        
+        URLSession.shared.dataTask(with: url)
+        { (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("API status: \(httpResponse.statusCode)")
+            }
+            
+            guard let response = response as? HTTPURLResponse else
+            {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            if let responseError = self.handleNetworkResponse(response: response)
+            {
+                completion(.failure(responseError))
+                return
+            }
+            
+            guard let _ = data, error == nil else {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            
+            DispatchQueue.main.async
+            {
+                completion(.success(()))
+            }
+        }.resume()
+    }
+    
+    func checkEmail(email: String, completion: @escaping (Result<Void,Error>) ->())
+    {
+        guard let url = URL(string: "\(baseURL)/check_email?email=\(email)") else {fatalError()}
+        
+        URLSession.shared.dataTask(with: url)
+        { (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("API status: \(httpResponse.statusCode)")
+            }
+            
+            guard let response = response as? HTTPURLResponse else
+            {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            if let responseError = self.handleNetworkResponse(response: response)
+            {
+                completion(.failure(responseError))
+                return
+            }
+            
+            guard let _ = data, error == nil else {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            
+            DispatchQueue.main.async
+            {
+                completion(.success(()))
+            }
+        }.resume()
     }
     
     func submitPost(submitted: [String: Any]){
@@ -350,12 +421,11 @@ class API {
 
     func createUser(submitted: [String: Any])
     {
-        guard let postUrl = URL(string: "\(baseURL)/user") else {fatalError()}
+        guard let postUrl = URL(string: "\(baseURL)/create_user") else {fatalError()}
         
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
-        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted, options: .prettyPrinted)
         
@@ -406,6 +476,41 @@ class API {
             }
         }
         task.resume()
+    }
+    
+    func validatePasswordRecoveryCode(email: String, recovery_code: String, completion: @escaping (Result<Void,Error>) ->())
+    {
+        guard let url = URL(string: "\(baseURL)/validate_password_recovery_code?email=\(email)&recovery_code=\(recovery_code)") else {fatalError()}
+        
+        URLSession.shared.dataTask(with: url)
+        { (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("API status: \(httpResponse.statusCode)")
+            }
+            
+            guard let response = response as? HTTPURLResponse else
+            {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            if let responseError = self.handleNetworkResponse(response: response)
+            {
+                completion(.failure(responseError))
+                return
+            }
+            
+            guard let _ = data, error == nil else {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            
+            DispatchQueue.main.async
+            {
+                completion(.success(()))
+            }
+        }.resume()
     }
     
     func validatePasswordReset(submitted: [String: Any])

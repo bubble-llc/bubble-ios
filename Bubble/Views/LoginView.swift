@@ -6,6 +6,8 @@ struct LoginView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var showingAlert = false
+    @State private var isRegister = false
+    @State private var isForgotPassword = false
     @State var users: [User] = []
     @State var token: [Jwt] = []
     
@@ -96,18 +98,18 @@ struct LoginView: View {
                 }
                 HStack{
                     Spacer()
-                    NavigationLink(destination: CreateUserView().environmentObject(userAuth).environmentObject(categoryGlobal))
-                    {
-                        Text("Register")
-                    }
+                    Button("Register") {
+                        isRegister.toggle()
+                            }
+                    .fullScreenCover(isPresented: $isRegister, content: StartRegistrationView.init)
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
                     Spacer()
-                    NavigationLink(destination: PasswordReset().environmentObject(userAuth).environmentObject(categoryGlobal))
-                    {
-                        Text("Forgot Password")
-                    }
+                    Button("Forgot Password") {
+                        isForgotPassword.toggle()
+                            }
+                    .fullScreenCover(isPresented: $isForgotPassword, content: PasswordReset.init)
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
