@@ -129,13 +129,13 @@ struct MenuView : View {
                     .opacity(0.6)
                     .padding(.bottom, UIScreen.main.bounds.height * 0.05)
                     .padding(.top, UIScreen.main.bounds.height * 0.1)
-                    .padding(.trailing, UIScreen.main.bounds.height * 0.03)
+                    .padding(.trailing, UIScreen.main.bounds.height * 0.05)
                 
                 Text(locationViewModel.cityName)
                     .foregroundColor(Color("bubble_dark"))
                     .font(.system(size: 25)).bold()
                     .padding(.bottom, UIScreen.main.bounds.height * 0.1)
-                    .padding(.trailing, UIScreen.main.bounds.width * 0.08)
+                    .padding(.trailing, UIScreen.main.bounds.width * 0.1)
                 
                 
                 
