@@ -121,6 +121,9 @@ struct LoginView: View {
             .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .ignoresSafeArea()
+            .onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+            }
             
         } else {
             // Fallback on earlier versions

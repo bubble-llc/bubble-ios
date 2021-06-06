@@ -120,6 +120,9 @@ struct PasswordReset: View {
                 )
                 .navigationBarTitle(Text("Confirm Account"), displayMode: .inline)
             }
+            .onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+            }
         }
     }
 }

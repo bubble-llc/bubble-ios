@@ -97,10 +97,44 @@ struct EmailRegistrationView: View {
                     .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 2).foregroundColor(Color.white))
                     .frame(width: UIScreen.main.bounds.width * 0.8)
                     Spacer()
+                    Button(action: {
+                        if(email.isEmpty){
+                            self.showingAlert = true
+                            activeAlert = .empty
+                        }
+                        else{
+                            API().checkEmail(email: email)
+                            { (result) in
+                                switch result
+                                {
+                                    case .success():
+                                        self.showingAlert = false
+                                        showPasswordRegistation = true
+                                    case .failure(let error):
+                                        print(error)
+                                        self.showingAlert = true
+                                        activeAlert = .duplicate
+                                }
+                            }
+                        }
+                    }, label: {
+                        HStack{
+                            Spacer()
+                            Text("Continue")
+                                .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                            Spacer()
+                        }
+                    })
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .frame(width: UIScreen.main.bounds.width * 0.8)
+                    Spacer()
                     Text("This will be used to reset your password and verify your account")
                         .foregroundColor(.white)
                         .frame(width: UIScreen.main.bounds.width * 0.8)
-                    Spacer()
                     Spacer()
                 }
                 Spacer()
@@ -119,6 +153,9 @@ struct EmailRegistrationView: View {
                     .foregroundColor(.white)
                 })
             )
+            }
+            .onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
         }
     }
 }
