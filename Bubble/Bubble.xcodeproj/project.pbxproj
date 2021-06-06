@@ -46,6 +46,12 @@
 		5D607D8D262A3FA3007FE97D /* PasswordValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D607D8C262A3FA3007FE97D /* PasswordValidation.swift */; };
 		5D6A9C59264C287000B77BE3 /* Jwt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6A9C58264C287000B77BE3 /* Jwt.swift */; };
 		5D6A9C62264C29CB00B77BE3 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = 5D6A9C61264C29CB00B77BE3 /* JWTDecode */; };
+		5D6A9C7E264CCE9400B77BE3 /* StartRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6A9C7D264CCE9400B77BE3 /* StartRegistrationView.swift */; };
+		5D6A9C86264CDE6300B77BE3 /* UsernameRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6A9C85264CDE6300B77BE3 /* UsernameRegistrationView.swift */; };
+		5D6A9C8B264D74AB00B77BE3 /* EmailRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6A9C8A264D74AB00B77BE3 /* EmailRegistrationView.swift */; };
+		5D6A9C90264D787F00B77BE3 /* PasswordRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6A9C8F264D787F00B77BE3 /* PasswordRegistrationView.swift */; };
+		5D6A9C95264D789900B77BE3 /* CompleteRegistationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6A9C94264D789900B77BE3 /* CompleteRegistationView.swift */; };
+		5D6A9CA6264DC86D00B77BE3 /* PasswordCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6A9CA5264DC86D00B77BE3 /* PasswordCreation.swift */; };
 		5D86E378260A7A5F00B002D8 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D86E377260A7A5F00B002D8 /* FeedbackView.swift */; };
 		5DD754BA261E825A00CD6360 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD754B9261E825A00CD6360 /* Constants.swift */; };
 		B00258012559B5EB00BB7815 /* SlideOverCard in Frameworks */ = {isa = PBXBuildFile; productRef = B00258002559B5EB00BB7815 /* SlideOverCard */; };
@@ -129,6 +135,12 @@
 		5D607D87262A3D58007FE97D /* PasswordReset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordReset.swift; sourceTree = "<group>"; };
 		5D607D8C262A3FA3007FE97D /* PasswordValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidation.swift; sourceTree = "<group>"; };
 		5D6A9C58264C287000B77BE3 /* Jwt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jwt.swift; sourceTree = "<group>"; };
+		5D6A9C7D264CCE9400B77BE3 /* StartRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRegistrationView.swift; sourceTree = "<group>"; };
+		5D6A9C85264CDE6300B77BE3 /* UsernameRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameRegistrationView.swift; sourceTree = "<group>"; };
+		5D6A9C8A264D74AB00B77BE3 /* EmailRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailRegistrationView.swift; sourceTree = "<group>"; };
+		5D6A9C8F264D787F00B77BE3 /* PasswordRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRegistrationView.swift; sourceTree = "<group>"; };
+		5D6A9C94264D789900B77BE3 /* CompleteRegistationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRegistationView.swift; sourceTree = "<group>"; };
+		5D6A9CA5264DC86D00B77BE3 /* PasswordCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCreation.swift; sourceTree = "<group>"; };
 		5D86E377260A7A5F00B002D8 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
 		5DD754B9261E825A00CD6360 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8CD38C4746E74BBD41B28468 /* Pods-Bubble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble.release.xcconfig"; path = "Target Support Files/Pods-Bubble/Pods-Bubble.release.xcconfig"; sourceTree = "<group>"; };
@@ -298,6 +310,8 @@
 		5CE12F5624F8565E00C8D5D0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5DB895622659BDB100D59D51 /* PasswordRecovery */,
+				5DB8955B2659BD7C00D59D51 /* Registration */,
 				B0F547302523CE800009ABAE /* CommentsView.swift */,
 				5CCF766624F85CC90040EC07 /* ContentView.swift */,
 				B0858190251F8A61001D067E /* CreateUserView.swift */,
@@ -308,8 +322,6 @@
 				B065210A2582C99F000CA1DE /* MenuView.swift */,
 				5CE12F5824F8565E00C8D5D0 /* MetadataView.swift */,
 				B002582A255A4EA700BB7815 /* PageView.swift */,
-				5D607D87262A3D58007FE97D /* PasswordReset.swift */,
-				5D607D8C262A3FA3007FE97D /* PasswordValidation.swift */,
 				5CE12F5924F8565E00C8D5D0 /* PostDetailView.swift */,
 				5CE12F5B24F8565E00C8D5D0 /* PostView.swift */,
 				5C5A8C9A26432423002A03BE /* ReportCommentView.swift */,
@@ -335,6 +347,28 @@
 				5C07956C259A8B0800688501 /* Category.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		5DB8955B2659BD7C00D59D51 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				5D6A9C8A264D74AB00B77BE3 /* EmailRegistrationView.swift */,
+				5D6A9C94264D789900B77BE3 /* CompleteRegistationView.swift */,
+				5D6A9C85264CDE6300B77BE3 /* UsernameRegistrationView.swift */,
+				5D6A9C8F264D787F00B77BE3 /* PasswordRegistrationView.swift */,
+				5D6A9C7D264CCE9400B77BE3 /* StartRegistrationView.swift */,
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
+		5DB895622659BDB100D59D51 /* PasswordRecovery */ = {
+			isa = PBXGroup;
+			children = (
+				5D607D87262A3D58007FE97D /* PasswordReset.swift */,
+				5D607D8C262A3FA3007FE97D /* PasswordValidation.swift */,
+				5D6A9CA5264DC86D00B77BE3 /* PasswordCreation.swift */,
+			);
+			path = PasswordRecovery;
 			sourceTree = "<group>";
 		};
 		BB0CF5876F6A88CE19B05E34 /* Pods */ = {
@@ -567,6 +601,7 @@
 				B06520FD2582C27C000CA1DE /* UserInfo.swift in Sources */,
 				5CCF767A24F860D30040EC07 /* MetadataView.swift in Sources */,
 				5CCF766724F85CC90040EC07 /* ContentView.swift in Sources */,
+				5D6A9C90264D787F00B77BE3 /* PasswordRegistrationView.swift in Sources */,
 				B0025830255A4F0900BB7815 /* Location.swift in Sources */,
 				5CCF766324F85B140040EC07 /* SceneDelegate.swift in Sources */,
 				5C1CAB26260A608400374DFB /* UserCreatedPostView.swift in Sources */,
@@ -575,6 +610,7 @@
 				B0858196251FA495001D067E /* FeedView.swift in Sources */,
 				B002582B255A4EA700BB7815 /* PageView.swift in Sources */,
 				5CCF768A24F861060040EC07 /* Helpers.swift in Sources */,
+				5D6A9C7E264CCE9400B77BE3 /* StartRegistrationView.swift in Sources */,
 				5CCF767E24F860D30040EC07 /* PostView.swift in Sources */,
 				5CCF767C24F860D30040EC07 /* PostList.swift in Sources */,
 				5D86E378260A7A5F00B002D8 /* FeedbackView.swift in Sources */,
@@ -584,9 +620,13 @@
 				5CCF768624F860E30040EC07 /* Post.swift in Sources */,
 				5CE12F6224F8565E00C8D5D0 /* Listing.swift in Sources */,
 				5CCF766524F85C610040EC07 /* AppDelegate.swift in Sources */,
+				5D6A9CA6264DC86D00B77BE3 /* PasswordCreation.swift in Sources */,
+				5D6A9C8B264D74AB00B77BE3 /* EmailRegistrationView.swift in Sources */,
 				5D6000D62641F25800B8A80F /* SubmitContentReviewView.swift in Sources */,
+				5D6A9C95264D789900B77BE3 /* CompleteRegistationView.swift in Sources */,
 				5CE12F6324F8565E00C8D5D0 /* API.swift in Sources */,
 				5DD754BA261E825A00CD6360 /* Constants.swift in Sources */,
+				5D6A9C86264CDE6300B77BE3 /* UsernameRegistrationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -767,7 +807,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2;
+				MARKETING_VERSION = 3;
 				PRODUCT_BUNDLE_IDENTIFIER = bubble.media;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -794,7 +834,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2;
+				MARKETING_VERSION = 3;
 				PRODUCT_BUNDLE_IDENTIFIER = bubble.media;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

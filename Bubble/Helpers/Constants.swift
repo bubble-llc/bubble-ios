@@ -27,3 +27,11 @@ struct Constants {
 enum ActiveAlert {
     case blockUser, confirmComment, sameUserBlock, sameUserReport
 }
+
+enum PasswordAlert {
+    case misMatch, empty, success
+}
+
+enum StandardAlert {
+    case empty, duplicate
+}

@@ -4,9 +4,6 @@ import Introspect
 
 
 struct SubmitPostView: View {
-    
-    
-    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State private var post_title: String = "Location of post"

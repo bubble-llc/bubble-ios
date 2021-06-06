@@ -10,7 +10,6 @@ import SwiftUI
 import SlideOverCard
 
 struct FeedbackView: View{
-    
     @State private var commentBoxPressed: Bool = false
     @State private var feedback_content: String = "Enter feedback here..."
     @State private var submittedReportAlert = false

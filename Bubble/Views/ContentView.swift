@@ -4,7 +4,6 @@ import Combine
 import SlideOverCard
 
 struct ContentView : View {
-    
     @EnvironmentObject var userAuth: UserAuth
     @EnvironmentObject var categoryGlobal: Category
     
@@ -111,5 +110,16 @@ struct ContentView : View {
                 }
             }
         }
+    }
+}
+
+extension UINavigationController: UIGestureRecognizerDelegate {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
+
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return viewControllers.count > 1
     }
 }
