@@ -40,6 +40,7 @@
 		5CE12F6624F8565E00C8D5D0 /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE12F5924F8565E00C8D5D0 /* PostDetailView.swift */; };
 		5CE12F8C24F857CE00C8D5D0 /* Json in Frameworks */ = {isa = PBXBuildFile; productRef = 5CE12F8B24F857CE00C8D5D0 /* Json */; };
 		5CE12F8E24F857CE00C8D5D0 /* Request in Frameworks */ = {isa = PBXBuildFile; productRef = 5CE12F8D24F857CE00C8D5D0 /* Request */; };
+		5CE2E644265D462C0028E58B /* UserSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE2E643265D462C0028E58B /* UserSettingsView.swift */; };
 		5CF2309D2501ACB1004A1C71 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF2309C2501ACB1004A1C71 /* CommentView.swift */; };
 		5D6000D62641F25800B8A80F /* SubmitContentReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6000D52641F25800B8A80F /* SubmitContentReviewView.swift */; };
 		5D607D88262A3D58007FE97D /* PasswordReset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D607D87262A3D58007FE97D /* PasswordReset.swift */; };
@@ -130,6 +131,7 @@
 		5CE12F5824F8565E00C8D5D0 /* MetadataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataView.swift; sourceTree = "<group>"; };
 		5CE12F5924F8565E00C8D5D0 /* PostDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
 		5CE12F5B24F8565E00C8D5D0 /* PostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		5CE2E643265D462C0028E58B /* UserSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsView.swift; sourceTree = "<group>"; };
 		5CF2309C2501ACB1004A1C71 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		5D6000D52641F25800B8A80F /* SubmitContentReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitContentReviewView.swift; sourceTree = "<group>"; };
 		5D607D87262A3D58007FE97D /* PasswordReset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordReset.swift; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 				5CB22C1C261CF07000822BBE /* UserLikedView.swift */,
 				5C75E5DC253F702B00B97254 /* UserProfileView.swift */,
 				5C5A8CA72643265D002A03BE /* SubmitContentReviewView.swift */,
+				5CE2E643265D462C0028E58B /* UserSettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -604,6 +607,7 @@
 				5D6A9C90264D787F00B77BE3 /* PasswordRegistrationView.swift in Sources */,
 				B0025830255A4F0900BB7815 /* Location.swift in Sources */,
 				5CCF766324F85B140040EC07 /* SceneDelegate.swift in Sources */,
+				5CE2E644265D462C0028E58B /* UserSettingsView.swift in Sources */,
 				5C1CAB26260A608400374DFB /* UserCreatedPostView.swift in Sources */,
 				B0F547362523CFE40009ABAE /* Comment.swift in Sources */,
 				5C755E752523A03F00267557 /* SubmitPostView.swift in Sources */,

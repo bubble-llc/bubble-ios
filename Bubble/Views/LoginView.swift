@@ -21,13 +21,14 @@ struct LoginView: View {
         if #available(iOS 14.0, *) {
             VStack
             {
-                Image("b")
+                Image("b_300")
                     .resizable()
                     .frame(width: UIScreen.main.bounds.height * 0.3, height: UIScreen.main.bounds.height * 0.3)
                     .padding(.top, UIScreen.main.bounds.height * 0.1)
                     .padding(.bottom, UIScreen.main.bounds.height * 0.05)
                     .foregroundColor(Color.white)
                     .shadow(color: Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), radius: 1, x: 0, y: 8)
+                
                 HStack {
                     Image(systemName: "person")
                     
