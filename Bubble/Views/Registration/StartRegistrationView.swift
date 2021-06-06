@@ -49,22 +49,17 @@ struct StartRegistrationView: View {
                     Spacer()
                     Spacer()
                     Spacer()
-                    Divider().background(Color(.white))
-                    Button("Already have an account?", action: {
-                        UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
-                    })
-                        .font(.headline)
-                        .padding()
-                        .cornerRadius(10)
-                    .foregroundColor(.white)
                 }
+                .navigationBarItems(
+                    trailing: Button(action: {
+                        UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
+                    }, label: {
+                        Text("Cancel")
+                        .foregroundColor(.white)
+                    })
+                )
+                .navigationBarTitle(Text("Create Account"), displayMode: .inline)
             }
         }
-    }
-}
-
-struct StartRegistrationView_Previews: PreviewProvider {
-    static var previews: some View {
-        StartRegistrationView()
     }
 }

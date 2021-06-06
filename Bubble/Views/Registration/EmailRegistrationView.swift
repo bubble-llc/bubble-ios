@@ -9,12 +9,27 @@
 import SwiftUI
 
 struct EmailRegistrationView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     @Binding var username: String
     
     @State private var email: String = ""
     @State private var showPasswordRegistation = false
     @State private var showingAlert = false
     @State private var activeAlert: StandardAlert = .empty
+    
+    var btnBack : some View { Button(action: {
+        self.presentationMode.wrappedValue.dismiss()
+        }) {
+            HStack {
+            Image("ic_back") // set image here
+                .aspectRatio(contentMode: .fit)
+                .foregroundColor(.white)
+                Text("Back")
+            }
+        }
+    }
+    
     var body: some View {
         ZStack{
             NavigationLink(
@@ -92,16 +107,18 @@ struct EmailRegistrationView: View {
                 Spacer()
                 Spacer()
                 Spacer()
-                Divider().background(Color.white)
-                Button("Already have an account?", action: {
-                    UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
-                })
-                    .font(.headline)
-                    .padding()
-                    .cornerRadius(10)
-                .foregroundColor(.white)
             }
             .navigationBarBackButtonHidden(true)
+            .navigationBarTitle(Text("Validate Email"), displayMode: .inline)
+            .navigationBarItems(
+                leading: btnBack,
+                trailing: Button(action: {
+                    UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
+                }, label: {
+                    Text("Cancel")
+                    .foregroundColor(.white)
+                })
+            )
         }
     }
 }

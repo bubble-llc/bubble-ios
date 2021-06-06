@@ -140,6 +140,7 @@ struct PasswordCreationView: View {
                 Spacer()
             }
             .navigationBarBackButtonHidden(true)
+            .navigationBarTitle(Text("Password Creation"), displayMode: .inline)
             .navigationBarItems(
                 leading: btnBack,
                 trailing: Button(action: {

@@ -9,11 +9,26 @@
 import SwiftUI
 
 struct CompleteRegistationView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     @Binding var username: String
     @Binding var email: String
     @Binding var password: String
     
     @State private var showingAlert = false
+    
+    var btnBack : some View { Button(action: {
+        self.presentationMode.wrappedValue.dismiss()
+        }) {
+            HStack {
+            Image("ic_back") // set image here
+                .aspectRatio(contentMode: .fit)
+                .foregroundColor(.white)
+                Text("Back")
+            }
+        }
+    }
+    
     var body: some View {
         ZStack{
             Rectangle()
@@ -75,16 +90,18 @@ struct CompleteRegistationView: View {
                 Spacer()
                 Spacer()
                 Spacer()
-                Divider().background(Color(red: 220 / 255, green: 220 / 255, blue: 220 / 255))
-                Button("Already have an account?", action: {
-                    UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
-                })
-                    .font(.headline)
-                    .padding()
-                    .cornerRadius(10)
-                .foregroundColor(.white)
             }
             .navigationBarBackButtonHidden(true)
+            .navigationBarTitle(Text("Complete Registration"), displayMode: .inline)
+            .navigationBarItems(
+                leading: btnBack,
+                trailing: Button(action: {
+                    UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
+                }, label: {
+                    Text("Cancel")
+                    .foregroundColor(.white)
+                })
+            )
         }
     }
 }

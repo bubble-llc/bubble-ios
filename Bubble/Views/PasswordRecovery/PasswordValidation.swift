@@ -93,7 +93,6 @@ struct PasswordValidation: View {
                     .background(Color.white)
                     .cornerRadius(10)
                     .frame(width: UIScreen.main.bounds.width * 0.8)
-                    .frame(width: UIScreen.main.bounds.width * 0.8)
                     .alert(isPresented:$showingAlert){
                         switch activeAlert{
                             case .empty:
@@ -115,6 +114,7 @@ struct PasswordValidation: View {
                 Spacer()
             }
             .navigationBarBackButtonHidden(true)
+            .navigationBarTitle(Text("Valdiate Code"), displayMode: .inline)
             .navigationBarItems(
                 leading: btnBack,
                 trailing: Button(action: {
@@ -123,7 +123,6 @@ struct PasswordValidation: View {
                     Text("Cancel")
                     .foregroundColor(.white)
                 })
-            .navigationBarTitle(Text("Confirm Account"), displayMode: .inline)
             )
         }
     }
