@@ -602,6 +602,36 @@ class API {
         task.resume()
     }
     
+    func updateUserSetting(submitted: [String: Any])
+    {
+        guard let postUrl = URL(string: "\(baseURL)/user_update_setting") else {fatalError()}
+
+        var request = URLRequest(url: postUrl)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
+
+        let submission = try? JSONSerialization.data(withJSONObject: submitted, options: .prettyPrinted)
+
+        request.httpBody = submission
+
+        let task = URLSession.shared.dataTask(with: request)
+        { data, response, error in
+
+            guard let data = data, error == nil else
+            {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any]
+            {
+                print(responseJSON)
+            }
+        }
+        task.resume()
+    }
+    
     private func handleNetworkResponse(response: HTTPURLResponse) -> NetworkError? {
         switch response.statusCode {
         case 200...299: return (nil)

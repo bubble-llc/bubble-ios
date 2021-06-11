@@ -9,6 +9,8 @@ struct UserSettingsView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    @Binding var profileUsername: String
+    
     @State private var username: String = ""
     @State private var default_post_title: String = "Location of post"
     @State private var post_title_pressed: Bool = false
@@ -37,10 +39,14 @@ struct UserSettingsView: View {
     @EnvironmentObject var locationViewModel: LocationViewModel
     @EnvironmentObject var categoryGlobal: Category
     
+    enum SettingsAlert {
+        case empty, mismatch, invalid, password, username
+    }
+    
+    @State private var activeAlert: SettingsAlert = .empty
+    
     var body: some View
     {
-        let defaults = UserDefaults.standard
-        let actual_username = defaults.string(forKey: defaultsKeys.username)!
         if #available(iOS 14.0, *) {
             VStack(alignment: .leading){
                 Spacer()
@@ -66,7 +72,43 @@ struct UserSettingsView: View {
                     .foregroundColor(.white)
                     .padding(.leading, UIScreen.main.bounds.width * 0.05)
                     
-                    SecureField(" " + actual_username, text: $username)
+                    TextField(" " + profileUsername, text: $username, onCommit: {
+                        let user_setting_object: [String: Any]  =
+                            [
+                                "setting": "username",
+                                "value": username
+                            ]
+                        API().updateUserSetting(submitted: user_setting_object)
+                        profileUsername = username
+                        UserDefaults.standard.set(profileUsername, forKey: defaultsKeys.username)
+                        self.showingAlert = true
+                        activeAlert = .username
+                    })
+                        .alert(isPresented:$showingAlert){
+                            switch activeAlert{
+                                case .empty:
+                                    return Alert(title: Text("Please enter password"),
+                                                 message: Text(""),
+                                                 dismissButton: .default(Text("OK"), action: {}))
+                                case .mismatch:
+                                    return Alert(title: Text("New passwords do not match"),
+                                                 message: Text(""),
+                                                 dismissButton: .default(Text("OK"), action: {}))
+                                case .invalid:
+                                    return Alert(title: Text("Invalid password"),
+                                                 message: Text(""),
+                                                 dismissButton: .default(Text("OK"), action: {}))
+                                case .password:
+                                    return Alert(title: Text("Password has been updated"),
+                                                 message: Text(""),
+                                                 dismissButton: .default(Text("OK"), action: {}))
+                                case .username:
+                                    return Alert(title: Text("Username has been updated"),
+                                                 message: Text(""),
+                                                 dismissButton: .default(Text("OK"), action: {}))
+                            }
+                        }
+                        .keyboardType(.webSearch)
                         .font(.system(size: 18))
                         .lineLimit(0)
                         .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
@@ -121,7 +163,40 @@ struct UserSettingsView: View {
                             
                             .padding(.leading, UIScreen.main.bounds.width * 0.05)
                             .frame(width: UIScreen.main.bounds.width * 0.42)
-                        SecureField("  New password", text: $confirmedPassword)
+                        SecureField("  New password", text: $confirmedPassword, onCommit: {
+                            print(oldPassword)
+                            print(newPassword)
+                            print(confirmedPassword)
+                            if(oldPassword.isEmpty || newPassword.isEmpty || confirmedPassword.isEmpty)
+                            {
+                                self.showingAlert = true
+                                activeAlert = .empty
+                            }
+                            else if(newPassword != confirmedPassword)
+                            {
+                                self.showingAlert = true
+                                activeAlert = .mismatch
+                            }
+                            else if(oldPassword != UserDefaults.standard.string(forKey: defaultsKeys.password)!)
+                            {
+                                self.showingAlert = true
+                                activeAlert = .invalid
+                            }
+                            else
+                            {
+                                let user_setting_object: [String: Any]  =
+                                    [
+                                        "setting": "password",
+                                        "value": newPassword
+                                    ]
+                                API().updateUserSetting(submitted: user_setting_object)
+                                UserDefaults.standard.set(newPassword, forKey: defaultsKeys.password)
+                                self.showingAlert = true
+                                activeAlert = .password
+                            }
+                            
+                        })
+                            .keyboardType(.webSearch)
                             .font(.system(size: 18))
                             .textContentType(.newPassword)
                             .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
