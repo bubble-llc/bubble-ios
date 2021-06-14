@@ -55,6 +55,7 @@
 		5D6A9CA6264DC86D00B77BE3 /* PasswordCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6A9CA5264DC86D00B77BE3 /* PasswordCreation.swift */; };
 		5D86E378260A7A5F00B002D8 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D86E377260A7A5F00B002D8 /* FeedbackView.swift */; };
 		5DD754BA261E825A00CD6360 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD754B9261E825A00CD6360 /* Constants.swift */; };
+		5DDAE4C426770AB500EF9281 /* BlockedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDAE4C326770AB500EF9281 /* BlockedUser.swift */; };
 		B00258012559B5EB00BB7815 /* SlideOverCard in Frameworks */ = {isa = PBXBuildFile; productRef = B00258002559B5EB00BB7815 /* SlideOverCard */; };
 		B002582B255A4EA700BB7815 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B002582A255A4EA700BB7815 /* PageView.swift */; };
 		B0025830255A4F0900BB7815 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B002582F255A4F0900BB7815 /* Location.swift */; };
@@ -145,6 +146,7 @@
 		5D6A9CA5264DC86D00B77BE3 /* PasswordCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCreation.swift; sourceTree = "<group>"; };
 		5D86E377260A7A5F00B002D8 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
 		5DD754B9261E825A00CD6360 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5DDAE4C326770AB500EF9281 /* BlockedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUser.swift; sourceTree = "<group>"; };
 		8CD38C4746E74BBD41B28468 /* Pods-Bubble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble.release.xcconfig"; path = "Target Support Files/Pods-Bubble/Pods-Bubble.release.xcconfig"; sourceTree = "<group>"; };
 		966E3379C738237B468604C1 /* Pods_Bubble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bubble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B002582A255A4EA700BB7815 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 				5CE12F5324F8565E00C8D5D0 /* Post.swift */,
 				B0F547352523CFE40009ABAE /* Comment.swift */,
 				5CE12F5424F8565E00C8D5D0 /* Listing.swift */,
+				5DDAE4C326770AB500EF9281 /* BlockedUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -601,6 +604,7 @@
 				B0E5368E2533E08F009663E7 /* SubmitCommentView.swift in Sources */,
 				5CF2309D2501ACB1004A1C71 /* CommentView.swift in Sources */,
 				5D607D8D262A3FA3007FE97D /* PasswordValidation.swift in Sources */,
+				5DDAE4C426770AB500EF9281 /* BlockedUser.swift in Sources */,
 				B06520FD2582C27C000CA1DE /* UserInfo.swift in Sources */,
 				5CCF767A24F860D30040EC07 /* MetadataView.swift in Sources */,
 				5CCF766724F85CC90040EC07 /* ContentView.swift in Sources */,

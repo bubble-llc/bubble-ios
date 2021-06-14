@@ -28,6 +28,7 @@ struct UserSettingsView: View {
     @State private var oldPassword = ""
     @State private var newPassword = ""
     @State private var confirmedPassword = ""
+    @State private var unblockedUser = ""
     
     
     @State private var deals_clicked = false
@@ -39,8 +40,10 @@ struct UserSettingsView: View {
     @EnvironmentObject var locationViewModel: LocationViewModel
     @EnvironmentObject var categoryGlobal: Category
     
+    @State var blockedUsers: [BlockedUser] = []
+    
     enum SettingsAlert {
-        case empty, mismatch, invalid, password, username
+        case empty, mismatch, invalid, password, username, unblock
     }
     
     @State private var activeAlert: SettingsAlert = .empty
@@ -106,6 +109,21 @@ struct UserSettingsView: View {
                                     return Alert(title: Text("Username has been updated"),
                                                  message: Text(""),
                                                  dismissButton: .default(Text("OK"), action: {}))
+                                case .unblock:
+                                    return Alert(title: Text(unblockedUser + "has been unblocked"),
+                                                 message: Text(""),
+                                                 dismissButton: .default(Text("OK"), action: {
+                                                    API().getBlockedUsers()
+                                                    { (result) in
+                                                        switch result
+                                                        {
+                                                            case .success(let blockedUsers):
+                                                                self.blockedUsers = blockedUsers
+                                                            case .failure(let error):
+                                                                print(error)
+                                                        }
+                                                    }
+                                                 }))
                             }
                         }
                         .keyboardType(.webSearch)
@@ -229,6 +247,16 @@ struct UserSettingsView: View {
                     .foregroundColor(.white)
                     Button(action:{
                         self.showBlocked.toggle()
+                        API().getBlockedUsers()
+                        { (result) in
+                            switch result
+                            {
+                                case .success(let blockedUsers):
+                                    self.blockedUsers = blockedUsers
+                                case .failure(let error):
+                                    print(error)
+                            }
+                        }
                     }){
                     Image(systemName: self.showBlocked == false ? "eye.slash": "eye")
                         .foregroundColor(Color("bubble_dark"))
@@ -238,20 +266,23 @@ struct UserSettingsView: View {
                 
                 if showBlocked{
                     List{
-                        HStack{
-                            Text("User 1")
-                            Spacer()
-                            Image(systemName: "trash")
-                        }
-                        HStack{
-                            Text("User 2")
-                            Spacer()
-                            Image(systemName: "trash")
-                        }
-                        HStack{
-                            Text("User 3")
-                            Spacer()
-                            Image(systemName: "trash")
+                        ForEach(blockedUsers){blockedUser in
+                            HStack{
+                                Text(blockedUser.blocked_username)
+                                Spacer()
+                                Button(action:{
+                                    let unblockUserObject: [String: Any]  =
+                                        [
+                                            "blocked_user_id": blockedUser.blocked_user_id
+                                        ]
+                                    API().unblockUser(submitted: unblockUserObject)
+                                    unblockedUser = blockedUser.blocked_username
+                                    self.showingAlert = true
+                                    activeAlert = .unblock
+                                }){
+                                    Image(systemName: "trash")
+                                }
+                            }
                         }
                     }
                     .padding(.leading, UIScreen.main.bounds.width * 0.05)
