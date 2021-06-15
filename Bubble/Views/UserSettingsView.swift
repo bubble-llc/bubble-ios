@@ -9,6 +9,8 @@ struct UserSettingsView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    @Binding var profileUsername: String
+    
     @State private var username: String = ""
     @State private var default_post_title: String = "Location of post"
     @State private var post_title_pressed: Bool = false
@@ -26,6 +28,7 @@ struct UserSettingsView: View {
     @State private var oldPassword = ""
     @State private var newPassword = ""
     @State private var confirmedPassword = ""
+    @State private var unblockedUser = ""
     
     
     @State private var deals_clicked = false
@@ -37,20 +40,27 @@ struct UserSettingsView: View {
     @EnvironmentObject var locationViewModel: LocationViewModel
     @EnvironmentObject var categoryGlobal: Category
     
+    @State var blockedUsers: [BlockedUser] = []
+    
+    enum SettingsAlert {
+        case empty, mismatch, invalid, password, username, unblock
+    }
+    
+    @State private var activeAlert: SettingsAlert = .empty
+    
     var body: some View
     {
-        let defaults = UserDefaults.standard
-        let actual_username = defaults.string(forKey: defaultsKeys.username)!
         if #available(iOS 14.0, *) {
             VStack(alignment: .leading){
                 Spacer()
+                
                 VStack{
                 Text("Account")
                     .font(.system(size: 50))
                     .foregroundColor(.white)
                     Divider().frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.width * 0.01).background(Color("bubble_dark")).padding(-5)
                 }
-                .padding(.leading, UIScreen.main.bounds.width * 0.05)
+                .padding(.leading, UIScreen.main.bounds.width * 0.25)
                 .padding(.top)
                 Spacer()
                 VStack(alignment: .leading) {
@@ -66,7 +76,59 @@ struct UserSettingsView: View {
                     .foregroundColor(.white)
                     .padding(.leading, UIScreen.main.bounds.width * 0.05)
                     
-                    SecureField(" " + actual_username, text: $username)
+                    TextField(profileUsername, text: $username, onCommit: {
+                        let user_setting_object: [String: Any]  =
+                            [
+                                "setting": "username",
+                                "value": username
+                            ]
+                        API().updateUserSetting(submitted: user_setting_object)
+                        profileUsername = username
+                        UserDefaults.standard.set(profileUsername, forKey: defaultsKeys.username)
+                        self.showingAlert = true
+                        activeAlert = .username
+                    })
+                    .padding(.leading, UIScreen.main.bounds.width * 0.01)
+                        .alert(isPresented:$showingAlert){
+                            switch activeAlert{
+                                case .empty:
+                                    return Alert(title: Text("Please enter password"),
+                                                 message: Text(""),
+                                                 dismissButton: .default(Text("OK"), action: {}))
+                                case .mismatch:
+                                    return Alert(title: Text("New passwords do not match"),
+                                                 message: Text(""),
+                                                 dismissButton: .default(Text("OK"), action: {}))
+                                case .invalid:
+                                    return Alert(title: Text("Invalid password"),
+                                                 message: Text(""),
+                                                 dismissButton: .default(Text("OK"), action: {}))
+                                case .password:
+                                    return Alert(title: Text("Password has been updated"),
+                                                 message: Text(""),
+                                                 dismissButton: .default(Text("OK"), action: {}))
+                                case .username:
+                                    return Alert(title: Text("Username has been updated"),
+                                                 message: Text(""),
+                                                 dismissButton: .default(Text("OK"), action: {}))
+                                case .unblock:
+                                    return Alert(title: Text(unblockedUser + "has been unblocked"),
+                                                 message: Text(""),
+                                                 dismissButton: .default(Text("OK"), action: {
+                                                    API().getBlockedUsers()
+                                                    { (result) in
+                                                        switch result
+                                                        {
+                                                            case .success(let blockedUsers):
+                                                                self.blockedUsers = blockedUsers
+                                                            case .failure(let error):
+                                                                print(error)
+                                                        }
+                                                    }
+                                                 }))
+                            }
+                        }
+                        .keyboardType(.webSearch)
                         .font(.system(size: 18))
                         .lineLimit(0)
                         .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
@@ -92,7 +154,8 @@ struct UserSettingsView: View {
                 .padding(.leading, UIScreen.main.bounds.width * 0.05)
                     if changePassword{
                     Section{
-                        SecureField("  Old password", text: $oldPassword)
+                        SecureField("Old password", text: $oldPassword)
+                            .padding(.leading, UIScreen.main.bounds.width * 0.01)
                             .font(.system(size: 18))
                             .textContentType(.newPassword)
                             .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
@@ -106,7 +169,8 @@ struct UserSettingsView: View {
                             
                             .padding(.leading, UIScreen.main.bounds.width * 0.05)
                             .frame(width: UIScreen.main.bounds.width * 0.42)
-                        SecureField("  New password", text: $newPassword)
+                        SecureField("New password", text: $newPassword)
+                            .padding(.leading, UIScreen.main.bounds.width * 0.01)
                             .font(.system(size: 18))
                             .textContentType(.newPassword)
                             .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
@@ -121,7 +185,45 @@ struct UserSettingsView: View {
                             
                             .padding(.leading, UIScreen.main.bounds.width * 0.05)
                             .frame(width: UIScreen.main.bounds.width * 0.42)
-                        SecureField("  New password", text: $confirmedPassword)
+                        SecureField("New password", text: $confirmedPassword, onCommit: {
+                            print(oldPassword)
+                            print(newPassword)
+                            print(confirmedPassword)
+                            if(oldPassword.isEmpty || newPassword.isEmpty || confirmedPassword.isEmpty)
+                            {
+                                self.showingAlert = true
+                                activeAlert = .empty
+                            }
+                            else if(newPassword != confirmedPassword)
+                            {
+                                self.showingAlert = true
+                                activeAlert = .mismatch
+                            }
+                            else if(oldPassword != UserDefaults.standard.string(forKey: defaultsKeys.password)!)
+                            {
+                                self.showingAlert = true
+                                activeAlert = .invalid
+                            }
+                            else
+                            {
+                                let user_setting_object: [String: Any]  =
+                                    [
+                                        "setting": "password",
+                                        "value": newPassword
+                                    ]
+                                API().updateUserSetting(submitted: user_setting_object)
+                                UserDefaults.standard.set(newPassword, forKey: defaultsKeys.password)
+                                self.showingAlert = true
+                                activeAlert = .password
+                                self.oldPassword = ""
+                                self.newPassword = ""
+                                self.confirmedPassword = ""
+                                self.changePassword.toggle()
+                            }
+                            
+                        })
+                        .padding(.leading, UIScreen.main.bounds.width * 0.01)
+                            .keyboardType(.webSearch)
                             .font(.system(size: 18))
                             .textContentType(.newPassword)
                             .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
@@ -137,8 +239,6 @@ struct UserSettingsView: View {
                     }
 
             }//User Settings VStack
-                .frame(width:UIScreen.main.bounds.width)
-                .padding(.leading, -UIScreen.main.bounds.width * 0.47)
             Spacer()
             VStack(alignment: .leading){
                 VStack(alignment: .leading){
@@ -154,6 +254,16 @@ struct UserSettingsView: View {
                     .foregroundColor(.white)
                     Button(action:{
                         self.showBlocked.toggle()
+                        API().getBlockedUsers()
+                        { (result) in
+                            switch result
+                            {
+                                case .success(let blockedUsers):
+                                    self.blockedUsers = blockedUsers
+                                case .failure(let error):
+                                    print(error)
+                            }
+                        }
                     }){
                     Image(systemName: self.showBlocked == false ? "eye.slash": "eye")
                         .foregroundColor(Color("bubble_dark"))
@@ -163,20 +273,23 @@ struct UserSettingsView: View {
                 
                 if showBlocked{
                     List{
-                        HStack{
-                            Text("User 1")
-                            Spacer()
-                            Image(systemName: "trash")
-                        }
-                        HStack{
-                            Text("User 2")
-                            Spacer()
-                            Image(systemName: "trash")
-                        }
-                        HStack{
-                            Text("User 3")
-                            Spacer()
-                            Image(systemName: "trash")
+                        ForEach(blockedUsers){blockedUser in
+                            HStack{
+                                Text(blockedUser.blocked_username)
+                                Spacer()
+                                Button(action:{
+                                    let unblockUserObject: [String: Any]  =
+                                        [
+                                            "blocked_user_id": blockedUser.blocked_user_id
+                                        ]
+                                    API().unblockUser(submitted: unblockUserObject)
+                                    unblockedUser = blockedUser.blocked_username
+                                    self.showingAlert = true
+                                    activeAlert = .unblock
+                                }){
+                                    Image(systemName: "trash")
+                                }
+                            }
                         }
                     }
                     .padding(.leading, UIScreen.main.bounds.width * 0.05)
@@ -185,7 +298,6 @@ struct UserSettingsView: View {
                 
             }//Privacy VStack
             
-            .padding(.leading, -UIScreen.main.bounds.width * 0.2)
                 if !showBlocked{
                 Spacer()
                 }
@@ -202,7 +314,7 @@ struct UserSettingsView: View {
                     .foregroundColor(.white)
                     .toggleStyle(SwitchToggleStyle(tint: Color("bubble_dark")))
                     .padding(.leading, UIScreen.main.bounds.width * 0.05)
-                    .frame(width: UIScreen.main.bounds.width * 0.75)
+                    .frame(width: UIScreen.main.bounds.width * 0.9)
 
                 if allNotifications {
                     //Disable notifications logic here
@@ -212,7 +324,7 @@ struct UserSettingsView: View {
                     .foregroundColor(.white)
                     .toggleStyle(SwitchToggleStyle(tint: Color("bubble_dark")))
                     .padding(.leading, UIScreen.main.bounds.width * 0.05)
-                    .frame(width: UIScreen.main.bounds.width * 0.75)
+                    .frame(width: UIScreen.main.bounds.width * 0.9)
 
                 if commentNotifications {
                     //Disable notifications logic here
@@ -222,12 +334,11 @@ struct UserSettingsView: View {
                     .foregroundColor(.white)
                     .toggleStyle(SwitchToggleStyle(tint: Color("bubble_dark")))
                     .padding(.leading, UIScreen.main.bounds.width * 0.05)
-                    .frame(width: UIScreen.main.bounds.width * 0.75)
+                    .frame(width: UIScreen.main.bounds.width * 0.9)
                 if likesNotifications {
                     //Disable notifications logic here
                 }
-            }
-            .padding(.leading, -UIScreen.main.bounds.width * 0.2)
+            }.hidden()
             Spacer()
                 Spacer()
         }//Encompassing VStack

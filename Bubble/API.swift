@@ -243,6 +243,72 @@ class API {
         task.resume()
     }
     
+    func getBlockedUsers(completion: @escaping (Result<[BlockedUser],Error>) ->())
+    {
+        guard let url = URL(string: "\(baseURL)/block_user?token=\(UserDefaults.standard.string(forKey: defaultsKeys.token)!)") else {return}
+        URLSession.shared.dataTask(with: url)
+        { (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("API status: \(httpResponse.statusCode)")
+            }
+            
+            guard let response = response as? HTTPURLResponse else
+            {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            if let responseError = self.handleNetworkResponse(response: response)
+            {
+                completion(.failure(responseError))
+                return
+            }
+
+            guard let validData = data, error == nil else {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+
+            let blocked_users = try! JSONDecoder().decode([BlockedUser].self, from:validData)
+            DispatchQueue.main.async
+            {
+                print(blocked_users)
+                completion(.success(blocked_users))
+            }
+        }.resume()
+    }
+    
+    func unblockUser(submitted: [String: Any])
+    {
+        guard let postUrl = URL(string: "\(baseURL)/unblock_user") else {fatalError()}
+        
+        var request = URLRequest(url: postUrl)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
+        
+        let submission = try? JSONSerialization.data(withJSONObject: submitted)
+        
+        request.httpBody = submission
+        
+        let task = URLSession.shared.dataTask(with: request)
+        { data, response, error in
+            
+            guard let data = data, error == nil else
+            {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any]
+            {
+                print(responseJSON)
+            }
+        }
+        task.resume()
+    }
+    
     func checkUsername(username: String, completion: @escaping (Result<Void,Error>) ->())
     {
         guard let url = URL(string: "\(baseURL)/check_username?username=\(username)") else {fatalError()}
@@ -618,6 +684,36 @@ class API {
     func blockUser(submitted: [String: Any])
     {
         guard let postUrl = URL(string: "\(baseURL)/block_user") else {fatalError()}
+
+        var request = URLRequest(url: postUrl)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
+
+        let submission = try? JSONSerialization.data(withJSONObject: submitted, options: .prettyPrinted)
+
+        request.httpBody = submission
+
+        let task = URLSession.shared.dataTask(with: request)
+        { data, response, error in
+
+            guard let data = data, error == nil else
+            {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any]
+            {
+                print(responseJSON)
+            }
+        }
+        task.resume()
+    }
+    
+    func updateUserSetting(submitted: [String: Any])
+    {
+        guard let postUrl = URL(string: "\(baseURL)/user_update_setting") else {fatalError()}
 
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"

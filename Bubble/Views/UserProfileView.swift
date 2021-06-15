@@ -3,13 +3,12 @@ import SlideOverCard
 struct UserProfileView: View {
     @State var posts: [Post] = []
     @State var postCount = 0
+    @State private var username: String = UserDefaults.standard.string(forKey: defaultsKeys.username)!
     
     @EnvironmentObject var categoryGlobal: Category
     
     var body: some View {
         let count = self.posts.count
-        let defaults = UserDefaults.standard
-        let username = defaults.string(forKey: defaultsKeys.username)!
         if #available(iOS 14.0, *) {
             ZStack(alignment: .top){
                 
@@ -25,7 +24,7 @@ struct UserProfileView: View {
                             .offset(x: UIScreen.main.bounds.height * 0.03)
                         Spacer()
 
-                        NavigationLink(destination: UserSettingsView()){
+                        NavigationLink(destination: UserSettingsView(profileUsername: $username)){
                             Image(systemName: "gearshape").resizable().frame(width: UIScreen.main.bounds.width * 0.07, height: UIScreen.main.bounds.width * 0.07).foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                         }
 
