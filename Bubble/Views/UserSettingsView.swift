@@ -338,7 +338,7 @@ struct UserSettingsView: View {
                 if likesNotifications {
                     //Disable notifications logic here
                 }
-            }
+            }.hidden()
             Spacer()
                 Spacer()
         }//Encompassing VStack
