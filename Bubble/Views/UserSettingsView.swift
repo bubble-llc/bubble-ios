@@ -271,8 +271,12 @@ struct UserSettingsView: View {
                                 categoryGlobal.category_clicked = categoryGlobal.category_clicked_combinations[i]
                                 category_id = i + 1
                             }){
-                                
+                                VStack(spacing: 0){
                                 Image(categoryGlobal.category_clicked[i] == 1 ? categoryGlobal.selected_cat_names1[i] : categoryGlobal.cat_names1[i]).resizable().frame(width:40, height:40).padding()
+//                                    Text(categoryGlobal.categories[i])
+//                                    .font(.system(size: 12))
+//                                    .foregroundColor(Color.white)
+                                }
                             }.buttonStyle(PlainButtonStyle())
                     }
                 }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
