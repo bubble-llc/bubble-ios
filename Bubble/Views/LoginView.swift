@@ -21,9 +21,9 @@ struct LoginView: View {
         if #available(iOS 14.0, *) {
             VStack
             {
-                Image("b_300")
+                Image("dark_text")
                     .resizable()
-                    .frame(width: UIScreen.main.bounds.height * 0.3, height: UIScreen.main.bounds.height * 0.3)
+                    .frame(width: UIScreen.main.bounds.height * 0.4, height: UIScreen.main.bounds.height * 0.15)
                     .padding(.top, UIScreen.main.bounds.height * 0.1)
                     .padding(.bottom, UIScreen.main.bounds.height * 0.05)
                     .foregroundColor(Color.white)
