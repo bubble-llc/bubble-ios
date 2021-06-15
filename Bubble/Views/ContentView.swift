@@ -7,7 +7,7 @@ struct ContentView : View {
     @EnvironmentObject var userAuth: UserAuth
     @EnvironmentObject var categoryGlobal: Category
     
-    @State var show = false
+    @State var showMenu = false
     
     let locationViewModel = LocationViewModel()
     
@@ -27,7 +27,7 @@ struct ContentView : View {
           .onEnded {
               if $0.translation.width < -100 {
                   withAnimation {
-                      self.show = false
+                      self.showMenu = false
                   }
               }
           }
@@ -48,17 +48,17 @@ struct ContentView : View {
 
                         GeometryReader{_ in
 
-                                MenuView()
-                                    .offset(x: self.show ? 0 : -UIScreen.main.bounds.width)
+                            MenuView(showMenu: $showMenu)
+                                    .offset(x: self.showMenu ? 0 : -UIScreen.main.bounds.width)
                                     .animation(.default)
                                     .environmentObject(userAuth)
                                     .environmentObject(locationViewModel)
                                     .environmentObject(categoryGlobal)
                             
                         }
-                        .background(Color.black.opacity(self.show ? 0.2 : 0))
+                        .background(Color.black.opacity(self.showMenu ? 0.2 : 0))
                         .onTapGesture{
-                            self.show.toggle()
+                            self.showMenu.toggle()
                         }
                         .gesture(drag)
                     }
@@ -82,9 +82,9 @@ struct ContentView : View {
                     .navigationBarItems(leading:
                                             HStack{
                                             Button(action: {
-                                                self.show.toggle()
+                                                self.showMenu.toggle()
                                             }, label: {
-                                                if self.show{
+                                                if self.showMenu{
                                                     Image("bubble_menu").resizable().foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                                                 }
                                                 else{
