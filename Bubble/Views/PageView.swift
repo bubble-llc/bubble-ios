@@ -40,11 +40,6 @@ struct PageView: View {
                             .tabItem {
                                 selectedTab == i ? Image(categoryGlobal.selected_cat_names1[i]).resizable().padding() : Image(categoryGlobal.cat_names1[i]).resizable().padding()
                             }
-                            .onLongPressGesture(minimumDuration: 0.1) {
-                                API().setDefaultCategory(submitted:[
-                                    "default_category_id": i
-                                  ])
-                            }
                             .tag(i)
                             .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
                             .animation(.default)

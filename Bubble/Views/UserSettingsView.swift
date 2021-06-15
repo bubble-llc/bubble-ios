@@ -60,7 +60,7 @@ struct UserSettingsView: View {
                 Text("Account")
                     .font(.system(size: 50))
                     .foregroundColor(.white)
-                    Divider().frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.width * 0.01).background(Color("bubble_dark")).padding(-5)
+                    Divider().frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.width * 0.01).background(Color("bubble_dark")).padding(-2.5)
                 }
                 .padding(.leading, UIScreen.main.bounds.width * 0.25)
                 .padding(.top)
@@ -72,7 +72,7 @@ struct UserSettingsView: View {
                     .foregroundColor(.white)
                     .padding(.leading, 2.5)
                         
-                    Divider().frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.width * 0.01).background(Color("bubble_dark")).padding(-5)
+                        Divider().frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.width * 0.01).background(Color("bubble_dark")).padding(-UIScreen.main.bounds.width * 0.005).padding(.leading, UIScreen.main.bounds.width * 0.04)
                     }
                 Text("Change Username")
                     .foregroundColor(.white)
@@ -253,6 +253,32 @@ struct UserSettingsView: View {
                     }
 
             }//User Settings VStack
+                
+            Spacer()
+                VStack(alignment: .leading){
+                VStack(alignment: .leading){
+                    Text("Default Category")
+                    .font(.system(size: 30))
+                    .foregroundColor(.white)
+                    .padding(.leading, 2.5)
+                        
+                    Divider().frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.width * 0.01).background(Color("bubble_dark")).padding(-UIScreen.main.bounds.width * 0.005).padding(.leading, UIScreen.main.bounds.width * 0.04)
+                        }
+                HStack {
+                    Spacer()
+                    ForEach(0 ..< categoryGlobal.categories.count) { i in
+                            Button(action: {
+                                categoryGlobal.category_clicked = categoryGlobal.category_clicked_combinations[i]
+                                category_id = i + 1
+                            }){
+                                
+                                Image(categoryGlobal.category_clicked[i] == 1 ? categoryGlobal.selected_cat_names1[i] : categoryGlobal.cat_names1[i]).resizable().frame(width:40, height:40).padding()
+                            }.buttonStyle(PlainButtonStyle())
+                    }
+                }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                .frame(width:UIScreen.main.bounds.width*0.9, alignment: .center)
+                }//Default Category vStack
             Spacer()
             VStack(alignment: .leading){
                 VStack(alignment: .leading){
@@ -261,7 +287,7 @@ struct UserSettingsView: View {
                     .foregroundColor(.white)
                     .padding(.leading, 2.5)
                     
-                Divider().frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.width * 0.01).background(Color("bubble_dark")).padding(-5)
+                Divider().frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.width * 0.01).background(Color("bubble_dark")).padding(-UIScreen.main.bounds.width * 0.005).padding(.leading, UIScreen.main.bounds.width * 0.04)
                 }
                 HStack{//HStack containing the button to show/hide blocked users form
                 Text("Blocked Users")
@@ -340,7 +366,7 @@ struct UserSettingsView: View {
                     .foregroundColor(.white)
                     .padding(.leading, 2.5)
                     
-                Divider().frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.width * 0.01).background(Color("bubble_dark")).padding(-5)
+                Divider().frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.width * 0.01).background(Color("bubble_dark")).padding(-UIScreen.main.bounds.width * 0.005).padding(.leading, UIScreen.main.bounds.width * 0.04)
                 }
                 Toggle("All Notifications", isOn: $allNotifications)
                     .foregroundColor(.white)
@@ -372,7 +398,6 @@ struct UserSettingsView: View {
                 }
             }.hidden()
             Spacer()
-                Spacer()
         }//Encompassing VStack
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
             
