@@ -51,6 +51,7 @@ struct UserSettingsView: View {
     
     var body: some View
     {
+        ScrollView{
         if #available(iOS 14.0, *) {
             VStack(alignment: .leading){
                 Spacer()
@@ -280,6 +281,7 @@ struct UserSettingsView: View {
                     }){
                     Image(systemName: self.showBlocked == false ? "eye.slash": "eye")
                         .foregroundColor(Color("bubble_dark"))
+                        .padding(.leading, UIScreen.main.bounds.width * 0.06)
                     }
                 }
                 .padding(.bottom, UIScreen.main.bounds.height * 0.0125)
@@ -383,7 +385,9 @@ struct UserSettingsView: View {
             else {
             // Fallback on earlier versions
         }
-       
+        }//end ScrollView
+        .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+        .edgesIgnoringSafeArea(.bottom)
     }
     
 }
