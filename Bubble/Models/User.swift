@@ -28,5 +28,4 @@ struct User: Decodable {
         date_joined = convert_date(try values.decode(String.self, forKey: .date_joined))
         default_category_id = try values.decode(String.self, forKey: .default_category_id)
     }
-
 }

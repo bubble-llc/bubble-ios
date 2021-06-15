@@ -6,11 +6,54 @@ class API {
 //    fileprivate let baseURL = "http://0.0.0.0:8000"
     let categories = ["Deals":1, "Happy Hour":2, "Recreation":3, "What's Happening?":4, "Misc":5]
     
+    func getRadius(logitude: String, latitude: String, completion: @escaping (Result<Radius,Error>) ->())
+    {
+        var paramStr = ""
+        paramStr += "logitude=\(String(describing: logitude))&"
+        paramStr += "latitude=\(String(describing: latitude))&"
+        paramStr += "radius=\(String(describing: UserDefaults.standard.string(forKey: defaultsKeys.radius)!))"
+        
+        guard let url = URL(string: "\(baseURL)/radius?\(String(describing: paramStr))") else {return}
+        URLSession.shared.dataTask(with: url)
+        { (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("API status: \(httpResponse.statusCode)")
+            }
+            
+            guard let response = response as? HTTPURLResponse else
+            {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            if let responseError = self.handleNetworkResponse(response: response)
+            {
+                completion(.failure(responseError))
+                return
+            }
+            
+            guard let validData = data, error == nil else {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            let radius = try! JSONDecoder().decode(Radius.self, from: validData)
+            DispatchQueue.main.async
+            {
+                print(radius)
+                completion(.success(radius))
+            }
+        }.resume()
+    }
+    
     func getPosts(logitude: String, latitude: String, category: String, completion: @escaping (Result<[Post],Error>) ->())
     {
         var paramStr = ""
         paramStr += "token=\(String(describing: UserDefaults.standard.string(forKey: defaultsKeys.token)!))&"
-        paramStr += "category_id=\(String(describing: categories[category]! ))"
+        paramStr += "category_id=\(String(describing: categories[category]!))&"
+        paramStr += "logitude=\(String(describing: logitude))&"
+        paramStr += "latitude=\(String(describing: latitude))&"
+        paramStr += "radius=\(String(describing: UserDefaults.standard.string(forKey: defaultsKeys.radius)!))"
         
         guard let url = URL(string: "\(baseURL)/category?\(String(describing: paramStr))") else {return}
         URLSession.shared.dataTask(with: url)
