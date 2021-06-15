@@ -75,7 +75,7 @@ struct UserSettingsView: View {
                     .foregroundColor(.white)
                     .padding(.leading, UIScreen.main.bounds.width * 0.05)
                     
-                    TextField(" " + profileUsername, text: $username, onCommit: {
+                    TextField(profileUsername, text: $username, onCommit: {
                         let user_setting_object: [String: Any]  =
                             [
                                 "setting": "username",
@@ -87,6 +87,7 @@ struct UserSettingsView: View {
                         self.showingAlert = true
                         activeAlert = .username
                     })
+                    .padding(.leading, UIScreen.main.bounds.width * 0.01)
                         .alert(isPresented:$showingAlert){
                             switch activeAlert{
                                 case .empty:
