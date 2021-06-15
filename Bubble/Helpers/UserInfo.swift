@@ -69,4 +69,5 @@ struct defaultsKeys {
     static let date_joined = "date_joined"
     static let default_category_id = "default_category_id"
     static let token = "token"
+    static let radius = "radius"
 }

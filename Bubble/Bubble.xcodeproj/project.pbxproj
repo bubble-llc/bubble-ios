@@ -56,6 +56,7 @@
 		5D86E378260A7A5F00B002D8 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D86E377260A7A5F00B002D8 /* FeedbackView.swift */; };
 		5DD754BA261E825A00CD6360 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD754B9261E825A00CD6360 /* Constants.swift */; };
 		5DDAE4C426770AB500EF9281 /* BlockedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDAE4C326770AB500EF9281 /* BlockedUser.swift */; };
+		5DDAE4CC26780E3A00EF9281 /* Radius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDAE4CB26780E3A00EF9281 /* Radius.swift */; };
 		B00258012559B5EB00BB7815 /* SlideOverCard in Frameworks */ = {isa = PBXBuildFile; productRef = B00258002559B5EB00BB7815 /* SlideOverCard */; };
 		B002582B255A4EA700BB7815 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B002582A255A4EA700BB7815 /* PageView.swift */; };
 		B0025830255A4F0900BB7815 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B002582F255A4F0900BB7815 /* Location.swift */; };
@@ -147,6 +148,7 @@
 		5D86E377260A7A5F00B002D8 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
 		5DD754B9261E825A00CD6360 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5DDAE4C326770AB500EF9281 /* BlockedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUser.swift; sourceTree = "<group>"; };
+		5DDAE4CB26780E3A00EF9281 /* Radius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Radius.swift; sourceTree = "<group>"; };
 		8CD38C4746E74BBD41B28468 /* Pods-Bubble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble.release.xcconfig"; path = "Target Support Files/Pods-Bubble/Pods-Bubble.release.xcconfig"; sourceTree = "<group>"; };
 		966E3379C738237B468604C1 /* Pods_Bubble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bubble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B002582A255A4EA700BB7815 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				B0F547352523CFE40009ABAE /* Comment.swift */,
 				5CE12F5424F8565E00C8D5D0 /* Listing.swift */,
 				5DDAE4C326770AB500EF9281 /* BlockedUser.swift */,
+				5DDAE4CB26780E3A00EF9281 /* Radius.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -623,6 +626,7 @@
 				5CCF767C24F860D30040EC07 /* PostList.swift in Sources */,
 				5D86E378260A7A5F00B002D8 /* FeedbackView.swift in Sources */,
 				5C06515D25EF09A6005028C0 /* LikedListView.swift in Sources */,
+				5DDAE4CC26780E3A00EF9281 /* Radius.swift in Sources */,
 				5C07955F259A7E5300688501 /* TabBarView.swift in Sources */,
 				B0025841255B5F3200BB7815 /* Date.swift in Sources */,
 				5CCF768624F860E30040EC07 /* Post.swift in Sources */,
