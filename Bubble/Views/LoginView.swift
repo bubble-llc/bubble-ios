@@ -24,8 +24,8 @@ struct LoginView: View {
                 Image("dark_text")
                     .resizable()
                     .frame(width: UIScreen.main.bounds.height * 0.4, height: UIScreen.main.bounds.height * 0.13)
-                    .padding(.top, UIScreen.main.bounds.height * 0.1)
-                    .padding(.bottom, UIScreen.main.bounds.height * 0.05)
+                    .padding(.top, UIScreen.main.bounds.height * 0.15)
+                    .padding(.bottom, UIScreen.main.bounds.height * 0.125)
                     .foregroundColor(Color.white)
                     .shadow(color: Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), radius: 1, x: 0, y: 8)
                 
