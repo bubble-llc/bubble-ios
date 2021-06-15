@@ -29,7 +29,8 @@ struct UserSettingsView: View {
     @State private var newPassword = ""
     @State private var confirmedPassword = ""
     @State private var unblockedUser = ""
-    
+    @State private var noBlockedAlert = false
+    @State private var unblockedUserID = ""
     
     @State private var deals_clicked = false
     @State private var happy_clicked = false
@@ -43,7 +44,7 @@ struct UserSettingsView: View {
     @State var blockedUsers: [BlockedUser] = []
     
     enum SettingsAlert {
-        case empty, mismatch, invalid, password, username, unblock
+        case empty, mismatch, invalid, password, username, unblock, noBlocked
     }
     
     @State private var activeAlert: SettingsAlert = .empty
@@ -112,9 +113,15 @@ struct UserSettingsView: View {
                                                  message: Text(""),
                                                  dismissButton: .default(Text("OK"), action: {}))
                                 case .unblock:
-                                    return Alert(title: Text(unblockedUser + "has been unblocked"),
+                                    return Alert(title: Text("Unblock " + unblockedUser + "?"),
                                                  message: Text(""),
-                                                 dismissButton: .default(Text("OK"), action: {
+                                                 primaryButton: .default(Text("OK")){
+                                                    let unblockUserObject: [String: Any]  =
+                                                        [
+                                                            "blocked_user_id": self.unblockedUserID
+                                                        ]
+                                                    API().unblockUser(submitted: unblockUserObject)
+                                                    
                                                     API().getBlockedUsers()
                                                     { (result) in
                                                         switch result
@@ -125,7 +132,13 @@ struct UserSettingsView: View {
                                                                 print(error)
                                                         }
                                                     }
-                                                 }))
+                                                 },
+                                                 secondaryButton: .cancel()
+                                                 )
+                            case .noBlocked:
+                                    return Alert(title: Text("You have no blocked users"),
+                                             message: Text(""),
+                                             dismissButton: .default(Text("Dismiss"), action: {}))
                             }
                         }
                         .keyboardType(.webSearch)
@@ -269,38 +282,55 @@ struct UserSettingsView: View {
                         .foregroundColor(Color("bubble_dark"))
                     }
                 }
+                .padding(.bottom, UIScreen.main.bounds.height * 0.0125)
                 .padding(.leading, UIScreen.main.bounds.width * 0.05)
                 
                 if showBlocked{
-                    List{
-                        ForEach(blockedUsers){blockedUser in
-                            HStack{
-                                Text(blockedUser.blocked_username)
-                                Spacer()
-                                Button(action:{
-                                    let unblockUserObject: [String: Any]  =
-                                        [
-                                            "blocked_user_id": blockedUser.blocked_user_id
-                                        ]
-                                    API().unblockUser(submitted: unblockUserObject)
-                                    unblockedUser = blockedUser.blocked_username
-                                    self.showingAlert = true
-                                    activeAlert = .unblock
-                                }){
-                                    Image(systemName: "trash")
+                    if !blockedUsers.isEmpty{
+                        VStack{
+                            ForEach(blockedUsers){blockedUser in
+                                HStack{
+                                    Text(blockedUser.blocked_username)
+                                    Spacer()
+                                    Button(action:{
+                                        self.unblockedUserID = blockedUser.blocked_user_id
+                                        self.unblockedUser = blockedUser.blocked_username
+                                        self.showingAlert = true
+                                        activeAlert = .unblock
+                                    }){
+                                        Image(systemName: "trash")
+                                    }.buttonStyle(PlainButtonStyle())
                                 }
-                            }
+                                
+                                .padding(.top, UIScreen.main.bounds.width * 0.0225)
+                                .padding(.bottom, UIScreen.main.bounds.width * 0.0225)
+                                .frame(width:UIScreen.main.bounds.width * 0.5, height:UIScreen.main.bounds.height * 0.025)
+                                
+                                .background(Color.white)
+
+                              }
                         }
+                        .padding(.leading, UIScreen.main.bounds.width * 0.0225)
+                        .padding(.trailing, UIScreen.main.bounds.width * 0.0225)
+                        .padding(.top, UIScreen.main.bounds.width * 0.0225)
+                        .padding(.bottom, UIScreen.main.bounds.width * 0.0225)
+                        .background(Color.white)
+                        .cornerRadius(18)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 18)
+                                .stroke(Color("bubble_dark"), lineWidth: 2))
+                        .padding(.leading, UIScreen.main.bounds.width * 0.05)
                     }
-                    .padding(.leading, UIScreen.main.bounds.width * 0.05)
-                    .frame(width:UIScreen.main.bounds.width * 0.42, height: UIScreen.main.bounds.height * 0.2)
+                        
+                    
+                    else{
+//                        self.showingAlert = true
+//                        activeAlert = .noBlocked
+                    }
+
                 }
                 
             }//Privacy VStack
-            
-                if !showBlocked{
-                Spacer()
-                }
             VStack(alignment: .leading){
                 VStack(alignment: .leading){
                 Text("Notifications")
