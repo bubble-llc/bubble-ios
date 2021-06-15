@@ -153,7 +153,8 @@ struct UserSettingsView: View {
                 .padding(.leading, UIScreen.main.bounds.width * 0.05)
                     if changePassword{
                     Section{
-                        SecureField("  Old password", text: $oldPassword)
+                        SecureField("Old password", text: $oldPassword)
+                            .padding(.leading, UIScreen.main.bounds.width * 0.01)
                             .font(.system(size: 18))
                             .textContentType(.newPassword)
                             .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
@@ -167,7 +168,8 @@ struct UserSettingsView: View {
                             
                             .padding(.leading, UIScreen.main.bounds.width * 0.05)
                             .frame(width: UIScreen.main.bounds.width * 0.42)
-                        SecureField("  New password", text: $newPassword)
+                        SecureField("New password", text: $newPassword)
+                            .padding(.leading, UIScreen.main.bounds.width * 0.01)
                             .font(.system(size: 18))
                             .textContentType(.newPassword)
                             .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
@@ -182,7 +184,7 @@ struct UserSettingsView: View {
                             
                             .padding(.leading, UIScreen.main.bounds.width * 0.05)
                             .frame(width: UIScreen.main.bounds.width * 0.42)
-                        SecureField("  New password", text: $confirmedPassword, onCommit: {
+                        SecureField("New password", text: $confirmedPassword, onCommit: {
                             print(oldPassword)
                             print(newPassword)
                             print(confirmedPassword)
@@ -212,9 +214,14 @@ struct UserSettingsView: View {
                                 UserDefaults.standard.set(newPassword, forKey: defaultsKeys.password)
                                 self.showingAlert = true
                                 activeAlert = .password
+                                self.oldPassword = ""
+                                self.newPassword = ""
+                                self.confirmedPassword = ""
+                                self.changePassword.toggle()
                             }
                             
                         })
+                        .padding(.leading, UIScreen.main.bounds.width * 0.01)
                             .keyboardType(.webSearch)
                             .font(.system(size: 18))
                             .textContentType(.newPassword)
