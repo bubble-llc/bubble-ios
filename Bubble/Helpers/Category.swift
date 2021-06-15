@@ -55,40 +55,60 @@ class Category: ObservableObject {
     }
     
     func fetchData() {
-        let group = DispatchGroup()
-        for category in self.categories
-        {
-            group.enter()
-            API().getPosts(logitude: self.userLongitude, latitude: self.userLatitude, category: category)
-            {(result) in
-                switch result
-                {
-                    case .success(let posts):
-                        print(posts)
-                        self.posts[self.categoriesMap[category]! - 1] = posts
-                    case .failure(let error):
-                        print(error)
-                }
-                group.leave()
+        API().getRadius(logitude: self.userLongitude, latitude: self.userLatitude)
+        { (result) in
+            switch result
+            {
+                case .success(let radius):
+                    UserDefaults.standard.set(radius.radius, forKey: defaultsKeys.radius)
+                    let group = DispatchGroup()
+                    for category in self.categories
+                    {
+                        group.enter()
+                        API().getPosts(logitude: self.userLongitude, latitude: self.userLatitude, category: category)
+                        {(result) in
+                            switch result
+                            {
+                                case .success(let posts):
+                                    print(posts)
+                                    self.posts[self.categoriesMap[category]! - 1] = posts
+                                case .failure(let error):
+                                    print(error)
+                            }
+                            group.leave()
+                        }
+                    }
+                    group.notify(queue: .main, execute: {
+                        print(self.posts[0])
+                        self.fetching = true
+                    })
+                case .failure(let error):
+                    print(error)
             }
         }
-        group.notify(queue: .main, execute: {
-            print(self.posts[0])
-            self.fetching = true
-        })
     }
     
     func refreshCategory(category: String)
     {
-        self.fetching = true
-        API().getPosts(logitude: self.userLongitude, latitude: self.userLatitude, category: category)
+        API().getRadius(logitude: self.userLongitude, latitude: self.userLatitude)
         { (result) in
             switch result
             {
-                case .success(let posts):
-                    print(posts)
-                    self.posts[self.categoriesMap[category]! - 1] = posts
+                case .success(let radius):
+                    UserDefaults.standard.set(radius.radius, forKey: defaultsKeys.radius)
                     self.fetching = true
+                    API().getPosts(logitude: self.userLongitude, latitude: self.userLatitude, category: category)
+                    { (result) in
+                        switch result
+                        {
+                            case .success(let posts):
+                                print(posts)
+                                self.posts[self.categoriesMap[category]! - 1] = posts
+                                self.fetching = true
+                            case .failure(let error):
+                                print(error)
+                        }
+                    }
                 case .failure(let error):
                     print(error)
             }
