@@ -24,10 +24,11 @@ struct MenuView : View {
                 Image("dark_text")
                     .resizable()
                     .frame(width: UIScreen.main.bounds.width * 0.33, height: UIScreen.main.bounds.height * 0.05, alignment: .center)
+                    .foregroundColor(Color("bubble_dark"))
                     .opacity(0.6)
                     .padding(.top, UIScreen.main.bounds.height * 0.15)
                     .padding(.bottom, UIScreen.main.bounds.height * 0.05)
-                    .padding(.trailing, UIScreen.main.bounds.height * 0.03)
+                    .padding(.trailing, UIScreen.main.bounds.height * 0.04)
                             
                 VStack
                 {
