@@ -53,13 +53,14 @@ struct UserSettingsView: View {
         if #available(iOS 14.0, *) {
             VStack(alignment: .leading){
                 Spacer()
+                
                 VStack{
                 Text("Account")
                     .font(.system(size: 50))
                     .foregroundColor(.white)
                     Divider().frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.width * 0.01).background(Color("bubble_dark")).padding(-5)
                 }
-                .padding(.leading, UIScreen.main.bounds.width * 0.05)
+                .padding(.leading, UIScreen.main.bounds.width * 0.25)
                 .padding(.top)
                 Spacer()
                 VStack(alignment: .leading) {
@@ -238,8 +239,6 @@ struct UserSettingsView: View {
                     }
 
             }//User Settings VStack
-                .frame(width:UIScreen.main.bounds.width)
-                .padding(.leading, -UIScreen.main.bounds.width * 0.47)
             Spacer()
             VStack(alignment: .leading){
                 VStack(alignment: .leading){
@@ -299,7 +298,6 @@ struct UserSettingsView: View {
                 
             }//Privacy VStack
             
-            .padding(.leading, -UIScreen.main.bounds.width * 0.2)
                 if !showBlocked{
                 Spacer()
                 }
@@ -316,7 +314,7 @@ struct UserSettingsView: View {
                     .foregroundColor(.white)
                     .toggleStyle(SwitchToggleStyle(tint: Color("bubble_dark")))
                     .padding(.leading, UIScreen.main.bounds.width * 0.05)
-                    .frame(width: UIScreen.main.bounds.width * 0.75)
+                    .frame(width: UIScreen.main.bounds.width * 0.9)
 
                 if allNotifications {
                     //Disable notifications logic here
@@ -326,7 +324,7 @@ struct UserSettingsView: View {
                     .foregroundColor(.white)
                     .toggleStyle(SwitchToggleStyle(tint: Color("bubble_dark")))
                     .padding(.leading, UIScreen.main.bounds.width * 0.05)
-                    .frame(width: UIScreen.main.bounds.width * 0.75)
+                    .frame(width: UIScreen.main.bounds.width * 0.9)
 
                 if commentNotifications {
                     //Disable notifications logic here
@@ -336,12 +334,11 @@ struct UserSettingsView: View {
                     .foregroundColor(.white)
                     .toggleStyle(SwitchToggleStyle(tint: Color("bubble_dark")))
                     .padding(.leading, UIScreen.main.bounds.width * 0.05)
-                    .frame(width: UIScreen.main.bounds.width * 0.75)
+                    .frame(width: UIScreen.main.bounds.width * 0.9)
                 if likesNotifications {
                     //Disable notifications logic here
                 }
             }
-            .padding(.leading, -UIScreen.main.bounds.width * 0.2)
             Spacer()
                 Spacer()
         }//Encompassing VStack
