@@ -10,6 +10,8 @@ import SwiftUI
 import SlideOverCard
 
 struct MenuView : View {
+    @Binding var showMenu: Bool
+    
     @State private var background = BackgroundStyle.solid
     
     @EnvironmentObject var userAuth: UserAuth
@@ -175,6 +177,7 @@ struct MenuView : View {
         userAuth.logout()
         categoryGlobal.fetching = false
         categoryGlobal.posts = [[Post]](repeating: [], count: 5)
+        showMenu = false
     }
 }
 
