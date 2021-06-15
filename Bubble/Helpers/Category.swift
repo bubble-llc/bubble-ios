@@ -42,8 +42,8 @@ class Category: ObservableObject {
     
     init() {
         self.currCategory = "Deals"
-        self.category_id = 1
-        self.category_clicked = [1,0,0,0,0]
+        self.category_id = Int(UserDefaults.standard.string(forKey: defaultsKeys.default_category_id)!)!
+        self.category_clicked = category_clicked_combinations[category_id - 1]
         self.fetching = false
     }
     
@@ -55,6 +55,8 @@ class Category: ObservableObject {
     }
     
     func fetchData() {
+        self.category_clicked = category_clicked_combinations[Int(UserDefaults.standard.string(forKey: defaultsKeys.default_category_id)!)! - 1]
+        self.currCategory = categories[Int(UserDefaults.standard.string(forKey: defaultsKeys.default_category_id)!)! - 1]
         API().getRadius(logitude: self.userLongitude, latitude: self.userLatitude)
         { (result) in
             switch result

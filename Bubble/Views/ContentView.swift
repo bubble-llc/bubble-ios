@@ -44,7 +44,7 @@ struct ContentView : View {
  
                     ZStack{
                         
-                        PageView().environmentObject(userAuth).environmentObject(locationViewModel)
+                        PageView().environmentObject(userAuth).environmentObject(locationViewModel).environmentObject(categoryGlobal)
 
                         GeometryReader{_ in
 

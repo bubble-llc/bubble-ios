@@ -38,8 +38,11 @@ struct UserSettingsView: View {
     @State private var what_clicked = false
     @State private var misc_clicked = false
     
+    @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
+    
     @EnvironmentObject var locationViewModel: LocationViewModel
     @EnvironmentObject var categoryGlobal: Category
+    @EnvironmentObject var categorySettings: Category
     
     @State var blockedUsers: [BlockedUser] = []
     
@@ -266,13 +269,19 @@ struct UserSettingsView: View {
                         }
                 HStack {
                     Spacer()
-                    ForEach(0 ..< categoryGlobal.categories.count) { i in
+                    ForEach(0 ..< categorySettings.categories.count) { i in
                             Button(action: {
-                                categoryGlobal.category_clicked = categoryGlobal.category_clicked_combinations[i]
+                                categorySettings.category_clicked = categorySettings.category_clicked_combinations[i]
+                                print(categorySettings.category_clicked)
                                 category_id = i + 1
+                                let default_category_object: [String: Any]  =
+                                    [
+                                        "default_category_id": category_id,
+                                    ]
+                                API().setDefaultCategory(submitted: default_category_object)
                             }){
                                 VStack(spacing: 0){
-                                Image(categoryGlobal.category_clicked[i] == 1 ? categoryGlobal.selected_cat_names1[i] : categoryGlobal.cat_names1[i]).resizable().frame(width:40, height:40).padding()
+                                Image(categorySettings.category_clicked[i] == 1 ? categorySettings.selected_cat_names1[i] : categorySettings.cat_names1[i]).resizable().frame(width:40, height:40).padding()
 //                                    Text(categoryGlobal.categories[i])
 //                                    .font(.system(size: 12))
 //                                    .foregroundColor(Color.white)

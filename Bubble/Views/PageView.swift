@@ -12,7 +12,7 @@ import Combine
 import SwiftUIRefresh
 
 struct PageView: View {
-    @State private var selectedTab = 0
+    @State private var selectedTab = Int(UserDefaults.standard.string(forKey: defaultsKeys.default_category_id)!)! - 1
     @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
     @State private var isShowing = false
     
