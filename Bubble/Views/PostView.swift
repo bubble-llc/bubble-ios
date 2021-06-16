@@ -56,37 +56,30 @@ struct PostView: View
                     Text(post.username)
                         .foregroundColor(Color.gray)
                         .font(.system(size: 12))
-                        .padding(.leading)
-                        .frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.001, alignment: .leading)
+                        .padding(.leading,UIScreen.main.bounds.width * 0.095)
+                        .frame(width: UIScreen.main.bounds.width * 0.29, height: UIScreen.main.bounds.height * 0.001, alignment: .leading)
                     Spacer()
                     Text(post.title)
                         .font(.headline)
                         .lineLimit(1)
                         .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                         .frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.height * 0.02, alignment: .center)
-                        .offset(x: -UIScreen.main.bounds.width * 0.0375)
                         Spacer()
                         Spacer()
                         }
                 .padding(.bottom, 3)
                 
                 HStack{
-                    
-                    Image(Constants.avatar_list[Int.random(in: 0...3)])
-                        .resizable()
-                        .frame(width:UIScreen.main.bounds.width * 0.1, height:UIScreen.main.bounds.width * 0.1)
                     Spacer()
                     Text(post.content)
                         .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .font(.system(size: 15))
                         .lineLimit(2)
-                        .frame(width: UIScreen.main.bounds.width * 0.6, height: UIScreen.main.bounds.height/24.5, alignment: .center)
+                        .frame(width: UIScreen.main.bounds.width * 0.775, height: UIScreen.main.bounds.height/24.5, alignment: .center)
                         .multilineTextAlignment(.center)
-                        .offset(x: -UIScreen.main.bounds.width * 0.015)
-                        
-                    Spacer()
+                        Spacer()
                 }
-                .padding(.leading, UIScreen.main.bounds.width * 0.045)
+                .padding(.leading, UIScreen.main.bounds.width * 0.1)
                 HStack{
                     Spacer()
                     Spacer()
@@ -101,6 +94,7 @@ struct PostView: View
                             .font(.system(size: 12))
                     Spacer()
                     }//Nested HStack for date created and comments
+                .offset(y: UIScreen.main.bounds.height * 0.001)
                 Spacer()
                 }//End middle block of HStack
             .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height / 15.8)

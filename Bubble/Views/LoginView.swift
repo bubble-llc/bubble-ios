@@ -8,6 +8,7 @@ struct LoginView: View {
     @State private var showingAlert = false
     @State private var isRegister = false
     @State private var isForgotPassword = false
+    @State private var categories = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
     @State var users: [User] = []
     @State var token: [Jwt] = []
     
