@@ -104,9 +104,24 @@ struct ContentView : View {
                 }
             }
             else{
-                Text("waiting").onAppear
-                {
-                    categoryGlobal.fetchData()
+                if #available(iOS 14.0, *) {
+                    VStack{
+                        Image("b_300")
+                            .resizable()
+                            .frame(width: 500, height: 500)
+                            .foregroundColor(Color("bubble_dark"))
+                            .opacity(0.6)
+                            
+                            .onAppear
+                            {
+                                categoryGlobal.fetchData()
+                            }
+                    }
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                    .background(Color("bubble_blue"))
+                    .ignoresSafeArea()
+                } else {
+                    // Fallback on earlier versions
                 }
             }
         }
