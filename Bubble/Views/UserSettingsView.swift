@@ -55,6 +55,7 @@ struct UserSettingsView: View {
     var body: some View
     {
         ScrollView{
+            
         if #available(iOS 14.0, *) {
             VStack(alignment: .leading){
                 Spacer()
