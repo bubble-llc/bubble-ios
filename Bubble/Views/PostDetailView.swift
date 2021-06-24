@@ -127,6 +127,23 @@ struct PostDetailView: View {
                             .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                         if #available(iOS 14.0, *) {
                             Menu {
+                                //if (user made post)
+                                //then
+                                Button("Delete Comment", action: {
+                                    //DELETE COMMENT
+                                    //Need to do a check for if it's the user's own post first though
+            //                         print(comment)
+            //                        if(Int(Constants.current_user_id) == comment.user_id)
+            //                         {
+            //                            self.showingAlert = true
+            //                             activeAlert = .sameUserReport
+            //                         }
+            //                         else
+            //                         {
+            //                             isShowingDetailView = true
+            //                         }
+                                    
+                                })//show this only if it is the users own post
                                 Button("Report Post", action: {
                                     
                                     if(Int(Constants.current_user_id) == post.user_id)
