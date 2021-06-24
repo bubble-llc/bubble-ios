@@ -10,6 +10,7 @@
 		5C06515D25EF09A6005028C0 /* LikedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C06515C25EF09A6005028C0 /* LikedListView.swift */; };
 		5C07955F259A7E5300688501 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07955E259A7E5300688501 /* TabBarView.swift */; };
 		5C07956D259A8B0800688501 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07956C259A8B0800688501 /* Category.swift */; };
+		5C0CB01D26854BAC006A708C /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0CB01C26854BAC006A708C /* Device.swift */; };
 		5C1CAB26260A608400374DFB /* UserCreatedPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CAB25260A608400374DFB /* UserCreatedPostView.swift */; };
 		5C1CAB35260A8BD500374DFB /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5C1CAB34260A8BD500374DFB /* DeviceKit */; };
 		5C5A8C9B26432423002A03BE /* ReportCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A8C9A26432423002A03BE /* ReportCommentView.swift */; };
@@ -93,6 +94,7 @@
 		5C06515C25EF09A6005028C0 /* LikedListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikedListView.swift; sourceTree = "<group>"; };
 		5C07955E259A7E5300688501 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		5C07956C259A8B0800688501 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		5C0CB01C26854BAC006A708C /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		5C1CAB25260A608400374DFB /* UserCreatedPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCreatedPostView.swift; sourceTree = "<group>"; };
 		5C5A8C9A26432423002A03BE /* ReportCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCommentView.swift; sourceTree = "<group>"; };
 		5C5A8CA72643265D002A03BE /* SubmitContentReviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitContentReviewView.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				B002582F255A4F0900BB7815 /* Location.swift */,
 				B0025840255B5F3200BB7815 /* Date.swift */,
 				5C07956C259A8B0800688501 /* Category.swift */,
+				5C0CB01C26854BAC006A708C /* Device.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -627,6 +630,7 @@
 				5D86E378260A7A5F00B002D8 /* FeedbackView.swift in Sources */,
 				5C06515D25EF09A6005028C0 /* LikedListView.swift in Sources */,
 				5DDAE4CC26780E3A00EF9281 /* Radius.swift in Sources */,
+				5C0CB01D26854BAC006A708C /* Device.swift in Sources */,
 				5C07955F259A7E5300688501 /* TabBarView.swift in Sources */,
 				B0025841255B5F3200BB7815 /* Date.swift in Sources */,
 				5CCF768624F860E30040EC07 /* Post.swift in Sources */,
