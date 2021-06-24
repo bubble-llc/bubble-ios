@@ -25,7 +25,7 @@ struct Constants {
  }
 
 enum ActiveAlert {
-    case blockUser, confirmComment, sameUserBlock, sameUserReport
+    case blockUser, confirmComment, sameUserBlock, sameUserReport, deletePost, deleteComment
 }
 
 enum PasswordAlert {

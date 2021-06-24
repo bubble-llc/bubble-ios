@@ -50,6 +50,7 @@ struct PostDetailView: View {
     @State private var placeholder_default_comment: String = "Enter comment here..."
     @State private var showingAlert = false
     @State private var blockedUserId = 0
+    @State private var deletedCommentId = 0
     @State private var isShowingDetailView = false
     
     @EnvironmentObject var categoryGlobal: Category
@@ -127,26 +128,16 @@ struct PostDetailView: View {
                             .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                         if #available(iOS 14.0, *) {
                             Menu {
-                                //if (user made post)
-                                //then
-                                Button("Delete Comment", action: {
-                                    //DELETE COMMENT
-                                    //Need to do a check for if it's the user's own post first though
-            //                         print(comment)
-            //                        if(Int(Constants.current_user_id) == comment.user_id)
-            //                         {
-            //                            self.showingAlert = true
-            //                             activeAlert = .sameUserReport
-            //                         }
-            //                         else
-            //                         {
-            //                             isShowingDetailView = true
-            //                         }
-                                    
-                                })//show this only if it is the users own post
+                                if(Int(UserDefaults.standard.integer(forKey: defaultsKeys.user_id)) == post.user_id)
+                                {
+                                    Button("Delete Post", action: {
+                                        self.showingAlert = true
+                                        self.activeAlert = .deletePost
+                                    })
+                                }
                                 Button("Report Post", action: {
                                     
-                                    if(Int(Constants.current_user_id) == post.user_id)
+                                    if(Int(UserDefaults.standard.integer(forKey: defaultsKeys.user_id)) == post.user_id)
                                     {
                                         self.showingAlert = true
                                         self.activeAlert = .sameUserReport
@@ -191,7 +182,7 @@ struct PostDetailView: View {
                     if #available(iOS 14.0, *) {
                         List{
                             ForEach(comments){comment in
-                                CommentsView(comment: comment, showingAlert: $showingAlert, activeAlert: $activeAlert, blockedUserId: $blockedUserId)
+                                CommentsView(comment: comment, showingAlert: $showingAlert, activeAlert: $activeAlert, blockedUserId: $blockedUserId, deletedCommentId: $deletedCommentId)
                                 .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                             }
                         }
@@ -275,17 +266,15 @@ struct PostDetailView: View {
                             return Alert(title: Text("Submit comment?"),
                                          message: Text(""),
                                          primaryButton: .default(Text("Submit")){
-                                           
-                                           
-                                               let commentObject: [String: Any]  =
-                                                   [
-                                                       "post_id": post.id,
-                                                       "content": self.default_comment,
-                                                   ]
-                                               DispatchQueue.main.asyncAfter(deadline: .now()) {
-                                                   API().submitComment(submitted: commentObject)
-                                                   self.default_comment = self.placeholder_default_comment
-                                               }
+                                           let commentObject: [String: Any]  =
+                                               [
+                                                   "post_id": post.id,
+                                                   "content": self.default_comment,
+                                               ]
+                                           DispatchQueue.main.asyncAfter(deadline: .now()) {
+                                               API().submitComment(submitted: commentObject)
+                                               self.default_comment = self.placeholder_default_comment
+                                           }
                                            
                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                                API().getComment(post_id: post.id)
@@ -315,6 +304,48 @@ struct PostDetailView: View {
                                            API().blockUser(submitted: block_user_object)
                                            categoryGlobal.refreshCategory(category: categoryGlobal.currCategory)
                                            self.presentationMode.wrappedValue.dismiss()
+                                       },
+                                         secondaryButton: .cancel())
+                        case .deletePost:
+                            return Alert(title: Text("Delete Post?"),
+                                         message: Text(""),
+                                         primaryButton: .default(Text("Confirm")){
+                                           let content_delete_object: [String: Any]  =
+                                               [
+                                                   "post_id": post.id,
+                                                   "content_type": "post"
+                                               ]
+                                           API().submitContentDelete(submitted: content_delete_object)
+                                           categoryGlobal.refreshCategory(category: categoryGlobal.currCategory)
+                                           self.presentationMode.wrappedValue.dismiss()
+                                       },
+                                         secondaryButton: .cancel())
+                        case .deleteComment:
+                            return Alert(title: Text("Delete Comment?"),
+                                         message: Text(""),
+                                         primaryButton: .default(Text("Confirm")){
+                                           let content_delete_object: [String: Any]  =
+                                               [
+                                                   "comment_id": deletedCommentId,
+                                                   "content_type": "comment"
+                                               ]
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                                                API().submitContentDelete(submitted: content_delete_object)
+                                            }
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                API().getComment(post_id: post.id)
+                                                { (result) in
+                                                    switch result
+                                                    {
+                                                        case .success(let comments):
+                                                            self.comments = comments
+                                                        case .failure(let error):
+                                                            print(error)
+                                                    }
+                                                }
+                                            }
                                        },
                                          secondaryButton: .cancel())
                         case .sameUserBlock:

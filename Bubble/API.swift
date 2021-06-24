@@ -9,7 +9,7 @@ class API {
     func getRadius(longitude: String, latitude: String, completion: @escaping (Result<Radius,Error>) ->())
     {
         var paramStr = ""
-        paramStr += "logitude=\(String(describing: longitude))&"
+        paramStr += "longitude=\(String(describing: longitude))&"
         paramStr += "latitude=\(String(describing: latitude))&"
         paramStr += "radius=\(String(describing: UserDefaults.standard.string(forKey: defaultsKeys.radius)!))"
         
@@ -51,7 +51,7 @@ class API {
         var paramStr = ""
         paramStr += "token=\(String(describing: UserDefaults.standard.string(forKey: defaultsKeys.token)!))&"
         paramStr += "category_id=\(String(describing: categories[category]!))&"
-        paramStr += "logitude=\(String(describing: longitude))&"
+        paramStr += "longitude=\(String(describing: longitude))&"
         paramStr += "latitude=\(String(describing: latitude))&"
         paramStr += "radius=\(String(describing: UserDefaults.standard.string(forKey: defaultsKeys.radius)!))"
         
@@ -502,6 +502,36 @@ class API {
     func submitContentReview(submitted: [String: Any])
     {
         guard let postUrl = URL(string: "\(baseURL)/content_review") else {fatalError()}
+        
+        var request = URLRequest(url: postUrl)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
+        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
+        
+        let submission = try? JSONSerialization.data(withJSONObject: submitted)
+        
+        request.httpBody = submission
+        
+        let task = URLSession.shared.dataTask(with: request)
+        { data, response, error in
+            
+            guard let data = data, error == nil else
+            {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any]
+            {
+                print(responseJSON)
+            }
+        }
+        task.resume()
+    }
+    
+    func submitContentDelete(submitted: [String: Any])
+    {
+        guard let postUrl = URL(string: "\(baseURL)/content_delete") else {fatalError()}
         
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
