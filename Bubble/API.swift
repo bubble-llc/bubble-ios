@@ -6,10 +6,10 @@ class API {
 //    fileprivate let baseURL = "http://0.0.0.0:8000"
     let categories = ["Deals":1, "Happy Hour":2, "Recreation":3, "What's Happening?":4, "Misc":5]
     
-    func getRadius(logitude: String, latitude: String, completion: @escaping (Result<Radius,Error>) ->())
+    func getRadius(longitude: String, latitude: String, completion: @escaping (Result<Radius,Error>) ->())
     {
         var paramStr = ""
-        paramStr += "logitude=\(String(describing: logitude))&"
+        paramStr += "logitude=\(String(describing: longitude))&"
         paramStr += "latitude=\(String(describing: latitude))&"
         paramStr += "radius=\(String(describing: UserDefaults.standard.string(forKey: defaultsKeys.radius)!))"
         
@@ -46,12 +46,12 @@ class API {
         }.resume()
     }
     
-    func getPosts(logitude: String, latitude: String, category: String, completion: @escaping (Result<[Post],Error>) ->())
+    func getPosts(longitude: String, latitude: String, category: String, completion: @escaping (Result<[Post],Error>) ->())
     {
         var paramStr = ""
         paramStr += "token=\(String(describing: UserDefaults.standard.string(forKey: defaultsKeys.token)!))&"
         paramStr += "category_id=\(String(describing: categories[category]!))&"
-        paramStr += "logitude=\(String(describing: logitude))&"
+        paramStr += "logitude=\(String(describing: longitude))&"
         paramStr += "latitude=\(String(describing: latitude))&"
         paramStr += "radius=\(String(describing: UserDefaults.standard.string(forKey: defaultsKeys.radius)!))"
         
@@ -311,7 +311,8 @@ class API {
     
     func checkUsername(username: String, completion: @escaping (Result<Void,Error>) ->())
     {
-        guard let url = URL(string: "\(baseURL)/check_username?username=\(username)") else {fatalError()}
+        let urlEncoded = username.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+        guard let url = URL(string: "\(baseURL)/check_username?username=\(urlEncoded!)") else {fatalError()}
         
         URLSession.shared.dataTask(with: url)
         { (data, response, error) in

@@ -42,7 +42,7 @@ struct CompleteRegistationView: View {
                     Spacer()
                     Text("Complete Registration").foregroundColor(.white)
                     Spacer()
-                    Text("By tapping register, you agree to out terms, Data Policy and Cookies Policy.")
+                    Text("By tapping register, you agree to our terms, Data Policy and Cookies Policy.")
                         .foregroundColor(.white)
                         .frame(width: UIScreen.main.bounds.width * 0.8)
                     Spacer()
