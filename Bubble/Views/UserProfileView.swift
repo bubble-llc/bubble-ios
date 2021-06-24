@@ -10,6 +10,7 @@ struct UserProfileView: View {
     
     var body: some View {
         let count = self.posts.count
+        ScrollView{
         if #available(iOS 14.0, *) {
             ZStack(alignment: .top){
                 
@@ -17,21 +18,22 @@ struct UserProfileView: View {
                 {
                     HStack{
                         Spacer()
-                        Text(username)
-                            .font(.system(size:40))
-                            .font(.headline)
-                            .foregroundColor(Color.white)
-                            .shadow(color: Color.black, radius: 3, y:1)
-                            .offset(x: UIScreen.main.bounds.height * 0.03)
-                        Spacer()
-
                         NavigationLink(destination: UserSettingsView(profileUsername: $username).environmentObject(categoryGlobal).environmentObject(categorySettings)){
                             Image(systemName: "gearshape").resizable().frame(width: UIScreen.main.bounds.width * 0.07, height: UIScreen.main.bounds.width * 0.07).foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                         }
 
                         
-                        
-                        .padding(.trailing, UIScreen.main.bounds.height * 0.03)
+                    }
+                        .padding(.trailing, UIScreen.main.bounds.height * 0.02)
+                    HStack{
+                        Spacer()
+                        Text(username)
+                            .font(.system(size:40))
+                            .font(.headline)
+                            .foregroundColor(Color.white)
+                            .shadow(color: Color.black, radius: 3, y:1)
+                        Spacer()
+
 //                        Button(action:{}){
 //                    Image(systemName: "gearshape")
 //                        .resizable()
@@ -39,7 +41,6 @@ struct UserProfileView: View {
 //                        .foregroundColor(Color.white)
 //                        }
                     }
-                    .padding(.top, UIScreen.main.bounds.height * 0.08)
 
                     Image("account_bubble_2x")
                         .resizable()
@@ -85,7 +86,9 @@ struct UserProfileView: View {
             }
         } else {
             // Fallback on earlier versions
-        }
-        
+            }
+        }//end ScrollView
+        .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+        .edgesIgnoringSafeArea(.bottom)
     }
 }
