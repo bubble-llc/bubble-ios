@@ -57,7 +57,7 @@ class Category: ObservableObject {
     func fetchData() {
         self.category_clicked = category_clicked_combinations[Int(UserDefaults.standard.string(forKey: defaultsKeys.default_category_id)!)! - 1]
         self.currCategory = categories[Int(UserDefaults.standard.string(forKey: defaultsKeys.default_category_id)!)! - 1]
-        API().getRadius(logitude: self.userLongitude, latitude: self.userLatitude)
+        API().getRadius(longitude: self.userLongitude, latitude: self.userLatitude)
         { (result) in
             switch result
             {
@@ -67,7 +67,7 @@ class Category: ObservableObject {
                     for category in self.categories
                     {
                         group.enter()
-                        API().getPosts(logitude: self.userLongitude, latitude: self.userLatitude, category: category)
+                        API().getPosts(longitude: self.userLongitude, latitude: self.userLatitude, category: category)
                         {(result) in
                             switch result
                             {
@@ -92,14 +92,14 @@ class Category: ObservableObject {
     
     func refreshCategory(category: String)
     {
-        API().getRadius(logitude: self.userLongitude, latitude: self.userLatitude)
+        API().getRadius(longitude: self.userLongitude, latitude: self.userLatitude)
         { (result) in
             switch result
             {
                 case .success(let radius):
                     UserDefaults.standard.set(radius.radius, forKey: defaultsKeys.radius)
                     self.fetching = true
-                    API().getPosts(logitude: self.userLongitude, latitude: self.userLatitude, category: category)
+                    API().getPosts(longitude: self.userLongitude, latitude: self.userLatitude, category: category)
                     { (result) in
                         switch result
                         {
