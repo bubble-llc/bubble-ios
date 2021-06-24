@@ -6,6 +6,7 @@ struct CommentsView: View {
     @Binding var showingAlert: Bool
     @Binding var activeAlert: ActiveAlert
     @Binding var blockedUserId: Int
+    @Binding var deletedCommentId: Int
     @State private var isShowingDetailView = false
     
     @State var isUp = false
@@ -20,11 +21,12 @@ struct CommentsView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    init(comment: Comment, showingAlert: Binding<Bool>, activeAlert: Binding<ActiveAlert>, blockedUserId: Binding<Int>) {
+    init(comment: Comment, showingAlert: Binding<Bool>, activeAlert: Binding<ActiveAlert>, blockedUserId: Binding<Int>, deletedCommentId: Binding<Int>) {
         self.comment = comment
         self._showingAlert = showingAlert
         self._activeAlert = activeAlert
         self._blockedUserId = blockedUserId
+        self._deletedCommentId = deletedCommentId
         self._totalVotes = State(initialValue: comment.votes)
         
         if comment.is_voted == true
@@ -106,10 +108,18 @@ struct CommentsView: View {
     )
             if #available(iOS 14.0, *) {
                 Menu {
+                    if(UserDefaults.standard.integer(forKey: defaultsKeys.user_id) == comment.user_id)
+                    {
+                        Button("Delete Comment", action: {
+                            self.showingAlert = true
+                            self.activeAlert = .deleteComment
+                            deletedCommentId = comment.id
+                        })
+                    }
                     Button("Report Comment", action: {
 
                          print(comment)
-                        if(Int(Constants.current_user_id) == comment.user_id)
+                        if(Int(UserDefaults.standard.integer(forKey: defaultsKeys.user_id)) == comment.user_id)
                          {
                             self.showingAlert = true
                              activeAlert = .sameUserReport
