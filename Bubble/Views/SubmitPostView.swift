@@ -27,6 +27,7 @@ struct SubmitPostView: View {
     
     var body: some View
     {
+        ScrollView{
         if #available(iOS 14.0, *) {
             VStack {
                 if #available(iOS 14.0, *) {
@@ -193,6 +194,9 @@ struct SubmitPostView: View {
 
         
         
+    }
+        .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+        .edgesIgnoringSafeArea(.bottom)
     }
     
 }

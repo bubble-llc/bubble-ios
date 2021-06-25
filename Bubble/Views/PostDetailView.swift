@@ -3,6 +3,18 @@ import Request
 import SwiftUIRefresh
 import Combine
 
+class TextLimiter: ObservableObject {
+    var limit: Int = 125
+
+    @Published var comment_content: String = "Enter comment here..." {
+        didSet {
+            if comment_content.count > limit {
+                comment_content = String(comment_content.prefix(limit))
+            }
+        }
+    }
+}
+
 struct KeyboardResponsiveModifier: ViewModifier {
   @State private var offset: CGFloat = 0
 
@@ -46,13 +58,14 @@ struct PostDetailView: View {
     @State private var isShowing = false
     @State var comments: [Comment] = []
     @State private var commentBoxPressed: Bool = false
-    @State private var default_comment: String = "Enter comment here..."
+    //@State private var default_comment: String = "Enter comment here..."
     @State private var placeholder_default_comment: String = "Enter comment here..."
     @State private var showingAlert = false
     @State private var blockedUserId = 0
     @State private var deletedCommentId = 0
     @State private var isShowingDetailView = false
     
+    @ObservedObject private var textLimiter = TextLimiter()
     @EnvironmentObject var categoryGlobal: Category
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
@@ -221,11 +234,11 @@ struct PostDetailView: View {
                 HStack{
                     if #available(iOS 14.0, *)
                     {
-                        TextEditor(text: self.$default_comment)
+                        TextEditor(text: $textLimiter.comment_content)
                             
                             .onTapGesture {
                                 if !self.commentBoxPressed{
-                                    self.default_comment = ""
+                                    textLimiter.comment_content = ""
                                     self.commentBoxPressed = true
                                 }
                             }
@@ -256,7 +269,8 @@ struct PostDetailView: View {
                                 self.activeAlert = .confirmComment
                             })
                     {
-                        Image(systemName:"mail")
+                        Image(systemName:"paperplane.fill")
+                            .foregroundColor(Color("bubble_dark"))
                         
                     }
                     .alert(isPresented:$showingAlert){
@@ -269,11 +283,11 @@ struct PostDetailView: View {
                                            let commentObject: [String: Any]  =
                                                [
                                                    "post_id": post.id,
-                                                   "content": self.default_comment,
+                                                "content": textLimiter.comment_content,
                                                ]
                                            DispatchQueue.main.asyncAfter(deadline: .now()) {
                                                API().submitComment(submitted: commentObject)
-                                               self.default_comment = self.placeholder_default_comment
+                                            textLimiter.comment_content = self.placeholder_default_comment
                                            }
                                            
                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -358,7 +372,7 @@ struct PostDetailView: View {
                                          dismissButton: .default(Text("OK"), action: {}))
                                    }
                                }
-                    .disabled(self.default_comment == self.placeholder_default_comment || self.default_comment.isEmpty)
+                    .disabled(textLimiter.comment_content == self.placeholder_default_comment || textLimiter.comment_content.isEmpty)
                     Spacer()
                 }.padding(.leading, UIScreen.main.bounds.width * 0.025)
                 .padding(.bottom, UIScreen.main.bounds.width * 0.05)
@@ -374,8 +388,8 @@ struct PostDetailView: View {
             .onTapGesture {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
                
-                if self.default_comment.isEmpty{
-                    self.default_comment = self.placeholder_default_comment
+                if textLimiter.comment_content.isEmpty{
+                    textLimiter.comment_content = self.placeholder_default_comment
                     self.commentBoxPressed.toggle()
                 }
                 

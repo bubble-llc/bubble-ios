@@ -4,10 +4,10 @@ import Request
 struct SubmitCommentView: View {
     @State private var post_title: String = ""
     @State private var post_content: String = ""
-    @State private var comment_content: String = "Enter your comment here"
+    //@State private var comment_content: String = "Enter your comment here"
     @State private var commentBoxPressed: Bool = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+    @ObservedObject private var textLimiter = TextLimiter()
     let post: Post
     
     
@@ -32,10 +32,10 @@ struct SubmitCommentView: View {
                 {
                     //We are currently allowing there to be trailing spaces after comments, need to auto remove those from the comment
                     //object before we actually let it be submitted
-                    TextEditor(text: self.$comment_content)
+                    TextEditor(text: $textLimiter.comment_content)
                         .onTapGesture {
                             if !self.commentBoxPressed{
-                                self.comment_content = " "
+                                textLimiter.comment_content = " "
                                 self.commentBoxPressed = true
                             }
                         }
@@ -48,19 +48,12 @@ struct SubmitCommentView: View {
                         .listRowBackground(Color(red: 0 / 255, green: 255 / 255, blue: 255 / 255))
                     
                 }
-                else
-                {
-                    MultilineTextField("Enter comment here...", text: self.$comment_content)
-                        .padding(3)
-                        .frame(minWidth: 100, idealWidth: 100/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center)
-                        .background(RoundedRectangle(cornerRadius:5))
-                }
                 Button(action:
                 {
                     let commentObject: [String: Any]  =
                         [
                             "post_id": post.id,
-                            "content": self.comment_content,
+                            "content": textLimiter.comment_content,
                         ]
                     API().submitComment(submitted: commentObject)
                     self.presentationMode.wrappedValue.dismiss()

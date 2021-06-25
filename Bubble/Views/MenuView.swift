@@ -37,7 +37,7 @@ struct MenuView : View {
                     NavigationLink(destination: UserProfileView())
                     {
                         //Image("menu_report").resizable().frame(width: 25, height: 25).padding()
-                        Text("account").foregroundColor(.white).font(.system(size: 25)).bold()
+                        Text("account").foregroundColor(.white).font(.system(size: 23)).bold()
                             .padding(.leading, UIScreen.main.bounds.height * 0.015)
                         
                     }
@@ -68,7 +68,7 @@ struct MenuView : View {
                     {
                         //Image("menu_report").resizable().frame(width: 25, height: 25).padding()
                         Text("liked").foregroundColor(.white)
-                            .font(.system(size: 25)).bold()
+                            .font(.system(size: 23)).bold()
                             .padding(.leading, -UIScreen.main.bounds.width * 0.05)
                             .padding(.top, UIScreen.main.bounds.height * 0.005)
                         
@@ -98,7 +98,7 @@ struct MenuView : View {
                     NavigationLink(destination: FeedbackView().environmentObject(locationViewModel))
                     {
                         //Image("menu_report").resizable().frame(width: 25, height: 25).padding()
-                        Text("feedback").foregroundColor(.white).font(.system(size: 25)).bold()
+                        Text("feedback").foregroundColor(.white).font(.system(size: 23)).bold()
                             .padding(.top, UIScreen.main.bounds.height * 0.005)
                             .padding(.leading, UIScreen.main.bounds.height * 0.025)
                         
@@ -117,14 +117,14 @@ struct MenuView : View {
                     {
                         //Image("menu_log").resizable().frame(width: 25, height: 25).padding()
                         Text("log out").foregroundColor(.white)
-                            .font(.system(size: 25)).bold()
+                            .font(.system(size: 23)).bold()
                             .padding(.top, UIScreen.main.bounds.height * 0.005)
                             .padding(.leading, UIScreen.main.bounds.width * 0.07)
                     }
                     
                 .frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.005, alignment: .leading)
                 .padding()
-                .padding(.top, UIScreen.main.bounds.height * 0.01)
+                .padding(.top, UIScreen.main.bounds.height * 0.005)
                 
                 Image("b_3002")
                     .resizable()
