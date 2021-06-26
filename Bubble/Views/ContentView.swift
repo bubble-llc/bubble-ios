@@ -70,11 +70,14 @@ struct ContentView : View {
                                 {
                                     let ind = categoryGlobal.categories.firstIndex(of: categoryGlobal.currCategory)
                                     Image(categoryGlobal.cat_icons[Int(ind!)])
+                                        .resizable()
+                                        .frame(width: UIScreen.main.bounds.width * 0.069 , height: UIScreen.main.bounds.width * 0.069)
                                     Text(categoryGlobal.currCategory)
+                                        .font(.system(size: 25))
                                         .foregroundColor(Color.white)
-                                        .bold()
-                                        .font(.headline)
                                     Image(categoryGlobal.cat_icons[Int(ind!)])
+                                        .resizable()
+                                        .frame(width: UIScreen.main.bounds.width * 0.069 , height: UIScreen.main.bounds.width * 0.069)
                                 }
                             }
                         }
@@ -85,17 +88,23 @@ struct ContentView : View {
                                                 self.showMenu.toggle()
                                             }, label: {
                                                 if self.showMenu{
-                                                    Image("bubble_menu").resizable().foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                                                    Image("bubble_menu")
+                                                        .resizable()
+                                                        .frame(width: UIScreen.main.bounds.width * 0.069 , height: UIScreen.main.bounds.width * 0.069)
+                                                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                                                 }
                                                 else{
                                                     Image("bubble_menu")
                                                         .resizable()
+                                                        .frame(width: UIScreen.main.bounds.width * 0.069 , height: UIScreen.main.bounds.width * 0.069)
                                                         .foregroundColor(Color.white)
                                                 }
                                             })
                                             }, trailing:
                                                 NavigationLink(destination: SubmitPostView().environmentObject(locationViewModel).environmentObject(categoryGlobal)){
-                                                    Image(systemName: "plus")
+                                                    Image(systemName: "plus.circle")
+                                                        .resizable()
+                                                        .frame(width: UIScreen.main.bounds.width * 0.069 , height: UIScreen.main.bounds.width * 0.069)
                                                         .foregroundColor(Color.white)
                                                 }
 

@@ -199,6 +199,7 @@ struct PostDetailView: View {
                                 .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                             }
                         }
+                        
                         .onAppear{
                             API().getComment(post_id: post.id)
                             { (result) in
@@ -374,10 +375,12 @@ struct PostDetailView: View {
                                }
                     .disabled(textLimiter.comment_content == self.placeholder_default_comment || textLimiter.comment_content.isEmpty)
                     Spacer()
-                }.padding(.leading, UIScreen.main.bounds.width * 0.025)
+                }
+                .padding(.leading, UIScreen.main.bounds.width * 0.025)
                 .padding(.bottom, UIScreen.main.bounds.width * 0.05)
                 Spacer()
             }
+            
             .keyboardResponsive()
             .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
