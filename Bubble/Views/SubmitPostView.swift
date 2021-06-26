@@ -33,11 +33,11 @@ struct SubmitPostView: View {
                 if #available(iOS 14.0, *) {
                     Text("Create Your Post").font(.system(size: 30))
                         .bold()
-                        .italic()
                         .foregroundColor(Color.white)
                         .shadow(color: Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), radius: 2)
                         .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                        .padding(.top, UIScreen.main.bounds.height * 0.1)
+                        .padding(.top, UIScreen.main.bounds.height * 0.05)
+                        .padding(.bottom, UIScreen.main.bounds.height * 0.025)
                     
                     Text("Category")
                         .font(.headline)
