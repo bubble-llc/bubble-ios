@@ -84,7 +84,7 @@ struct FeedbackView: View{
                             .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
                     )
                     
-                    .frame(minWidth: UIScreen.main.bounds.width * 0.9, maxWidth: 5 * 0.9, minHeight: UIScreen.main.bounds.height * 0.1, maxHeight: UIScreen.main.bounds.height * 0.2)
+                    .frame(minWidth: UIScreen.main.bounds.width * 0.9, maxWidth: UIScreen.main.bounds.width * 0.9, minHeight: UIScreen.main.bounds.height * 0.1, maxHeight: UIScreen.main.bounds.height * 0.2)
             }
                     Spacer()
                 }
