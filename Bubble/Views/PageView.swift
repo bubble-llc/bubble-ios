@@ -38,7 +38,13 @@ struct PageView: View {
                         
                         FeedView(category: self.$categories[i])
                             .tabItem {
-                                selectedTab == i ? Image(categoryGlobal.selected_cat_names1[i]).resizable().padding() : Image(categoryGlobal.cat_names1[i]).resizable().padding()
+                                selectedTab == i ? Image(categoryGlobal.selected_cat_names1[i])
+                                    .resizable()
+                                    .frame(width: UIScreen.main.bounds.width * 0.1 , height: UIScreen.main.bounds.width * 0.1)
+                                    : Image(categoryGlobal.cat_names1[i])
+                                                        .resizable()
+                                                        .frame(width: UIScreen.main.bounds.width * 0.1 , height: UIScreen.main.bounds.width * 0.1)
+                                                        
                             }
                             .tag(i)
                             .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
