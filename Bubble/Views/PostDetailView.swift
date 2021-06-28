@@ -141,7 +141,7 @@ struct PostDetailView: View {
                             .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                         if #available(iOS 14.0, *) {
                             Menu {
-                                if(Int(UserDefaults.standard.integer(forKey: defaultsKeys.user_id)) == post.user_id)
+                                if(Int(UserDefaults.standard.integer(forKey: defaultsKeys.user_id)) == post.user_id || Int(UserDefaults.standard.integer(forKey: defaultsKeys.user_type)) == 1)
                                 {
                                     Button("Delete Post", action: {
                                         self.showingAlert = true

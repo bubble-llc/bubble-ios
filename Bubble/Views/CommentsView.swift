@@ -108,7 +108,7 @@ struct CommentsView: View {
     )
             if #available(iOS 14.0, *) {
                 Menu {
-                    if(UserDefaults.standard.integer(forKey: defaultsKeys.user_id) == comment.user_id)
+                    if(UserDefaults.standard.integer(forKey: defaultsKeys.user_id) == comment.user_id || Int(UserDefaults.standard.integer(forKey: defaultsKeys.user_type)) == 1)
                     {
                         Button("Delete Comment", action: {
                             self.showingAlert = true
