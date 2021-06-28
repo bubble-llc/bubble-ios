@@ -2,12 +2,8 @@ import Foundation
 import JWTDecode
 
 class API {
-//    fileprivate let baseURL = "https://dashboard.stocksandshare.com/chitchat"
-//    fileprivate let baseURL = "https://bubblemedia.info"
-//    fileprivate let baseURL = "http://0.0.0.0:8000"
     fileprivate let baseURL = Bundle.main.infoDictionary?["MY_API_BASE_URL_ENDPOINT"] as! String
-
-//    print(baseURL)
+    
     let categories = ["Deals":1, "Happy Hour":2, "Recreation":3, "What's Happening?":4, "Misc":5]
     
     func getRadius(longitude: String, latitude: String, completion: @escaping (Result<Radius,Error>) ->())
