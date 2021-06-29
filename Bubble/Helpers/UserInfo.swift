@@ -36,7 +36,6 @@ class UserAuth: ObservableObject {
         let body = decoded_jwt!.body
         let defaults = UserDefaults.standard
         defaults.set(body["username"], forKey: defaultsKeys.username)
-        defaults.set(body["user_type"], forKey: defaultsKeys.user_type)
         defaults.set(password, forKey: defaultsKeys.password)
         defaults.set(body["email"], forKey: defaultsKeys.email)
         defaults.set(body["date_joined"], forKey: defaultsKeys.date_joined)

@@ -123,7 +123,10 @@ struct ContentView : View {
                             
                             .onAppear
                             {
-                                categoryGlobal.fetchData()
+                                if(userAuth.isLoggedin)
+                                {
+                                    categoryGlobal.fetchData()
+                                }
                             }
                     }
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)

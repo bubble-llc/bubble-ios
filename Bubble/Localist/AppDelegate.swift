@@ -14,10 +14,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             "default_category_id": Constants.DEFAULT_CATEGORY,
             "radius": 1000,
         ]
-        KeychainWrapper.standard.set("0", forKey: defaultsKeys.user_id)
-        KeychainWrapper.standard.set("2", forKey: defaultsKeys.user_type)
-        KeychainWrapper.standard.set("password", forKey: defaultsKeys.password)
-        KeychainWrapper.standard.set("", forKey: defaultsKeys.token)
+//        KeychainWrapper.standard.set("0", forKey: defaultsKeys.user_id)
+//        KeychainWrapper.standard.set("2", forKey: defaultsKeys.user_type)
+//        KeychainWrapper.standard.set("password", forKey: defaultsKeys.password)
+//        KeychainWrapper.standard.set("", forKey: defaultsKeys.token)
         UserDefaults.standard.register(defaults: initialDefaults as! [String : Any])
         UINavigationBar.appearance().barTintColor = UIColor(red:0.439, green:0.792, blue:0.827, alpha:1)//changes navigation bar up top
         UITabBar.appearance().barTintColor = UIColor(red:0.439, green:0.792, blue:0.827, alpha:1) //changes tab bar at bottom
