@@ -96,7 +96,7 @@ struct UserProfileView: View {
                     HStack{
                         Spacer()
                         NavigationLink(destination: UserSettingsView(profileUsername: $username).environmentObject(categoryGlobal).environmentObject(categorySettings)){
-                            Image(systemName: "gearshape").resizable().frame(width: UIScreen.main.bounds.width * 0.07, height: UIScreen.main.bounds.width * 0.07).foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                            Image(systemName: "gearshape").resizable().frame(width: UIScreen.main.bounds.width * 0.07, height: UIScreen.main.bounds.width * 0.07).foregroundColor(Color("bubble_dark"))
                         }
 
                         
@@ -108,7 +108,7 @@ struct UserProfileView: View {
                         HStack{
                             Spacer()
                             NavigationLink(destination: UserSettingsView(profileUsername: $username).environmentObject(categoryGlobal).environmentObject(categorySettings)){
-                                Image(systemName: "gearshape").resizable().frame(width: UIScreen.main.bounds.width * 0.07, height: UIScreen.main.bounds.width * 0.07).foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                                Image(systemName: "gearshape").resizable().frame(width: UIScreen.main.bounds.width * 0.07, height: UIScreen.main.bounds.width * 0.07).foregroundColor(Color("bubble_dark"))
                             }
 
                             
@@ -139,7 +139,7 @@ struct UserProfileView: View {
                     Text(String(count) + " Bubbles")
                         .font(.system(size:25))
                         .font(.headline)
-                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                        .foregroundColor(Color("bubble_dark"))
                         .bold()
                     
                     List(posts){ post in
@@ -147,7 +147,7 @@ struct UserProfileView: View {
                         UserCreatedPostView(post: post)
                     }
 
-                    .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                    .colorMultiply(Color("bubble_blue"))
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
                     .buttonStyle(PlainButtonStyle())
                     .onAppear
@@ -166,11 +166,11 @@ struct UserProfileView: View {
                     }
                 }
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-                .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                .background(Color("bubble_blue"))
                 .buttonStyle(PlainButtonStyle())
                 
                 
-            }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            }.background(Color("bubble_blue"))
             .onAppear(){
                 UITableView.appearance().backgroundColor = .clear
                 UITableViewCell.appearance().backgroundColor = .clear
@@ -179,7 +179,7 @@ struct UserProfileView: View {
             // Fallback on earlier versions
             }
         }//end ScrollView
-        .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+        .background(Color("bubble_blue"))
         .edgesIgnoringSafeArea(.bottom)
     }
 }

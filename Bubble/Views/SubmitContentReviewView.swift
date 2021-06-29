@@ -28,22 +28,22 @@ struct SubmitContentReviewView: View {
                         Image("menu_report")
                             .resizable()
                             .frame(width: 36.0, height: 36.0)
-                            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                            .listRowBackground(Color("bubble_blue"))
                         Text("Report")
                             .font(.system(size:40))
                             .font(.headline)
                             .foregroundColor(Color.white)
                             .shadow(color: Color.black, radius: 3, y:1)
-                            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                            .listRowBackground(Color("bubble_blue"))
                         Image("menu_report")
                             .resizable()
                             .frame(width: 32.0, height: 32.0)
-                            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                            .listRowBackground(Color("bubble_blue"))
                            
                     
                 }
-                .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                .background(Color("bubble_blue"))
+                .listRowBackground(Color("bubble_blue"))
             Spacer()
             Spacer()
                 Spacer()
@@ -63,13 +63,13 @@ struct SubmitContentReviewView: View {
                     .multilineTextAlignment(.leading)
                     .padding()
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 150, maxHeight: 400)
-                    .foregroundColor(commentBoxPressed ? Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255) : Color.gray)
+                    .foregroundColor(commentBoxPressed ? Color("bubble_dark") : Color.gray)
                     .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
-                    .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                    .listRowBackground(Color("bubble_blue"))
                     .cornerRadius(25)
                     .overlay(
                         RoundedRectangle(cornerRadius: 25)
-                            .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
+                            .stroke(Color("bubble_dark"), lineWidth: 2)
                     )
                 
             }
@@ -82,8 +82,8 @@ struct SubmitContentReviewView: View {
                     .padding(3)
                     .frame(minWidth: 100, idealWidth: 100/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center)
                     .background(RoundedRectangle(cornerRadius:5))
-                    .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                    .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                    .background(Color("bubble_blue"))
+                    .listRowBackground(Color("bubble_blue"))
             }
             Spacer()
             Spacer()
@@ -124,25 +124,25 @@ struct SubmitContentReviewView: View {
                     .padding(.trailing, 30)
                     .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
                     .cornerRadius(8)
-                    .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                    .foregroundColor(Color("bubble_dark"))
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
+                            .stroke(Color("bubble_dark"), lineWidth: 2)
                     )
                 
                 
             }
             .buttonStyle(PlainButtonStyle())
-            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            .listRowBackground(Color("bubble_blue"))
             .alert(isPresented: $submittedAlert)
             {
                 Alert(title: Text(""), message: Text("Thank you for your report!"), dismissButton: .default(Text("Close")){
                     self.presentationMode.wrappedValue.dismiss()
                 })
             }
-            }.listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-        }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            }.listRowBackground(Color("bubble_blue"))
+        }.background(Color("bubble_blue"))
+            .listRowBackground(Color("bubble_blue"))
         .edgesIgnoringSafeArea(.bottom)
     }
 }
