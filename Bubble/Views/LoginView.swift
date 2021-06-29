@@ -19,7 +19,9 @@ struct LoginView: View {
     @EnvironmentObject var categoryGlobal: Category
     
     var body: some View{
+        
         if #available(iOS 14.0, *) {
+            ScrollView{
             VStack
             {
                 Image("dark_text")
@@ -119,18 +121,20 @@ struct LoginView: View {
                 }
                 Spacer()
             }
-            .padding()
-            .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-            .ignoresSafeArea()
-            .onTapGesture {
-                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
-            }
+
             
+
+        Spacer()
+        }            .padding()
+        .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+        .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+        .ignoresSafeArea()
+        .onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+        }
         } else {
             // Fallback on earlier versions
         }
-        Spacer()
         
     }
     
