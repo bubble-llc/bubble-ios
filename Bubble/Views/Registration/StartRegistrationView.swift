@@ -13,7 +13,7 @@ struct StartRegistrationView: View {
         NavigationView{
             ZStack{
                 Rectangle()
-                  .fill(Color("bubble_blue"))
+                  .fill(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                   .edgesIgnoringSafeArea(.all)
                 VStack{
                     Spacer()
@@ -32,7 +32,7 @@ struct StartRegistrationView: View {
                                 HStack{
                                     Spacer()
                                     Text("Start Registration")
-                                        .foregroundColor(Color("bubble_blue"))
+                                        .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                                     Spacer()
                                 }
                             }

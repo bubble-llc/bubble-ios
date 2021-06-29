@@ -19,7 +19,7 @@ struct PostList: View {
             PostView(post: post)
             
         }
-        .colorMultiply(Color("bubble_blue"))
+        .colorMultiply(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
     }
 }
 

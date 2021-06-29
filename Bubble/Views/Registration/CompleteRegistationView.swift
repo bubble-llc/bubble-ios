@@ -32,7 +32,7 @@ struct CompleteRegistationView: View {
     var body: some View {
         ZStack{
             Rectangle()
-              .fill(Color("bubble_blue"))
+              .fill(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
               .edgesIgnoringSafeArea(.all)
             VStack{
                 Spacer()
@@ -49,7 +49,7 @@ struct CompleteRegistationView: View {
                     if #available(iOS 14.0, *) {
                         Link("View Our Terms of Service",
                              destination: URL(string: "https://www.termsfeed.com/live/ffdd0de8-f5d2-41db-9b04-b89bdd99f685")!)
-                            .foregroundColor(Color("bubble_dark"))
+                            .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                             .frame(width: UIScreen.main.bounds.width * 0.8)
                     } else {
                         // Fallback on earlier versions
@@ -68,7 +68,7 @@ struct CompleteRegistationView: View {
                             API().createUser(submitted: postObject)
                             showingAlert = true
                         })
-                        .foregroundColor(Color("bubble_blue"))
+                        .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .alert(isPresented:$showingAlert){
                             return Alert(title: Text("Congratulations!"),
                                          message: Text("Your account has been created. Please check your email to activate your account"),

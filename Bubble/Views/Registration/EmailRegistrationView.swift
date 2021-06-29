@@ -41,7 +41,7 @@ struct EmailRegistrationView: View {
                 isActive: $showPasswordRegistation
             )
             Rectangle()
-              .fill(Color("bubble_blue"))
+              .fill(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
               .edgesIgnoringSafeArea(.all)
             VStack{
                 Spacer()
@@ -134,7 +134,7 @@ struct EmailRegistrationView: View {
                         HStack{
                             Spacer()
                             Text("Continue")
-                                .foregroundColor(Color("bubble_blue"))
+                                .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                             Spacer()
                         }
                     })

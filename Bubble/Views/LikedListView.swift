@@ -10,7 +10,7 @@ struct LikedListView: View {
         List{
             ForEach(posts){ post in
                 PostView(post:post)
-                .listRowBackground(Color("bubble_blue"))
+                .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             }
         }
         .onAppear
