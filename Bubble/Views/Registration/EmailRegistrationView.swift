@@ -9,6 +9,10 @@
 import SwiftUI
 
 struct EmailRegistrationView: View {
+    enum EmailAlert {
+        case empty, duplicate, invalid
+    }
+    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @Binding var username: String
@@ -16,7 +20,7 @@ struct EmailRegistrationView: View {
     @State private var email: String = ""
     @State private var showPasswordRegistation = false
     @State private var showingAlert = false
-    @State private var activeAlert: StandardAlert = .empty
+    @State private var activeAlert: EmailAlert = .empty
     
     var btnBack : some View { Button(action: {
         self.presentationMode.wrappedValue.dismiss()
@@ -87,6 +91,10 @@ struct EmailRegistrationView: View {
                                                 return Alert(title: Text("Email already exist"),
                                                              message: Text(""),
                                                              dismissButton: .default(Text("OK"), action: {}))
+                                            case .invalid:
+                                                return Alert(title: Text("Invalid Email format"),
+                                                             message: Text(""),
+                                                             dismissButton: .default(Text("OK"), action: {}))
                                         }
                                     }
                             }
@@ -101,6 +109,11 @@ struct EmailRegistrationView: View {
                         if(email.isEmpty){
                             self.showingAlert = true
                             activeAlert = .empty
+                        }
+                        else if(!self.isValidEmail(email))
+                        {
+                            self.showingAlert = true
+                            activeAlert = .invalid
                         }
                         else{
                             API().checkEmail(email: email)
@@ -157,5 +170,11 @@ struct EmailRegistrationView: View {
             .onTapGesture {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
         }
+    }
+    
+    private func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
     }
 }

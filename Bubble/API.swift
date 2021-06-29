@@ -2,8 +2,8 @@ import Foundation
 import JWTDecode
 
 class API {
-    fileprivate let baseURL = "https://dashboard.stocksandshare.com/chitchat"
-//    fileprivate let baseURL = "http://0.0.0.0:8000"
+    fileprivate let baseURL = Bundle.main.infoDictionary?["MY_API_BASE_URL_ENDPOINT"] as! String
+    
     let categories = ["Deals":1, "Happy Hour":2, "Recreation":3, "What's Happening?":4, "Misc":5]
     
     func getRadius(longitude: String, latitude: String, completion: @escaping (Result<Radius,Error>) ->())
@@ -347,7 +347,8 @@ class API {
     
     func checkEmail(email: String, completion: @escaping (Result<Void,Error>) ->())
     {
-        guard let url = URL(string: "\(baseURL)/check_email?email=\(email)") else {fatalError()}
+        let urlEncoded = email.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+        guard let url = URL(string: "\(baseURL)/check_email?email=\(urlEncoded!)") else {fatalError()}
         
         URLSession.shared.dataTask(with: url)
         { (data, response, error) in
