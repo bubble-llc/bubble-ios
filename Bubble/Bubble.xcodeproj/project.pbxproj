@@ -58,6 +58,7 @@
 		5DD754BA261E825A00CD6360 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD754B9261E825A00CD6360 /* Constants.swift */; };
 		5DDAE4C426770AB500EF9281 /* BlockedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDAE4C326770AB500EF9281 /* BlockedUser.swift */; };
 		5DDAE4CC26780E3A00EF9281 /* Radius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDAE4CB26780E3A00EF9281 /* Radius.swift */; };
+		5DDE2FFA268AA2BA00C56169 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 5DDE2FF9268AA2BA00C56169 /* SwiftKeychainWrapper */; };
 		B00258012559B5EB00BB7815 /* SlideOverCard in Frameworks */ = {isa = PBXBuildFile; productRef = B00258002559B5EB00BB7815 /* SlideOverCard */; };
 		B002582B255A4EA700BB7815 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B002582A255A4EA700BB7815 /* PageView.swift */; };
 		B0025830255A4F0900BB7815 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B002582F255A4F0900BB7815 /* Location.swift */; };
@@ -180,6 +181,7 @@
 				5CB22C4D261F752700822BBE /* Introspect in Frameworks */,
 				5CE12F8C24F857CE00C8D5D0 /* Json in Frameworks */,
 				BC279CDB381639637AABDF52 /* Pods_Bubble.framework in Frameworks */,
+				5DDE2FFA268AA2BA00C56169 /* SwiftKeychainWrapper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,6 +428,7 @@
 				5CB22C37261CF4A200822BBE /* SwiftUIRefresh */,
 				5CB22C4C261F752700822BBE /* Introspect */,
 				5D6A9C61264C29CB00B77BE3 /* JWTDecode */,
+				5DDE2FF9268AA2BA00C56169 /* SwiftKeychainWrapper */,
 			);
 			productName = Localist;
 			productReference = 5CE12F2024F855DD00C8D5D0 /* Bubble.app */;
@@ -506,6 +509,7 @@
 				5CB22C36261CF4A200822BBE /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
 				5CB22C4B261F752700822BBE /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				5D6A9C60264C29CB00B77BE3 /* XCRemoteSwiftPackageReference "JWTDecode" */,
+				5DDE2FF8268AA2BA00C56169 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 			);
 			productRefGroup = 5CE12F2124F855DD00C8D5D0 /* Products */;
 			projectDirPath = "";
@@ -1027,6 +1031,14 @@
 				minimumVersion = 2.6.0;
 			};
 		};
+		5DDE2FF8268AA2BA00C56169 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
 		B00257FF2559B5EB00BB7815 /* XCRemoteSwiftPackageReference "swiftUI-slide-over-card" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/moifort/swiftUI-slide-over-card";
@@ -1067,6 +1079,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5D6A9C60264C29CB00B77BE3 /* XCRemoteSwiftPackageReference "JWTDecode" */;
 			productName = JWTDecode;
+		};
+		5DDE2FF9268AA2BA00C56169 /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5DDE2FF8268AA2BA00C56169 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			productName = SwiftKeychainWrapper;
 		};
 		B00258002559B5EB00BB7815 /* SlideOverCard */ = {
 			isa = XCSwiftPackageProductDependency;

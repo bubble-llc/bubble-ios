@@ -1,8 +1,9 @@
 import Foundation
 import JWTDecode
+import SwiftKeychainWrapper
 
 class API {
-    fileprivate let baseURL = "https://dashboard.stocksandshare.com/chitchat"
+    fileprivate let baseURL = "https://dashboard.stocksandshare.com/dev"
 //    fileprivate let baseURL = "http://0.0.0.0:8000"
     let categories = ["Deals":1, "Happy Hour":2, "Recreation":3, "What's Happening?":4, "Misc":5]
     
@@ -49,7 +50,7 @@ class API {
     func getPosts(longitude: String, latitude: String, category: String, completion: @escaping (Result<[Post],Error>) ->())
     {
         var paramStr = ""
-        paramStr += "token=\(String(describing: UserDefaults.standard.string(forKey: defaultsKeys.token)!))&"
+        paramStr += "token=\(String(describing: KeychainWrapper.standard.string(forKey: defaultsKeys.token)!))&"
         paramStr += "category_id=\(String(describing: categories[category]!))&"
         paramStr += "longitude=\(String(describing: longitude))&"
         paramStr += "latitude=\(String(describing: latitude))&"
@@ -89,7 +90,7 @@ class API {
     
     func getUserCreatedPosts(completion: @escaping (Result<[Post],Error>) ->())
     {
-        guard let url = URL(string: "\(baseURL)/user_created_post?token=\(UserDefaults.standard.string(forKey: defaultsKeys.token)!)") else {return}
+        guard let url = URL(string: "\(baseURL)/user_created_post?token=\(KeychainWrapper.standard.string(forKey: defaultsKeys.token)!)") else {return}
         URLSession.shared.dataTask(with: url)
         { (data, response, error) in
             if let httpResponse = response as? HTTPURLResponse {
@@ -124,7 +125,7 @@ class API {
     
     func getUserLikedPosts(completion: @escaping (Result<[Post],Error>) ->())
     {
-        guard let url = URL(string: "\(baseURL)/user_liked_post?token=\(UserDefaults.standard.string(forKey: defaultsKeys.token)!)") else {return}
+        guard let url = URL(string: "\(baseURL)/user_liked_post?token=\(KeychainWrapper.standard.string(forKey: defaultsKeys.token)!)") else {return}
         URLSession.shared.dataTask(with: url)
         { (data, response, error) in
             if let httpResponse = response as? HTTPURLResponse {
@@ -159,7 +160,7 @@ class API {
     
     func getComment(post_id: Int, completion: @escaping (Result<[Comment],Error>) ->())
     {
-        guard let url = URL(string: "\(baseURL)/comment?token=\(UserDefaults.standard.string(forKey: defaultsKeys.token)!)&post_id=\(post_id)") else {return}
+        guard let url = URL(string: "\(baseURL)/comment?token=\(KeychainWrapper.standard.string(forKey: defaultsKeys.token)!)&post_id=\(post_id)") else {return}
         URLSession.shared.dataTask(with: url)
         { (data, response, error) in
             if let httpResponse = response as? HTTPURLResponse {
@@ -245,7 +246,7 @@ class API {
     
     func getBlockedUsers(completion: @escaping (Result<[BlockedUser],Error>) ->())
     {
-        guard let url = URL(string: "\(baseURL)/block_user?token=\(UserDefaults.standard.string(forKey: defaultsKeys.token)!)") else {return}
+        guard let url = URL(string: "\(baseURL)/block_user?token=\(KeychainWrapper.standard.string(forKey: defaultsKeys.token)!)") else {return}
         URLSession.shared.dataTask(with: url)
         { (data, response, error) in
             if let httpResponse = response as? HTTPURLResponse {
@@ -286,7 +287,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
-        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
+        request.allHTTPHeaderFields!["Authorization"] = KeychainWrapper.standard.string(forKey: defaultsKeys.token)!
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted)
         
@@ -386,7 +387,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
-        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
+        request.allHTTPHeaderFields!["Authorization"] = KeychainWrapper.standard.string(forKey: defaultsKeys.token)!
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted)
         
@@ -416,7 +417,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
-        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
+        request.allHTTPHeaderFields!["Authorization"] = KeychainWrapper.standard.string(forKey: defaultsKeys.token)!
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted)
         
@@ -446,7 +447,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
-        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
+        request.allHTTPHeaderFields!["Authorization"] = KeychainWrapper.standard.string(forKey: defaultsKeys.token)!
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted)
         
@@ -476,7 +477,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
-        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
+        request.allHTTPHeaderFields!["Authorization"] = KeychainWrapper.standard.string(forKey: defaultsKeys.token)!
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted)
         
@@ -506,7 +507,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
-        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
+        request.allHTTPHeaderFields!["Authorization"] = KeychainWrapper.standard.string(forKey: defaultsKeys.token)!
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted)
         
@@ -536,7 +537,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
-        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
+        request.allHTTPHeaderFields!["Authorization"] = KeychainWrapper.standard.string(forKey: defaultsKeys.token)!
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted)
         
@@ -595,7 +596,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
-        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
+        request.allHTTPHeaderFields!["Authorization"] = KeychainWrapper.standard.string(forKey: defaultsKeys.token)!
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted, options: .prettyPrinted)
         
@@ -689,7 +690,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
-        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
+        request.allHTTPHeaderFields!["Authorization"] = KeychainWrapper.standard.string(forKey: defaultsKeys.token)!
         
         let submission = try? JSONSerialization.data(withJSONObject: submitted, options: .prettyPrinted)
         
@@ -719,7 +720,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
-        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
+        request.allHTTPHeaderFields!["Authorization"] = KeychainWrapper.standard.string(forKey: defaultsKeys.token)!
 
         let submission = try? JSONSerialization.data(withJSONObject: submitted, options: .prettyPrinted)
 
@@ -749,7 +750,7 @@ class API {
         var request = URLRequest(url: postUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = Constants.DEFAULT_HTTP_HEADER_FIELDS
-        request.allHTTPHeaderFields!["Authorization"] = UserDefaults.standard.string(forKey: defaultsKeys.token)!
+        request.allHTTPHeaderFields!["Authorization"] = KeychainWrapper.standard.string(forKey: defaultsKeys.token)!
 
         let submission = try? JSONSerialization.data(withJSONObject: submitted, options: .prettyPrinted)
 

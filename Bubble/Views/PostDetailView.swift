@@ -2,6 +2,7 @@ import SwiftUI
 import Request
 import SwiftUIRefresh
 import Combine
+import SwiftKeychainWrapper
 
 class TextLimiter: ObservableObject {
     var limit: Int = 125
@@ -141,7 +142,7 @@ struct PostDetailView: View {
                             .foregroundColor(Color(red: 66 / 255, green: 126 / 255, blue: 132 / 255))
                         if #available(iOS 14.0, *) {
                             Menu {
-                                if(Int(UserDefaults.standard.integer(forKey: defaultsKeys.user_id)) == post.user_id)
+                                if(Int(KeychainWrapper.standard.string(forKey: defaultsKeys.user_id)!) == post.user_id)
                                 {
                                     Button("Delete Post", action: {
                                         self.showingAlert = true
@@ -150,7 +151,7 @@ struct PostDetailView: View {
                                 }
                                 Button("Report Post", action: {
                                     
-                                    if(Int(UserDefaults.standard.integer(forKey: defaultsKeys.user_id)) == post.user_id)
+                                    if(Int(KeychainWrapper.standard.string(forKey: defaultsKeys.user_id)!) == post.user_id)
                                     {
                                         self.showingAlert = true
                                         self.activeAlert = .sameUserReport
@@ -164,7 +165,7 @@ struct PostDetailView: View {
                                 })
                                 Button("Block User", action: {
                                     self.showingAlert = true
-                                    if(Int(Constants.current_user_id) == post.user_id)
+                                    if(Int(KeychainWrapper.standard.string(forKey: defaultsKeys.user_id)!) == post.user_id)
                                     {
                                         self.activeAlert = .sameUserBlock
                                     }

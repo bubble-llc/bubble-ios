@@ -1,5 +1,6 @@
 import SwiftUI
 import Request
+import SwiftKeychainWrapper
 
 struct CommentsView: View {
     let comment: Comment
@@ -108,7 +109,7 @@ struct CommentsView: View {
     )
             if #available(iOS 14.0, *) {
                 Menu {
-                    if(UserDefaults.standard.integer(forKey: defaultsKeys.user_id) == comment.user_id)
+                    if(Int(KeychainWrapper.standard.string(forKey: defaultsKeys.user_id)!) == comment.user_id)
                     {
                         Button("Delete Comment", action: {
                             self.showingAlert = true
@@ -119,7 +120,7 @@ struct CommentsView: View {
                     Button("Report Comment", action: {
 
                          print(comment)
-                        if(Int(UserDefaults.standard.integer(forKey: defaultsKeys.user_id)) == comment.user_id)
+                        if(Int(KeychainWrapper.standard.string(forKey: defaultsKeys.user_id)!) == comment.user_id)
                          {
                             self.showingAlert = true
                              activeAlert = .sameUserReport
@@ -133,7 +134,7 @@ struct CommentsView: View {
                     Button("Block User", action: {
                         showingAlert = true
                         print(comment)
-                        if(Int(Constants.current_user_id) == comment.user_id)
+                        if(Int(KeychainWrapper.standard.string(forKey: defaultsKeys.user_id)!) == comment.user_id)
                         {
                             activeAlert = .sameUserBlock
                         }

@@ -1,4 +1,5 @@
 import UIKit
+import SwiftKeychainWrapper
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -8,15 +9,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let initialDefaults: NSDictionary =
         [
             "username": "username",
-            "user_id": Constants.DEFAULT_USER_ID,
-            "user_type": Constants.DEFAULT_USER_TYPE,
-            "password": "password",
             "email": "email",
             "date_joined": "date_joined",
             "default_category_id": Constants.DEFAULT_CATEGORY,
-            "token": "",
             "radius": 1000,
         ]
+        KeychainWrapper.standard.set("0", forKey: defaultsKeys.user_id)
+        KeychainWrapper.standard.set("2", forKey: defaultsKeys.user_type)
+        KeychainWrapper.standard.set("password", forKey: defaultsKeys.password)
+        KeychainWrapper.standard.set("", forKey: defaultsKeys.token)
         UserDefaults.standard.register(defaults: initialDefaults as! [String : Any])
         UINavigationBar.appearance().barTintColor = UIColor(red:0.439, green:0.792, blue:0.827, alpha:1)//changes navigation bar up top
         UITabBar.appearance().barTintColor = UIColor(red:0.439, green:0.792, blue:0.827, alpha:1) //changes tab bar at bottom

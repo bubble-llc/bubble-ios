@@ -8,6 +8,7 @@
 
 import SwiftUI
 import SlideOverCard
+import SwiftKeychainWrapper
 
 struct SubmitContentReviewView: View {
     var post: Post?
@@ -89,8 +90,6 @@ struct SubmitContentReviewView: View {
             Spacer()
             Button(action:
             {
-                let defaults = UserDefaults.standard
-                let user_id = defaults.string(forKey: defaultsKeys.user_id)!
                 if (post != nil){
                     let feedback_object: [String: Any]  =
                         [

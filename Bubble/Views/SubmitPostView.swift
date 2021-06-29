@@ -117,9 +117,6 @@ struct SubmitPostView: View {
                 
                 Button(action:
                         {
-                            let defaults = UserDefaults.standard
-                            let user_id = defaults.string(forKey: defaultsKeys.user_id)!
-                            
                             if post_title.isEmpty || post_title == default_post_title
                             {
                                 self.showingAlert = true
