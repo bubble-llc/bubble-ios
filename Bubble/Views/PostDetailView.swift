@@ -102,13 +102,13 @@ struct PostDetailView: View {
             }//End title, content, voting vstack
                 .padding()
                 .frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width * 0.95, minHeight: UIScreen.main.bounds.height * 0.1, maxHeight: UIScreen.main.bounds.height * 0.15)
-                .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                .foregroundColor(Color("bubble_dark"))
                 .background(Color.white)
-                .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                .listRowBackground(Color("bubble_blue"))
                 .cornerRadius(25)
                 .overlay(
                     RoundedRectangle(cornerRadius: 25)
-                        .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
+                        .stroke(Color("bubble_dark"), lineWidth: 2)
                 )
                 .padding(.leading, UIScreen.main.bounds.width * 0.025)
                 .padding(.top, UIScreen.main.bounds.height * 0.01)
@@ -187,7 +187,7 @@ struct PostDetailView: View {
                 }.padding(.top, UIScreen.main.bounds.width * 0.01)
                 
                 Divider()
-                    .background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                    .background(Color("bubble_dark"))
                     .frame(width: UIScreen.main.bounds.width * 0.95)
                     .padding(.leading, UIScreen.main.bounds.width * 0.01)
 
@@ -196,7 +196,7 @@ struct PostDetailView: View {
                         List{
                             ForEach(comments){comment in
                                 CommentsView(comment: comment, showingAlert: $showingAlert, activeAlert: $activeAlert, blockedUserId: $blockedUserId, deletedCommentId: $deletedCommentId)
-                                .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                                .listRowBackground(Color("bubble_blue"))
                             }
                         }
                         
@@ -248,15 +248,15 @@ struct PostDetailView: View {
                             
                             .frame(minWidth: UIScreen.main.bounds.width * 0.75, maxWidth: UIScreen.main.bounds.width * 0.9, minHeight: UIScreen.main.bounds.height * 0.01, maxHeight: UIScreen.main.bounds.height * 0.08)
                             .padding(5)
-                            .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                            .foregroundColor(Color("bubble_dark"))
                             
                             .colorMultiply(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
                             .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
-                            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                            .listRowBackground(Color("bubble_blue"))
                             .cornerRadius(25)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 25)
-                                    .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
+                                    .stroke(Color("bubble_dark"), lineWidth: 2)
                             )
                             .padding(.top, 2)
                         
@@ -382,8 +382,8 @@ struct PostDetailView: View {
             }
             
             .keyboardResponsive()
-            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-            .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            .listRowBackground(Color("bubble_blue"))
+            .background(Color("bubble_blue"))
             .onAppear(){
                 UITableView.appearance().backgroundColor = .clear
                 UITableViewCell.appearance().backgroundColor = .clear

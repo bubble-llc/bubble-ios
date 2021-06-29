@@ -62,7 +62,7 @@ struct PostView: View
                     Text(post.title)
                         .font(.headline)
                         .lineLimit(1)
-                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                        .foregroundColor(Color("bubble_dark"))
                         .frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.height * 0.02, alignment: .center)
                         Spacer()
                         Spacer()
@@ -72,7 +72,7 @@ struct PostView: View
                 HStack{
                     Spacer()
                     Text(post.content)
-                        .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                        .foregroundColor(Color("bubble_blue"))
                         .font(.system(size: 15))
                         .lineLimit(2)
                         .frame(width: UIScreen.main.bounds.width * 0.775, height: UIScreen.main.bounds.height/24.5, alignment: .center)

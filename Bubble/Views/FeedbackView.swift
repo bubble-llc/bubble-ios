@@ -39,23 +39,23 @@ struct FeedbackView: View{
                         Image("menu_report")
                             .resizable()
                             .frame(width: 40.0, height: 40.0)
-                            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                            .listRowBackground(Color("bubble_blue"))
                         Text("feedback")
                             .font(.system(size:48))
                             .font(.headline)
                             .foregroundColor(Color.white)
                             .shadow(color: Color.black, radius: 3, y:1)
-                            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                            .listRowBackground(Color("bubble_blue"))
                         Image("menu_report")
                             .resizable()
                             .frame(width: 40.0, height: 40.0)
-                            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                            .listRowBackground(Color("bubble_blue"))
                            
                     
                 }
                 .padding(.bottom, UIScreen.main.bounds.height * 0.05)
-                .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-                .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                .background(Color("bubble_blue"))
+                .listRowBackground(Color("bubble_blue"))
             Spacer()
             Spacer()
                 Spacer()
@@ -74,14 +74,14 @@ struct FeedbackView: View{
                         }
                     }
                     .multilineTextAlignment(.leading)
-                    .foregroundColor(commentBoxPressed ? Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255) : Color.gray)
+                    .foregroundColor(commentBoxPressed ? Color("bubble_dark") : Color.gray)
                     
                    // .padding(.leading, UIScreen.main.bounds.width * 0.05)
                     .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
                     .cornerRadius(16)
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
-                            .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
+                            .stroke(Color("bubble_dark"), lineWidth: 2)
                     )
                     
                     .frame(minWidth: UIScreen.main.bounds.width * 0.9, maxWidth: UIScreen.main.bounds.width * 0.9, minHeight: UIScreen.main.bounds.height * 0.1, maxHeight: UIScreen.main.bounds.height * 0.2)
@@ -113,17 +113,17 @@ struct FeedbackView: View{
                     .padding(.trailing, 30)
                     .background(Color(red: 171 / 255, green: 233 / 255, blue: 255 / 255))
                     .cornerRadius(16)
-                    .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                    .foregroundColor(Color("bubble_dark"))
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
-                            .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
+                            .stroke(Color("bubble_dark"), lineWidth: 2)
                     )
                 
                 
             }
             .background(Color("bubble_blue"))
             .buttonStyle(PlainButtonStyle())
-            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            .listRowBackground(Color("bubble_blue"))
             .alert(isPresented: $submittedAlert)
             {
                 Alert(title: Text(""), message: Text("Thank you for your feedback!"), dismissButton: .default(Text("Close")){
@@ -131,11 +131,11 @@ struct FeedbackView: View{
                 })
             }
             }
-            .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            .background(Color("bubble_blue"))
         }
         .padding(.top, UIScreen.main.bounds.height * 0.05)
-        .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+        .background(Color("bubble_blue"))
+            .listRowBackground(Color("bubble_blue"))
         .edgesIgnoringSafeArea(.bottom)
     }
 }

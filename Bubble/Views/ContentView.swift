@@ -101,7 +101,7 @@ struct ContentView : View {
                                                     Image("bubble_menu")
                                                         .resizable()
                                                         .frame(width: UIScreen.main.bounds.width * 0.069 , height: UIScreen.main.bounds.width * 0.069)
-                                                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                                                        .foregroundColor(Color("bubble_dark"))
                                                 }
                                                 else{
                                                     Image("bubble_menu")

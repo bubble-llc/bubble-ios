@@ -51,7 +51,7 @@ struct CommentsView: View {
                 Spacer()
             Text(comment.content)
                 .colorInvert()
-                .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                .foregroundColor(Color("bubble_dark"))
                 .font(.system(size: 12))
                 .lineLimit(3)
                 .padding(.bottom, 2)
@@ -88,7 +88,7 @@ struct CommentsView: View {
                              downVotesOnly: self.$downVotesOnly)
                         .font(.caption)
                         .colorInvert()
-                        .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                        .foregroundColor(Color("bubble_blue"))
                         .padding(.trailing, UIScreen.main.bounds.width * 0.05)
                 }
             NavigationLink(destination: SubmitContentReviewView(comment: comment), isActive: $isShowingDetailView) {
