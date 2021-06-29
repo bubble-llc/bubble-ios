@@ -72,12 +72,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>FREEH575.TTF</string>
-		<string>AVENTURESCRIPTINE-REGULAR.OTF</string>
-		<string>SCRIPT_MT_BOLD.TTF</string>
-	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
