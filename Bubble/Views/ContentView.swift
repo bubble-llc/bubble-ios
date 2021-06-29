@@ -69,15 +69,21 @@ struct ContentView : View {
                                 if categoryGlobal.categories.contains(categoryGlobal.currCategory)
                                 {
                                     let ind = categoryGlobal.categories.firstIndex(of: categoryGlobal.currCategory)
-                                    Image(categoryGlobal.cat_icons[Int(ind!)])
+                                    Int(ind!) == 2 ? Image(categoryGlobal.cat_icons[Int(ind!)])
                                         .resizable()
-                                        .frame(width: UIScreen.main.bounds.width * 0.069 , height: UIScreen.main.bounds.width * 0.069)
+                                        .frame(width: UIScreen.main.bounds.width * 0.09 , height: UIScreen.main.bounds.width * 0.09)
+                                        : Image(categoryGlobal.cat_icons[Int(ind!)])
+                                            .resizable()
+                                            .frame(width: UIScreen.main.bounds.width * 0.069 , height: UIScreen.main.bounds.width * 0.069)
                                     Text(categoryGlobal.currCategory)
-                                        .font(.system(size: 25))
+                                        .font(.custom("Freehand575 BT", size: 36))
                                         .foregroundColor(Color.white)
-                                    Image(categoryGlobal.cat_icons[Int(ind!)])
+                                    Int(ind!) == 2 ? Image(categoryGlobal.cat_icons[Int(ind!)])
                                         .resizable()
-                                        .frame(width: UIScreen.main.bounds.width * 0.069 , height: UIScreen.main.bounds.width * 0.069)
+                                        .frame(width: UIScreen.main.bounds.width * 0.09 , height: UIScreen.main.bounds.width * 0.09)
+                                        : Image(categoryGlobal.cat_icons[Int(ind!)])
+                                            .resizable()
+                                            .frame(width: UIScreen.main.bounds.width * 0.069 , height: UIScreen.main.bounds.width * 0.069)
                                 }
                             }
                         }

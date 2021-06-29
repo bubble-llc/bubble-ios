@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>AVENTURESCRIPTINE-REGULAR.OTF</string>
+		<string>BACK TO BLACK DEMO.TTF</string>
+		<string>FREEH575.TTF</string>
+		<string>SCRIPT_MT_BOLD.TTF</string>
+	</array>
 	<key>MY_API_BASE_URL_ENDPOINT</key>
 	<string>$(MY_API_BASE_URL_ENDPOINT)</string>
 	<key>CFBundleDisplayName</key>
