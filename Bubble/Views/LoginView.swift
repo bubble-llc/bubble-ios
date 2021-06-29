@@ -28,7 +28,7 @@ struct LoginView: View {
                     .padding(.top, UIScreen.main.bounds.height * 0.175)
                     .padding(.bottom, UIScreen.main.bounds.height * 0.1)
                     .foregroundColor(Color.white)
-                    .shadow(color: Color("bubble_dark"), radius: 1, x: 0, y: 8)
+                    .shadow(color: Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), radius: 1, x: 0, y: 8)
                 
                 HStack {
                     Image(systemName: "person")
@@ -84,7 +84,7 @@ struct LoginView: View {
                     HStack {
                         Spacer()
                         Text("Login")
-                            .foregroundColor(Color("bubble_blue"))
+                            .foregroundColor(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         Spacer()
                     }
                     .font(.headline)
@@ -120,8 +120,8 @@ struct LoginView: View {
                 Spacer()
             }
             .padding()
-            .background(Color("bubble_blue"))
-            .listRowBackground(Color("bubble_blue"))
+            .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .ignoresSafeArea()
             .onTapGesture {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)

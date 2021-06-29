@@ -69,25 +69,15 @@ struct ContentView : View {
                                 if categoryGlobal.categories.contains(categoryGlobal.currCategory)
                                 {
                                     let ind = categoryGlobal.categories.firstIndex(of: categoryGlobal.currCategory)
-                                    //selectedTab == i ? Image(categoryGlobal.selected_cat_names1[i])
-                                    Int(ind!) == 2 ? Image(categoryGlobal.cat_icons[Int(ind!)])
+                                    Image(categoryGlobal.cat_icons[Int(ind!)])
                                         .resizable()
-                                        .frame(width: UIScreen.main.bounds.width * 0.09 , height: UIScreen.main.bounds.width * 0.09)
-                                        : Image(categoryGlobal.cat_icons[Int(ind!)])
-                                            .resizable()
-                                            .frame(width: UIScreen.main.bounds.width * 0.069 , height: UIScreen.main.bounds.width * 0.069)
+                                        .frame(width: UIScreen.main.bounds.width * 0.069 , height: UIScreen.main.bounds.width * 0.069)
                                     Text(categoryGlobal.currCategory)
-                                        //.font(.custom("SCRIPT MT BOLD", size: 25))
-                                        .font(.custom("Freehand575 BT", size: 36))
-                                        //.font(.custom("Adenture Scriptine", size: 25))
-                                        //.font(.custom("Back to Black Demo", size: 25))
+                                        .font(.system(size: 25))
                                         .foregroundColor(Color.white)
-                                    Int(ind!) == 2 ? Image(categoryGlobal.cat_icons[Int(ind!)])
+                                    Image(categoryGlobal.cat_icons[Int(ind!)])
                                         .resizable()
-                                        .frame(width: UIScreen.main.bounds.width * 0.09 , height: UIScreen.main.bounds.width * 0.09)
-                                        : Image(categoryGlobal.cat_icons[Int(ind!)])
-                                            .resizable()
-                                            .frame(width: UIScreen.main.bounds.width * 0.069 , height: UIScreen.main.bounds.width * 0.069)
+                                        .frame(width: UIScreen.main.bounds.width * 0.069 , height: UIScreen.main.bounds.width * 0.069)
                                 }
                             }
                         }
@@ -101,7 +91,7 @@ struct ContentView : View {
                                                     Image("bubble_menu")
                                                         .resizable()
                                                         .frame(width: UIScreen.main.bounds.width * 0.069 , height: UIScreen.main.bounds.width * 0.069)
-                                                        .foregroundColor(Color("bubble_dark"))
+                                                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                                                 }
                                                 else{
                                                     Image("bubble_menu")

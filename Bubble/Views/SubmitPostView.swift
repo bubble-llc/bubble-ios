@@ -34,16 +34,16 @@ struct SubmitPostView: View {
                     Text("Create Your Post").font(.system(size: 30))
                         .bold()
                         .foregroundColor(Color.white)
-                        .shadow(color: Color("bubble_dark"), radius: 2)
-                        .listRowBackground(Color("bubble_blue"))
+                        .shadow(color: Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), radius: 2)
+                        .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .padding(.top, UIScreen.main.bounds.height * 0.05)
                         .padding(.bottom, UIScreen.main.bounds.height * 0.025)
                     
                     Text("Category")
                         .font(.headline)
                         .bold()
-                        .foregroundColor(Color("bubble_dark"))
-                        .listRowBackground(Color("bubble_blue"))
+                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                        .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .shadow(color: .white, radius: 5)
                         .offset(x: -UIScreen.main.bounds.width * 0.35)
                         .padding(.top, UIScreen.main.bounds.height * 0.01)
@@ -58,8 +58,8 @@ struct SubmitPostView: View {
                                     Image(categoryGlobal.category_clicked[i] == 1 ? categoryGlobal.selected_cat_names1[i] : categoryGlobal.cat_names1[i]).resizable().frame(width:40, height:40).padding()
                                 }.buttonStyle(PlainButtonStyle())
                         }
-                    }.background(Color("bubble_blue"))
-                    .listRowBackground(Color("bubble_blue"))
+                    }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                    .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                     .frame(width:UIScreen.main.bounds.width*0.8, alignment: .center)
                 }
                 if #available(iOS 14.0, *)
@@ -67,7 +67,7 @@ struct SubmitPostView: View {
                     VStack{
                         Text("Where").font(.headline)
                             .fontWeight(.bold)
-                            .foregroundColor(Color("bubble_dark"))
+                            .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                             .shadow(color: .white, radius: 5)
                             .offset(x: -UIScreen.main.bounds.width * 0.35)
                         TextEditor(text: self.$post_title)
@@ -85,7 +85,7 @@ struct SubmitPostView: View {
                             }
                         Text("Content").font(.headline)
                             .fontWeight(.bold)
-                            .foregroundColor(Color("bubble_dark"))
+                            .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                             .shadow(color: .white, radius: 5)
                             .offset(x: -UIScreen.main.bounds.width * 0.35)
                         TextEditor(text: self.$post_content)
@@ -155,13 +155,13 @@ struct SubmitPostView: View {
                     Text("Submit")
                         .fontWeight(.bold)
                         .padding(10)
-                        .background(Color("bubble_dark"))
+                        .background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                         .cornerRadius(40)
                         .foregroundColor(.white)
                     
                 }
                 .buttonStyle(PlainButtonStyle())
-                .listRowBackground(Color("bubble_blue"))
+                .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                 .alert(isPresented: $showingAlert)
                 {
                     Alert(title: Text("Missing Arguments"), message: Text(self.errorMessage), dismissButton: .default(Text("Ok")))
@@ -170,8 +170,8 @@ struct SubmitPostView: View {
             }
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
             .edgesIgnoringSafeArea(.bottom)
-            .listRowBackground(Color("bubble_blue"))
-            .background(Color("bubble_blue"))
+            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+            .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .onAppear
             {
                 self.category_id = categoryGlobal.category_id
@@ -195,7 +195,7 @@ struct SubmitPostView: View {
         
         
     }
-        .background(Color("bubble_blue"))
+        .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
         .edgesIgnoringSafeArea(.bottom)
     }
     

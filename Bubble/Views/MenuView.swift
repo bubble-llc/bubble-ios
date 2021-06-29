@@ -41,7 +41,7 @@ struct MenuView : View {
                             .padding(.leading, UIScreen.main.bounds.height * 0.015)
                         
                     }
-                    Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color("bubble_dark"))
+                    Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                         .padding(.leading, UIScreen.main.bounds.width * 0.06)
                     
                 }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.005, alignment: .leading)
@@ -59,7 +59,7 @@ struct MenuView : View {
 //                }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.005, alignment: .leading)
 //                .padding()
 //
-//                Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color("bubble_dark"))
+//                Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                 
                 
                 VStack
@@ -73,7 +73,7 @@ struct MenuView : View {
                             .padding(.top, UIScreen.main.bounds.height * 0.005)
                         
                     }
-                    Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color("bubble_dark"))
+                    Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                         .padding(.leading, UIScreen.main.bounds.width * 0.06)
                     
                 }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.005, alignment: .leading)
@@ -91,7 +91,7 @@ struct MenuView : View {
 //                }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.005, alignment: .leading)
 //                .padding()
 //
-//                Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color("bubble_dark"))
+//                Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                 
                 VStack
                 {
@@ -103,7 +103,7 @@ struct MenuView : View {
                             .padding(.leading, UIScreen.main.bounds.height * 0.025)
                         
                     }
-                    Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color("bubble_dark"))
+                    Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                         .padding(.leading, UIScreen.main.bounds.width * 0.06)
                     
                 }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.005, alignment: .leading)
@@ -144,7 +144,7 @@ struct MenuView : View {
                 
             }
             .frame(maxWidth: UIScreen.main.bounds.width/2, maxHeight: UIScreen.main.bounds.height, alignment: .topLeading)
-            .background(Color("bubble_blue"))
+            .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             .ignoresSafeArea()
             .onTapGesture{
                 print("nothing")

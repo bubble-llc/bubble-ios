@@ -149,13 +149,13 @@ struct UserSettingsView: View {
                         .keyboardType(.webSearch)
                         .font(.system(size: 18))
                         .lineLimit(0)
-                        .foregroundColor(Color("bubble_dark"))
+                        .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                         .background(Color(.white))
-                        .listRowBackground(Color("bubble_blue"))
+                        .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                         .cornerRadius(18)
                         .overlay(
                             RoundedRectangle(cornerRadius: 18)
-                                .stroke(Color("bubble_dark"), lineWidth: 2)
+                                .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
                         )
                     .frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.height * 0.03)
                     .padding(.leading, UIScreen.main.bounds.width * 0.05)
@@ -176,13 +176,13 @@ struct UserSettingsView: View {
                             .padding(.leading, UIScreen.main.bounds.width * 0.01)
                             .font(.system(size: 18))
                             .textContentType(.newPassword)
-                            .foregroundColor(Color("bubble_dark"))
+                            .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                             .background(Color(.white))
-                            .listRowBackground(Color("bubble_blue"))
+                            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                             .cornerRadius(18)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 18)
-                                    .stroke(Color("bubble_dark"), lineWidth: 2)
+                                    .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
                             )
                             
                             .padding(.leading, UIScreen.main.bounds.width * 0.05)
@@ -191,14 +191,14 @@ struct UserSettingsView: View {
                             .padding(.leading, UIScreen.main.bounds.width * 0.01)
                             .font(.system(size: 18))
                             .textContentType(.newPassword)
-                            .foregroundColor(Color("bubble_dark"))
+                            .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                             
                             .background(Color(.white))
-                            .listRowBackground(Color("bubble_blue"))
+                            .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                             .cornerRadius(18)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 18)
-                                    .stroke(Color("bubble_dark"), lineWidth: 2)
+                                    .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
                             )
                             
                             .padding(.leading, UIScreen.main.bounds.width * 0.05)
@@ -244,12 +244,12 @@ struct UserSettingsView: View {
                             .keyboardType(.webSearch)
                             .font(.system(size: 18))
                             .textContentType(.newPassword)
-                            .foregroundColor(Color("bubble_dark"))
+                            .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                             .background(Color(.white))
                             .cornerRadius(18)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 18)
-                                    .stroke(Color("bubble_dark"), lineWidth: 2)
+                                    .stroke(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255), lineWidth: 2)
                             )
                             .padding(.leading, UIScreen.main.bounds.width * 0.05)
                             .frame(width:UIScreen.main.bounds.width * 0.42)
@@ -289,8 +289,8 @@ struct UserSettingsView: View {
                                 }
                             }.buttonStyle(PlainButtonStyle())
                     }
-                }.background(Color("bubble_blue"))
-                .listRowBackground(Color("bubble_blue"))
+                }.background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+                .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
                 .frame(width:UIScreen.main.bounds.width*0.9, alignment: .center)
                 }//Default Category vStack
             Spacer()
@@ -416,8 +416,8 @@ struct UserSettingsView: View {
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
             
             .ignoresSafeArea()
-        .listRowBackground(Color("bubble_blue"))
-        .background(Color("bubble_blue"))
+        .listRowBackground(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
+        .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
             }
 
         
@@ -425,7 +425,7 @@ struct UserSettingsView: View {
             // Fallback on earlier versions
         }
         }//end ScrollView
-        .background(Color("bubble_blue"))
+        .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
         .edgesIgnoringSafeArea(.bottom)
     }
     
