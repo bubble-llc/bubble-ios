@@ -26,6 +26,5 @@ struct LikedListView: View {
                 }
             }
         }
-        
     }
 }

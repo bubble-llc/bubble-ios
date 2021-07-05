@@ -281,12 +281,19 @@ struct PostDetailView: View {
                             return Alert(title: Text("Submit comment?"),
                                          message: Text(""),
                                          primaryButton: .default(Text("Submit")){
-                                           let commentObject: [String: Any]  =
+                                            var notify = true
+                                            if(Int(UserDefaults.standard.integer(forKey: defaultsKeys.user_id)) == post.user_id)
+                                            {
+                                                notify = false
+                                            }
+                                            
+                                            let commentObject: [String: Any]  =
                                                [
                                                    "post_id": post.id,
-                                                "content": textLimiter.comment_content,
+                                                    "content": textLimiter.comment_content,
+                                                    "notify": notify
                                                ]
-                                           DispatchQueue.main.asyncAfter(deadline: .now()) {
+                                            DispatchQueue.main.asyncAfter(deadline: .now()) {
                                                API().submitComment(submitted: commentObject)
                                             textLimiter.comment_content = self.placeholder_default_comment
                                            }

@@ -49,6 +49,21 @@ struct MenuView : View {
                 .padding(.bottom, UIScreen.main.bounds.height * 0.005)
                 .padding(.leading, UIScreen.main.bounds.height * 0.002)
                 
+                VStack
+                {
+                    NavigationLink(destination: NotificationView())
+                    {
+                        Text("notification").foregroundColor(.white).font(.system(size: 23)).bold()
+                            .padding(.leading, UIScreen.main.bounds.height * 0.015)
+                        
+                    }
+                    Divider().frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.height * 0.003).background(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                        .padding(.leading, UIScreen.main.bounds.width * 0.06)
+                    
+                }.frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.005, alignment: .leading)
+                .padding()
+                .padding(.bottom, UIScreen.main.bounds.height * 0.005)
+                .padding(.leading, UIScreen.main.bounds.height * 0.002)
 //                HStack
 //                {
 //                    NavigationLink(destination: UserProfileView())
