@@ -95,18 +95,18 @@ struct UserProfileView: View {
                     
 
                     Text(username)
-                        .font(.system(size:40))
+                        .font(.system(size:42))
                         .font(.headline)
                         .foregroundColor(Color.white)
                         .shadow(color: Color.black, radius: 3, y:1)
                         .padding(.top, -UIScreen.main.bounds.height * 0.175)
-
                     
                     Text(String(count) + " Bubbles")
-                        .font(.system(size:25))
+                        .font(.system(size:28))
                         .font(.headline)
                         .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                         .bold()
+                        .padding(.top, -UIScreen.main.bounds.height * 0.075)
                     
                     List(posts){ post in
                         
