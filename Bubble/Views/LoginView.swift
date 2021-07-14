@@ -17,6 +17,7 @@ struct LoginView: View {
     
     @EnvironmentObject var userAuth: UserAuth
     @EnvironmentObject var categoryGlobal: Category
+    @EnvironmentObject var locationViewModel: LocationViewModel
     
     var body: some View{
         if #available(iOS 14.0, *) {
@@ -74,7 +75,8 @@ struct LoginView: View {
                         case .success(let token):
                             self.token = token
                             userAuth.processJwt(jwt: self.token[0], password: password)
-                            categoryGlobal.fetchData()
+                            locationViewModel.retriveCurrentLocation()
+                            categoryGlobal.fetchData(latitude: locationViewModel.userLatitude, longitude: locationViewModel.userLongitude)
                         case .failure(let error):
                             print(error)
                             self.showingAlert = true

@@ -11,7 +11,7 @@ class API {
         var paramStr = ""
         paramStr += "longitude=\(String(describing: longitude))&"
         paramStr += "latitude=\(String(describing: latitude))&"
-        paramStr += "radius=\(String(describing: UserDefaults.standard.string(forKey: defaultsKeys.radius)!))"
+        paramStr += "radius=\(String(describing: Constants.radius))"
         
         guard let url = URL(string: "\(baseURL)/radius?\(String(describing: paramStr))") else {return}
         URLSession.shared.dataTask(with: url)

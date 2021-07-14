@@ -6,10 +6,9 @@ import SlideOverCard
 struct ContentView : View {
     @EnvironmentObject var userAuth: UserAuth
     @EnvironmentObject var categoryGlobal: Category
+    @EnvironmentObject var locationViewModel: LocationViewModel
     
     @State var showMenu = false
-    
-    let locationViewModel = LocationViewModel()
     
     init() {
         //Use this if NavigationBarTitle is with Large Font
@@ -129,7 +128,8 @@ struct ContentView : View {
                             
                             .onAppear
                             {
-                                categoryGlobal.fetchData()
+                                locationViewModel.retriveCurrentLocation()
+                                categoryGlobal.fetchData(latitude: locationViewModel.userLatitude, longitude: locationViewModel.userLongitude)
                             }
                     }
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)

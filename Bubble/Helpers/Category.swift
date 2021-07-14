@@ -54,10 +54,10 @@ class Category: ObservableObject {
         print(self.currCategory)
     }
     
-    func fetchData() {
+    func fetchData(latitude: String, longitude: String) {
         self.category_clicked = category_clicked_combinations[Int(UserDefaults.standard.string(forKey: defaultsKeys.default_category_id)!)! - 1]
         self.currCategory = categories[Int(UserDefaults.standard.string(forKey: defaultsKeys.default_category_id)!)! - 1]
-        API().getRadius(longitude: self.userLongitude, latitude: self.userLatitude)
+        API().getRadius(longitude: longitude, latitude: latitude)
         { (result) in
             switch result
             {
@@ -67,7 +67,7 @@ class Category: ObservableObject {
                     for category in self.categories
                     {
                         group.enter()
-                        API().getPosts(longitude: self.userLongitude, latitude: self.userLatitude, category: category)
+                        API().getPosts(longitude: longitude, latitude: latitude, category: category)
                         {(result) in
                             switch result
                             {
@@ -90,16 +90,16 @@ class Category: ObservableObject {
         }
     }
     
-    func refreshCategory(category: String)
+    func refreshCategory(category: String, longitude: String, latitude: String)
     {
-        API().getRadius(longitude: self.userLongitude, latitude: self.userLatitude)
+        API().getRadius(longitude: longitude, latitude: latitude)
         { (result) in
             switch result
             {
                 case .success(let radius):
                     UserDefaults.standard.set(radius.radius, forKey: defaultsKeys.radius)
                     self.fetching = true
-                    API().getPosts(longitude: self.userLongitude, latitude: self.userLatitude, category: category)
+                    API().getPosts(longitude: longitude, latitude: latitude, category: category)
                     { (result) in
                         switch result
                         {
