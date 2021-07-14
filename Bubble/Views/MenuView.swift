@@ -19,8 +19,10 @@ struct MenuView : View {
     @EnvironmentObject var categoryGlobal: Category
     
     var body : some
+        
     View{
         if #available(iOS 14.0, *) {
+
             VStack
             {
                 Image("dark_text")

@@ -92,55 +92,21 @@ struct UserProfileView: View {
                 
                 VStack
                 {
-                    if(deviceType == "iPhone 8"){
-                    HStack{
-                        Spacer()
-                        NavigationLink(destination: UserSettingsView(profileUsername: $username).environmentObject(categoryGlobal).environmentObject(categorySettings)){
-                            Image(systemName: "gearshape").resizable().frame(width: UIScreen.main.bounds.width * 0.07, height: UIScreen.main.bounds.width * 0.07).foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                        }
+                    
 
-                        
-                    }
-                        .padding(.trailing, UIScreen.main.bounds.height * 0.02)
-                        .padding(.top, UIScreen.main.bounds.height * 0.1)
-                    }
-                    else{
-                        HStack{
-                            Spacer()
-                            NavigationLink(destination: UserSettingsView(profileUsername: $username).environmentObject(categoryGlobal).environmentObject(categorySettings)){
-                                Image(systemName: "gearshape").resizable().frame(width: UIScreen.main.bounds.width * 0.07, height: UIScreen.main.bounds.width * 0.07).foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
-                            }
-
-                            
-                        }
-                            .padding(.trailing, UIScreen.main.bounds.height * 0.02)
-                    }
-                    HStack{
-                        Spacer()
-                        Text(username)
-                            .font(.system(size:40))
-                            .font(.headline)
-                            .foregroundColor(Color.white)
-                            .shadow(color: Color.black, radius: 3, y:1)
-                        Spacer()
-
-//                        Button(action:{}){
-//                    Image(systemName: "gearshape")
-//                        .resizable()
-//                        .frame(width: UIScreen.main.bounds.width * 0.065, height: UIScreen.main.bounds.width * 0.065)
-//                        .foregroundColor(Color.white)
-//                        }
-                    }
-
-                    Image("account_bubble_2x")
-                        .resizable()
-                        .frame(width: 200, height: 200, alignment: .center)
+                    Text(username)
+                        .font(.system(size:42))
+                        .font(.headline)
+                        .foregroundColor(Color.white)
+                        .shadow(color: Color.black, radius: 3, y:1)
+                        .padding(.top, -UIScreen.main.bounds.height * 0.175)
                     
                     Text(String(count) + " Bubbles")
-                        .font(.system(size:25))
+                        .font(.system(size:28))
                         .font(.headline)
                         .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                         .bold()
+                        .padding(.top, -UIScreen.main.bounds.height * 0.075)
                     
                     List(posts){ post in
                         
@@ -180,6 +146,11 @@ struct UserProfileView: View {
             }
         }//end ScrollView
         .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
-        .edgesIgnoringSafeArea(.bottom)
+        .edgesIgnoringSafeArea(.bottom) //Set title to none so that it won't put the bottom title
+        .navigationBarItems(trailing:
+                NavigationLink(destination: UserSettingsView(profileUsername: $username).environmentObject(categoryGlobal).environmentObject(categorySettings)){
+                    Image(systemName: "gearshape").resizable().frame(width: UIScreen.main.bounds.width * 0.06, height: UIScreen.main.bounds.width * 0.06).foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+                
+            })
     }
 }
