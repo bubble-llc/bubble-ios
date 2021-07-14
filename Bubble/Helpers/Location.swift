@@ -74,13 +74,14 @@ extension LocationViewModel: CLLocationManagerDelegate {
         if let location = locations.last {
             self.userLatitude = "\(location.coordinate.latitude)"
             self.userLongitude = "\(location.coordinate.longitude)"
-            
+            print(self.userLatitude)
+            print(self.userLongitude)
             let geocoder = CLGeocoder()
 
             geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
                 if error == nil {
                     if let firstLocation = placemarks?[0],
-                        let cityName = firstLocation.locality { // get the city name
+                        let cityName = firstLocation.locality { // sget the city name
                         self?.locationManager.stopUpdatingLocation()
                         self?.cityName = cityName
                     }

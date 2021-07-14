@@ -46,7 +46,8 @@ struct FeedView: View {
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
             .pullToRefresh(isShowing: $isShowing) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    categoryGlobal.refreshCategory(category: categoryGlobal.currCategory)
+                    locationViewModel.retriveCurrentLocation()
+                    categoryGlobal.refreshCategory(category: categoryGlobal.currCategory, longitude: locationViewModel.userLongitude , latitude: locationViewModel.userLatitude)
                     self.isShowing = false
                 }
             }.onChange(of: self.isShowing){value in

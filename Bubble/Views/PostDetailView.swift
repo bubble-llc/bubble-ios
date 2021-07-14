@@ -67,6 +67,7 @@ struct PostDetailView: View {
     
     @ObservedObject private var textLimiter = TextLimiter()
     @EnvironmentObject var categoryGlobal: Category
+    @EnvironmentObject var locationViewModel: LocationViewModel
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
@@ -281,12 +282,19 @@ struct PostDetailView: View {
                             return Alert(title: Text("Submit comment?"),
                                          message: Text(""),
                                          primaryButton: .default(Text("Submit")){
-                                           let commentObject: [String: Any]  =
+                                            var notify = true
+                                            if(Int(UserDefaults.standard.integer(forKey: defaultsKeys.user_id)) == post.user_id)
+                                            {
+                                                notify = false
+                                            }
+                                            
+                                            let commentObject: [String: Any]  =
                                                [
                                                    "post_id": post.id,
-                                                "content": textLimiter.comment_content,
+                                                    "content": textLimiter.comment_content,
+//                                                    "notify": notify
                                                ]
-                                           DispatchQueue.main.asyncAfter(deadline: .now()) {
+                                            DispatchQueue.main.asyncAfter(deadline: .now()) {
                                                API().submitComment(submitted: commentObject)
                                             textLimiter.comment_content = self.placeholder_default_comment
                                            }
@@ -310,29 +318,32 @@ struct PostDetailView: View {
                             return Alert(title: Text("Block User?"),
                                          message: Text(""),
                                          primaryButton: .default(Text("Confirm")){
-                                           let block_user_object: [String: Any]  =
-                                               [
-                                                   "blocked_user_id": blockedUserId,
-                                                   "blocked_reason": "",
-                                                   "blocked_type": ""
-                                               ]
-                                           API().blockUser(submitted: block_user_object)
-                                           categoryGlobal.refreshCategory(category: categoryGlobal.currCategory)
-                                           self.presentationMode.wrappedValue.dismiss()
+                                            
+                                            let block_user_object: [String: Any]  =
+                                            [
+                                               "blocked_user_id": blockedUserId,
+                                               "blocked_reason": "",
+                                               "blocked_type": ""
+                                            ]
+                                            API().blockUser(submitted: block_user_object)
+                                            locationViewModel.retriveCurrentLocation()
+                                            categoryGlobal.refreshCategory(category: categoryGlobal.currCategory, longitude: locationViewModel.userLongitude , latitude: locationViewModel.userLatitude)
+                                            self.presentationMode.wrappedValue.dismiss()
                                        },
                                          secondaryButton: .cancel())
                         case .deletePost:
                             return Alert(title: Text("Delete Post?"),
                                          message: Text(""),
                                          primaryButton: .default(Text("Confirm")){
-                                           let content_delete_object: [String: Any]  =
-                                               [
-                                                   "post_id": post.id,
-                                                   "content_type": "post"
-                                               ]
-                                           API().submitContentDelete(submitted: content_delete_object)
-                                           categoryGlobal.refreshCategory(category: categoryGlobal.currCategory)
-                                           self.presentationMode.wrappedValue.dismiss()
+                                            let content_delete_object: [String: Any]  =
+                                            [
+                                               "post_id": post.id,
+                                               "content_type": "post"
+                                            ]
+                                            API().submitContentDelete(submitted: content_delete_object)
+                                            locationViewModel.retriveCurrentLocation()
+                                            categoryGlobal.refreshCategory(category: categoryGlobal.currCategory, longitude: locationViewModel.userLongitude , latitude: locationViewModel.userLatitude)
+                                            self.presentationMode.wrappedValue.dismiss()
                                        },
                                          secondaryButton: .cancel())
                         case .deleteComment:

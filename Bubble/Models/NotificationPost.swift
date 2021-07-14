@@ -1,6 +1,6 @@
 import Foundation
 
-struct Post: Decodable, Identifiable {
+struct NotificationPost: Decodable, Identifiable {
     let title: String
     let id: Int
     let user_id: Int
@@ -14,9 +14,9 @@ struct Post: Decodable, Identifiable {
     let prev_vote: Int
     let latitude: Double
     let longitude: Double
-    let notificaiton_username: String?
-    let notification_content: String?
-    let notificaiton_date_created: String?
+    let notificaiton_username: String
+    let notification_content: String
+    let notificaiton_date_created: String
     
     private enum CodingKeys: String, CodingKey {
             case title, id, user_id, content, username, date_created, comments, votes, category_id, is_voted, prev_vote, latitude, longitude, date, notificaiton_username, notification_content, notificaiton_date_created
@@ -38,8 +38,8 @@ struct Post: Decodable, Identifiable {
         prev_vote = try values.decode(Int.self, forKey: .prev_vote)
         latitude = try values.decode(Double.self, forKey: .latitude)
         longitude = try values.decode(Double.self, forKey: .longitude)
-        notificaiton_username = try values.decodeIfPresent(String.self, forKey: .notificaiton_username)
-        notification_content = try values.decodeIfPresent(String.self, forKey: .notification_content)
-        notificaiton_date_created = try values.decodeIfPresent(String.self, forKey: .notificaiton_date_created)
+        notificaiton_username = try values.decode(String.self, forKey: .notificaiton_username)
+        notification_content = try values.decode(String.self, forKey: .notification_content)
+        notificaiton_date_created = try values.decode(String.self, forKey: .notificaiton_date_created)
     }
 }

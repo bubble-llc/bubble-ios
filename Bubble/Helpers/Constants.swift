@@ -16,6 +16,7 @@ struct Constants {
     static let category_list = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
     static let defaults = UserDefaults.standard
     static let current_user_id = UserDefaults.standard.string(forKey: defaultsKeys.user_id)!
+    static let radius = 10000000
     
      static let DEFAULT_HTTP_HEADER_FIELDS: [String: String] = [
         "Content-Type": "application/json",

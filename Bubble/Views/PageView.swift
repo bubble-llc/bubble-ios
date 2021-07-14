@@ -59,7 +59,6 @@ struct PageView: View {
                     
                 }
         }
-        
         .accentColor(Color.white)
         .onAppear(perform: self.locationViewModel.retriveCurrentLocation)
 

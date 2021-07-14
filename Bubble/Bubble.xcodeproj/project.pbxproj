@@ -62,6 +62,8 @@
 		5DD754BA261E825A00CD6360 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD754B9261E825A00CD6360 /* Constants.swift */; };
 		5DDAE4C426770AB500EF9281 /* BlockedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDAE4C326770AB500EF9281 /* BlockedUser.swift */; };
 		5DDAE4CC26780E3A00EF9281 /* Radius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDAE4CB26780E3A00EF9281 /* Radius.swift */; };
+		5DDE302B268F794600C56169 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDE302A268F794600C56169 /* NotificationView.swift */; };
+		5DDE3033268F898F00C56169 /* NotificationPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDE3032268F898F00C56169 /* NotificationPostView.swift */; };
 		B00258012559B5EB00BB7815 /* SlideOverCard in Frameworks */ = {isa = PBXBuildFile; productRef = B00258002559B5EB00BB7815 /* SlideOverCard */; };
 		B002582B255A4EA700BB7815 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B002582A255A4EA700BB7815 /* PageView.swift */; };
 		B0025830255A4F0900BB7815 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B002582F255A4F0900BB7815 /* Location.swift */; };
@@ -159,6 +161,8 @@
 		5DD754B9261E825A00CD6360 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5DDAE4C326770AB500EF9281 /* BlockedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUser.swift; sourceTree = "<group>"; };
 		5DDAE4CB26780E3A00EF9281 /* Radius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Radius.swift; sourceTree = "<group>"; };
+		5DDE302A268F794600C56169 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		5DDE3032268F898F00C56169 /* NotificationPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPostView.swift; sourceTree = "<group>"; };
 		8CD38C4746E74BBD41B28468 /* Pods-Bubble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble.release.xcconfig"; path = "Target Support Files/Pods-Bubble/Pods-Bubble.release.xcconfig"; sourceTree = "<group>"; };
 		966E3379C738237B468604C1 /* Pods_Bubble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bubble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B002582A255A4EA700BB7815 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
@@ -354,6 +358,7 @@
 				B002582A255A4EA700BB7815 /* PageView.swift */,
 				5CE12F5924F8565E00C8D5D0 /* PostDetailView.swift */,
 				5CE12F5B24F8565E00C8D5D0 /* PostView.swift */,
+				5DDE3032268F898F00C56169 /* NotificationPostView.swift */,
 				5C5A8C9A26432423002A03BE /* ReportCommentView.swift */,
 				B0E5368D2533E08F009663E7 /* SubmitCommentView.swift */,
 				5D6000D52641F25800B8A80F /* SubmitContentReviewView.swift */,
@@ -364,6 +369,7 @@
 				5C75E5DC253F702B00B97254 /* UserProfileView.swift */,
 				5C5A8CA72643265D002A03BE /* SubmitContentReviewView.swift */,
 				5CE2E643265D462C0028E58B /* UserSettingsView.swift */,
+				5DDE302A268F794600C56169 /* NotificationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -616,6 +622,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C75E5E2253F7C2C00B97254 /* LoginView.swift in Sources */,
+				5DDE3033268F898F00C56169 /* NotificationPostView.swift in Sources */,
 				5D6A9C59264C287000B77BE3 /* Jwt.swift in Sources */,
 				5C5A8CA82643265D002A03BE /* SubmitContentReviewView.swift in Sources */,
 				5C07956D259A8B0800688501 /* Category.swift in Sources */,
@@ -650,6 +657,7 @@
 				5CCF768A24F861060040EC07 /* Helpers.swift in Sources */,
 				5D6A9C7E264CCE9400B77BE3 /* StartRegistrationView.swift in Sources */,
 				5CCF767E24F860D30040EC07 /* PostView.swift in Sources */,
+				5DDE302B268F794600C56169 /* NotificationView.swift in Sources */,
 				5CCF767C24F860D30040EC07 /* PostList.swift in Sources */,
 				5D86E378260A7A5F00B002D8 /* FeedbackView.swift in Sources */,
 				5C06515D25EF09A6005028C0 /* LikedListView.swift in Sources */,
@@ -850,6 +858,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 4.1;
+				MY_API_BASE_URL_ENDPOINT = "https://dashboard.stocksandshare.com/dev";
 				PRODUCT_BUNDLE_IDENTIFIER = bubble.media;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

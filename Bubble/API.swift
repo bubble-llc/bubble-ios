@@ -11,7 +11,7 @@ class API {
         var paramStr = ""
         paramStr += "longitude=\(String(describing: longitude))&"
         paramStr += "latitude=\(String(describing: latitude))&"
-        paramStr += "radius=\(String(describing: UserDefaults.standard.string(forKey: defaultsKeys.radius)!))"
+        paramStr += "radius=\(String(describing: Constants.radius))"
         
         guard let url = URL(string: "\(baseURL)/radius?\(String(describing: paramStr))") else {return}
         URLSession.shared.dataTask(with: url)
@@ -87,9 +87,45 @@ class API {
         }.resume()
     }
     
+    
     func getUserCreatedPosts(completion: @escaping (Result<[Post],Error>) ->())
     {
         guard let url = URL(string: "\(baseURL)/user_created_post?token=\(UserDefaults.standard.string(forKey: defaultsKeys.token)!)") else {return}
+        URLSession.shared.dataTask(with: url)
+        { (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("API status: \(httpResponse.statusCode)")
+            }
+            
+            guard let response = response as? HTTPURLResponse else
+            {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            if let responseError = self.handleNetworkResponse(response: response)
+            {
+                completion(.failure(responseError))
+                return
+            }
+
+            guard let validData = data, error == nil else {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+
+            let posts = try! JSONDecoder().decode([Post].self, from:validData)
+            DispatchQueue.main.async
+            {
+                completion(.success(posts))
+            }
+        }.resume()
+     }
+    
+    func getNotifcaitonPosts(completion: @escaping (Result<[Post],Error>) ->())
+    {
+        guard let url = URL(string: "\(baseURL)/notification?token=\(UserDefaults.standard.string(forKey: defaultsKeys.token)!)") else {return}
         URLSession.shared.dataTask(with: url)
         { (data, response, error) in
             if let httpResponse = response as? HTTPURLResponse {
