@@ -202,7 +202,7 @@ struct PostDetailView: View {
                         }
                         
                         .onAppear{
-                            API().getComment(post_id: post.id)
+                            API().getComment(post_id: post.post_id)
                             { (result) in
                                 switch result
                                 {
@@ -215,7 +215,7 @@ struct PostDetailView: View {
                         }
                         .pullToRefresh(isShowing: $isShowing) {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                API().getComment(post_id: post.id)
+                                API().getComment(post_id: post.post_id)
                                 { (result) in
                                     switch result
                                     {
@@ -290,9 +290,9 @@ struct PostDetailView: View {
                                             
                                             let commentObject: [String: Any]  =
                                                [
-                                                   "post_id": post.id,
+                                                   "post_id": post.post_id,
                                                     "content": textLimiter.comment_content,
-//                                                    "notify": notify
+                                                    "notify": notify
                                                ]
                                             DispatchQueue.main.asyncAfter(deadline: .now()) {
                                                API().submitComment(submitted: commentObject)
@@ -300,7 +300,7 @@ struct PostDetailView: View {
                                            }
                                            
                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                               API().getComment(post_id: post.id)
+                                               API().getComment(post_id: post.post_id)
                                                { (result) in
                                                    switch result
                                                    {
@@ -337,7 +337,7 @@ struct PostDetailView: View {
                                          primaryButton: .default(Text("Confirm")){
                                             let content_delete_object: [String: Any]  =
                                             [
-                                               "post_id": post.id,
+                                               "post_id": post.post_id,
                                                "content_type": "post"
                                             ]
                                             API().submitContentDelete(submitted: content_delete_object)
@@ -361,7 +361,7 @@ struct PostDetailView: View {
                                             }
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                API().getComment(post_id: post.id)
+                                                API().getComment(post_id: post.post_id)
                                                 { (result) in
                                                     switch result
                                                     {
@@ -429,7 +429,7 @@ struct FooterView: View {
         {
             let commentObject: [String: Any]  =
                 [
-                    "post_id": post.id,
+                    "post_id": post.post_id,
                     "content": self.comment_content,
                 ]
             API().submitComment(submitted: commentObject)

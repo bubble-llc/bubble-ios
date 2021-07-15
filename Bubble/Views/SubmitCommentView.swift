@@ -52,7 +52,7 @@ struct SubmitCommentView: View {
                 {
                     let commentObject: [String: Any]  =
                         [
-                            "post_id": post.id,
+                            "post_id": post.post_id,
                             "content": textLimiter.comment_content,
                         ]
                     API().submitComment(submitted: commentObject)
