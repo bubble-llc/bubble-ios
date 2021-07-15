@@ -120,35 +120,45 @@ struct SubmitPostView: View {
                             let defaults = UserDefaults.standard
                             let user_id = defaults.string(forKey: defaultsKeys.user_id)!
                             
-                            if post_title.isEmpty || post_title == default_post_title
-                            {
-                                self.showingAlert = true
-                                self.errorMessage = "Enter in value for Where"
+                            API().checkCity(longitude: locationViewModel.userLongitude, latitude: locationViewModel.userLatitude)
+                            { (result) in
+                                switch result
+                                {
+                                    case .success():
+                                        if post_title.isEmpty || post_title == default_post_title
+                                        {
+                                            self.showingAlert = true
+                                            self.errorMessage = "Enter in value for Where"
+                                        }
+                                        
+                                        if post_content.isEmpty || post_content == default_post_content
+                                        {
+                                            self.showingAlert = true
+                                            self.errorMessage = "Enter in value for Content"
+                                        }
+                                        
+                                        if !showingAlert
+                                        {
+                                            print(category_id)
+                                            let postObject: [String: Any]  =
+                                                [
+                                                    "category_id": category_id,
+                                                    "content": self.post_content,
+                                                    "title": self.post_title,
+                                                    "latitude": locationViewModel.userLatitude,
+                                                    "longitude": locationViewModel.userLongitude
+                                                ]
+                                            API().submitPost(submitted: postObject)
+                                            self.post_title_pressed.toggle()
+                                            self.post_content_pressed.toggle()
+                                            self.presentationMode.wrappedValue.dismiss()
+                                        }
+                                    case .failure(let error):
+                                        print(error)
+                                        self.showingAlert = true
+                                        self.errorMessage = "Not in city"
+                                }
                             }
-                            
-                            if post_content.isEmpty || post_content == default_post_content
-                            {
-                                self.showingAlert = true
-                                self.errorMessage = "Enter in value for Content"
-                            }
-                            
-                            if !showingAlert
-                            {
-                                print(category_id)
-                                let postObject: [String: Any]  =
-                                    [
-                                        "category_id": category_id,
-                                        "content": self.post_content,
-                                        "title": self.post_title,
-                                        "latitude": locationViewModel.userLatitude,
-                                        "longitude": locationViewModel.userLongitude
-                                    ]
-                                API().submitPost(submitted: postObject)
-                                self.post_title_pressed.toggle()
-                                self.post_content_pressed.toggle()
-                                self.presentationMode.wrappedValue.dismiss()
-                            }
-                            
                         })
                 {
                     

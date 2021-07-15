@@ -380,6 +380,45 @@ class API {
             }
         }.resume()
     }
+        
+    func checkCity(longitude: String, latitude: String, completion: @escaping (Result<Void,Error>) ->())
+    {
+        var paramStr = ""
+        paramStr += "longitude=\(String(describing: longitude))&"
+        paramStr += "latitude=\(String(describing: latitude))"
+        
+        guard let url = URL(string: "\(baseURL)/check_city?\(String(describing: paramStr))") else {return}
+        
+        URLSession.shared.dataTask(with: url)
+        { (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("API status: \(httpResponse.statusCode)")
+            }
+            
+            guard let response = response as? HTTPURLResponse else
+            {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            if let responseError = self.handleNetworkResponse(response: response)
+            {
+                completion(.failure(responseError))
+                return
+            }
+            
+            guard let _ = data, error == nil else {
+                print("API error: \(error!.localizedDescription)")
+                completion(.failure(error!))
+                return
+            }
+            
+            DispatchQueue.main.async
+            {
+                completion(.success(()))
+            }
+        }.resume()
+    }
     
     func checkEmail(email: String, completion: @escaping (Result<Void,Error>) ->())
     {
