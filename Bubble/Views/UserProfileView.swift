@@ -2,6 +2,12 @@ import SwiftUI
 import SlideOverCard
 import UIKit
 
+extension UIViewController {
+    open override func awakeFromNib() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+}
+
 public extension UIDevice {
 
     /// pares the deveice name as the standard name
@@ -79,7 +85,7 @@ struct UserProfileView: View {
     @State var posts: [Post] = []
     @State var postCount = 0
     @State private var username: String = UserDefaults.standard.string(forKey: defaultsKeys.username)!
-    
+    @State private var showingChildView = false
     @EnvironmentObject var categoryGlobal: Category
     let categorySettings = Category()
     
@@ -93,7 +99,8 @@ struct UserProfileView: View {
                 VStack
                 {
                     
-
+                    NavigationLink("User Settings", destination: UserSettingsView(profileUsername: $username).environmentObject(categoryGlobal).environmentObject(categorySettings),
+                                   isActive: self.$showingChildView)
                     Text(username)
                         .font(.system(size:42))
                         .font(.headline)
@@ -147,10 +154,13 @@ struct UserProfileView: View {
         }//end ScrollView
         .background(Color(red: 112 / 255, green: 202 / 255, blue: 211 / 255))
         .edgesIgnoringSafeArea(.bottom) //Set title to none so that it won't put the bottom title
-        .navigationBarItems(trailing:
-                NavigationLink(destination: UserSettingsView(profileUsername: $username).environmentObject(categoryGlobal).environmentObject(categorySettings)){
-                    Image(systemName: "gearshape").resizable().frame(width: UIScreen.main.bounds.width * 0.06, height: UIScreen.main.bounds.width * 0.06).foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
+        .navigationBarItems(trailing: Button(action:{ self.showingChildView = true }) {
+                                Image(systemName: "gearshape").resizable()
+                                    .frame(width: UIScreen.main.bounds.width * 0.06, height: UIScreen.main.bounds.width * 0.06)
+                                    .foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255) )})
+//                NavigationLink(destination: UserSettingsView(profileUsername: $username).environmentObject(categoryGlobal).environmentObject(categorySettings)){
+//                    Image(systemName: "gearshape").resizable().frame(width: UIScreen.main.bounds.width * 0.06, height: UIScreen.main.bounds.width * 0.06).foregroundColor(Color(red: 43 / 255, green: 149 / 255, blue: 173 / 255))
                 
-            })
+           // })
     }
 }
