@@ -10,7 +10,7 @@ import Foundation
 
 struct Constants {
     static let DEFAULT_USER_ID: Int = 0
-    static let DEFAULT_CATEGORY: Int = 1
+    static let DEFAULT_CATEGORY: Int = 4
     static let DEFAULT_USER_TYPE: Int = 2
     static let avatar_list = ["avatar_black", "avatar_green", "avatar_purple", "avatar_orange"]
     static let category_list = ["Deals", "Happy Hour", "Recreation", "What's Happening?", "Misc"]
